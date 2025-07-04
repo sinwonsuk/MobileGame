@@ -60,19 +60,21 @@ public class BackendLogin
             onFailure?.Invoke(errorMessage);
 		}
     }
-    public void UpdateNickname(string nickname)
-    {
-        Debug.Log("닉네임 변경을 요청합니다.");
 
+    public void UpdateNickname(string nickname, Action onSuccess = null, Action<string> onFailure = null)
+    {
         var bro = Backend.BMember.UpdateNickname(nickname);
 
-        if (bro.IsSuccess())
-        {
-            Debug.Log("닉네임 변경에 성공했습니다 : " + bro);
-        }
-        else
-        {
-            Debug.LogError("닉네임 변경에 실패했습니다 : " + bro);
-        }
-    }
+		if (bro.IsSuccess())
+		{
+			Debug.Log("닉네임 설정 성공: " + bro);
+			onSuccess?.Invoke();
+		}
+		else
+		{
+			string errorMessage = bro.GetErrorCode() + " - " + bro.GetMessage();
+			Debug.LogError("닉네임 설정 실패 : " + errorMessage);
+			onFailure?.Invoke(errorMessage);
+		}
+	}
 }
