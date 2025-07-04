@@ -16,8 +16,6 @@ public class UserData
     // 데이터를 디버깅하기 위한 함수입니다.(Debug.Log(UserData);)
     public override string ToString()
     {
-        int a = 0;
-
         StringBuilder result = new StringBuilder();
         result.AppendLine($"level : {level}");
         result.AppendLine($"atk : {atk}");
