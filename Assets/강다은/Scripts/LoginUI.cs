@@ -115,7 +115,9 @@ public class LoginUI : MonoBehaviour
 		var json = bro.GetReturnValuetoJSON();
 
 		try {
-			string nickname = json["row"]["nickname"]["S"].ToString();
+			Debug.Log("[전체 JSON 구조]\n" + json.ToJson());
+			var row = json["row"];
+			string nickname = row["nickname"].ToString();
 
 			if(string.IsNullOrEmpty(nickname) || nickname == "default" || nickname == "null")
 			{
@@ -130,7 +132,7 @@ public class LoginUI : MonoBehaviour
 		}
 		catch (System.Exception e)
 		{
-			Debug.Log("닉네임 정보가 없습니다. 닉네임 설정 화면으로 이동합니다.");
+			Debug.Log("닉네임 정보가 없습니다. 닉네임 설정 화면으로 이동합니다. \n" + e);
 			ShowNicknamePanel();
 		}
 	}
