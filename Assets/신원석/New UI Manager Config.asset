@@ -13,5 +13,4 @@ MonoBehaviour:
   m_Name: New UI Manager Config
   m_EditorClassIdentifier: 
   <UiGameObjects>k__BackingField:
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 2045692884428449260, guid: 5477f34a4f62cd34a864a1962747b58f, type: 3}
