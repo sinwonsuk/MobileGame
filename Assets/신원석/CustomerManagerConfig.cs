@@ -7,14 +7,14 @@ public class CustomerManagerConfig : BaseScriptableObject
 {
     public CustomerManagerConfig()
     {
-        type = typeof(UIManagerConfig);
+        type = typeof(CustomerManagerConfig);
     }
 
-    public List<GameObject> GetUiGameObjects()
+    public List<GameObject> GetGameObjects()
     {
-        return UiGameObjects;
+        return GameObjects;
     }
 
     [field: SerializeField]
-    List<GameObject> UiGameObjects { get; set; }
+    List<GameObject> GameObjects { get; set; }
 }
