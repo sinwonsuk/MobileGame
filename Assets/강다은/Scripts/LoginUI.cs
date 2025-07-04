@@ -57,7 +57,7 @@ public class LoginUI : MonoBehaviour
 					onSuccess: () =>
 					{
 						Debug.Log("로그인 성공 후 데이터 불러오기 시도");
-						BackendGameData.Instance.GameDataGet(); // 로그인 성공 후 데이터 불러오기
+						BackendGameData.Instance.GameDataGetOrInsert(); // 로그인 성공 후 데이터 불러오기
 					},
 					onFailure: (error) =>
 					{
@@ -91,7 +91,7 @@ public class LoginUI : MonoBehaviour
 			onSuccess: () =>
 			{
 				Debug.Log("로그인 성공");
-				BackendGameData.Instance.GameDataGet(); // 로그인 성공 후 데이터 불러오기
+				BackendGameData.Instance.GameDataGetOrInsert(); // 로그인 성공 후 데이터 불러오기
 			},
 			onFailure: (error) =>
 			{

@@ -16,8 +16,6 @@ public class UserData
     // 데이터를 디버깅하기 위한 함수입니다.(Debug.Log(UserData);)
     public override string ToString()
     {
-        int a = 0;
-
         StringBuilder result = new StringBuilder();
         result.AppendLine($"level : {level}");
         result.AppendLine($"atk : {atk}");
@@ -59,7 +57,35 @@ public class BackendGameData
     public static UserData userData;
 
     private string gameDataRowInDate = string.Empty;
-    public void GameDataInsert()
+
+    public void GameDataGetOrInsert()
+    {
+        Debug.Log("게임 정보 존재 여부 확인");
+
+        var bro = Backend.GameData.GetMyData("USER_DATA", new Where());
+
+		if(!bro.IsSuccess())
+        {
+            Debug.Log("게임 정보 조회 실패");
+            return;
+		}
+
+        var rows = bro.FlattenRows();
+
+        if(rows.Count <= 0)
+        {
+            Debug.Log("게임 정보 X -> GameDataInsert 호출");
+            GameDataInsert();
+		}
+        else
+        {
+            Debug.Log("게임 정보 O -> GameDataGet 호출");
+			gameDataRowInDate = rows[0]["inDate"].ToString(); // 불러온 게임 정보의 고유값입니다.
+			ParseUserData(bro.FlattenRows()[0]);
+		}
+	}
+
+    private void GameDataInsert()
     {
         if (userData == null)
         {
@@ -97,61 +123,85 @@ public class BackendGameData
 
             //삽입한 게임 정보의 고유값입니다.  
             gameDataRowInDate = bro.GetInDate();
-        }
+            
+		}
         else
         {
             Debug.LogError("게임 정보 데이터 삽입에 실패했습니다. : " + bro);
         }
     }
 
-    public void GameDataGet()
-    {
-        Debug.Log("게임 정보 조회 함수를 호출합니다.");
+    //public void GameDataGet()
+    //{
+    //    Debug.Log("게임 정보 조회 함수를 호출합니다.");
+    //
+    //    var bro = Backend.GameData.GetMyData("USER_DATA", new Where());
+    //
+    //    if (bro.IsSuccess())
+    //    {
+    //        Debug.Log("게임 정보 조회에 성공했습니다. : " + bro);
+    //
+    //        LitJson.JsonData gameDataJson = bro.FlattenRows(); // Json으로 리턴된 데이터를 받아옵니다.  
+    //
+    //        // 받아온 데이터의 갯수가 0이라면 데이터가 존재하지 않는 것입니다.  
+    //        if (gameDataJson.Count <= 0)
+    //        {
+    //            Debug.LogWarning("데이터가 존재하지 않습니다.");
+    //        }
+    //        else
+    //        {
+    //            gameDataRowInDate = gameDataJson[0]["inDate"].ToString(); //불러온 게임 정보의 고유값입니다.  
+    //
+    //            userData = new UserData();
+    //
+    //            userData.level = int.Parse(gameDataJson[0]["level"].ToString());
+    //            userData.atk = float.Parse(gameDataJson[0]["atk"].ToString());
+    //            userData.info = gameDataJson[0]["info"].ToString();
+    //
+    //            foreach (string itemKey in gameDataJson[0]["inventory"].Keys)
+    //            {
+    //                userData.inventory.Add(itemKey, int.Parse(gameDataJson[0]["inventory"][itemKey].ToString()));
+    //            }
+    //
+    //            foreach (LitJson.JsonData equip in gameDataJson[0]["equipment"])
+    //            {
+    //                userData.equipment.Add(equip.ToString());
+    //            }
+    //
+    //            Debug.Log(userData.ToString());
+    //        }
+    //    }
+    //    else
+    //    {
+    //        Debug.LogError("게임 정보 조회에 실패했습니다. : " + bro);
+    //    }
+    //}
 
-        var bro = Backend.GameData.GetMyData("USER_DATA", new Where());
-
-        if (bro.IsSuccess())
+    private void ParseUserData(LitJson.JsonData gameDataJson)
+	{
+        userData = new UserData
         {
-            Debug.Log("게임 정보 조회에 성공했습니다. : " + bro);
+            level = int.Parse(gameDataJson["level"].ToString()),
+            atk = float.Parse(gameDataJson["atk"].ToString()),
+            info = gameDataJson["info"].ToString()
+        };
 
+        userData.inventory.Clear();
 
-            LitJson.JsonData gameDataJson = bro.FlattenRows(); // Json으로 리턴된 데이터를 받아옵니다.  
+		foreach (string itemKey in gameDataJson["inventory"].Keys)
+		{
+			userData.inventory.Add(itemKey, int.Parse(gameDataJson["inventory"][itemKey].ToString()));
+		}
+		foreach (LitJson.JsonData equip in gameDataJson["equipment"])
+		{
+			userData.equipment.Add(equip.ToString());
+		}
 
-            // 받아온 데이터의 갯수가 0이라면 데이터가 존재하지 않는 것입니다.  
-            if (gameDataJson.Count <= 0)
-            {
-                Debug.LogWarning("데이터가 존재하지 않습니다.");
-            }
-            else
-            {
-                gameDataRowInDate = gameDataJson[0]["inDate"].ToString(); //불러온 게임 정보의 고유값입니다.  
+		Debug.Log("유저 데이터 로드 완료\n" + userData.ToString());
+        
+	}
 
-                userData = new UserData();
-
-                userData.level = int.Parse(gameDataJson[0]["level"].ToString());
-                userData.atk = float.Parse(gameDataJson[0]["atk"].ToString());
-                userData.info = gameDataJson[0]["info"].ToString();
-
-                foreach (string itemKey in gameDataJson[0]["inventory"].Keys)
-                {
-                    userData.inventory.Add(itemKey, int.Parse(gameDataJson[0]["inventory"][itemKey].ToString()));
-                }
-
-                foreach (LitJson.JsonData equip in gameDataJson[0]["equipment"])
-                {
-                    userData.equipment.Add(equip.ToString());
-                }
-
-                Debug.Log(userData.ToString());
-            }
-        }
-        else
-        {
-            Debug.LogError("게임 정보 조회에 실패했습니다. : " + bro);
-        }
-    }
-
-    public void LevelUp()
+	public void LevelUp()
     {
         Debug.Log("레벨을 1 증가시킵니다.");
         userData.level += 1;
