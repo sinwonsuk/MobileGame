@@ -4,6 +4,7 @@ using UnityEngine;
 
 // 뒤끝 SDK namespace 추가
 using BackEnd;
+using System;
 
 public class BackendLogin
 {
@@ -22,7 +23,7 @@ public class BackendLogin
         }
     }
 
-    public void CustomSignUp(string id, string pw)
+    public void CustomSignUp(string id, string pw, System.Action onSuccess = null, Action<string> onFailure = null)
     {
         Debug.Log("회원가입을 요청합니다.");
 
@@ -31,14 +32,17 @@ public class BackendLogin
         if (bro.IsSuccess())
         {
             Debug.Log("회원가입에 성공했습니다. : " + bro);
-        }
+            onSuccess?.Invoke();
+		}
         else
         {
-            Debug.LogError("회원가입에 실패했습니다. : " + bro);
-        }
+            string errorMessage = bro.GetErrorCode() + " - " + bro.GetMessage();
+			Debug.LogError("회원가입 실패 : " + errorMessage);
+            onFailure?.Invoke(errorMessage);
+		}
     }
 
-    public void CustomLogin(string id, string pw, System.Action onSuccess = null)
+    public void CustomLogin(string id, string pw, System.Action onSuccess = null, Action<string> onFailure = null)
     {
         Debug.Log("로그인을 요청합니다.");
 
@@ -51,8 +55,10 @@ public class BackendLogin
 		}
         else
         {
-            Debug.LogError("로그인이 실패했습니다. : " + bro);
-        }
+			string errorMessage = bro.GetErrorCode() + " - " + bro.GetMessage();
+			Debug.LogError("로그인 실패 : " + errorMessage);
+            onFailure?.Invoke(errorMessage);
+		}
     }
     public void UpdateNickname(string nickname)
     {

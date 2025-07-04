@@ -19,7 +19,6 @@ public class BackendManager : MonoBehaviour
             Debug.LogError("초기화 실패 : " + bro); // 실패일 경우 statusCode 400대 에러 발생
         }
 
-        UserLogin("user1", "1234"); // [추가] 뒤끝 로그인 함수 호출
 	}
 
     void Test()
@@ -34,7 +33,7 @@ public class BackendManager : MonoBehaviour
         Debug.Log("테스트를 종료합니다.");
     }
 
-    void UserLogin(string id, string pw)
+    void TestLogin(string id, string pw)
 	{
 		BackendLogin.Instance.CustomLogin(id, pw, () =>
 		{
