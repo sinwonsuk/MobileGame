@@ -46,7 +46,7 @@ public class AutoShooter : MonoBehaviour
         BulletData data = bulletManager.GetCurrentBullet();
 
         Vector2 shootDirection = Vector2.up;
-        Transform nearestEnemy = FindNearestEnemy();
+        Transform nearestEnemy = FindEnemy();
 
         if (nearestEnemy != null)
         {
@@ -60,10 +60,10 @@ public class AutoShooter : MonoBehaviour
     {
         GameObject bulletObj = Instantiate(data.bulletPrefab, firePoint.position, Quaternion.identity);
         BaseBullet bullet = bulletObj.GetComponent<BaseBullet>();
-        bullet.Initialize(direction, data.speed);
+        bullet.Initialize(direction, data.speed, data.damage);
     }
 
-    Transform FindNearestEnemy()
+    Transform FindEnemy()
     {
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
 
