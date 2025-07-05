@@ -1,4 +1,6 @@
+using BackEnd.Tcp;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using static UnityEngine.Rendering.DebugUI;
@@ -12,7 +14,7 @@ public class TableManager : baseManager, IGameManager
     {
         conFig = config;
 
-        //EventBus<CustomerSpawnHandler>.OnEvent += SpawnCustomer;
+        EventBus<SitTableHandler>.OnEvent += CheckSitTable;
     }
 
     public TableManager(BaseScriptableObject baseScriptableObject)
@@ -42,19 +44,29 @@ public class TableManager : baseManager, IGameManager
 
     List<CustomerTable> tables = new List<CustomerTable>();
 
-    public void CheckSitTable()
+    List<int> tablesIndex = new List<int>();
+    public void SitTableCheck()
     {
-        int index = Random.Range(0, tables.Count);
-
-        if(tables[index].isActiveAndEnabled ==true)
+        for (int i = 0; i < tables.Count; i++)
         {
-
+            if (tables[i].IsSittingAtTable ==false) // 앉을수 있는 거 돌면서 인덱스 저장 
+                tablesIndex.Add(i);
         }
-        else
-        {
-
-        }           
     }
 
+    public void CheckSitTable(SitTableHandler sitTableHandler)
+    {
+       SitTableCheck();
 
+        if (tablesIndex.Count == 0)
+            return;
+
+       int randomValue = Random.Range(0, tablesIndex.Count);
+       int tableIndex = tablesIndex[randomValue];
+
+       sitTableHandler.customer.Target = tables[tableIndex].TargetTransform;
+       tables[tableIndex].IsSittingAtTable = true;
+       sitTableHandler.customer.customerTable = tables[tableIndex];
+       tablesIndex.Clear();
+    }
 }

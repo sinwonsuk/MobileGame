@@ -19,7 +19,7 @@ public class GameController : MonoBehaviour
         //Register<UIManager, UIManagerConfig>(Config => new UIManager(Config));
         Register<CustomerManager, CustomerManagerConfig>(Config => new CustomerManager(Config));
         Register<TableManager, TableManagerConfig>(Config => new TableManager(Config));
-
+        Register<FoodSelectionManager, FoodSelectionManagerConfig>(Config => new FoodSelectionManager(Config));
 
         InitAll();
     }

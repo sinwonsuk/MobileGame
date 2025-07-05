@@ -1,4 +1,5 @@
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 public class CustomerTable : MonoBehaviour
 {
@@ -8,7 +9,7 @@ public class CustomerTable : MonoBehaviour
         
     }
 
-    // Update is called once per frame
+
     void Update()
     {
         
@@ -16,11 +17,17 @@ public class CustomerTable : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        //if(IsSittingAtTable==false)
+
     }
 
-    public bool IsSittingAtTable { get; set; }
+    public bool IsSittingAtTable { get; set; } = false;
 
     [SerializeField] Transform targetTransform;
+
+    public Transform TargetTransform
+    {
+        get => targetTransform;
+        set => targetTransform = value;
+    }
 
 }
