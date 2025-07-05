@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 6de39eb530b24d548bc0fd7c77cd653d
+guid: b925305d653817d4d99f96d4b62e02bf
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 602026072312167794
-    second: 133821132821946169_0
+      213: -8416939784654842659
+    second: upgrade_button_pixel_wood_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -96,40 +96,27 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 4
-    buildTarget: Android
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: 133821132821946169_0
+      name: upgrade_button_pixel_wood_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 3840
-        height: 2160
+        x: 123
+        y: 130
+        width: 778
+        height: 769
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 27db0b9e583da5800800000000000000
-      internalID: 602026072312167794
+      spriteID: 4cc4ab87bb301e04bbdb49c1a9358a14
+      internalID: 1918630466
       vertices: []
       indices: 
       edges: []
@@ -138,7 +125,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: cad3814db10146546829e89821478b81
     internalID: 0
     vertices: []
     indices: 
@@ -148,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      133821132821946169_0: 602026072312167794
+      upgrade_button_pixel_wood_0: 1918630466
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
