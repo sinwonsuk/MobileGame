@@ -7,16 +7,11 @@ using Transform = UnityEngine.Transform;
 public class CustomerManager : baseManager, IGameManager
 {
 
-    CustomerManagerConfig conFig;
-
-
-
-
     public CustomerManager(CustomerManagerConfig config)
     {
-
         conFig = config;
 
+        EventBus<CustomerSpawnHandler>.OnEvent += SpawnCustomer;
     }
 
     public CustomerManager(BaseScriptableObject baseScriptableObject)
@@ -33,9 +28,28 @@ public class CustomerManager : baseManager, IGameManager
         }
     }
 
-    [SerializeField]
-    private Transform target;
-    [SerializeField]
-    private int enemyCount = 10;
+    public void SpawnCustomer(CustomerSpawnHandler customerSpawnHandler)
+    {
+        for (int i = 0; i < conFig.GetGameObjects().Count; i++)
+        {
+            GameObject.Instantiate(conFig.GetGameObjects()[i]);
+        }
+    }
+
+    public override void Update()
+    {
+        if(Input.GetMouseButtonDown(0))  // Mouse button pressed
+        {
+            for (int i = 0; i < conFig.GetGameObjects().Count; i++)
+            {
+                GameObject.Instantiate(conFig.GetGameObjects()[i]);
+            }
+        }
+
+    }
+
+    CustomerManagerConfig conFig;
+
+    List<Customer> customers = new List<Customer>();
 
 }

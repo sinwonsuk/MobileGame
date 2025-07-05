@@ -20,4 +20,10 @@ public class MapManager : baseManager, IGameManager
     {
         GameObject.Instantiate(conFig);
     }
+    public override void Update()
+    {
+        // MapManager specific update logic can be added here
+    }
+
+
 }

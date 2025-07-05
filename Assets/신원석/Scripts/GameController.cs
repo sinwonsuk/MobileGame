@@ -16,12 +16,12 @@ public class GameController : MonoBehaviour
     {
         ConnectBaseScriptableObject();
 
-        Register<UIManager, UIManagerConfig>(Config => new UIManager(Config));
-		//Register<ItemManager, ItemManagerConfig>(config => new ItemManager(config));
-  //      Register<ShopManager, ShopManagerConfig>(config => new ShopManager(config));
+        //Register<UIManager, UIManagerConfig>(Config => new UIManager(Config));
+        Register<CustomerManager, CustomerManagerConfig>(Config => new CustomerManager(Config));
+        Register<TableManager, TableManagerConfig>(Config => new TableManager(Config));
 
 
-		InitAll();
+        InitAll();
     }
 
     void ConnectBaseScriptableObject()
@@ -55,6 +55,15 @@ public class GameController : MonoBehaviour
         }
     }
 
+    private void UpdateAll()
+    {
+        foreach (var manager in managerMap.Values)
+        {
+            manager.Update();
+        }
+    }
+
+
     // È¤½Ã ¸ô¶ó ¸¸µë 
     public T GetManager<T>() where T : baseManager
     {
@@ -67,6 +76,6 @@ public class GameController : MonoBehaviour
     void Update()
     {
 
-     
+        UpdateAll();
     }
 }

@@ -9,8 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 93663a05421106d4fac11c4931a3d421, type: 3}
-  m_Name: Customer Manager Config
+  m_Script: {fileID: 11500000, guid: df3bfe1b281ca1b48b5067f04d760aa1, type: 3}
+  m_Name: Table Manager Config
   m_EditorClassIdentifier: 
   <GameObjects>k__BackingField:
-  - {fileID: 0}
+  - {fileID: 3688959143282305226, guid: dbb978eb95389994496e776a7d070df7, type: 3}

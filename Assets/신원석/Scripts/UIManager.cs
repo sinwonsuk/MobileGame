@@ -24,4 +24,8 @@ public class UIManager : baseManager,IGameManager
           GameObject.Instantiate(conFig.GetUiGameObjects()[i]);
         }
     }
+    public override void Update()
+    {
+        // UIManager specific update logic can be added here
+    }
 }
