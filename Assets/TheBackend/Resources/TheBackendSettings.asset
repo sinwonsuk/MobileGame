@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   clientAppID: ea40cb50-5715-11f0-88ff-4fa0dfca2c5710038
   signatureKey: ea40cb51-5715-11f0-88ff-4fa0dfca2c5710038
-  functionAuthKey: 
+  functionAuthKey: AQICAHiT9pph8qngOxVNCJXRC0BZjtURNwhhts4F69FL8VO4dgErlMYTVv8XFlPgtuQxPTSEAAAAYzBhBgkqhkiG9w0BBwagVDBSAgEAME0GCSqGSIb3DQEHATAeBglghkgBZQMEAS4wEQQM8Tg5srBzEtd0/kpZAgEQgCDKtdqj+W+oxs5ktOYs5MD0IwuCmvBdF3bmjkHP/wlW9Q==
   packageName: com.DefaultCompany.com.unity.template.mobile2D
   sendLogReport: 1
   timeOutSec: 100
