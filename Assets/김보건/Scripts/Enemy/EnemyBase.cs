@@ -9,18 +9,16 @@ public class EnemyBase : MonoBehaviour
 
     [Header("HP Bar ")]
     [SerializeField] private GameObject hpBarPrefab;
-    private HPBar hpBarInstance;
+    private HPBar hpBar;
 
     protected virtual void Start()
     {
         currentHp = maxHp;
 
+        hpBar = GetComponentInChildren<HPBar>();
         if (hpBarPrefab != null)
         {
-            GameObject bar = Instantiate(hpBarPrefab, transform.position + new Vector3(0, 1.2f, 0), Quaternion.identity);
-            bar.transform.SetParent(transform);
-            hpBarInstance = bar.GetComponent<HPBar>();
-            hpBarInstance.SetHP(currentHp, maxHp);
+            hpBar.SetHP(currentHp, maxHp);
         }
     }
 
@@ -28,8 +26,8 @@ public class EnemyBase : MonoBehaviour
     {
         currentHp -= damage;
 
-        if (hpBarInstance != null)
-            hpBarInstance.SetHP(currentHp, maxHp);
+        if (hpBar != null)
+            hpBar.SetHP(currentHp, maxHp);
 
         StartCoroutine(HitShake());
 
