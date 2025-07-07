@@ -13,4 +13,5 @@ MonoBehaviour:
   m_Name: Food Selection Manager Config
   m_EditorClassIdentifier: 
   <GameObjects>k__BackingField:
-  - {fileID: 5595014855257130065, guid: 2b26f5b3e18a7524f849c57e6cfb17f4, type: 3}
+  - {fileID: 5964554195573584423, guid: 2b26f5b3e18a7524f849c57e6cfb17f4, type: 3}
+  - {fileID: 5389656667579345392, guid: 00588444f2da3ba4d91f21bade3fcffb, type: 3}
