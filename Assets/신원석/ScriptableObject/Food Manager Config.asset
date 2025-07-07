@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3c4a804ac0179a84d9e94f3444d3e55e, type: 3}
+  m_Name: Food Manager Config
+  m_EditorClassIdentifier: 
+  <Foods>k__BackingField:
+  - {fileID: 11400000, guid: ccf5132b1c4ada748967a80d739d4a3c, type: 2}
+  - {fileID: 11400000, guid: f444c2d6397aa7c44a5ed0d0a812e176, type: 2}
+  - {fileID: 11400000, guid: e641b0846e80d31458d34e9ad4c58e58, type: 2}
+  - {fileID: 11400000, guid: f38342f78ad0f69449a3c514b871f2ab, type: 2}
+  - {fileID: 11400000, guid: 094663e9155cfee4c8bf7826a4915a6b, type: 2}
+  - {fileID: 11400000, guid: 66c30b4a5ac4c844dadbc7ec4f52596b, type: 2}
+  - {fileID: 11400000, guid: 3b37e37f4f9ff844d9886dd4753317bb, type: 2}
+  - {fileID: 11400000, guid: 45499cbe3bda6c1409ba9dbf3065fa5c, type: 2}
+  - {fileID: 11400000, guid: 56546d39376d18749a0671a1dcc0913f, type: 2}
+  - {fileID: 11400000, guid: a5f6f60fabfefdf4f825a30d4bb8a5f7, type: 2}
+  - {fileID: 11400000, guid: 238f93c27cce8814499a44451268c499, type: 2}
+  - {fileID: 11400000, guid: 25b691ea69d298948b7a7aece58f1234, type: 2}
+  - {fileID: 11400000, guid: 752cdc7a023b39248b885e00dbd22893, type: 2}
+  - {fileID: 11400000, guid: 9ea3ff9731222034f86f8570275f767f, type: 2}
+  - {fileID: 11400000, guid: c4d77d0c30e5b8045912f3cc349e41a7, type: 2}
+  <SlotUI>k__BackingField: {fileID: 8396962044289235238, guid: 4f1fd51fa963c80498888529112f6533, type: 3}

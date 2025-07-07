@@ -95,6 +95,7 @@ public class LoginUI : MonoBehaviour
 				Debug.Log("로그인 성공");
 				BackendGameData.Instance.GameDataGetOrInsert(); // 로그인 성공 후 데이터 불러오기
 				CheckNickname();
+				Instantiate(Test, Vector3.zero, Quaternion.identity); // 테스트용 오브젝트 생성
 			},
 			onFailure: (error) =>
 			{
@@ -115,7 +116,9 @@ public class LoginUI : MonoBehaviour
 		var json = bro.GetReturnValuetoJSON();
 
 		try {
-			string nickname = json["row"]["nickname"]["S"].ToString();
+			Debug.Log("[전체 JSON 구조]\n" + json.ToJson());
+			var row = json["row"];
+			string nickname = row["nickname"].ToString();
 
 			if(string.IsNullOrEmpty(nickname) || nickname == "default" || nickname == "null")
 			{
@@ -130,7 +133,7 @@ public class LoginUI : MonoBehaviour
 		}
 		catch (System.Exception e)
 		{
-			Debug.Log("닉네임 정보가 없습니다. 닉네임 설정 화면으로 이동합니다.");
+			Debug.Log("닉네임 정보가 없습니다. 닉네임 설정 화면으로 이동합니다. \n" + e);
 			ShowNicknamePanel();
 		}
 	}
@@ -145,7 +148,8 @@ public class LoginUI : MonoBehaviour
 			Debug.Log("닉네임 설정 성공: " + nickname);
 			BackendGameData.userData.nickname = nickname; // 닉네임 업데이트
 			BackendGameData.Instance.GameDataUpdate(); // 게임 데이터 업데이트
-			// 메인 화면으로 이동하거나 게임 시작 로직 추가
+													   // 메인 화면으로 이동하거나 게임 시작 로직 추가
+			Instantiate(Test, Vector3.zero, Quaternion.identity); // 테스트용 오브젝트 생성
 		},
 		onFailure: (error) =>
 		{
@@ -165,4 +169,6 @@ public class LoginUI : MonoBehaviour
 	[SerializeField] private TMP_InputField SignPwInput;
 
 	[SerializeField] private TMP_InputField nicknameInput;
+
+	[SerializeField] GameObject Test;
 }

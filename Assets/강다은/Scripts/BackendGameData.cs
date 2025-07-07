@@ -9,35 +9,33 @@ using static UnityEngine.Rendering.DebugUI.Table;
 public class UserData
 {
 	public string nickname = "default"; // null 비허용 대응
-	public int level = 1;
-	public float atk = 3.5f;
-	public string info = "친추는 언제나 환영입니다.";
-	public Dictionary<string, int> inventory = new Dictionary<string, int>();
+	public int reputation = 1;
+	public float basicAtk = 3.5f;
+	public string bio = "친추는 언제나 환영입니다.";
+    public int gold = 0;
 	public List<string> equipment = new List<string>();
-	public string friends = ""; // 비워두면 됨
+	public List<string> friends = new List<string>(); // 비워두면 됨
 
 	// 데이터를 디버깅하기 위한 함수입니다.(Debug.Log(UserData);)
 	public override string ToString()
     {
         StringBuilder result = new StringBuilder();
         result.AppendLine($"nickname : {nickname}");
-		result.AppendLine($"level : {level}");
-        result.AppendLine($"atk : {atk}");
-        result.AppendLine($"info : {info}");
-
-        result.AppendLine($"inventory");
-        foreach (var itemKey in inventory.Keys)
-        {
-            result.AppendLine($"| {itemKey} : {inventory[itemKey]}개");
-        }
-
-        result.AppendLine($"equipment");
+		result.AppendLine($"level : {reputation}");
+        result.AppendLine($"atk : {basicAtk}");
+        result.AppendLine($"gold : {gold}");
+        result.AppendLine($"bio : {bio}");
+               result.AppendLine($"equipment");
         foreach (var equip in equipment)
         {
             result.AppendLine($"| {equip}");
         }
+		foreach (var friend in friends)
+		{
+			result.AppendLine($"| {friend}");
+		}
 
-        return result.ToString();
+		return result.ToString();
     }
 }
 
@@ -121,11 +119,11 @@ public class BackendGameData
 		Debug.Log("뒤끝 업데이트 목록에 해당 데이터들을 추가합니다.");
         Param param = new Param();
         param.Add("nickname", userData.nickname);
-		param.Add("level", userData.level);
-        param.Add("atk", userData.atk);
-        param.Add("info", userData.info);
-        param.Add("equipment", userData.equipment);
-        param.Add("inventory", userData.inventory);
+		param.Add("reputation", userData.reputation);
+        param.Add("basicAtk", userData.basicAtk);
+        param.Add("bio", userData.bio);
+        param.Add("gold", userData.gold);
+		param.Add("equipment", userData.equipment);
         param.Add("friends", userData.friends);
 
 
@@ -208,21 +206,19 @@ public class BackendGameData
         userData = new UserData
         {
             nickname = gameDataJson["nickname"].ToString(),
-			level = int.Parse(gameDataJson["level"].ToString()),
-            atk = float.Parse(gameDataJson["atk"].ToString()),
-            info = gameDataJson["info"].ToString(),
-			friends = gameDataJson["friends"].ToString()
+			reputation = int.Parse(gameDataJson["reputation"].ToString()),
+            basicAtk = float.Parse(gameDataJson["basicAtk"].ToString()),
+            bio = gameDataJson["bio"].ToString(),
+			gold = int.Parse(gameDataJson["gold"].ToString()),
 		};
 
-        userData.inventory.Clear();
-
-		foreach (string itemKey in gameDataJson["inventory"].Keys)
-		{
-			userData.inventory.Add(itemKey, int.Parse(gameDataJson["inventory"][itemKey].ToString()));
-		}
 		foreach (LitJson.JsonData equip in gameDataJson["equipment"])
 		{
 			userData.equipment.Add(equip.ToString());
+		}
+		foreach (LitJson.JsonData friend in gameDataJson["friends"])
+        {
+            userData.friends.Add(friend.ToString());
 		}
 
 		Debug.Log("유저 데이터 로드 완료\n" + userData.ToString());
@@ -232,9 +228,8 @@ public class BackendGameData
 	public void LevelUp()
     {
         Debug.Log("레벨을 1 증가시킵니다.");
-        userData.level += 1;
-        userData.atk += 3.5f;
-        userData.info = "내용을 변경합니다.";
+        userData.reputation += 1;
+        userData.basicAtk += 3.5f;
     }
 
     // 게임 정보 수정하기
@@ -248,11 +243,11 @@ public class BackendGameData
 
         Param param = new Param();
         param.Add("nickname", userData.nickname);
-		param.Add("level", userData.level);
-        param.Add("atk", userData.atk);
-        param.Add("info", userData.info);
-        param.Add("equipment", userData.equipment);
-        param.Add("inventory", userData.inventory);
+		param.Add("reputation", userData.reputation);
+        param.Add("basicAtk", userData.basicAtk);
+        param.Add("bio", userData.bio);
+        param.Add("gold", userData.gold);
+		param.Add("equipment", userData.equipment);
         param.Add("friends", userData.friends);
 
 		BackendReturnObject bro = null;
