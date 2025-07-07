@@ -19,10 +19,10 @@ MonoBehaviour:
   ingredients:
   - name: 
     sprite: 1748769442849
-    qty: 20
+    qty: 41
   - name: 
     sprite: UntitledArtwork76
-    qty: 30
+    qty: 41
   - name: 
     sprite: BebeTexture
-    qty: 50
+    qty: 41
