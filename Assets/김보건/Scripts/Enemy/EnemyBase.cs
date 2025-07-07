@@ -1,15 +1,19 @@
 using System.Collections;
+using UnityEditor.ShaderGraph;
 using UnityEngine;
 
 public class EnemyBase : MonoBehaviour
 {
     [Header("공통 스탯")]
-    public float maxHp = 10f;
+    public float maxHp;
     protected float currentHp;
 
     [Header("HP Bar ")]
     [SerializeField] private GameObject hpBarPrefab;
     private HPBar hpBar;
+
+    [Header("드랍 아이템")]
+    [SerializeField] private EnemyDropData dropItem;
 
     protected virtual void Start()
     {
@@ -40,7 +44,17 @@ public class EnemyBase : MonoBehaviour
     protected virtual void Die()
     {
         Debug.Log($"{gameObject.name} 죽음");
+        DropItem();
         Destroy(gameObject);
+    }
+
+    private void DropItem()
+    {
+        if (dropItem == null || dropItem.possibleDrops.Length == 0) return;
+
+        int rand = Random.Range(0, dropItem.possibleDrops.Length);
+
+        Instantiate(dropItem.possibleDrops[rand], transform.position, Quaternion.identity);
     }
 
     protected IEnumerator HitShake()

@@ -5,7 +5,7 @@ public class Slime : EnemyBase
     protected override void Start()
     {
         base.Start();
-        maxHp = 50f;  
+        maxHp = 25f;  
         currentHp = maxHp;
     }
 

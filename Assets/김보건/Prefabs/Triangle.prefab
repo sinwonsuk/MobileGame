@@ -103,8 +103,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 520cac69614a0e54495a1392b0db97c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHp: 200
+  maxHp: 50
   hpBarPrefab: {fileID: 2387850374849227676, guid: 2fd257caf422bfa4aaa97c9b32dac953, type: 3}
+  dropItem: {fileID: 11400000, guid: 59ac2d1f14b184149b33a5cc436549d8, type: 2}
 --- !u!50 &-2192610280662978004
 Rigidbody2D:
   serializedVersion: 5

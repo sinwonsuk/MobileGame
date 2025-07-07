@@ -1,4 +1,5 @@
 using UnityEngine;
+using TMPro;
 
 public class DungeonManager : MonoBehaviour
 {
@@ -6,6 +7,7 @@ public class DungeonManager : MonoBehaviour
     [SerializeField] private DungeonMapDatabase mapDatabase;
     [SerializeField] private GameObject playerPrefab;
     [SerializeField] private Transform mapParent;
+    [SerializeField] private TextMeshProUGUI floorTextUI;
 
     void Start()
     {
@@ -21,5 +23,7 @@ public class DungeonManager : MonoBehaviour
         var map = Instantiate(floorData.mapPrefab, mapParent);
         var spawn = map.transform.Find("PlayerSpawnPoint");
         Instantiate(playerPrefab, spawn != null ? spawn.position : Vector3.zero, Quaternion.identity);
+
+        floorTextUI.text = $"LV{floor}";
     }
 }
