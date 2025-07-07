@@ -19,9 +19,11 @@ public class GameController : MonoBehaviour
         //Register<UIManager, UIManagerConfig>(Config => new UIManager(Config));
         Register<CustomerManager, CustomerManagerConfig>(Config => new CustomerManager(Config));
         Register<TableManager, TableManagerConfig>(Config => new TableManager(Config));
-
+        Register<FoodSelectionManager, FoodSelectionManagerConfig>(Config => new FoodSelectionManager(Config));
+        Register<FoodUIManager, FoodManagerConfig>(Config => new FoodUIManager(Config));
 
         InitAll();
+        ActiveOffAll();
     }
 
     void ConnectBaseScriptableObject()
@@ -52,6 +54,14 @@ public class GameController : MonoBehaviour
         foreach (var manager in managerMap.Values)
         {
            manager.Init();
+        }
+    }
+
+    private void ActiveOffAll()
+    {
+        foreach (var manager in managerMap.Values)
+        {
+            manager.ActiveOff();
         }
     }
 

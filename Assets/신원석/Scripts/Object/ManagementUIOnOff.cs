@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class CustomerTable : MonoBehaviour
+public class ManagementUIOnOff : MonoBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -14,13 +14,14 @@ public class CustomerTable : MonoBehaviour
         
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    public void ManagementUIActive()
     {
-        //if(IsSittingAtTable==false)
+
+            EventBus<ManagementActiveHandler>.Raise(new ManagementActiveHandler(isActive));
+            isActive = !isActive;         
     }
 
-    public bool IsSittingAtTable { get; set; }
+    bool isActive =true;
 
-    [SerializeField] Transform targetTransform;
 
 }

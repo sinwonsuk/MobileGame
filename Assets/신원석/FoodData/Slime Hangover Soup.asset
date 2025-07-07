@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50e546ab1ac3d4241ac81041db591c46, type: 3}
+  m_Name: Slime Hangover Soup
+  m_EditorClassIdentifier: 
+  displayName: "\uC2AC\uB77C\uC784 \uD574\uC7A5\uAD6D"
+  foodSprite: 
+  price: 0
+  isUnlock: 0
+  ingredients:
+  - name: "\uBF08"
+    sprite: 
+    qty: 1
+  - name: "\uB369\uAD74 \uC904\uAE30 "
+    sprite: 
+    qty: 1
+  - name: "\uBFD4 \uB2EC\uC778 \uBB3C"
+    sprite: 
+    qty: 1

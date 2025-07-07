@@ -13,7 +13,9 @@ public enum CustomerState
 
 public class Customer : MonoBehaviour
 {
-    [SerializeField] private Transform target;
+    private Transform target;
+
+    private Vector3 firstPosition;
 
     public Transform Target
     {
@@ -21,7 +23,11 @@ public class Customer : MonoBehaviour
         set => target = value;
     }
 
-    private CustomerState customerState = CustomerState.Move;
+    float time = 0.0f;
+
+    public CustomerTable customerTable { get; set; }
+
+    private CustomerState customerState = CustomerState.Idle;
 
     private NavMeshAgent navMeshAgent;
 
@@ -33,6 +39,7 @@ public class Customer : MonoBehaviour
 
     private void Start()
     {
+        firstPosition = transform.position;
         navMeshAgent = GetComponent<NavMeshAgent>();
         navMeshAgent.updateRotation = false;
         navMeshAgent.updateUpAxis = false;
@@ -49,24 +56,48 @@ public class Customer : MonoBehaviour
         {
             case CustomerState.Idle:
                 {
-                    //navMeshAgent.SetDestination();
+                    EventBus<SitTableHandler>.Raise(new SitTableHandler(this));
+
+                    if (Target == null || customerTable == null)
+                        return;
+                    else
+                        ChangeState(CustomerState.Move);
                 }
                 break;
             case CustomerState.Move:
                 {
-                    //navMeshAgent.SetDestination();
+                    navMeshAgent.SetDestination(Target.position);
+
+                    if (Vector2.Distance(transform.position, Target.position) < 0.01f)
+                    {
+                        ChangeState(CustomerState.Wait);
+                    }
                 }
                 break;
             case CustomerState.Wait:
                 {
-                    //navMeshAgent.SetDestination();
+                    time += Time.deltaTime;
+
+                    if (time > 2.0f)
+                    {
+                        ChangeState(CustomerState.Eat);
+                    }
                 }
                 break;
             case CustomerState.Eat:
                 {
-                    //navMeshAgent.SetDestination();
+                    navMeshAgent.SetDestination(firstPosition);
+
+                    if (Vector2.Distance(firstPosition, transform.position) < 0.01f)
+                    {
+                        customerTable.IsSittingAtTable = false;
+                        Destroy(gameObject);
+                    }
                 }
                 break;
+
+
+
             default:
                 break;
         }
