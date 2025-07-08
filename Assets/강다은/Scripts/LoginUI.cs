@@ -95,7 +95,7 @@ public class LoginUI : MonoBehaviour
 				Debug.Log("로그인 성공");
 				BackendGameData.Instance.GameDataGetOrInsert(); // 로그인 성공 후 데이터 불러오기
 				CheckNickname();
-				Instantiate(Test, Vector3.zero, Quaternion.identity); // 테스트용 오브젝트 생성
+				//Instantiate(Test, Vector3.zero, Quaternion.identity); // 테스트용 오브젝트 생성
 			},
 			onFailure: (error) =>
 			{
@@ -148,8 +148,8 @@ public class LoginUI : MonoBehaviour
 			Debug.Log("닉네임 설정 성공: " + nickname);
 			BackendGameData.userData.nickname = nickname; // 닉네임 업데이트
 			BackendGameData.Instance.GameDataUpdate(); // 게임 데이터 업데이트
-													   // 메인 화면으로 이동하거나 게임 시작 로직 추가
-			Instantiate(Test, Vector3.zero, Quaternion.identity); // 테스트용 오브젝트 생성
+			// 메인 화면으로 이동하거나 게임 시작 로직 추가
+			//Instantiate(Test, Vector3.zero, Quaternion.identity); // 테스트용 오브젝트 생성
 		},
 		onFailure: (error) =>
 		{
