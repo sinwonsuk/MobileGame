@@ -1,14 +1,14 @@
 using BackEnd;
-public class FoodData
+public class FoodTableData
 {
 	public string tableName = "FOODS";
 	public string foodName;
 	public string foodImagePath;
 	public int foodPrice;
 
-	public FoodData() {}
+	public FoodTableData() {}
 	
-	public FoodData(string foodName, string foodImagePath, int foodPrice)
+	public FoodTableData(string foodName, string foodImagePath, int foodPrice)
 	{
 		this.foodName = foodName;
 		this.foodImagePath = foodImagePath;

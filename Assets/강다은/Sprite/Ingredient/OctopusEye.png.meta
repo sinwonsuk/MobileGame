@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      OctopusEye_0: 1286502442474279632
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
