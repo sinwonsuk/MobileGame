@@ -8,17 +8,12 @@ public class FunctionTest : MonoBehaviour
 {
 	void Start()
 	{
-		StaticDataUploader.InsertStaticData("FOODS", CreateFoodData());
-	}
+		FoodData foodData = new FoodData();
+		foodData.foodName = "예시용";
+		foodData.foodImagePath = "/images/foods/1.png";
+		foodData.foodPrice = 150;
 
-	Param CreateFoodData()
-	{
-		Param food = new Param();
-		food.Add("foodName", "테스트용 음식");
-		food.Add("foodImagePath", "/images/foods/mushroom.png");
-		food.Add("foodPrice", 150);
-
-		return food;
+		StaticDataUploader.InsertStaticData(foodData.tableName, foodData.ToParam());
 	}
 
 	/*void TestInsertFromCsv()

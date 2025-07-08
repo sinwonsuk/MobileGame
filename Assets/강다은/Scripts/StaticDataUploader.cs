@@ -24,6 +24,7 @@ using UnityEngine;
 
 public static class StaticDataUploader
 {
+	// 하나씩만 삽입
 	public static void InsertStaticData(string tableName, Param data)
 	{
 		Backend.GameData.Insert(tableName, data, callback =>
@@ -31,11 +32,17 @@ public static class StaticDataUploader
 			if (callback.IsSuccess())
 			{
 				Debug.Log($"[성공] {tableName} 테이블에 데이터 삽입 완료");
+				Debug.Log($"[삽입된 데이터] {ParamToJson(data)}");
 			}
 			else
 			{
 				Debug.LogError($"[실패] {tableName} 삽입 실패: {callback.GetMessage()}");
 			}
 		});
+	}
+
+	private static string ParamToJson(Param param)
+	{
+		return LitJson.JsonMapper.ToJson(param.GetValue());
 	}
 }
