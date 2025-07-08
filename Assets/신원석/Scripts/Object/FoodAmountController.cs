@@ -87,6 +87,9 @@ public class FoodAmountController : MonoBehaviour
 
     public void FoodAmountConfirmButton()
     {
+
+
+
         var Name = foodAmountUI.IngredientPanels[0].transform.GetChild((int)IngredientPannelType.IngredientName).GetComponent<TextMeshProUGUI>();
 
         foodName = Name.text;
@@ -95,7 +98,13 @@ public class FoodAmountController : MonoBehaviour
 
         EventBus<FoodDecreaseHandler>.Raise(new FoodDecreaseHandler(foodName, currentAmount));
         EventBus<SetManagementActiveEvent>.Raise(new SetManagementActiveEvent());
-        EventBus<MenuSpawnHandler>.Raise(new MenuSpawnHandler(foodAmountUI.FoodIcon, tempCurrentAmount.ToString(), foodName));
+
+        if(tempCurrentAmount <= 0)
+        {
+            return;
+        }
+
+         EventBus<MenuSpawnHandler>.Raise(new MenuSpawnHandler(foodAmountUI.FoodIcon, tempCurrentAmount.ToString(), foodName));
 
     }
 

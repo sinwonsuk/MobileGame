@@ -52,9 +52,9 @@ public class FoodSlotUI : MonoBehaviour
     public void CreateSlot(SlotSpawnHandler slotSpawnHandler)
     {
         GameObject obj = Instantiate(slotSpawnHandler.Slot, slotTransform);
-
+        Sprite foodSprite = Resources.Load<Sprite>(slotSpawnHandler.Image);
+        obj.GetComponent<Image>().sprite = foodSprite;
         obj.transform.GetChild((int)SlotInfo.Name).GetComponent<TextMeshProUGUI>().text = slotSpawnHandler.SlotName;
-
         obj.GetComponent<FoodSlot>().foodData = slotSpawnHandler.foodData;
     }
 

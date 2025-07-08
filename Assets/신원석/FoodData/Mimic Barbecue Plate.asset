@@ -16,3 +16,6 @@ MonoBehaviour:
   foodSprite: 
   price: 0
   isUnlock: 0
+  Ingredients:
+  - {fileID: 11400000, guid: 85dfad9c52b233c48876e1ad42f0e59d, type: 2}
+  - {fileID: 11400000, guid: e9d1a1ebfaf561e42b03ccf1d140512c, type: 2}

@@ -22,9 +22,9 @@ public class FoodSlot : MonoBehaviour
 
         EventBus<FoodSlotHandler>.Raise(new FoodSlotHandler(foodData.foodSprite));
 
-        for (int i = 0; i < foodData.ingredients.Count; i++)
+        for (int i = 0; i < foodData.Ingredients.Count; i++)
         {
-            EventBus<IngredientsPannelSpawnHandler>.Raise(new IngredientsPannelSpawnHandler(foodData.ingredients[i].sprite, foodData.ingredients[i].qty,0, foodData.displayName));
+            EventBus<IngredientsPannelSpawnHandler>.Raise(new IngredientsPannelSpawnHandler(foodData.Ingredients[i].sprite, foodData.Ingredients[i].qty,0, foodData.displayName));
         }
     }
 
