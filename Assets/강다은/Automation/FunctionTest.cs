@@ -12,8 +12,10 @@ public class FunctionTest : MonoBehaviour
 		foodData.foodName = "예시용";
 		foodData.foodImagePath = "/images/foods/1.png";
 		foodData.foodPrice = 150;
-
 		StaticDataUploader.InsertStaticData(foodData.tableName, foodData.ToParam());
+
+		FoodData foodData2 = new FoodData("버섯스프", "/images/foods/mushroom.png", 150);
+		StaticDataUploader.InsertStaticData(foodData2.tableName, foodData2.ToParam());
 	}
 
 	/*void TestInsertFromCsv()
