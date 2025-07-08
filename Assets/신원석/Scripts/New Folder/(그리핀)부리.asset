@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 35aa38e7c4f6fef44858f4783aa1e73d, type: 3}
-  m_Name: "(\uADF8\uB9AC\uD540)\uBD80\uB9AC\uBD84\uB9D0"
+  m_Name: "(\uADF8\uB9AC\uD540)\uBD80\uB9AC"
   m_EditorClassIdentifier: 
   Name: rrr
   sprite: UntitledArtwork76
