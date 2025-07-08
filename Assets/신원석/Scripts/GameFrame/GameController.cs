@@ -22,6 +22,7 @@ public class GameController : MonoBehaviour
         Register<FoodSelectionManager, FoodSelectionManagerConfig>(Config => new FoodSelectionManager(Config));
         Register<FoodUIManager, FoodManagerConfig>(Config => new FoodUIManager(Config));
 
+
         InitAll();
         ActiveOffAll();
     }

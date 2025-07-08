@@ -16,9 +16,17 @@ public class ManagementUIOnOff : MonoBehaviour
 
     public void ManagementUIActive()
     {
-
-            EventBus<ManagementActiveHandler>.Raise(new ManagementActiveHandler(isActive));
-            isActive = !isActive;         
+        if( isActive)
+        {
+            EventBus<ManagementActiveHandler>.Raise(new ManagementActiveHandler(isActive,ClickType.FoodSlot));
+            isActive = false;
+        }
+        else
+        {
+            EventBus<ManagementActiveHandler>.Raise(new ManagementActiveHandler(isActive, ClickType.FoodSlot));
+            EventBus<ManagementActiveHandler>.Raise(new ManagementActiveHandler(isActive, ClickType.FoodAmount));
+            isActive = true;
+        }
     }
 
     bool isActive =true;

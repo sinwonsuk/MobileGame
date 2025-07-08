@@ -16,13 +16,7 @@ MonoBehaviour:
   foodSprite: 
   price: 0
   isUnlock: 0
-  ingredients:
-  - name: "\uBF08"
-    sprite: 
-    qty: 1
-  - name: "\uB369\uAD74 \uC904\uAE30 "
-    sprite: 
-    qty: 1
-  - name: "\uBFD4 \uB2EC\uC778 \uBB3C"
-    sprite: 
-    qty: 1
+  Ingredients:
+  - {fileID: 11400000, guid: fa7aa48057f1aa247bf03b8695f046c8, type: 2}
+  - {fileID: 11400000, guid: 366252414b4564546a6e598ffb934a4f, type: 2}
+  - {fileID: 11400000, guid: fc529bf0bde6bd84dbcf8f917340546d, type: 2}

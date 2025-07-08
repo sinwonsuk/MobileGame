@@ -13,6 +13,9 @@ MonoBehaviour:
   m_Name: "Dragon\u2019s Tear Barbecue"
   m_EditorClassIdentifier: 
   displayName: "\uC6A9\uB208\uBB3C \uBC14\uBE44\uD050"
-  foodSprite: 
+  foodSprite: UntitledArtwork88
   price: 0
   isUnlock: 0
+  Ingredients:
+  - {fileID: 11400000, guid: f72bebc868ead734993cf6613657c12f, type: 2}
+  - {fileID: 11400000, guid: 8693616cded08d345a662320f660bbdc, type: 2}

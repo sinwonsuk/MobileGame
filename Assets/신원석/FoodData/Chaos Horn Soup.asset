@@ -16,13 +16,6 @@ MonoBehaviour:
   foodSprite: 1748769442849
   price: 0
   isUnlock: 0
-  ingredients:
-  - name: 
-    sprite: 1748769442849
-    qty: 20
-  - name: 
-    sprite: UntitledArtwork76
-    qty: 30
-  - name: 
-    sprite: BebeTexture
-    qty: 50
+  Ingredients:
+  - {fileID: 11400000, guid: fd56a8b06c6e07541b56aecb13256f30, type: 2}
+  - {fileID: 11400000, guid: deac93d9a9ba5d84e814dbf0819dcc8c, type: 2}

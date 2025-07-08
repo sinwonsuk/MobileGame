@@ -11,14 +11,17 @@ public class FoodData : BaseScriptableObject
     public int price;            // 가격
     public bool isUnlock;          // 해금 여부 
 
-    public List<Ingredient> ingredients;
+    //public List<Ingredient> ingredients;
 
-    [System.Serializable]
-    public class Ingredient
-    {
-        public string name;
-        public string sprite;
-        public int qty;
+    public List<IngredientData> Ingredients;
 
-    }
+
+    //[System.Serializable]
+    //public class Ingredient
+    //{
+    //    public string name;
+    //    public string sprite;
+    //    public int qty;
+
+    //}
 }

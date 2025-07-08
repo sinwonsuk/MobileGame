@@ -50,10 +50,7 @@ public class FoodSelectionManager : baseManager, IGameManager
     // 아래 버튼 
     public void IsActive(ManagementActiveHandler slotSpawnHandler)
     {
-        if(slotUI[(int)ClickType.FoodSlot].activeSelf ==true)
-            slotUI[(int)ClickType.FoodAmount].SetActive(slotSpawnHandler.isActive);
-
-        slotUI[(int)ClickType.FoodSlot].SetActive(slotSpawnHandler.isActive);
+        slotUI[(int)slotSpawnHandler.clickType].SetActive(slotSpawnHandler.isActive);
     }
 
     public override void Update()

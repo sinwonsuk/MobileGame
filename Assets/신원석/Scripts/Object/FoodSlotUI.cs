@@ -52,9 +52,9 @@ public class FoodSlotUI : MonoBehaviour
     public void CreateSlot(SlotSpawnHandler slotSpawnHandler)
     {
         GameObject obj = Instantiate(slotSpawnHandler.Slot, slotTransform);
-
+        Sprite foodSprite = Resources.Load<Sprite>(slotSpawnHandler.Image);
+        obj.GetComponent<Image>().sprite = foodSprite;
         obj.transform.GetChild((int)SlotInfo.Name).GetComponent<TextMeshProUGUI>().text = slotSpawnHandler.SlotName;
-
         obj.GetComponent<FoodSlot>().foodData = slotSpawnHandler.foodData;
     }
 
@@ -66,12 +66,15 @@ public class FoodSlotUI : MonoBehaviour
         {
             if (menuListCollection[i].MenuName == menuSpawnHandler.Name)
             {
-                string countStr = menuListCollection[i].MenuObj.transform.GetChild((int)MenuInfo.Number).GetComponent<TextMeshProUGUI>().text = menuSpawnHandler.number;
+                string countStr = menuListCollection[i].MenuObj.transform.GetChild((int)MenuInfo.Number).GetComponent<TextMeshProUGUI>().text;
                 int count = int.Parse(countStr);
                 int count2 = int.Parse(menuSpawnHandler.number);
 
                 count += count2;
                 menuListCollection[i].MenuObj.transform.GetChild((int)MenuInfo.Number).GetComponent<TextMeshProUGUI>().text = count.ToString();
+
+                menuListCollection[i].MenuObj.GetComponent<FoodMenuSlot>().FoodAmount = count.ToString();
+
                 return;
             }
         }
