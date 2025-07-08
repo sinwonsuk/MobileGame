@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: f0454b1aae39af745b813335b3bbd3ad
+guid: b2a60f18ef56e984a97c6cabed4a5622
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 62384333275372165
-    second: UntitledArtwork88_0
+      213: 8026641188531843348
+    second: slimeViscera_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -139,13 +139,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: UntitledArtwork88_0
+      name: slimeViscera_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 1984
-        height: 1984
+        x: 2
+        y: 4
+        width: 28
+        height: 24
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -154,8 +154,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 58a9d687832add000800000000000000
-      internalID: 62384333275372165
+      spriteID: 411b5fd42ab546f60800000000000000
+      internalID: 8026641188531843348
       vertices: []
       indices: 
       edges: []
@@ -174,7 +174,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      UntitledArtwork88_0: 62384333275372165
+      slimeViscera_0: 8026641188531843348
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
