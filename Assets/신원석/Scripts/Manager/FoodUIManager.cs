@@ -40,9 +40,9 @@ public class FoodUIManager : baseManager, IGameManager
         {
             if (conFig.GetFoods()[i].displayName == foodAmountHandler.foodname)
             {
-                for (int j = 0; j < conFig.GetFoods()[i].ingredients.Count; j++)
+                for (int j = 0; j < conFig.GetFoods()[i].Ingredients.Count; j++)
                 {
-                    conFig.GetFoods()[i].ingredients[j].qty -= foodAmountHandler.Setquantity;
+                    conFig.GetFoods()[i].Ingredients[j].qty -= foodAmountHandler.Setquantity;
                 }
                 return;
             }
@@ -55,9 +55,9 @@ public class FoodUIManager : baseManager, IGameManager
         {
             if (conFig.GetFoods()[i].displayName == foodAmountHandler.foodname)
             {
-                for (int j = 0; j < conFig.GetFoods()[i].ingredients.Count; j++)
+                for (int j = 0; j < conFig.GetFoods()[i].Ingredients.Count; j++)
                 {
-                    conFig.GetFoods()[i].ingredients[j].qty += foodAmountHandler.Setquantity;
+                    conFig.GetFoods()[i].Ingredients[j].qty += foodAmountHandler.Setquantity;
                 }
                 return;
             }

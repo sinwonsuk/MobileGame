@@ -8,7 +8,7 @@ public struct SlotSpawnHandler : IEvent
     {
         this.Slot = slot;
         this.SlotName = data.displayName;
-
+        this.Image = data.foodSprite;
         foodData = data;
     }
 
@@ -16,4 +16,7 @@ public struct SlotSpawnHandler : IEvent
 
     public FoodData foodData { get; set; }
     public string SlotName { get; set; }
+
+    public string Image { get; set; }
+
 }

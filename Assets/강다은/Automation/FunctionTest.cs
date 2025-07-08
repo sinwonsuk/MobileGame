@@ -8,10 +8,17 @@ public class FunctionTest : MonoBehaviour
 {
 	void Start()
 	{
-		TestInsertFromCsv();
+		FoodTableData foodData = new FoodTableData();
+		foodData.foodName = "예시용";
+		foodData.foodImagePath = "/images/foods/1.png";
+		foodData.foodPrice = 150;
+		StaticDataUploader.InsertStaticData(foodData.tableName, foodData.ToParam());
+
+		FoodTableData foodData2 = new FoodTableData("버섯스프", "/images/foods/mushroom.png", 150);
+		StaticDataUploader.InsertStaticData(foodData2.tableName, foodData2.ToParam());
 	}
 
-	void TestInsertFromCsv()
+	/*void TestInsertFromCsv()
 	{
 
 		// 1. CSV 경로 설정
@@ -77,5 +84,5 @@ public class FunctionTest : MonoBehaviour
 		{
 			Debug.LogError($"Function 호출 실패: {bro.GetStatusCode()} - {bro.GetMessage()}");
 		}
-	}
+	}*/
 }

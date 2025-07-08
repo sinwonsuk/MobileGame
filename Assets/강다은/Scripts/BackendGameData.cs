@@ -16,7 +16,6 @@ public class UserData
 	public List<string> equipment = new List<string>();
 	public List<string> friends = new List<string>(); // 비워두면 됨
 
-	// 데이터를 디버깅하기 위한 함수입니다.(Debug.Log(UserData);)
 	public override string ToString()
     {
         StringBuilder result = new StringBuilder();
