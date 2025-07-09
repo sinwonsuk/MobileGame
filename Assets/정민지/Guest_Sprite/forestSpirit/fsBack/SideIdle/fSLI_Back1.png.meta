@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 1acf478f36857784fa394b3d68eaacd4
+guid: 84505aadce712204fb674476fa661308
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -6835714002878548089
-    second: OctopusInk_0
+      213: -8072801088480679210
+    second: fSLI_Back1_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -139,13 +139,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: OctopusInk_0
+      name: fSLI_Back1_0
       rect:
         serializedVersion: 2
-        x: 6
-        y: 1
-        width: 20
-        height: 28
+        x: 12
+        y: 3
+        width: 42
+        height: 53
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -154,8 +154,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 787b240e45aa221a0800000000000000
-      internalID: -6835714002878548089
+      spriteID: 6dae8ba7e26a7ff80800000000000000
+      internalID: -8072801088480679210
       vertices: []
       indices: 
       edges: []
@@ -174,7 +174,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      OctopusInk_0: -6835714002878548089
+      fSLI_Back1_0: -8072801088480679210
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
