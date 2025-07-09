@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using BackEnd;
 using System.Collections;
-using static BackEnd.Quobject.SocketIoClientDotNet.Parser.Parser.Encoder;
+using System.Linq;
 
 public class CSVTableUploader : MonoBehaviour
 {
@@ -11,30 +11,53 @@ public class CSVTableUploader : MonoBehaviour
 	{
 		foreach (string tableName in tableFileNames)
 		{
-			yield return LoadExistingKeys(tableName);
-			UploadCsvForTable(tableName);
+			yield return SyncTableWithCsv(tableName);
 		}
 	}
-
-	void UploadCsvForTable(string tableName)
+	IEnumerator SyncTableWithCsv(string tableName)
 	{
+		if (!uniqueKeyColumnsMap.TryGetValue(tableName, out var keyColumns))
+		{
+			Debug.LogError($"[ERROR] {tableName} 고유 키 설정이 없습니다.");
+			yield break;
+		}
+
+		// 1. 서버 데이터 불러오기
+		Dictionary<string, LitJson.JsonData> serverDataMap = new();
+		bool isDone = false;
+
+		Backend.GameData.Get(tableName, new Where(), callback =>
+		{
+			if (callback.IsSuccess())
+			{
+				foreach (LitJson.JsonData row in callback.FlattenRows())
+				{
+					string key = CreateCompositeKey(row, keyColumns);
+					serverDataMap[key] = row;
+				}
+			}
+			else
+			{
+				Debug.LogWarning($"[WARNING] 서버 데이터 로드 실패: {callback}");
+			}
+			isDone = true;
+		});
+		yield return new WaitUntil(() => isDone);
+
+		// 2. CSV 로드
 		TextAsset csvFile = Resources.Load<TextAsset>("CSVData/" + tableName);
 		if (csvFile == null)
 		{
-			Debug.LogError($"[ERROR] Resources/CSVData/{tableName}.csv 파일 없음");
-			return;
-		}
-
-		if (!uniqueKeyColumnsMap.TryGetValue(tableName, out List<string> keyColumns))
-		{
-			Debug.LogError($"[ERROR] {tableName} 고유 키 컬럼 설정 안 됨");
-			return;
+			Debug.LogError($"[ERROR] Resources/CSVData/{tableName}.csv 파일이 존재하지 않습니다.");
+			yield break;
 		}
 
 		string[] lines = csvFile.text.Split('\n');
-		if (lines.Length < 2) return;
+		if (lines.Length < 2) yield break;
 
 		string[] headers = lines[0].Trim().Split(',');
+
+		HashSet<string> csvKeys = new();
 
 		for (int i = 1; i < lines.Length; i++)
 		{
@@ -44,104 +67,131 @@ public class CSVTableUploader : MonoBehaviour
 			string[] values = line.Split(',');
 			if (values.Length != headers.Length)
 			{
-				Debug.LogWarning($"[SKIP] {tableName} - 열 수 불일치: {line}");
+				Debug.LogWarning($"[SKIP] 열 수 불일치: {line}");
 				continue;
 			}
 
-			string compositeKey = CreateCompositeKey(headers, values, keyColumns);
+			string key = CreateCompositeKey(headers, values, keyColumns);
+			csvKeys.Add(key);
 
-			if (existingKeys.TryGetValue(tableName, out var keys) && keys.Contains(compositeKey))
-			{
-				Debug.Log($"[SKIP] {tableName} - 중복 스킵: {compositeKey}");
-				continue;
-			}
-
-			// Param 구성
 			Param param = new Param();
 			for (int j = 0; j < headers.Length; j++)
 			{
-				string key = headers[j].Trim();
-				string value = values[j].Trim();
-
-				if (int.TryParse(value, out int intVal))
-					param.Add(key, intVal);
-				else if (float.TryParse(value, out float floatVal))
-					param.Add(key, floatVal);
-				else
-					param.Add(key, value);
+				string h = headers[j].Trim();
+				string v = values[j].Trim();
+				if (int.TryParse(v, out int intVal)) param.Add(h, intVal);
+				else if (float.TryParse(v, out float floatVal)) param.Add(h, floatVal);
+				else param.Add(h, v);
 			}
 
-			StaticDataUploader.InsertStaticData(tableName, param);
-			Debug.Log($"[INSERT] {tableName} > {param}");
-		}
-	}
-
-
-	IEnumerator LoadExistingKeys(string tableName)
-	{
-		existingKeys[tableName] = new HashSet<string>();
-
-		if (!uniqueKeyColumnsMap.TryGetValue(tableName, out List<string> keyColumns))
-		{
-			Debug.LogError($"[ERROR] {tableName} 고유 키 컬럼 설정 안 됨");
-			yield break;
-		}
-
-		bool isDone = false;
-
-		Backend.GameData.Get(tableName, new Where(), callback =>
-		{
-			if (callback.IsSuccess())
+			if (!serverDataMap.ContainsKey(key))
 			{
-				foreach (LitJson.JsonData row in callback.FlattenRows())
-				{
-					string compositeKey = CreateCompositeKey(row, keyColumns);
-					existingKeys[tableName].Add(compositeKey);
-				}
+				// 삽입
+				StaticDataUploader.InsertStaticData(tableName, param);
+				Debug.Log($"[INSERT] {tableName} : {key}");
+			}
+			else if (IsRowDifferent(serverDataMap[key], param))
+			{
+				// 수정
+				string inDate = serverDataMap[key]["inDate"].ToString();
+
+				BackendReturnObject bro = Backend.GameData.UpdateV2(tableName, inDate, Backend.UserInDate, param);
+
+				if (bro.IsSuccess())
+					Debug.Log($"[UPDATE SUCCESS] {tableName} : {key} + inDate = {inDate}");
+				else
+					Debug.LogWarning($"[UPDATE FAIL] {tableName} : {key} + {bro.GetMessage()}");
+
 			}
 			else
 			{
-				Debug.LogWarning($"[WARNING] {tableName} 키 불러오기 실패: {callback}");
+				// 동일: 무시
+				Debug.Log($"[SKIP] 동일 데이터: {key}");
 			}
+		}
 
-			isDone = true;
-		});
+		// 3. CSV에 없는 데이터는 삭제
+		foreach (var key in serverDataMap.Keys)
+		{
+			if (!csvKeys.Contains(key))
+			{
+				if (!serverDataMap[key].ContainsKey("inDate"))
+				{
+					Debug.LogError($"[DELETE ERROR] {tableName} : {key} → inDate 없음");
+					continue;
+				}
 
-		// 결과가 도착할 때까지 기다림
-		yield return new WaitUntil(() => isDone);
+				string inDate = serverDataMap[key]["inDate"].ToString();
+				Debug.Log($"[DELETE ATTEMPT] {tableName} : {key} → inDate = {inDate}");
+
+				var bro = Backend.GameData.DeleteV2(tableName, inDate, Backend.UserInDate);
+
+				if (bro.IsSuccess())
+					Debug.Log($"[DELETE SUCCESS] {tableName} : {key}");
+				else
+					Debug.LogWarning($"[DELETE FAIL] {tableName} : {key} → {bro.GetMessage()}");
+			}
+		}
+
+
 	}
 
-
-	// 중복 체크용 복합 키 생성 함수
 	string CreateCompositeKey(LitJson.JsonData row, List<string> keyColumns)
 	{
-		List<string> parts = new List<string>();
+		List<string> parts = new();
 		foreach (var col in keyColumns)
-		{
-			if (row.ContainsKey(col))
-				parts.Add(row[col].ToString());
-			else
-				parts.Add("null"); // 또는 에러 처리
-		}
-		return string.Join("|", parts); // ex: "1|12"
+			parts.Add(row.ContainsKey(col) ? row[col].ToString() : "null");
+		return string.Join("|", parts);
 	}
 
 	string CreateCompositeKey(string[] headers, string[] values, List<string> keyColumns)
 	{
-		List<string> parts = new List<string>();
+		List<string> parts = new();
 		foreach (var col in keyColumns)
 		{
-			int index = System.Array.IndexOf(headers, col);
-			if (index >= 0 && index < values.Length)
-				parts.Add(values[index].Trim());
-			else
-				parts.Add("null");
+			int idx = System.Array.IndexOf(headers, col);
+			parts.Add((idx >= 0 && idx < values.Length) ? values[idx].Trim() : "null");
 		}
 		return string.Join("|", parts);
 	}
 
+	bool IsRowDifferent(LitJson.JsonData serverRow, Param csvParam)
+	{
+		SortedList csvDict;
+		try
+		{
+			csvDict = csvParam.GetValue() as SortedList;
+			if (csvDict == null)
+			{
+				Debug.LogError("csvParam을 SortedList로 변환 실패");
+				return true;
+			}
+		}
+		catch
+		{
+			Debug.LogError("csvParam.GetValue() 변환 중 예외 발생");
+			return true;
+		}
 
-	// 테이블마다 중복 체크용 고유 키 컬럼 이름을 설정
+		foreach (DictionaryEntry kvp in csvDict)
+		{
+			string key = kvp.Key.ToString();
+
+			if (!serverRow.ContainsKey(key))
+				return true;
+
+			string csvValueStr = kvp.Value?.ToString()?.Trim() ?? "";
+			string serverValueStr = serverRow[key]?.ToString()?.Trim() ?? "";
+
+			if (!string.Equals(csvValueStr, serverValueStr, System.StringComparison.OrdinalIgnoreCase))
+				return true;
+		}
+
+		return false;
+	}
+
+
+	// 테이블마다 중복 체크용 고유 키 컬럼 설정
 	private Dictionary<string, List<string>> uniqueKeyColumnsMap = new Dictionary<string, List<string>>
 	{
 		{ "FOODS", new List<string> { "foodName" } },
