@@ -9,9 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6909495166877429310}
-  - component: {fileID: 1473350065644846150}
+  - component: {fileID: -7994304396875086951}
   m_Layer: 0
-  m_Name: Test
+  m_Name: CSVTableUploader
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -32,7 +32,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1473350065644846150
+--- !u!114 &-7994304396875086951
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -41,6 +41,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 2031662332115826547}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8a81ca89aef455048b222b35f2897f8a, type: 3}
+  m_Script: {fileID: 11500000, guid: a5b297cd10449984f9d031a630ae2c15, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tableFileNames:
+  - FOODS
+  - FURNITURES
+  - FOOD_INGREDIENTS
+  - INGREDIENTS
+  - EQUIPMENTS
+  - EQUIPMENT_EFFECTS
+  - EMPLOYEE_MASTER
