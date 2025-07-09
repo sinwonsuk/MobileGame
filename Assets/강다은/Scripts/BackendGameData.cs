@@ -13,7 +13,6 @@ public class UserData
 	public float basicAtk = 3.5f;
 	public string bio = "친추는 언제나 환영입니다.";
     public int gold = 0;
-	public List<string> equipment = new List<string>();
 	public List<string> friends = new List<string>(); // 비워두면 됨
 
 	public override string ToString()
@@ -24,11 +23,7 @@ public class UserData
         result.AppendLine($"atk : {basicAtk}");
         result.AppendLine($"gold : {gold}");
         result.AppendLine($"bio : {bio}");
-               result.AppendLine($"equipment");
-        foreach (var equip in equipment)
-        {
-            result.AppendLine($"| {equip}");
-        }
+
 		foreach (var friend in friends)
 		{
 			result.AppendLine($"| {friend}");
@@ -122,7 +117,6 @@ public class BackendGameData
         param.Add("basicAtk", userData.basicAtk);
         param.Add("bio", userData.bio);
         param.Add("gold", userData.gold);
-		param.Add("equipment", userData.equipment);
         param.Add("friends", userData.friends);
 
 
@@ -211,10 +205,6 @@ public class BackendGameData
 			gold = int.Parse(gameDataJson["gold"].ToString()),
 		};
 
-		foreach (LitJson.JsonData equip in gameDataJson["equipment"])
-		{
-			userData.equipment.Add(equip.ToString());
-		}
 		foreach (LitJson.JsonData friend in gameDataJson["friends"])
         {
             userData.friends.Add(friend.ToString());
@@ -246,7 +236,6 @@ public class BackendGameData
         param.Add("basicAtk", userData.basicAtk);
         param.Add("bio", userData.bio);
         param.Add("gold", userData.gold);
-		param.Add("equipment", userData.equipment);
         param.Add("friends", userData.friends);
 
 		BackendReturnObject bro = null;
