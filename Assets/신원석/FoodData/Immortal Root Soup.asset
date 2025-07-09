@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Immortal Root Soup
   m_EditorClassIdentifier: 
   displayName: "\uBD88\uBA78\uC758 \uBFCC\uB9AC \uC218\uD504"
-  foodSprite: 
+  foodSprite: beakManSoup
   price: 0
   isUnlock: 0
   Ingredients:

@@ -10,7 +10,7 @@ public class FoodData : BaseScriptableObject
     public string foodSprite;       // 사진
     public int price;            // 가격
     public bool isUnlock;          // 해금 여부 
-
+    public string explanation;
     //public List<Ingredient> ingredients;
 
     public List<IngredientData> Ingredients;

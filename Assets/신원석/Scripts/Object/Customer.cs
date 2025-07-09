@@ -17,25 +17,21 @@ public class Customer : MonoBehaviour
 
     private Vector3 firstPosition;
 
+    public MenuBoardSlot Slot { get; set; }
+
     public Transform Target
     {
         get => target;
         set => target = value;
     }
 
-    float time = 0.0f;
-
     public CustomerTable customerTable { get; set; }
 
-    private CustomerState customerState = CustomerState.Idle;
+    public CustomerState customerState { get; set; } = CustomerState.Idle;
 
     private NavMeshAgent navMeshAgent;
 
-    public void Setup(Transform target)
-    {
-        navMeshAgent.updateRotation = false;
-        navMeshAgent.updateUpAxis = false;
-    }
+    [SerializeField] SpriteRenderer spriteRenderer;
 
     private void Start()
     {
@@ -43,6 +39,7 @@ public class Customer : MonoBehaviour
         navMeshAgent = GetComponent<NavMeshAgent>();
         navMeshAgent.updateRotation = false;
         navMeshAgent.updateUpAxis = false;
+        spriteRenderer.enabled = false;
     }
 
     public void ChangeState(CustomerState customerState)
@@ -57,6 +54,7 @@ public class Customer : MonoBehaviour
             case CustomerState.Idle:
                 {
                     EventBus<SitTableHandler>.Raise(new SitTableHandler(this));
+                    
 
                     if (Target == null || customerTable == null)
                         return;
@@ -76,12 +74,22 @@ public class Customer : MonoBehaviour
                 break;
             case CustomerState.Wait:
                 {
-                    time += Time.deltaTime;
-
-                    if (time > 2.0f)
+                    if (Input.GetMouseButtonDown(0))
                     {
-                        ChangeState(CustomerState.Eat);
+                        Vector2 worldPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                        // 포인트를 기준으로 겹친 콜라이더를 찾음
+                        Collider2D hit = Physics2D.OverlapPoint(worldPoint);
+
+
+
+                        if (hit != null && hit.CompareTag("Food"))
+                        {
+                            Debug.Log($"[{hit.gameObject.name}] 2D 콜라이더에 마우스 클릭됨");
+                        }
                     }
+
+                    spriteRenderer.enabled = true;
+                   spriteRenderer.sprite = Slot.IconImage.sprite;                   
                 }
                 break;
             case CustomerState.Eat:
@@ -96,11 +104,16 @@ public class Customer : MonoBehaviour
                 }
                 break;
 
-
-
             default:
                 break;
         }
 
     }
+
+    public void test()
+    {
+        // customerTable.transform.position - 
+    }
+
+
 }

@@ -1,11 +1,6 @@
-using BackEnd.Tcp;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
-using UnityEngine.Tilemaps;
-using static UnityEngine.Rendering.DebugUI;
-using static UnityEngine.RuleTile.TilingRuleOutput;
-using Transform = UnityEngine.Transform;
+
 
 public class TableManager : baseManager, IGameManager
 {

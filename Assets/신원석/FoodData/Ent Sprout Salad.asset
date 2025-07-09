@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Ent Sprout Salad
   m_EditorClassIdentifier: 
   displayName: "\uC5D4\uD2B8 \uC138\uC21C \uB098\uBB3C\uBB34\uCE68"
-  foodSprite: 
+  foodSprite: seasonedVegetables
   price: 0
   isUnlock: 0
   Ingredients:

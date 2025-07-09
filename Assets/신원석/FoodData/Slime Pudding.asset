@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Slime Pudding
   m_EditorClassIdentifier: 
   displayName: "\uC2AC\uB77C\uC784 \uD478\uB529"
-  foodSprite: 
+  foodSprite: pudding
   price: 0
   isUnlock: 0
   Ingredients:

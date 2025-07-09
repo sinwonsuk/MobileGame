@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35aa38e7c4f6fef44858f4783aa1e73d, type: 3}
   m_Name: "(\uACE8\uB818)\uB098\uBB34\uAECD\uC9C8"
   m_EditorClassIdentifier: 
-  Name: rrr
+  Name: golemWood
   sprite: UntitledArtwork76
   qty: 20

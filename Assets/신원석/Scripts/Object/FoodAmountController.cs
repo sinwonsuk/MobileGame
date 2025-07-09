@@ -98,18 +98,19 @@ public class FoodAmountController : MonoBehaviour
 
         EventBus<FoodDecreaseHandler>.Raise(new FoodDecreaseHandler(foodName, currentAmount));
         EventBus<SetManagementActiveEvent>.Raise(new SetManagementActiveEvent());
+        EventBus<SetMenuParentTransformHandler>.Raise(new SetMenuParentTransformHandler(this));
 
-        if(tempCurrentAmount <= 0)
+        if (tempCurrentAmount <= 0)
         {
             return;
         }
 
-         EventBus<MenuSpawnHandler>.Raise(new MenuSpawnHandler(foodAmountUI.FoodIcon, tempCurrentAmount.ToString(), foodName));
+         EventBus<UpMenuSpawnHandler>.Raise(new UpMenuSpawnHandler(foodAmountUI.FoodIcon, tempCurrentAmount.ToString(), foodName, MenuParentTransform));
 
     }
 
     private int currentAmount;
     private string foodName;
     [SerializeField] FoodAmountUI foodAmountUI;
-
+    public Transform MenuParentTransform { get; set; }
 }
