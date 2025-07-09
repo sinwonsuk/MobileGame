@@ -12,4 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33ac8064214c334429708e3bb2528825, type: 3}
   m_Name: SelectedFloorData
   m_EditorClassIdentifier: 
-  selectedFloor: 0
+  selectedFloor: 2
+  isDungeonMode: 1

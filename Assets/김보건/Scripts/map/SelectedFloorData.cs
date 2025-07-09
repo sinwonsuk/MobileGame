@@ -4,4 +4,6 @@ using UnityEngine;
 public class SelectedFloorData : ScriptableObject
 {
     public int selectedFloor;
+
+    public bool isDungeonMode = false;
 }
