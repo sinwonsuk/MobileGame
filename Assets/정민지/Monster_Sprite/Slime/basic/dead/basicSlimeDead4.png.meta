@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: ef9d90541c8673140bdec59deae3178f
+guid: a68b2c45a55c9d44b8e7bfcb3fbfc3c1
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 7684528938070195126
-    second: basicCounterIdle6_0
+      213: 4278184465152636666
+    second: basicSlimeDead4_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -139,13 +139,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: basicCounterIdle6_0
+      name: basicSlimeDead4_0
       rect:
         serializedVersion: 2
-        x: 10
-        y: 2
-        width: 42
-        height: 57
+        x: 3
+        y: 5
+        width: 58
+        height: 19
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -154,8 +154,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 6bb32e3da5ee4aa60800000000000000
-      internalID: 7684528938070195126
+      spriteID: af67401ba1a2f5b30800000000000000
+      internalID: 4278184465152636666
       vertices: []
       indices: 
       edges: []
@@ -174,7 +174,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      basicCounterIdle6_0: 7684528938070195126
+      basicSlimeDead4_0: 4278184465152636666
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

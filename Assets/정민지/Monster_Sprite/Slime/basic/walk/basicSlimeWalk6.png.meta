@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: ef9d90541c8673140bdec59deae3178f
+guid: b9eed2d7e95a9ab44aaefc27b4a58c91
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 7684528938070195126
-    second: basicCounterIdle6_0
+      213: 9187240551507087538
+    second: basicSlimeWalk6_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -139,13 +139,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: basicCounterIdle6_0
+      name: basicSlimeWalk6_0
       rect:
         serializedVersion: 2
-        x: 10
-        y: 2
-        width: 42
-        height: 57
+        x: 5
+        y: 6
+        width: 54
+        height: 24
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -154,8 +154,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 6bb32e3da5ee4aa60800000000000000
-      internalID: 7684528938070195126
+      spriteID: 2b0d4a20b92af7f70800000000000000
+      internalID: 9187240551507087538
       vertices: []
       indices: 
       edges: []
@@ -174,7 +174,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      basicCounterIdle6_0: 7684528938070195126
+      basicSlimeWalk6_0: 9187240551507087538
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
