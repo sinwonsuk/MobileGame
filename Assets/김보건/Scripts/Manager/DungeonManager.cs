@@ -62,7 +62,7 @@ public class DungeonManager : baseManager
     {
         if (config.selectedFloorData == null || config.selectedFloorData.isDungeonMode == false)
             return;
-
+        
         int floor = config.selectedFloorData.selectedFloor;
         var floorData = config.mapDatabase.GetFloorData(floor);
 
@@ -73,6 +73,9 @@ public class DungeonManager : baseManager
         }
 
         var map = Object.Instantiate(floorData.mapPrefab, config.mapParent);
+
+        map.GetComponentInChildren<MonsterSpawner>()?.SpawnNextStage();
+
         var spawn = map.transform.Find("PlayerSpawnPoint");
         Object.Instantiate(config.playerPrefab, spawn != null ? spawn.position : Vector3.zero, Quaternion.identity);
 

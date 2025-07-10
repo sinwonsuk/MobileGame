@@ -10,21 +10,21 @@ public class MonsterSpawner : MonoBehaviour
 
     private bool hasSpawned = false;
 
-    void Start()
-    {
-        if (hasSpawned) return;
+    //void Start()
+    //{
+    //    if (hasSpawned) return;
 
-        hasSpawned = true;
+    //    hasSpawned = true;
 
 
-        Vector3 spawnPos = new Vector3(-73, 10, 0);
+    //    Vector3 spawnPos = new Vector3(-73, 10, 0);
 
-        GameObject slime = Instantiate(monsterPrefab, spawnPosition, Quaternion.identity);
-        slime.transform.position = spawnPosition;
+    //    GameObject slime = Instantiate(monsterPrefab, spawnPosition, Quaternion.identity);
+    //    slime.transform.position = spawnPosition;
 
-        EnemyBase enemyBase = slime.GetComponent<EnemyBase>();
-        StartCoroutine(MoveDown(enemyBase, slime.transform));
-    }
+    //    EnemyBase enemyBase = slime.GetComponent<EnemyBase>();
+    //    StartCoroutine(MoveDown(enemyBase, slime.transform));
+    //}
 
     IEnumerator MoveDown(EnemyBase enemyBase, Transform slimeTransform)
     {
