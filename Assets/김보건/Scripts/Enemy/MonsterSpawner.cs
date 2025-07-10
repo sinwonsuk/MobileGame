@@ -30,7 +30,7 @@ public class MonsterSpawner : MonoBehaviour
     {
         float elapsed = 0f;
         Vector3 start = slimeTransform.position;
-        Vector3 end = new Vector3(start.x, 0f, start.z);
+        Vector3 end = new Vector3(start.x, -8f, start.z);
 
         while (elapsed < descendDuration)
         {

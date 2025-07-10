@@ -111,7 +111,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   monsterPrefab: {fileID: 519866972757067807, guid: 2197c17196ada48429184545caef8c37, type: 3}
   spawnPosition: {x: -73, y: 10, z: 0}
-  descendDuration: 10
+  descendDuration: 20
 --- !u!1 &4333127889849772433
 GameObject:
   m_ObjectHideFlags: 0

@@ -32,7 +32,7 @@ public class EnemyBase : MonoBehaviour
 
     public virtual void Update()
     {
-        // 내려오는 위치 + 맞은 흔들림을 합산해서 적용
+        // 내려오는 위치 + 맞을때 흔들림
         transform.position = basePosition + hitShakeOffset;
     }
 
@@ -91,6 +91,19 @@ public class EnemyBase : MonoBehaviour
         }
 
         hitShakeOffset = Vector3.zero;
+    }
+
+    protected virtual void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Player"))
+        {
+            var dungeonManager = FindAnyObjectByType<GameController_bo>().GetManager<DungeonManager>();
+            var floorData = dungeonManager.Config.selectedFloorData;
+
+            floorData.ResetStage();               // 스테이지 초기화
+            Destroy(gameObject);
+            Object.FindFirstObjectByType<MonsterSpawner>().SpawnNextStage();
+        }
     }
 
 }

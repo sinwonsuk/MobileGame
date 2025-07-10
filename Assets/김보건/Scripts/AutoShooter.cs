@@ -32,10 +32,10 @@ public class AutoShooter : MonoBehaviour
 
     void TouchAttack()
     {
-        Vector3 mousePos = Input.mousePosition;
-        Vector3 worldPos = Camera.main.ScreenToWorldPoint(mousePos);
+        //Vector3 mousePos = Input.mousePosition;
+        //Vector3 worldPos = Camera.main.ScreenToWorldPoint(mousePos);
 
-        Vector2 shootDirection = worldPos - firePoint.position;
+        Vector2 shootDirection = Vector2.up;
 
         BulletData data = bulletManager.GetCurrentBullet();
         SpawnBullet(shootDirection, data);
@@ -46,13 +46,6 @@ public class AutoShooter : MonoBehaviour
         BulletData data = bulletManager.GetCurrentBullet();
 
         Vector2 shootDirection = Vector2.up;
-        Transform nearestEnemy = FindEnemy();
-
-        if (nearestEnemy != null)
-        {
-            shootDirection = nearestEnemy.position - firePoint.position;
-        }
-
         SpawnBullet(shootDirection, data);
     }
 
@@ -63,23 +56,23 @@ public class AutoShooter : MonoBehaviour
         bullet.Initialize(direction, data.speed, data.damage);
     }
 
-    Transform FindEnemy()
-    {
-        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+    //Transform FindEnemy()
+    //{
+    //    GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
 
-        Transform nearest = null;
-        float minDist = Mathf.Infinity;
+    //    Transform nearest = null;
+    //    float minDist = Mathf.Infinity;
 
-        foreach (GameObject enemy in enemies)
-        {
-            float dist = Vector2.Distance(firePoint.position, enemy.transform.position);
-            if (dist < minDist && dist <= enemyDetectRange)
-            {
-                minDist = dist;
-                nearest = enemy.transform;
-            }
-        }
+    //    foreach (GameObject enemy in enemies)
+    //    {
+    //        float dist = Vector2.Distance(firePoint.position, enemy.transform.position);
+    //        if (dist < minDist && dist <= enemyDetectRange)
+    //        {
+    //            minDist = dist;
+    //            nearest = enemy.transform;
+    //        }
+    //    }
 
-        return nearest;
-    }
+    //    return nearest;
+    //}
 }
