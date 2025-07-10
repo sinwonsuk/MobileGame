@@ -155,7 +155,6 @@ public class LoginUI : MonoBehaviour
 			BackendGameData.userData.nickname = nickname; // 닉네임 업데이트
 			BackendGameData.Instance.GameDataUpdate(); // 게임 데이터 업데이트
 			// 메인 화면으로 이동하거나 게임 시작 로직 추가
-			Instantiate(Test, Vector3.zero, Quaternion.identity); // 테스트용 오브젝트 생성
 		},
 		onFailure: (error) =>
 		{
