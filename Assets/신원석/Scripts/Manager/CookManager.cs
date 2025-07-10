@@ -116,7 +116,7 @@ public class CookManager : baseManager, IGameManager
         {
             if (conFig.Foods[i].displayName == nextCookInfo.foodName)
             {
-                cookComponent.WaitingTime = conFig.Foods[i].waitingTime;
+                cookComponent.WaitingTime = conFig.Foods[i].cookingTime;
                 break;
             }
         }
