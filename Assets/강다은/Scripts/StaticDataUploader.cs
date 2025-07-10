@@ -1,5 +1,7 @@
 ﻿using BackEnd;
 using LitJson;
+using System;
+using System.Collections;
 using UnityEngine;
 
 /* 사용법
@@ -25,21 +27,31 @@ using UnityEngine;
 public static class StaticDataUploader
 {
 	// 하나씩만 삽입
-	public static void InsertStaticData(string tableName, Param data)
+	public static IEnumerator InsertStaticDataAsync(string tableName, Param data, Action<bool> onComplete = null)
 	{
+		bool isDone = false;
+		bool isSuccess = false;
+
 		Backend.GameData.Insert(tableName, data, callback =>
 		{
 			if (callback.IsSuccess())
 			{
 				Debug.Log($"[성공] {tableName} 테이블에 데이터 삽입 완료");
 				Debug.Log($"[삽입된 데이터] {ParamToJson(data)}");
+				isSuccess = true;
 			}
 			else
 			{
 				Debug.LogError($"[실패] {tableName} 삽입 실패: {callback.GetMessage()}");
 			}
+
+			isDone = true;
 		});
+
+		yield return new WaitUntil(() => isDone);
+		onComplete?.Invoke(isSuccess);
 	}
+
 
 	private static string ParamToJson(Param param)
 	{

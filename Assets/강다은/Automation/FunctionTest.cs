@@ -8,13 +8,13 @@ public class FunctionTest : MonoBehaviour
 {
 	void Start()
 	{
-		FoodTableData foodData = new FoodTableData();
-		foodData.foodName = "예시용";
-		foodData.foodPrice = 150;
-		StaticDataUploader.InsertStaticData(foodData.tableName, foodData.ToParam());
-
-		FoodTableData foodData2 = new FoodTableData("버섯스프", 150);
-		StaticDataUploader.InsertStaticData(foodData2.tableName, foodData2.ToParam());
+		//FoodTableData foodData = new FoodTableData();
+		//foodData.foodName = "예시용";
+		//foodData.foodPrice = 150;
+		//StaticDataUploader.InsertStaticData(foodData.tableName, foodData.ToParam());
+		//
+		//FoodTableData foodData2 = new FoodTableData("버섯스프", 150);
+		//StaticDataUploader.InsertStaticData(foodData2.tableName, foodData2.ToParam());
 	}
 
 	/*void TestInsertFromCsv()

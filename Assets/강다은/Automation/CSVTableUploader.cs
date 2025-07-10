@@ -87,8 +87,13 @@ public class CSVTableUploader : MonoBehaviour
 			if (!serverDataMap.ContainsKey(key))
 			{
 				// 삽입
-				StaticDataUploader.InsertStaticData(tableName, param);
-				Debug.Log($"[INSERT] {tableName} : {key}");
+				yield return StaticDataUploader.InsertStaticDataAsync(tableName, param, success =>
+				{
+					if (success)
+						Debug.Log($"[INSERT] {tableName} : {key}");
+					else
+						Debug.LogWarning($"[INSERT FAIL] {tableName} : {key}");
+				});
 			}
 			else if (IsRowDifferent(serverDataMap[key], param))
 			{
@@ -201,11 +206,9 @@ public class CSVTableUploader : MonoBehaviour
 		{ "EQUIPMENTS", new List<string> { "equipmentName" } },
 		{ "EQUIPMENT_EFFECTS", new List<string> { "effectIndate" } },
 		{ "EMPLOYEE_MASTER", new List<string> { "employeeName" } },
+		{ "FOOD_GRADES", new List<string> { "foodIndate", "grade" } }  // 복합 키
 	};
 
-
-	private Dictionary<string, HashSet<string>> existingKeys = new Dictionary<string, HashSet<string>>();
-
-	[SerializeField] private List<string> tableFileNames = new List<string> { "FOODS", "FURNITURES", "FOOD_INGREDIENTS", "INGREDIENTS", "EQUIPMENTS", "EQUIPMENT_EFFECTS", "EMPLOYEE_MASTER" };
+	[SerializeField] private List<string> tableFileNames = new List<string> { "FOODS", "FURNITURES", "FOOD_INGREDIENTS", "INGREDIENTS", "EQUIPMENTS", "EQUIPMENT_EFFECTS", "EMPLOYEE_MASTER", "FOOD_GRADES" };
 
 }
