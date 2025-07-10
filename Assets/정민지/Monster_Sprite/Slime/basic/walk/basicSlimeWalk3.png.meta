@@ -1,10 +1,13 @@
 fileFormatVersion: 2
-guid: 70b4520922e2eac4eb1e9cf10f34954b
+guid: b5fe84e0b7a6b1e41a51f67d0511ecf1
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 7307198180676971898
-    second: basicCombat1_0
+      213: -1790753581512032379
+    second: basicSlimeWalk3_0
+  - first:
+      213: 1579267614504490768
+    second: basicSlimeWalk3_1
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -139,13 +142,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: basicCombat1_0
+      name: basicSlimeWalk3_0
       rect:
         serializedVersion: 2
-        x: 3
-        y: 3
-        width: 51
-        height: 57
+        x: 10
+        y: 14
+        width: 44
+        height: 40
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -154,8 +157,30 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: a7da1a6b702686560800000000000000
-      internalID: 7307198180676971898
+      spriteID: 58f77bdfa17f527e0800000000000000
+      internalID: -1790753581512032379
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: basicSlimeWalk3_1
+      rect:
+        serializedVersion: 2
+        x: 19
+        y: 6
+        width: 26
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 01791df278faae510800000000000000
+      internalID: 1579267614504490768
       vertices: []
       indices: 
       edges: []
@@ -174,7 +199,8 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      basicCombat1_0: 7307198180676971898
+      basicSlimeWalk3_0: -1790753581512032379
+      basicSlimeWalk3_1: 1579267614504490768
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
