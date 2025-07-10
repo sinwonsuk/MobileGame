@@ -20,4 +20,9 @@ public class SelectedFloorData : ScriptableObject
     {
         currentStage = 1;
     }
+
+    public bool IsLastStage()
+    {
+        return currentStage >= 3;
+    }
 }

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33ac8064214c334429708e3bb2528825, type: 3}
   m_Name: SelectedFloorData
   m_EditorClassIdentifier: 
-  selectedFloor: 1
-  currentStage: 1
+  selectedFloor: 2
+  currentStage: 2
   isDungeonMode: 1
-  autoNextFloor: 0
+  autoNextFloor: 1

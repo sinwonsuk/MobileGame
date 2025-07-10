@@ -110,8 +110,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   monsterPrefab: {fileID: 519866972757067807, guid: 2197c17196ada48429184545caef8c37, type: 3}
+  bossMonsterPrefab: {fileID: 1253324787291029023, guid: 29620f74c1541ec43b3cc6b503a4dce3, type: 3}
   spawnPosition: {x: -73, y: 10, z: 0}
-  descendDuration: 20
+  descendDuration: 30
 --- !u!1 &4333127889849772433
 GameObject:
   m_ObjectHideFlags: 0
