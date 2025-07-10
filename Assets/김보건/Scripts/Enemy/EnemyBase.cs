@@ -15,6 +15,10 @@ public class EnemyBase : MonoBehaviour
     [Header("드랍 아이템")]
     [SerializeField] private EnemyDropData dropItem;
 
+    private Vector3 hitShakeOffset = Vector3.zero;
+    public Vector3 basePosition;
+
+
     protected virtual void Start()
     {
         currentHp = maxHp;
@@ -24,6 +28,18 @@ public class EnemyBase : MonoBehaviour
         {
             hpBar.SetHP(currentHp, maxHp);
         }
+    }
+
+    public virtual void Update()
+    {
+        // 내려오는 위치 + 맞은 흔들림을 합산해서 적용
+        transform.position = basePosition + hitShakeOffset;
+    }
+
+    public void SetBasePosition(Vector3 pos)
+    {
+        basePosition = pos;
+        transform.position = basePosition;
     }
 
     public virtual void TakeDamage(float damage)
@@ -63,19 +79,18 @@ public class EnemyBase : MonoBehaviour
         float magnitude = 0.1f;
         float elapsed = 0f;
 
-        Vector3 originalPos = transform.localPosition;
-
         while (elapsed < duration)
         {
             float offsetX = Random.Range(-1f, 1f) * magnitude;
             float offsetY = Random.Range(-1f, 1f) * magnitude;
 
-            transform.localPosition = originalPos + new Vector3(offsetX, offsetY, 0f);
+            hitShakeOffset = new Vector3(offsetX, offsetY, 0f);
             elapsed += Time.deltaTime;
 
             yield return null;
         }
 
-        transform.localPosition = originalPos;
+        hitShakeOffset = Vector3.zero;
     }
+
 }

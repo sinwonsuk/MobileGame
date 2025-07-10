@@ -1,39 +1,60 @@
+using System.Collections;
+using System.Threading;
 using UnityEngine;
 
 public class MonsterSpawner : MonoBehaviour
 {
     public GameObject monsterPrefab;
-    public float spawnInterval = 3f;
-    public int spawnCount = 1;
+    public Vector3 spawnPosition = new Vector3(-73, 10, 0);
+    public float descendDuration = 10f;
 
-    [Header("스폰 영역")]
-    public Vector2 spawnAreaMin = new Vector2(-5, -3);  // 좌하단
-    public Vector2 spawnAreaMax = new Vector2(5, 3);    // 우상단
+    private bool hasSpawned = false;
 
-    private float timer;
-
-    void Update()
+    void Start()
     {
-        timer += Time.deltaTime;
+        if (hasSpawned) return;
 
-        if (timer >= spawnInterval)
-        {
-            SpawnMonsters();
-            timer = 0f;
-        }
+        hasSpawned = true;
+
+
+        Vector3 spawnPos = new Vector3(-73, 10, 0);
+
+        GameObject slime = Instantiate(monsterPrefab, spawnPosition, Quaternion.identity);
+        slime.transform.position = spawnPosition;
+
+        EnemyBase enemyBase = slime.GetComponent<EnemyBase>();
+        StartCoroutine(MoveDown(enemyBase, slime.transform));
     }
 
-    void SpawnMonsters()
+    IEnumerator MoveDown(EnemyBase enemyBase, Transform slimeTransform)
     {
-        for (int i = 0; i < spawnCount; i++)
-        {
-            Vector2 randomPos = new Vector2(
-                Random.Range(spawnAreaMin.x, spawnAreaMax.x),
-                Random.Range(spawnAreaMin.y, spawnAreaMax.y)
-            );
+        float elapsed = 0f;
+        Vector3 start = slimeTransform.position;
+        Vector3 end = new Vector3(start.x, 0f, start.z);
 
-            Instantiate(monsterPrefab, randomPos, Quaternion.identity);
+        while (elapsed < descendDuration)
+        {
+            if (enemyBase != null)
+            {
+                // basePosition만 갱신하고, 실제 위치는 Update()에서 처리
+                Vector3 basePos = Vector3.Lerp(start, end, elapsed / descendDuration);
+                enemyBase.basePosition = basePos; // public으로 잠깐 열어줘도 되고 setter 함수 써도 됨
+            }
+
+            elapsed += Time.deltaTime;
+            yield return null;
         }
+
+        if (enemyBase != null)
+            enemyBase.basePosition = end;
     }
 
+    public void SpawnNextStage()
+    {
+        GameObject slime = Instantiate(monsterPrefab, spawnPosition, Quaternion.identity);
+        slime.transform.position = spawnPosition;
+
+        EnemyBase enemyBase = slime.GetComponent<EnemyBase>();
+        StartCoroutine(MoveDown(enemyBase, slime.transform));
+    }
 }

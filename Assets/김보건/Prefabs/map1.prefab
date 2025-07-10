@@ -90,8 +90,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2524441678279473738}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -851.48175, y: -621.56525, z: 1.1548437}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -110,10 +110,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   monsterPrefab: {fileID: 519866972757067807, guid: 2197c17196ada48429184545caef8c37, type: 3}
-  spawnInterval: 3
-  spawnCount: 1
-  spawnAreaMin: {x: -5, y: -3}
-  spawnAreaMax: {x: 5, y: 3}
+  spawnPosition: {x: -73, y: 10, z: 0}
+  descendDuration: 10
 --- !u!1 &4333127889849772433
 GameObject:
   m_ObjectHideFlags: 0

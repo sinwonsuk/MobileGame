@@ -4,6 +4,7 @@ using TMPro;
 public class DungeonManager : baseManager
 {
     private DungeonManagerConfig config;
+    public DungeonManagerConfig Config => config;
 
     public DungeonManager(DungeonManagerConfig config)
     {

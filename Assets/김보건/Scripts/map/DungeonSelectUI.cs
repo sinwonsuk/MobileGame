@@ -9,6 +9,7 @@ public class DungeonSelectUI : MonoBehaviour
     {
         dungeonInGameUI.SetActive(true);
         selectedFloorData.selectedFloor = floor;
+        selectedFloorData.ResetStage();
         selectedFloorData.isDungeonMode = true;
         //UnityEngine.SceneManagement.SceneManager.LoadScene("BoTest");
 
