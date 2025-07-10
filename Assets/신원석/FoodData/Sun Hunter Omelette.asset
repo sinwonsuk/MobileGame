@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50e546ab1ac3d4241ac81041db591c46, type: 3}
+  m_Name: Sun Hunter Omelette
+  m_EditorClassIdentifier: 
+  displayName: "\uD0DC\uC591 \uC0AC\uB0E5\uAFBC \uC624\uBBC8\uB81B"
+  foodSprite: 
+  price: 0
+  isUnlock: 0
+  Ingredients:
+  - {fileID: 11400000, guid: 18d08e64f7ddaf147af699d1938d4f41, type: 2}
+  - {fileID: 11400000, guid: e1b46a2d9c526a541b3150fdfdad3e9a, type: 2}

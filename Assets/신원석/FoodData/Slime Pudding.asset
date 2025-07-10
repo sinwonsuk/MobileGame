@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50e546ab1ac3d4241ac81041db591c46, type: 3}
+  m_Name: Slime Pudding
+  m_EditorClassIdentifier: 
+  displayName: "\uC2AC\uB77C\uC784 \uD478\uB529"
+  foodSprite: pudding
+  price: 0
+  isUnlock: 0
+  Ingredients:
+  - {fileID: 11400000, guid: 6b96e8049fef6a14eb4b17c82612f794, type: 2}
+  - {fileID: 11400000, guid: fc529bf0bde6bd84dbcf8f917340546d, type: 2}

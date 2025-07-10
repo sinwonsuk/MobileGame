@@ -95,6 +95,13 @@ public class LoginUI : MonoBehaviour
 				Debug.Log("로그인 성공");
 				BackendGameData.Instance.GameDataGetOrInsert(); // 로그인 성공 후 데이터 불러오기
 				CheckNickname();
+
+				if (IsAdminAccount())
+				{
+					Debug.Log("<관리자> 계정입니다. StaticData 삽입 테스트");
+					Instantiate(Test, Vector3.zero, Quaternion.identity); // 데이터 삽입 가능한 오브젝트 생성
+				}
+				
 			},
 			onFailure: (error) =>
 			{
@@ -115,7 +122,9 @@ public class LoginUI : MonoBehaviour
 		var json = bro.GetReturnValuetoJSON();
 
 		try {
-			string nickname = json["row"]["nickname"]["S"].ToString();
+			Debug.Log("[전체 JSON 구조]\n" + json.ToJson());
+			var row = json["row"];
+			string nickname = row["nickname"].ToString();
 
 			if(string.IsNullOrEmpty(nickname) || nickname == "default" || nickname == "null")
 			{
@@ -130,7 +139,7 @@ public class LoginUI : MonoBehaviour
 		}
 		catch (System.Exception e)
 		{
-			Debug.Log("닉네임 정보가 없습니다. 닉네임 설정 화면으로 이동합니다.");
+			Debug.Log("닉네임 정보가 없습니다. 닉네임 설정 화면으로 이동합니다. \n" + e);
 			ShowNicknamePanel();
 		}
 	}
@@ -154,6 +163,19 @@ public class LoginUI : MonoBehaviour
 
 	}
 
+
+	// 관리자 계정인지 확인하는 함수
+	bool IsAdminAccount()
+	{
+		var bro = Backend.BMember.GetUserInfo();
+		if (!bro.IsSuccess()) return false;
+
+		var json = bro.GetReturnValuetoJSON();
+		string nickname = json["row"]["nickname"].ToString();
+
+		return nickname == "no"; //관리자 닉네임
+	}
+
 	[SerializeField] GameObject signUpPanel;
 	[SerializeField] GameObject loginPanel;
 	[SerializeField] GameObject nicknamePanel;
@@ -165,4 +187,6 @@ public class LoginUI : MonoBehaviour
 	[SerializeField] private TMP_InputField SignPwInput;
 
 	[SerializeField] private TMP_InputField nicknameInput;
+
+	[SerializeField] GameObject Test;
 }

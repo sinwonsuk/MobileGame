@@ -14,3 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <GameObjects>k__BackingField:
   - {fileID: 3688959143282305226, guid: dbb978eb95389994496e776a7d070df7, type: 3}
+  - {fileID: 3688959143282305226, guid: ccbfd696327e01445a1374906dba0913, type: 3}
+  - {fileID: 3688959143282305226, guid: 231a766495f1243438aa07c98a8ccc9b, type: 3}
+  - {fileID: 3688959143282305226, guid: 19801fe37e76855429e815b465e7ae54, type: 3}
+  - {fileID: 3688959143282305226, guid: d8d6be357a21647469cbbbe1f9e72d95, type: 3}
+  - {fileID: 3688959143282305226, guid: 80e201e231022b546814f60f1a4fede1, type: 3}
