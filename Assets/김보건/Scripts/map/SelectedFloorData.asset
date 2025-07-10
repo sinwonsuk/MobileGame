@@ -13,4 +13,6 @@ MonoBehaviour:
   m_Name: SelectedFloorData
   m_EditorClassIdentifier: 
   selectedFloor: 2
+  currentStage: 2
   isDungeonMode: 1
+  autoNextFloor: 1

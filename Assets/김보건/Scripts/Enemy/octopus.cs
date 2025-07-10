@@ -1,7 +1,6 @@
-using System.Collections;
 using UnityEngine;
 
-public class Slime : EnemyBase
+public class octopus : EnemyBase
 {
     protected override void Start()
     {
@@ -20,7 +19,7 @@ public class Slime : EnemyBase
 
     protected override void Die()
     {
-        Debug.Log("슬라임 사망");
+        Debug.Log("문어 사망");
         base.Die();
 
         var dungeonManager = FindAnyObjectByType<GameController_bo>().GetManager<DungeonManager>();
@@ -28,7 +27,7 @@ public class Slime : EnemyBase
 
         Debug.Log($"[Slime] autoNextFloor 값 확인: {floorData.autoNextFloor}");
 
-        if (floorData.currentStage < 5)
+        if (floorData.currentStage < 3)
         {
             floorData.NextStage();
             // 슬라임 재소환
@@ -36,8 +35,8 @@ public class Slime : EnemyBase
         }
         else
         {
-            Debug.Log("스테이지 1-10 클리어!"); 
-            
+            Debug.Log("스테이지 1-10 클리어!");
+
             if (floorData.autoNextFloor)
             {
                 // 다음 층으로 이동

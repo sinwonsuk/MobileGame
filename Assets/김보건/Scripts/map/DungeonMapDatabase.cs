@@ -22,4 +22,16 @@ public class DungeonMapDatabase : ScriptableObject
     {
         return floorList.Find(f => f.floorNumber == floorNumber);
     }
+
+    public GameObject GetMapPrefab(int floorNumber)
+    {
+        foreach (var floorData in floorList)
+        {
+            if (floorData.floorNumber == floorNumber)
+                return floorData.mapPrefab;
+        }
+
+        Debug.LogWarning($"[DungeonMapDatabase] Floor {floorNumber}에 해당하는 맵 프리팹을 찾을 수 없습니다.");
+        return null;
+    }
 }

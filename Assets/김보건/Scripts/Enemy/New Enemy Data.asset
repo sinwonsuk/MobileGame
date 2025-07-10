@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d00a6e9ce9e4b6e4da13661b42a022b1, type: 3}
   m_Name: New Enemy Data
   m_EditorClassIdentifier: 
-  enemyPrefab: {fileID: 0}
-  maxHp: 0
+  enemyPrefab: {fileID: 519866972757067807, guid: 2197c17196ada48429184545caef8c37, type: 3}
+  maxHp: 100
   moveSpeed: 0
   description: 

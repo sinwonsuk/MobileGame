@@ -9,6 +9,8 @@ public class SelectedFloorData : ScriptableObject
 
     public bool isDungeonMode = false;
 
+    public bool autoNextFloor = false;
+
     public void NextStage()
     {
         currentStage++;

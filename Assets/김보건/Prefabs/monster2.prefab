@@ -10,11 +10,11 @@ GameObject:
   m_Component:
   - component: {fileID: 8341822555577850858}
   - component: {fileID: 7785400777638069548}
-  - component: {fileID: 4414977158316417666}
+  - component: {fileID: -1665288567489065641}
   - component: {fileID: -2192610280662978004}
   - component: {fileID: -1505929933981106746}
   m_Layer: 0
-  m_Name: Triangle
+  m_Name: monster2
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -80,7 +80,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 75f5f34dc1b5347e0b8351032682f224, type: 3}
+  m_Sprite: {fileID: 3625043607559282579, guid: 045b15ec09bba42448d89db77fa6f20a, type: 3}
   m_Color: {r: 1, g: 0, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -91,7 +91,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &4414977158316417666
+--- !u!114 &-1665288567489065641
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -100,12 +100,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 519866972757067807}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 087e253f637aef340aadf0604e9b1c30, type: 3}
+  m_Script: {fileID: 11500000, guid: 520cac69614a0e54495a1392b0db97c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   maxHp: 50
-  hpBarPrefab: {fileID: 646083871970966044}
-  dropItem: {fileID: 0}
+  hpBarPrefab: {fileID: 2387850374849227676, guid: 2fd257caf422bfa4aaa97c9b32dac953, type: 3}
+  dropItem: {fileID: 11400000, guid: 59ac2d1f14b184149b33a5cc436549d8, type: 2}
   basePosition: {x: 0, y: 0, z: 0}
 --- !u!50 &-2192610280662978004
 Rigidbody2D:
@@ -171,8 +171,8 @@ PolygonCollider2D:
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.28866667}
-    oldSize: {x: 1, y: 1}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 0.5}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -265,11 +265,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2fd257caf422bfa4aaa97c9b32dac953, type: 3}
---- !u!1 &646083871970966044 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2387850374849227676, guid: 2fd257caf422bfa4aaa97c9b32dac953, type: 3}
-  m_PrefabInstance: {fileID: 3014034705505571200}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &3461623508374830906 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1863971988948217530, guid: 2fd257caf422bfa4aaa97c9b32dac953, type: 3}

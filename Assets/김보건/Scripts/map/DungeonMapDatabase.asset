@@ -21,7 +21,7 @@ MonoBehaviour:
     minMonsterCount: 0
     maxMonsterCount: 0
   - floorNumber: 2
-    mapPrefab: {fileID: 2203518148440082803, guid: ef75eacf0dbde1f4fb828d3b8e341e28, type: 3}
+    mapPrefab: {fileID: 2203518148440082803, guid: 70f153261c98b0d499446988a79cbb8f, type: 3}
     backgroundImage: {fileID: 0}
     bgm: {fileID: 0}
     possibleMonsters: []

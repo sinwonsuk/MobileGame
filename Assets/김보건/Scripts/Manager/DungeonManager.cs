@@ -6,6 +6,8 @@ public class DungeonManager : baseManager
     private DungeonManagerConfig config;
     public DungeonManagerConfig Config => config;
 
+    private GameObject currentMapInstance;
+
     public DungeonManager(DungeonManagerConfig config)
     {
         this.config = config;
@@ -38,6 +40,24 @@ public class DungeonManager : baseManager
         }
     }
 
+    private void OnEnable()
+    {
+        EventBus<AutoNextFloorChangedEvent>.OnEvent += OnAutoNextChanged;
+    }
+
+    private void OnDisable()
+    {
+        EventBus<AutoNextFloorChangedEvent>.OnEvent -= OnAutoNextChanged;
+    }
+
+    void OnAutoNextChanged(AutoNextFloorChangedEvent evt)
+    {
+        var selectedFloorData = this.Config.selectedFloorData;
+        selectedFloorData.autoNextFloor = evt.isAutoNext;
+
+        Debug.Log($"[DungeonManager] autoNextFloor º≥¡§µ : {evt.isAutoNext}");
+    }
+
     public override void Init()
     {
         if (config.selectedFloorData == null || config.selectedFloorData.isDungeonMode == false)
@@ -67,6 +87,23 @@ public class DungeonManager : baseManager
         {
             camera.transform.position = new Vector3(map.transform.position.x, map.transform.position.y, camera.transform.position.z);
         }
+    }
+
+    public void LoadMap()
+    {
+        int floor = Config.selectedFloorData.selectedFloor;
+        Debug.Log($"[DungeonManager] {floor}√˛¿« ∏ ¿ª ∫“∑Øø…¥œ¥Ÿ.");
+
+        // ±‚¡∏ ∏  ¡¶∞≈
+        foreach (Transform child in Config.mapParent)
+        {
+            Object.Destroy(child.gameObject);
+        }
+
+        // ªı ∏  ¿ŒΩ∫≈œΩ∫»≠
+        var newMapPrefab = Config.mapDatabase.GetMapPrefab(floor);
+        if (newMapPrefab != null)
+            Object.Instantiate(newMapPrefab, Config.mapParent);
     }
 
     public override void ActiveOff() { }
