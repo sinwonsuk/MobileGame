@@ -6,8 +6,10 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Food/Ingredient")]
 public class IngredientData : BaseScriptableObject
 {
-    public string Name;
-    public string sprite;
+    public string inDate;
+    public string ingredientName;
+    public string ingredientSprite;
+    public int ingredientPrice;
     public int qty;
 
 }

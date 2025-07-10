@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Slime Hangover Soup
   m_EditorClassIdentifier: 
   displayName: "\uC2AC\uB77C\uC784 \uD574\uC7A5\uAD6D"
-  foodSprite: 
+  foodSprite: hangoverSoup
   price: 0
   isUnlock: 0
   Ingredients:

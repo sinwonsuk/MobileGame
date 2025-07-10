@@ -13,9 +13,11 @@ MonoBehaviour:
   m_Name: Chaos Horn Soup
   m_EditorClassIdentifier: 
   displayName: "\uD63C\uB3C8\uC758 \uBFD4 \uC218\uD504"
-  foodSprite: 1748769442849
+  foodSprite: orcSoup
   price: 0
   isUnlock: 0
+  explanation: 
+  waitingTime: 5
   Ingredients:
   - {fileID: 11400000, guid: fd56a8b06c6e07541b56aecb13256f30, type: 2}
   - {fileID: 11400000, guid: deac93d9a9ba5d84e814dbf0819dcc8c, type: 2}

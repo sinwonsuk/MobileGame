@@ -24,7 +24,7 @@ public class FoodSlot : MonoBehaviour
 
         for (int i = 0; i < foodData.Ingredients.Count; i++)
         {
-            EventBus<IngredientsPannelSpawnHandler>.Raise(new IngredientsPannelSpawnHandler(foodData.Ingredients[i].sprite, foodData.Ingredients[i].qty,0, foodData.displayName));
+            EventBus<IngredientsPannelSpawnHandler>.Raise(new IngredientsPannelSpawnHandler(foodData.Ingredients[i].ingredientSprite, foodData.Ingredients[i].qty,0, foodData.displayName));
         }
     }
 

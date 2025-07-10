@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: "(\uBBF8\uB178\uD0C0\uC6B0\uB974\uC2A4)\uBFD4\uB2EC\uC778\uBB3C"
   m_EditorClassIdentifier: 
   Name: rrr
-  sprite: UntitledArtwork76
-  qty: 20
+  sprite: minoWater
+  qty: 40

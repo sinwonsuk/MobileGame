@@ -16,6 +16,8 @@ MonoBehaviour:
   foodSprite: UntitledArtwork88
   price: 0
   isUnlock: 0
+  explanation: 
+  waitingTime: 3
   Ingredients:
   - {fileID: 11400000, guid: f72bebc868ead734993cf6613657c12f, type: 2}
   - {fileID: 11400000, guid: 8693616cded08d345a662320f660bbdc, type: 2}

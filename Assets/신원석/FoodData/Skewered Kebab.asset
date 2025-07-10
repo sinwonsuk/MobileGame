@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: Skewered Kebab
   m_EditorClassIdentifier: 
   displayName: "\uAF2C\uCE58\uAD6C\uC774"
-  foodSprite: 
+  foodSprite: squirtle
   price: 0
   isUnlock: 0
   Ingredients:
   - {fileID: 11400000, guid: 62ce0a1bfc56ab247aa9ff99f982409f, type: 2}
-  - {fileID: 11400000, guid: 366252414b4564546a6e598ffb934a4f, type: 2}
-  - {fileID: 11400000, guid: fc529bf0bde6bd84dbcf8f917340546d, type: 2}
+  - {fileID: 11400000, guid: 0d74ecd3bd3149745af6015e5c7c6a3a, type: 2}
+  - {fileID: 11400000, guid: 8693616cded08d345a662320f660bbdc, type: 2}

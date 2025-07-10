@@ -13,29 +13,17 @@ public enum CustomerState
 
 public class Customer : MonoBehaviour
 {
-    private Transform target;
-
-    private Vector3 firstPosition;
-
-    public Transform Target
+    private void OnEnable()
     {
-        get => target;
-        set => target = value;
+        EventBus<CustomerStateChangeHandler>.OnEvent += ChangeState;
     }
 
-    float time = 0.0f;
-
-    public CustomerTable customerTable { get; set; }
-
-    private CustomerState customerState = CustomerState.Idle;
-
-    private NavMeshAgent navMeshAgent;
-
-    public void Setup(Transform target)
+    private void OnDisable()
     {
-        navMeshAgent.updateRotation = false;
-        navMeshAgent.updateUpAxis = false;
+        EventBus<CustomerStateChangeHandler>.OnEvent -= ChangeState;
     }
+
+
 
     private void Start()
     {
@@ -43,6 +31,7 @@ public class Customer : MonoBehaviour
         navMeshAgent = GetComponent<NavMeshAgent>();
         navMeshAgent.updateRotation = false;
         navMeshAgent.updateUpAxis = false;
+        spriteRenderer.enabled = false;
     }
 
     public void ChangeState(CustomerState customerState)
@@ -57,6 +46,7 @@ public class Customer : MonoBehaviour
             case CustomerState.Idle:
                 {
                     EventBus<SitTableHandler>.Raise(new SitTableHandler(this));
+                    
 
                     if (Target == null || customerTable == null)
                         return;
@@ -70,22 +60,22 @@ public class Customer : MonoBehaviour
 
                     if (Vector2.Distance(transform.position, Target.position) < 0.01f)
                     {
+                        EventBus<CookMakeHandler>.Raise(new CookMakeHandler(Slot.NameText.text, Slot));
+                        spriteRenderer.enabled = true;
+                        spriteRenderer.sprite = Slot.IconImage.sprite;
                         ChangeState(CustomerState.Wait);
                     }
                 }
                 break;
             case CustomerState.Wait:
                 {
-                    time += Time.deltaTime;
-
-                    if (time > 2.0f)
-                    {
-                        ChangeState(CustomerState.Eat);
-                    }
+                    
                 }
                 break;
             case CustomerState.Eat:
                 {
+                   
+
                     navMeshAgent.SetDestination(firstPosition);
 
                     if (Vector2.Distance(firstPosition, transform.position) < 0.01f)
@@ -96,11 +86,41 @@ public class Customer : MonoBehaviour
                 }
                 break;
 
-
-
             default:
                 break;
         }
 
     }
+
+    public void ChangeState(CustomerStateChangeHandler customerStateChangeHandler)
+    {
+        if (customerStateChangeHandler.customer == this)
+        {
+            customerState = customerStateChangeHandler.customerState;
+            EventBus<MenuReduceHandler>.Raise(new MenuReduceHandler(Slot));
+            EventBus<CookDeleteHandler>.Raise(new CookDeleteHandler(this));
+        }
+            
+    }
+
+
+
+    private Transform target;
+
+    private Vector3 firstPosition;
+
+    public MenuBoardSlot Slot { get; set; }
+
+    public Transform Target
+    {
+        get => target;
+        set => target = value;
+    }
+    public CustomerTable customerTable { get; set; }
+
+    public CustomerState customerState { get; set; } = CustomerState.Idle;
+
+    private NavMeshAgent navMeshAgent;
+
+    [SerializeField] SpriteRenderer spriteRenderer;
 }

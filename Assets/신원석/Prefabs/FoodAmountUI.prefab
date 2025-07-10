@@ -843,6 +843,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   amount: {fileID: 3036447390724187029}
   foodAmountUI: {fileID: 722343556279447591}
+  foodSlotUI: {fileID: 10528355420052018, guid: 2b26f5b3e18a7524f849c57e6cfb17f4, type: 3}
 --- !u!1 &3341643440220535737
 GameObject:
   m_ObjectHideFlags: 0

@@ -13,9 +13,11 @@ MonoBehaviour:
   m_Name: Eyeball Spore Juice
   m_EditorClassIdentifier: 
   displayName: "\uB208\uC54C \uD3EC\uC790 \uC8FC\uC2A4"
-  foodSprite: 
+  foodSprite: eyeSacJuice
   price: 0
   isUnlock: 0
+  explanation: 
+  waitingTime: 5
   Ingredients:
   - {fileID: 11400000, guid: d41333ae33845084da374061d191eaaa, type: 2}
   - {fileID: 11400000, guid: c6d0310f1366a254f90491b3aadcb8c1, type: 2}

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Slime Intestine Porridge
   m_EditorClassIdentifier: 
   displayName: "\uC810\uC561 \uB0B4\uC7A5\uC8FD"
-  foodSprite: 
+  foodSprite: porridge
   price: 0
   isUnlock: 0
   Ingredients:
