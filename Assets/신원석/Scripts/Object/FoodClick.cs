@@ -25,7 +25,6 @@ public class FoodClick : MonoBehaviour
         if (check ==false && customer.customerState == CustomerState.Wait && Image.fillAmount >= 1.0f && customer.Slot.NameText.text == foodName)
         {
             EventBus<CookMoveHandler>.Raise(new CookMoveHandler(customer.customerTable.transform,customer));
-            check = true;
             Destroy(gameObject);
         }
 
