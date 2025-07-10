@@ -13,25 +13,17 @@ public enum CustomerState
 
 public class Customer : MonoBehaviour
 {
-    private Transform target;
-
-    private Vector3 firstPosition;
-
-    public MenuBoardSlot Slot { get; set; }
-
-    public Transform Target
+    private void OnEnable()
     {
-        get => target;
-        set => target = value;
+        EventBus<CustomerStateChangeHandler>.OnEvent += ChangeState;
     }
 
-    public CustomerTable customerTable { get; set; }
+    private void OnDisable()
+    {
+        EventBus<CustomerStateChangeHandler>.OnEvent -= ChangeState;
+    }
 
-    public CustomerState customerState { get; set; } = CustomerState.Idle;
 
-    private NavMeshAgent navMeshAgent;
-
-    [SerializeField] SpriteRenderer spriteRenderer;
 
     private void Start()
     {
@@ -68,32 +60,22 @@ public class Customer : MonoBehaviour
 
                     if (Vector2.Distance(transform.position, Target.position) < 0.01f)
                     {
+                        EventBus<CookMakeHandler>.Raise(new CookMakeHandler(Slot.NameText.text, Slot));
+                        spriteRenderer.enabled = true;
+                        spriteRenderer.sprite = Slot.IconImage.sprite;
                         ChangeState(CustomerState.Wait);
                     }
                 }
                 break;
             case CustomerState.Wait:
                 {
-                    if (Input.GetMouseButtonDown(0))
-                    {
-                        Vector2 worldPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                        // 포인트를 기준으로 겹친 콜라이더를 찾음
-                        Collider2D hit = Physics2D.OverlapPoint(worldPoint);
-
-
-
-                        if (hit != null && hit.CompareTag("Food"))
-                        {
-                            Debug.Log($"[{hit.gameObject.name}] 2D 콜라이더에 마우스 클릭됨");
-                        }
-                    }
-
-                    spriteRenderer.enabled = true;
-                   spriteRenderer.sprite = Slot.IconImage.sprite;                   
+                    
                 }
                 break;
             case CustomerState.Eat:
                 {
+                   
+
                     navMeshAgent.SetDestination(firstPosition);
 
                     if (Vector2.Distance(firstPosition, transform.position) < 0.01f)
@@ -110,10 +92,35 @@ public class Customer : MonoBehaviour
 
     }
 
-    public void test()
+    public void ChangeState(CustomerStateChangeHandler customerStateChangeHandler)
     {
-        // customerTable.transform.position - 
+        if (customerStateChangeHandler.customer == this)
+        {
+            customerState = customerStateChangeHandler.customerState;
+            EventBus<MenuReduceHandler>.Raise(new MenuReduceHandler(Slot));
+            EventBus<CookDeleteHandler>.Raise(new CookDeleteHandler(this));
+        }
+            
     }
 
 
+
+    private Transform target;
+
+    private Vector3 firstPosition;
+
+    public MenuBoardSlot Slot { get; set; }
+
+    public Transform Target
+    {
+        get => target;
+        set => target = value;
+    }
+    public CustomerTable customerTable { get; set; }
+
+    public CustomerState customerState { get; set; } = CustomerState.Idle;
+
+    private NavMeshAgent navMeshAgent;
+
+    [SerializeField] SpriteRenderer spriteRenderer;
 }

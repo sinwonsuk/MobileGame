@@ -11,6 +11,8 @@ public class FoodData : BaseScriptableObject
     public int price;            // 가격
     public bool isUnlock;          // 해금 여부 
     public string explanation;
+    public float waitingTime; // 대기 시간 
+
     //public List<Ingredient> ingredients;
 
     public List<IngredientData> Ingredients;

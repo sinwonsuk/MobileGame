@@ -16,6 +16,8 @@ MonoBehaviour:
   foodSprite: seasonedVegetables
   price: 0
   isUnlock: 0
+  explanation: 
+  waitingTime: 3
   Ingredients:
   - {fileID: 11400000, guid: 8c5ee7781af93e84fbda5780e9ca8d24, type: 2}
   - {fileID: 11400000, guid: eb82d363345dc90489082680109b4e2b, type: 2}

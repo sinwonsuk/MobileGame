@@ -111,7 +111,7 @@ public class MenuManager : baseManager, IGameManager
     {
         AddMenuBoardIndex();
 
-        if (MenuIndex.Count == 0)
+        if (MenuIndex.Count <= 0)
         {
             randomMenuSelectionHandler.CustomerManager.Slot = null;
             return;
@@ -119,7 +119,10 @@ public class MenuManager : baseManager, IGameManager
            
 
         int randomValue = Random.Range(0, MenuIndex.Count);
-        MenuBoardSlot slot = MenuBoardSlots[randomValue].GetComponent<MenuBoardSlot>();
+
+        int index = MenuIndex[randomValue];
+
+        MenuBoardSlot slot = MenuBoardSlots[index].GetComponent<MenuBoardSlot>();
         randomMenuSelectionHandler.CustomerManager.Slot = slot;
 
         int count = slot.Count;
@@ -141,15 +144,12 @@ public class MenuManager : baseManager, IGameManager
 
         Slot.NumberText.text = count.ToString();
 
-
         if(count == 0)
         {
-            GameObject.Destroy(Slot);
+            GameObject.Destroy(Slot.gameObject);
             MenuBoardSlots.Remove(Slot.gameObject);
             return;
         }
-
-
     }
 
 

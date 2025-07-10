@@ -508,7 +508,7 @@ GameObject:
   - component: {fileID: 849123506}
   - component: {fileID: 849123505}
   m_Layer: 0
-  m_Name: Square
+  m_Name: countertop
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -578,7 +578,7 @@ Transform:
   m_GameObject: {fileID: 849123504}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.16, y: -4.23, z: 0}
+  m_LocalPosition: {x: 0, y: -4.23, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1103,6 +1103,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 7b3ba2af08420f24dade8364a204a216, type: 2}
   - {fileID: 11400000, guid: 3c0caae492301074fa76d63cc346faf6, type: 2}
   - {fileID: 11400000, guid: bdaa32719f38cc04087ed4ac8b65b535, type: 2}
+  - {fileID: 11400000, guid: 1a2e0a1f663455c4b8d061a4b6f11eed, type: 2}
 --- !u!4 &1637458026
 Transform:
   m_ObjectHideFlags: 0

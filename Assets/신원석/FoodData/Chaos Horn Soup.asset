@@ -16,6 +16,8 @@ MonoBehaviour:
   foodSprite: orcSoup
   price: 0
   isUnlock: 0
+  explanation: 
+  waitingTime: 5
   Ingredients:
   - {fileID: 11400000, guid: fd56a8b06c6e07541b56aecb13256f30, type: 2}
   - {fileID: 11400000, guid: deac93d9a9ba5d84e814dbf0819dcc8c, type: 2}

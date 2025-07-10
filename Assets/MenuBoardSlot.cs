@@ -13,6 +13,8 @@ public class MenuBoardSlot : MonoBehaviour
     public int Count { get; set; }
 
     public TMP_Text NumberText { get => numberText; }
+
+    public TMP_Text NameText { get => nameText; }
     public Image IconImage { get => iconImage; }
 
     public void Init(Sprite icon, string number, string name, string explanation = null)

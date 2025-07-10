@@ -1,28 +1,41 @@
 using System.Diagnostics;
+using UnityEditor.Tilemaps;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class FoodClick : MonoBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        customer = GetComponentInParent<Customer>();
         
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     void OnMouseDown()
     {
-        var customer = GetComponentInParent<Customer>();
+        EventBus<CookFillamountHandler>.Raise(new CookFillamountHandler(this));
 
-        if (customer != null && customer.customerState == CustomerState.Wait)
+        if (check ==false && customer.customerState == CustomerState.Wait && Image.fillAmount >= 1.0f && customer.Slot.NameText.text == foodName)
         {
-            UnityEngine.Debug.Log("AAAAAA");
+            EventBus<CookMoveHandler>.Raise(new CookMoveHandler(customer.customerTable.transform,customer));
+            check = true;
+            Destroy(gameObject);
         }
-            
+
+
     }
+
+    public Image Image { get; set; }
+    public string foodName { get; set; }
+
+    Customer customer;
+
+    bool check = false;
 }

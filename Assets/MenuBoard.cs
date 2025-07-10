@@ -4,12 +4,12 @@ public class MenuBoard : MonoBehaviour
 {
     private void OnEnable()
     {
-        //EventBus<MenuBoardSlotSpawnHandler>.Raise(new MenuBoardSlotSpawnHandler());
+       // EventBus<MenuBoardSlotSpawnHandler>.Raise(new MenuBoardSlotSpawnHandler());
     }
 
     private void OnDisable()
     {
-        EventBus<MenuBoardSlotDeleteHandler>.Raise(new MenuBoardSlotDeleteHandler());
+        //EventBus<MenuBoardSlotDeleteHandler>.Raise(new MenuBoardSlotDeleteHandler());
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
