@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using System.Linq;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using static UnityEngine.RuleTile.TilingRuleOutput;
@@ -12,11 +14,13 @@ public class FoodManager : baseManager, IGameManager
         conFig = config;
         EventBus<FoodDecreaseHandler>.OnEvent += DecreaseFood;
         EventBus<FoodIncreaseHandler>.OnEvent += IncreaseFood;
+        EventBus<FoodQuantityChangedEvent>.OnEvent += GetFoodIngredientQty;
     }
     ~FoodManager()
     {
         EventBus<FoodDecreaseHandler>.OnEvent -= DecreaseFood;
         EventBus<FoodIncreaseHandler>.OnEvent -= IncreaseFood;
+        EventBus<FoodQuantityChangedEvent>.OnEvent -= GetFoodIngredientQty;
     }
 
 
@@ -30,60 +34,59 @@ public class FoodManager : baseManager, IGameManager
     {
         for (int i = 0; i < conFig.GetFoods().Count; i++)
         {
+            foodDic.Add(conFig.GetFoods()[i].displayName, conFig.GetFoods()[i]);
+        }
+
+        for (int i = 0; i < conFig.GetFoods().Count; i++)
+        {
             EventBus<SlotSpawnHandler>.Raise(new SlotSpawnHandler(conFig.GetSlotUI(),conFig.GetFoods()[i]));
         }
     }
 
-    public void DecreaseFood(FoodDecreaseHandler foodAmountHandler)
+    public void GetFoodIngredientQty(FoodQuantityChangedEvent dddd)
     {
-        for (int i = 0; i < conFig.GetFoods().Count; i++)
+        foreach (var foodData in foodDic.Values)
         {
-            if (conFig.GetFoods()[i].displayName == foodAmountHandler.foodname)
+            foreach (var ingredient in foodData.Ingredients)
             {
-                for (int j = 0; j < conFig.GetFoods()[i].Ingredients.Count; j++)
+                if (dddd.Inven.keyValuePairs.TryGetValue(ingredient.ingredientName, out var inven))
                 {
-                    conFig.GetFoods()[i].Ingredients[j].qty -= foodAmountHandler.Setquantity;
+                    ingredient.qty = dddd.Inven.keyValuePairs[ingredient.ingredientName];
                 }
-                return;
             }
         }
     }
 
-    //public void GetExplanationFood(FoodDecreaseHandler foodAmountHandler)
-    //{
-    //    //for (int i = 0; i < conFig.GetFoods().Count; i++)
-    //    //{
-    //    //    if (conFig.GetFoods()[i].displayName == foodAmountHandler.foodname)
-    //    //    {
-    //    //        for (int j = 0; j < conFig.GetFoods()[i].Ingredients.Count; j++)
-    //    //        {
-    //    //            conFig.GetFoods()[i].Ingredients[j].qty -= foodAmountHandler.Setquantity;
-    //    //        }
-    //    //        return;
-    //    //    }
-    //    //}
-    //}
 
+    public void DecreaseFood(FoodDecreaseHandler foodAmountHandler)
+    {
+        if (foodDic.TryGetValue(foodAmountHandler.foodname, out var foodData))
+        {
+            for (int j = 0; j < foodData.Ingredients.Count; j++)
+            {
+                foodData.Ingredients[j].qty -= foodAmountHandler.Setquantity;
+            }
+            return;
+        }   
+    }
 
     public void IncreaseFood(FoodIncreaseHandler foodAmountHandler)
     {
-        for (int i = 0; i < conFig.GetFoods().Count; i++)
+        if (foodDic.TryGetValue(foodAmountHandler.foodname, out var foodData))
         {
-            if (conFig.GetFoods()[i].displayName == foodAmountHandler.foodname)
+            for (int j = 0; j < foodData.Ingredients.Count; j++)
             {
-                for (int j = 0; j < conFig.GetFoods()[i].Ingredients.Count; j++)
-                {
-                    conFig.GetFoods()[i].Ingredients[j].qty += foodAmountHandler.Setquantity;
-                }
-                return;
+                foodData.Ingredients[j].qty += foodAmountHandler.Setquantity;
             }
-        }
+        }      
     }
 
     public override void Update()
     {
         
     }
+
+    Dictionary<string, FoodData> foodDic = new Dictionary<string, FoodData>();
 
     FoodManagerConfig conFig;
 

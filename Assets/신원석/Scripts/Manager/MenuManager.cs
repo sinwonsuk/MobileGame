@@ -134,8 +134,6 @@ public class MenuManager : baseManager, IGameManager
 
     public void ReduceMenu(MenuReduceHandler randomMenuSelectionHandler)
     {
-
-
         var Slot = randomMenuSelectionHandler.slot;
 
         int count = int.Parse(Slot.NumberText.text);
@@ -152,12 +150,14 @@ public class MenuManager : baseManager, IGameManager
 
         if (count == 0)
         {
-
             MenuBoardSlots.Remove(Slot.NameText.text);
             menuCollection.Remove(Slot.NameText.text);
 
-            GameObject.Destroy(menu.gameObject);
-            GameObject.Destroy(Slot.gameObject);
+            if(menu.gameObject != null)
+                GameObject.Destroy(menu.gameObject);
+
+            if (Slot.gameObject != null)
+                GameObject.Destroy(Slot.gameObject);
 
             return;
         }

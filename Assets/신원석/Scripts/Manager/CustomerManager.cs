@@ -61,6 +61,7 @@ public class CustomerManager : baseManager, IGameManager
                 if (MenuBoardSlots.Count != 0)
                 {
                     CheckMenu();
+                    //EventBus<MenuReduceHandler>.Raise(new MenuReduceHandler(Slot));
                 }
 
                 yield return null;
