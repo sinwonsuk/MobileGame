@@ -6,7 +6,7 @@ public class octopus : EnemyBase
     {
         base.Start();
 
-        var dungeonManager = FindAnyObjectByType<GameController_bo>().GetManager<DungeonManager>();
+        var dungeonManager = FindAnyObjectByType<GameController>().GetManager<DungeonManager>();
         var floorData = dungeonManager.Config.selectedFloorData;
 
         int stage = floorData.currentStage;
@@ -22,7 +22,7 @@ public class octopus : EnemyBase
         Debug.Log("문어 사망");
         base.Die();
 
-        var dungeonManager = FindAnyObjectByType<GameController_bo>().GetManager<DungeonManager>();
+        var dungeonManager = FindAnyObjectByType<GameController>().GetManager<DungeonManager>();
         var floorData = dungeonManager.Config.selectedFloorData;
 
         Debug.Log($"[Slime] autoNextFloor 값 확인: {floorData.autoNextFloor}");

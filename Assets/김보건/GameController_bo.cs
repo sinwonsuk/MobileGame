@@ -20,12 +20,15 @@ public class GameController_bo : MonoBehaviour
         Register<CustomerManager, CustomerManagerConfig>(Config => new CustomerManager(Config));
         Register<TableManager, TableManagerConfig>(Config => new TableManager(Config));
         Register<FoodSelectionManager, FoodSelectionManagerConfig>(Config => new FoodSelectionManager(Config));
-        Register<FoodUIManager, FoodManagerConfig>(Config => new FoodUIManager(Config));
+        Register<FoodManager, FoodManagerConfig>(Config => new FoodManager(Config));
+        Register<MenuManager, MenuManagerConfig>(Config => new MenuManager(Config));
+        Register<CookManager, CookManagerConfig>(Config => new CookManager(Config));
         Register<DungeonManager, DungeonManagerConfig>(config => new DungeonManager(config));
 
 
         InitAll();
         ActiveOffAll();
+
     }
 
     void ConnectBaseScriptableObject()
@@ -66,6 +69,14 @@ public class GameController_bo : MonoBehaviour
             manager.ActiveOff();
         }
     }
+
+    //private void GetControllerAll()
+    //{
+    //    foreach (var manager in managerMap.Values)
+    //    {
+    //        manager.GetController(this);
+    //    }
+    //}
 
     private void UpdateAll()
     {

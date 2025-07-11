@@ -1656,7 +1656,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1703990563}
-  - component: {fileID: 1703990562}
+  - component: {fileID: 1703990564}
   m_Layer: 0
   m_Name: GameController
   m_TagString: Untagged
@@ -1664,25 +1664,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1703990562
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1703990561}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62328a4ad6f43134b81a39b0695fcdac, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  baseScriptableObjects:
-  - {fileID: 11400000, guid: c8f06ac88ff1b3d42ac662396e33002c, type: 2}
-  - {fileID: 11400000, guid: 2fe20234cf4bb924eae56938a6de53a5, type: 2}
-  - {fileID: 11400000, guid: 2234601194c83e042aa24eee66180565, type: 2}
-  - {fileID: 11400000, guid: 7b3ba2af08420f24dade8364a204a216, type: 2}
-  - {fileID: 11400000, guid: 3c0caae492301074fa76d63cc346faf6, type: 2}
-  - {fileID: 11400000, guid: 0862f244904996942851854a5abd9ff6, type: 2}
 --- !u!4 &1703990563
 Transform:
   m_ObjectHideFlags: 0
@@ -1698,6 +1679,27 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1703990564
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1703990561}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2078663e13aee240917757ba4f08c84, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  baseScriptableObjects:
+  - {fileID: 11400000, guid: c8f06ac88ff1b3d42ac662396e33002c, type: 2}
+  - {fileID: 11400000, guid: 2fe20234cf4bb924eae56938a6de53a5, type: 2}
+  - {fileID: 11400000, guid: 2234601194c83e042aa24eee66180565, type: 2}
+  - {fileID: 11400000, guid: 7b3ba2af08420f24dade8364a204a216, type: 2}
+  - {fileID: 11400000, guid: 3c0caae492301074fa76d63cc346faf6, type: 2}
+  - {fileID: 11400000, guid: bdaa32719f38cc04087ed4ac8b65b535, type: 2}
+  - {fileID: 11400000, guid: 1a2e0a1f663455c4b8d061a4b6f11eed, type: 2}
+  - {fileID: 11400000, guid: 0862f244904996942851854a5abd9ff6, type: 2}
 --- !u!1 &1714730154 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7059710110440084692, guid: ee4c0304f410b8d4bb1d38131fc5902b, type: 3}

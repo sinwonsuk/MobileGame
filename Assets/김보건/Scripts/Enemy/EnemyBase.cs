@@ -97,7 +97,7 @@ public class EnemyBase : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            var dungeonManager = FindAnyObjectByType<GameController_bo>().GetManager<DungeonManager>();
+            var dungeonManager = FindAnyObjectByType<GameController>().GetManager<DungeonManager>();
             var floorData = dungeonManager.Config.selectedFloorData;
 
             floorData.ResetStage();               // 스테이지 초기화

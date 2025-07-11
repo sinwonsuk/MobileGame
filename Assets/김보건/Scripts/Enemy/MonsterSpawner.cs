@@ -52,7 +52,7 @@ public class MonsterSpawner : MonoBehaviour
 
     public void SpawnNextStage()
     {
-        var floorData = FindAnyObjectByType<GameController_bo>()?.GetManager<DungeonManager>()?.Config.selectedFloorData;
+        var floorData = FindAnyObjectByType<GameController>()?.GetManager<DungeonManager>()?.Config.selectedFloorData;
 
         if (floorData == null)
         {

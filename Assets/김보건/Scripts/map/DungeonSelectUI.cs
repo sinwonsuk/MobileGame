@@ -18,8 +18,8 @@ public class DungeonSelectUI : MonoBehaviour
         selectedFloorData.autoNextFloor = autoNextToggle.GetIsOn();
 
 
-        var controller = FindAnyObjectByType<GameController_bo>();
-        controller.ActiveOffAll(); // 다른 매니저 끄고
+        var controller = FindAnyObjectByType<GameController>();
+        //controller.ActiveOffAll(); // 다른 매니저 끄고
         controller.GetManager<DungeonManager>().Init();
 
         gameObject.SetActive(false);

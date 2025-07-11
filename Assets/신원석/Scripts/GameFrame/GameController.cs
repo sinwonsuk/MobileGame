@@ -23,6 +23,7 @@ public class GameController : MonoBehaviour
         Register<FoodManager, FoodManagerConfig>(Config => new FoodManager(Config));
         Register<MenuManager, MenuManagerConfig>(Config => new MenuManager(Config));
         Register<CookManager, CookManagerConfig>(Config => new CookManager(Config));
+        Register<DungeonManager, DungeonManagerConfig>(config => new DungeonManager(config));
 
         InitAll();
         ActiveOffAll();
