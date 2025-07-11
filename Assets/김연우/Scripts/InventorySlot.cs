@@ -1,12 +1,25 @@
+using static Unity.Burst.Intrinsics.X86;
+
 [System.Serializable]
 public class InventorySlot
 {
     public IngredientData ingredient;
+
+    public RunTimeIngredientData runTimeIngredientData;
     public int quantity;
 
-    public InventorySlot(IngredientData data)
+    public InventorySlot(IngredientData data, RunTimeIngredientData runTimeIngredientData)
     {
         ingredient = data;
-        quantity = data.qty;  // 스크립터블에 적힌 기본 개수를 초기값으로
+
+        runTimeIngredientData.ingredientName = ingredient.ingredientName;
+
+        quantity = runTimeIngredientData.ingredientQty;
     }
+
+    // 재료 이름 
+    // 수량 만 있는 
+
+
+
 }

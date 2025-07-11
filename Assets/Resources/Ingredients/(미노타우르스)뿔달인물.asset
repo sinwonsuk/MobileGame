@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35aa38e7c4f6fef44858f4783aa1e73d, type: 3}
   m_Name: "(\uBBF8\uB178\uD0C0\uC6B0\uB974\uC2A4)\uBFD4\uB2EC\uC778\uBB3C"
   m_EditorClassIdentifier: 
-  Name: rrr
-  sprite: minoWater
-  qty: 40
+  inDate: 
+  ingredientName: "\uBFD4\uB2EC\uC778\uBB3C"
+  ingredientSprite: 
+  ingredientPrice: 0
+  qty: 18

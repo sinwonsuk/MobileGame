@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35aa38e7c4f6fef44858f4783aa1e73d, type: 3}
   m_Name: "(\uB9E8\uB4DC\uB808\uC774\uD06C)\uC774\uD30C\uB9AC"
   m_EditorClassIdentifier: 
-  Name: rrr
-  sprite: mandrakeLeaf
+  inDate: 
+  ingredientName: "(\uB9E8\uB4DC\uB808\uC774\uD06C)\uC774\uD30C\uB9AC"
+  ingredientSprite: 
+  ingredientPrice: 0
   qty: 20

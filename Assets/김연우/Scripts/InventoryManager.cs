@@ -10,6 +10,10 @@ public class InventoryManager : MonoBehaviour
     [Header("Config: 모든 재료 데이터")]
     public IngredientData[] allIngredients;
 
+    [Header("Config: 모든 재료 데이터")]
+    public RunTimeIngredientData[] allRunTimeIngredients;
+
+
     [Header("Runtime: 인벤토리 슬롯")]
     public List<InventorySlot> slots = new List<InventorySlot>();
 
@@ -26,48 +30,90 @@ public class InventoryManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
 
         // ① 초기 슬롯 세팅
-        foreach (var data in allIngredients)
-        {
-            if (data.qty <= 0) continue;
-            slots.Add(new InventorySlot(data));
-        }
 
+
+        for (int i = 0; i < allIngredients.Length; i++)
+        {
+            //if (allRunTimeIngredients[i].ingredientQty <= 0) continue;
+            slots.Add(new InventorySlot(allIngredients[i], allRunTimeIngredients[i]));
+        }
 
         OnInventoryChanged?.Invoke();
     }
-
     /// <summary>
     /// 아이템 추가
     /// </summary>
-    public void AddItem(IngredientData data, int amount = 1)
+    public void AddItem(string name, int amount = 1)
     {
-        var slot = slots.Find(s => s.ingredient == data);
-        if (slot != null)
-            slot.quantity += amount;
-        else
+        foreach (var data in allRunTimeIngredients)
         {
-            var newSlot = new InventorySlot(data);
-            newSlot.quantity = amount;
-            slots.Add(newSlot);
+            if (data.ingredientName == name)
+            {
+                data.ingredientQty += amount;
+                return;
+            }
+        }       
+        OnInventoryChanged?.Invoke();
+    }
+
+
+    public int GetItemQty(string name)
+    {
+        if (name == "")
+            return -1;
+
+        foreach (var data in allRunTimeIngredients)
+        {
+            if (data.ingredientName == name)
+            {
+                return data.ingredientQty;
+            }
+        }
+
+        return 0; // 해당 아이템이 없을 경우 0 반환
+    }
+
+    public string IncreaseQty(string name, int amount = 1)
+    {
+        foreach (var data in allRunTimeIngredients)
+        {
+            if (data.ingredientName == name)
+            {
+                data.ingredientQty += amount;
+                return data.ingredientQty.ToString();
+            }
         }
         OnInventoryChanged?.Invoke();
+        return "0";
     }
 
-    /// <summary>
-    /// 아이템 제거
-    /// </summary>
-    public void RemoveItem(IngredientData data, int amount = 1)
+    public string DecreaseQty(string name, int amount = 1)
     {
-        var slot = slots.Find(s => s.ingredient == data);
-        if (slot == null) return;
+        foreach (var data in allRunTimeIngredients)
+        {
+            if (data.ingredientName == name)
+            {
+                data.ingredientQty -= amount;
+                return data.ingredientQty.ToString();
+            }
+        }
+        OnInventoryChanged?.Invoke();
+        return "0"; 
+    }
 
-        slot.quantity -= amount;
-        if (slot.quantity <= 0)
-            slots.Remove(slot);
+    public void RemoveItem(string name, int amount = 1)
+    {
+        foreach (var data in allIngredients)
+        {
+            if (data.ingredientName == name)
+            {
+               // data.qty -= amount;
+                return;
+            }
+        }
 
         OnInventoryChanged?.Invoke();
     }
-
     /// <summary>
     /// 전체 비우기
     /// </summary>

@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35aa38e7c4f6fef44858f4783aa1e73d, type: 3}
   m_Name: "(\uBB38\uC5B4)\uC6B0\uC720"
   m_EditorClassIdentifier: 
-  Name: rrr
-  sprite: milk
+  inDate: 
+  ingredientName: "(\uBB38\uC5B4)\uC6B0\uC720"
+  ingredientSprite: 
+  ingredientPrice: 0
   qty: 20

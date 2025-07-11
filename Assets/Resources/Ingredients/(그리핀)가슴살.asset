@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: "(\uADF8\uB9AC\uD540)\uAC00\uC2B4\uC0B4"
   m_EditorClassIdentifier: 
   inDate: 
-  ingredientName: 
+  ingredientName: "\uAC00\uC2B4\uC0B4"
   ingredientSprite: 
   ingredientPrice: 0
   qty: 20
