@@ -8,6 +8,9 @@ public class DungeonManager : baseManager
 
     private GameObject currentMapInstance;
 
+    private Vector3 originalCameraPos;
+    private bool hasSavedCameraPos = false;
+
     public DungeonManager(DungeonManagerConfig config)
     {
         this.config = config;
@@ -88,6 +91,12 @@ public class DungeonManager : baseManager
         var camera = Camera.main;
         if (camera != null)
         {
+            if (originalCameraPos == Vector3.zero)
+            {
+                originalCameraPos = camera.transform.position;
+                hasSavedCameraPos = true;
+            }
+
             camera.transform.position = new Vector3(map.transform.position.x, map.transform.position.y, camera.transform.position.z);
         }
     }
@@ -107,6 +116,29 @@ public class DungeonManager : baseManager
         var newMapPrefab = Config.mapDatabase.GetMapPrefab(floor);
         if (newMapPrefab != null)
             Object.Instantiate(newMapPrefab, Config.mapParent);
+    }
+
+    public void ExitDungeon()
+    {
+        Debug.Log("[DungeonManager] 던전 종료 처리");
+
+        // 맵 제거
+        if (config.mapParent != null)
+        {
+            foreach (Transform child in config.mapParent)
+            {
+                Object.Destroy(child.gameObject);
+            }
+        }
+
+        //카메라 위치 복귀
+        var camera = Camera.main;
+        if (camera != null)
+            camera.transform.position = originalCameraPos;
+
+
+        config.selectedFloorData.isDungeonMode = false;
+        hasSavedCameraPos = false;
     }
 
     public override void ActiveOff() { }
