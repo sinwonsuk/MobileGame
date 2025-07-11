@@ -3,6 +3,8 @@ using UnityEngine;
 
 public abstract class baseManager
 {
+    public GameController controller { get; set; }
+
     public Type type { get; set; }
     public abstract void Init();
     public abstract void Update();
@@ -12,4 +14,10 @@ public abstract class baseManager
     {
        
     }
+
+    virtual public void GetController(GameController controller)
+    {
+
+    }
+
 }

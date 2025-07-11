@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Flame Heart Steak
   m_EditorClassIdentifier: 
   displayName: "\uD654\uC5FC\uC758 \uC2EC\uC7A5 \uC2A4\uD14C\uC774\uD06C"
-  foodSprite: 
+  foodSprite: fireHeartBBQ
   price: 0
   isUnlock: 0
   Ingredients:

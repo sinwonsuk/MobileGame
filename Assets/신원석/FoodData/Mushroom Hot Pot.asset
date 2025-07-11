@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Mushroom Hot Pot
   m_EditorClassIdentifier: 
   displayName: "\uBC84\uC12F \uC804\uACE8"
-  foodSprite: 
+  foodSprite: hotPot
   price: 0
   isUnlock: 0
   Ingredients:

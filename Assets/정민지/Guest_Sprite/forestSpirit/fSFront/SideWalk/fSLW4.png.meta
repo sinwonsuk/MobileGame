@@ -3,8 +3,8 @@ guid: 4c7dbdb0ac6cac24d89eb94e6eb5d108
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 3608825056463245216
-    second: fSRW4_0
+      213: 7285393642014589939
+    second: fSLW4_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -51,7 +51,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 64
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -139,13 +139,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: fSRW4_0
+      name: fSLW4_0
       rect:
         serializedVersion: 2
         x: 12
-        y: 3
+        y: 1
         width: 41
-        height: 52
+        height: 54
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -154,8 +154,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 0af450bb44f151230800000000000000
-      internalID: 3608825056463245216
+      spriteID: 3f34b21faeaea1560800000000000000
+      internalID: 7285393642014589939
       vertices: []
       indices: 
       edges: []
@@ -174,7 +174,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      fSRW4_0: 3608825056463245216
+      fSLW4_0: 7285393642014589939
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

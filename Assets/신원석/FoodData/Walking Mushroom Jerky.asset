@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Walking Mushroom Jerky
   m_EditorClassIdentifier: 
   displayName: "\uAC77\uB294 \uBC84\uC12F \uC721\uD3EC"
-  foodSprite: 
+  foodSprite: mushroomJerky
   price: 0
   isUnlock: 0
   Ingredients:
