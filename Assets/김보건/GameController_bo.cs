@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class GameController : MonoBehaviour
+public class GameController_bo : MonoBehaviour
 {
     private Dictionary<Type, baseManager> managerMap = new Dictionary<Type, baseManager>();
     private Dictionary<Type, BaseScriptableObject> dicBaseScriptableObject = new Dictionary<Type, BaseScriptableObject>();
@@ -25,9 +25,10 @@ public class GameController : MonoBehaviour
         Register<CookManager, CookManagerConfig>(Config => new CookManager(Config));
         Register<DungeonManager, DungeonManagerConfig>(config => new DungeonManager(config));
 
+
         InitAll();
         ActiveOffAll();
-        GetControllerAll();
+
     }
 
     void ConnectBaseScriptableObject()
@@ -40,7 +41,7 @@ public class GameController : MonoBehaviour
 
     private void Register<TManager, TConfig>(Func<TConfig, TManager> factory) where TManager : baseManager where TConfig : BaseScriptableObject
     {
-    
+
         TConfig config = (TConfig)dicBaseScriptableObject[typeof(TConfig)];
         TManager manager = factory(config);
         // 제네릭은 new TManager 가 안되서 어쩔수없이 Func<TConfig, TManager> factory 사용 
@@ -61,20 +62,22 @@ public class GameController : MonoBehaviour
         }
     }
 
-    private void ActiveOffAll()
+    public void ActiveOffAll()
     {
         foreach (var manager in managerMap.Values)
         {
             manager.ActiveOff();
         }
     }
-    private void GetControllerAll()
-    {
-        foreach (var manager in managerMap.Values)
-        {
-            manager.GetController(this);
-        }
-    }
+
+    //private void GetControllerAll()
+    //{
+    //    foreach (var manager in managerMap.Values)
+    //    {
+    //        manager.GetController(this);
+    //    }
+    //}
+
     private void UpdateAll()
     {
         foreach (var manager in managerMap.Values)

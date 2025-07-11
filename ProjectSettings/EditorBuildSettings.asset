@@ -9,8 +9,11 @@ EditorBuildSettings:
     path: Assets/Scenes/SampleScene.unity
     guid: c64ecc5940115804ba827c603fdcf1a0
   - enabled: 1
-    path: "Assets/\uAC15\uB2E4\uC740/Scenes/DaniTest.unity"
-    guid: 4a54983ffcce0d64fb3716bbba29469d
+    path: "Assets/\uAE40\uBCF4\uAC74/BoScenes/FIrstBo.unity"
+    guid: 4dcde3a3023bfe243a8f7025a876adc8
+  - enabled: 1
+    path: "Assets/\uAE40\uBCF4\uAC74/BoScenes/BoTest.unity"
+    guid: 3441787197c028744b75157544d5c055
   m_configObjects:
     com.unity.adaptiveperformance.loader_settings: {fileID: 11400000, guid: 968078719e5cfc44e853e4373ae35e32, type: 2}
     com.unity.adaptiveperformance.samsung.android.provider_settings: {fileID: 11400000, guid: b6fe400fef7761d4c932efaed5cfdb83, type: 2}
