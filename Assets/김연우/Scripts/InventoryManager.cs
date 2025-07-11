@@ -6,10 +6,14 @@ public class InventoryManager : MonoBehaviour
 {
     public static InventoryManager Instance { get; private set; }
 
-    [Header("Config: ¸ðµç Àç·á µ¥ÀÌÅÍ")]
+    [Header("Config: ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½")]
     public IngredientData[] allIngredients;
 
-    [Header("Runtime: ÀÎº¥Åä¸® ½½·Ô")]
+    [Header("Config: ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½")]
+    public RunTimeIngredientData[] allRunTimeIngredients;
+
+
+    [Header("Runtime: ï¿½Îºï¿½ï¿½ä¸® ï¿½ï¿½ï¿½ï¿½")]
     public List<InventorySlot> slots = new List<InventorySlot>();
 
     public event Action OnInventoryChanged;
@@ -23,47 +27,97 @@ public class InventoryManager : MonoBehaviour
 
         DontDestroyOnLoad(gameObject);
 
-        // ÃÊ±â ½½·Ô ¼¼ÆÃ
+        // ï¿½ï¿½ ï¿½Ê±ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+
+
+        for (int i = 0; i < allIngredients.Length; i++)
+        {
+            //if (allRunTimeIngredients[i].ingredientQty <= 0) continue;
+            slots.Add(new InventorySlot(allIngredients[i], allRunTimeIngredients[i]));
+        }
+
+        OnInventoryChanged?.Invoke();
+    }
+    /// <summary>
+    /// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½
+    /// </summary>
+    public void AddItem(string name, int amount = 1)
+    {
+        foreach (var data in allRunTimeIngredients)
+        {
+            if (data.ingredientName == name)
+            {
+                data.ingredientQty += amount;
+                return;
+            }
+        }       
+        OnInventoryChanged?.Invoke();
+    }
+
+
+    public int GetItemQty(string name)
+    {
+        if (name == "")
+            return -1;
+
+        foreach (var data in allRunTimeIngredients)
+        {
+            if (data.ingredientName == name)
+            {
+                return data.ingredientQty;
+            }
+        }
+
+        return 0; // ï¿½Ø´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ 0 ï¿½ï¿½È¯
+    }
+
+    public string IncreaseQty(string name, int amount = 1)
+    {
+        foreach (var data in allRunTimeIngredients)
+        {
+            if (data.ingredientName == name)
+            {
+                data.ingredientQty += amount;
+                return data.ingredientQty.ToString();
+            }
+        }
+        OnInventoryChanged?.Invoke();
+        return "0";
+    }
+
+    public string DecreaseQty(string name, int amount = 1)
+    {
+        foreach (var data in allRunTimeIngredients)
+        {
+            if (data.ingredientName == name)
+            {
+                data.ingredientQty -= amount;
+                return data.ingredientQty.ToString();
+            }
+        }
+        OnInventoryChanged?.Invoke();
+        return "0"; 
+    }
+
+    public void RemoveItem(string name, int amount = 1)
+    {
         foreach (var data in allIngredients)
         {
-            if (data.qty <= 0) continue;
-            slots.Add(new InventorySlot(data));
+            if (data.ingredientName == name)
+            {
+               // data.qty -= amount;
+                return;
+            }
         }
 
-
         OnInventoryChanged?.Invoke();
     }
-
     /// <summary>
-    /// ¾ÆÀÌÅÛ Ãß°¡
+    /// ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½
     /// </summary>
-    public void AddItem(IngredientData data, int amount = 1)
+    public void ClearInventory()
     {
-        var slot = slots.Find(s => s.ingredient == data);
-        if (slot != null)
-            slot.quantity += amount;
-        else
-        {
-            var newSlot = new InventorySlot(data);
-            newSlot.quantity = amount;
-            slots.Add(newSlot);
-        }
+        slots.Clear();
         OnInventoryChanged?.Invoke();
     }
-
-    /// <summary>
-    /// ¾ÆÀÌÅÛ Á¦°Å
-    /// </summary>
-    public void RemoveItem(IngredientData data, int amount = 1)
-    {
-        var slot = slots.Find(s => s.ingredient == data);
-        if (slot == null) return;
-
-        slot.quantity -= amount;
-        if (slot.quantity <= 0)
-            slots.Remove(slot);
-
-        OnInventoryChanged?.Invoke();
-    }
-
 }

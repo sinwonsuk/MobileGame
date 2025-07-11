@@ -10,6 +10,6 @@ public class IngredientData : BaseScriptableObject
     public string ingredientName;
     public string ingredientSprite;
     public int ingredientPrice;
-    public int qty;
+    //public int qty;
 
 }

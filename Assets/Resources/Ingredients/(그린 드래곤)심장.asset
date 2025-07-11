@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35aa38e7c4f6fef44858f4783aa1e73d, type: 3}
   m_Name: "(\uADF8\uB9B0 \uB4DC\uB798\uACE4)\uC2EC\uC7A5"
   m_EditorClassIdentifier: 
-  Name: rrr
-  sprite: dragonHeart
-  qty: 20
+  inDate: 
+  ingredientName: "(\uADF8\uB9B0 \uB4DC\uB798\uACE4)\uC2EC\uC7A5"
+  ingredientSprite: 
+  ingredientPrice: 0
+  qty: 17

@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35aa38e7c4f6fef44858f4783aa1e73d, type: 3}
   m_Name: "(\uC2AC\uB77C\uC784)\uC815\uC81C\uC218"
   m_EditorClassIdentifier: 
-  Name: rrr
-  sprite: slimeWater
+  inDate: 
+  ingredientName: "(\uC2AC\uB77C\uC784)\uC815\uC81C\uC218"
+  ingredientSprite: 
+  ingredientPrice: 0
   qty: 20
