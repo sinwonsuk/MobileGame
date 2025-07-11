@@ -21,12 +21,17 @@ public struct UpMenuSpawnHandler : IEvent
 
 public struct MenuBoardSlotSpawnHandler : IEvent
 {
-    //public MenuBoardSlotSpawnHandler(Transform transform)
-    //{
-    //    parentTransform = transform;
-    //}
+    public MenuBoardSlotSpawnHandler(string number, string name)
+    {
+        this.number = number;
+        Name = name;
+    }
 
-    //public Transform parentTransform { get; set; }
+
+
+    public string number { get; set; }
+
+    public string Name { get; set; }
 }
 
 public struct MenuBoardSlotDeleteHandler : IEvent
