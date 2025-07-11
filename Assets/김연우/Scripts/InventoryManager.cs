@@ -6,14 +6,12 @@ public class InventoryManager : MonoBehaviour
 {
     public static InventoryManager Instance { get; private set; }
 
-    // 에디터에서 드래그할 모든 IngredientData 목록
     [Header("Config: 모든 재료 데이터")]
     public IngredientData[] allIngredients;
 
     [Header("Runtime: 인벤토리 슬롯")]
     public List<InventorySlot> slots = new List<InventorySlot>();
 
-    // 인벤토리 변경 이벤트
     public event Action OnInventoryChanged;
 
     private void Awake()
@@ -25,7 +23,7 @@ public class InventoryManager : MonoBehaviour
 
         DontDestroyOnLoad(gameObject);
 
-        // ① 초기 슬롯 세팅
+        // 초기 슬롯 세팅
         foreach (var data in allIngredients)
         {
             if (data.qty <= 0) continue;
@@ -68,12 +66,4 @@ public class InventoryManager : MonoBehaviour
         OnInventoryChanged?.Invoke();
     }
 
-    /// <summary>
-    /// 전체 비우기
-    /// </summary>
-    public void ClearInventory()
-    {
-        slots.Clear();
-        OnInventoryChanged?.Invoke();
-    }
 }
