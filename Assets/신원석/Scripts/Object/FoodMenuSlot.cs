@@ -16,7 +16,7 @@ public class FoodMenuSlot : MonoBehaviour
 
     public void DeleteSlot()
     {
-        EventBus<FoodIncreaseHandler>.Raise(new FoodIncreaseHandler(FoodName, int.Parse(FoodAmount)));
+        //EventBus<FoodIncreaseHandler>.Raise(new FoodIncreaseHandler(FoodName, int.Parse(FoodAmount)));
         EventBus<FoodMenuDeleteHandler>.Raise(new FoodMenuDeleteHandler(FoodName));
     }
 

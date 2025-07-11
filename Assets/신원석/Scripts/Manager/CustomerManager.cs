@@ -48,17 +48,23 @@ public class CustomerManager : baseManager, IGameManager
 
     public IEnumerator CheckMenuRoutine()
     {
-        while (true)
+        EventBus<ManagementActiveCheckHandler>.Raise(new ManagementActiveCheckHandler(ClickType.FoodSlot, this));
+
+        if (isActive == false)
         {
-            yield return new WaitForSeconds(2.0f);
 
-
-            if(MenuBoardSlots.Count != 0)
+            while (true)
             {
-                CheckMenu();
-            }
+                yield return new WaitForSeconds(2.0f);
 
-            yield return null;
+
+                if (MenuBoardSlots.Count != 0)
+                {
+                    CheckMenu();
+                }
+
+                yield return null;
+            }
         }
     }
 
@@ -67,8 +73,6 @@ public class CustomerManager : baseManager, IGameManager
 
     public void CheckMenu()
     {
-
-
         EventBus<RandomMenuSelectionHandler>.Raise(new RandomMenuSelectionHandler(this));
 
         if (Slot == null)
@@ -76,32 +80,17 @@ public class CustomerManager : baseManager, IGameManager
 
         GameObject obj = GameObject.Instantiate(conFig.GetGameObjects()[0]);
         obj.GetComponent<Customer>().Slot = Slot;
-
-
-
-        //MenuIndex.Clear();
-
-        // 애는 따로 돌릴까 
-        //if (count == 0)
-        //{
-        //    GameObject.Destroy(MenuBoardSlots[tableIndex]);
-        //    MenuBoardSlots.Remove(MenuBoardSlots[tableIndex]);
-        //    return;
-        //}
-
     }
 
     CustomerManagerConfig conFig;
 
     List<Customer> customers = new List<Customer>();
-
-    public List<MenuList> menuListCollection { get; set; }
-
-    public List<GameObject> MenuBoardSlots { get; set; }
+    public Dictionary<string, GameObject> menuCollection { get; set; }
+    public Dictionary<string, GameObject> MenuBoardSlots { get; set; }
 
     public MenuBoardSlot Slot { get; set; }
 
-
+    public bool isActive { get; set; }
 
     Coroutine coroutine;
 
