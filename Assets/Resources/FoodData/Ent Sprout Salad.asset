@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50e546ab1ac3d4241ac81041db591c46, type: 3}
   m_Name: Ent Sprout Salad
   m_EditorClassIdentifier: 
+  inDate: 
   displayName: "\uC5D4\uD2B8 \uC138\uC21C \uB098\uBB3C\uBB34\uCE68"
   foodSprite: seasonedVegetables
   price: 0
   isUnlock: 0
-  explanation: 
-  waitingTime: 3
+  cookingTime: 0.5
   Ingredients:
   - {fileID: 11400000, guid: 8c5ee7781af93e84fbda5780e9ca8d24, type: 2}
   - {fileID: 11400000, guid: eb82d363345dc90489082680109b4e2b, type: 2}
