@@ -50,7 +50,6 @@ public class CSVTableUploader : MonoBehaviour
 			string[] values = line.Split(',').Select(s => s.Trim()).ToArray();
 			if (values.Length != headers.Length)
 			{
-				Debug.LogWarning($"[SKIP] 열 수 불일치: {line}");
 				continue;
 			}
 
@@ -108,10 +107,6 @@ public class CSVTableUploader : MonoBehaviour
 				string inDate = serverDataMap[key]["inDate"].ToString();
 				var bro = Backend.GameData.UpdateV2(tableName, inDate, Backend.UserInDate, param);
 				Debug.Log(bro.IsSuccess() ? $"[UPDATE SUCCESS] {tableName} : {key}" : $"[UPDATE FAIL] {tableName} : {key} → {bro.GetMessage()}");
-			}
-			else
-			{
-				Debug.Log($"[SKIP] 동일 데이터: {key}");
 			}
 		}
 
