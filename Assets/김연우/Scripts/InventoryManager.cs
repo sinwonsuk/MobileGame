@@ -30,16 +30,11 @@ public class InventoryManager : MonoBehaviour
 
         for (int i = 0; i < allIngredients.Length; i++)
         {
-            // if (allRunTimeIngredients[i].ingredientQty <= 0) continue;
             slots.Add(new InventorySlot(allIngredients[i], allRunTimeIngredients[i]));
         }
-
         OnInventoryChanged?.Invoke();
     }
 
-    /// <summary>
-    /// 재료 추가
-    /// </summary>
     public void AddItem(string name, int amount = 1)
     {
         foreach (var data in allRunTimeIngredients)
@@ -95,20 +90,6 @@ public class InventoryManager : MonoBehaviour
         }
         OnInventoryChanged?.Invoke();
         return "0";
-    }
-
-    public void RemoveItem(string name, int amount = 1)
-    {
-        foreach (var data in allIngredients)
-        {
-            if (data.ingredientName == name)
-            {
-                // data.qty -= amount;
-                return;
-            }
-        }
-
-        OnInventoryChanged?.Invoke();
     }
 
     /// <summary>

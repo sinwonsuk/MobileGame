@@ -149,7 +149,7 @@ GameObject:
   - component: {fileID: 7514503881792156887}
   - component: {fileID: 1523315863968224710}
   m_Layer: 5
-  m_Name: Panel
+  m_Name: InvenSlot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
