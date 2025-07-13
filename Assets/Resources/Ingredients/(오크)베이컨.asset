@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35aa38e7c4f6fef44858f4783aa1e73d, type: 3}
   m_Name: "(\uC624\uD06C)\uBCA0\uC774\uCEE8"
   m_EditorClassIdentifier: 
-  Name: rrr
-  sprite: orcBacon
-  qty: 20
+  inDate: 
+  ingredientName: "(\uC624\uD06C)\uBCA0\uC774\uCEE8"
+  ingredientSprite: 
+  ingredientPrice: 0
+  qty: 10

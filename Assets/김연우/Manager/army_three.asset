@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d3edaa2497bccf49ab4c4cf6538befa, type: 3}
+  m_Name: army_three
+  m_EditorClassIdentifier: 
+  employeeId: 3
+  displayName: army_three
+  level: 1
+  portrait: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+  baseSalary: 100
+  attack_Power: 30
+  attack_Speed: 3
+  attack_PowerPerLevel: 1
+  attack_SpeedPerLevel: 1
+  explain: "\uC0AC\uB0E5\uD130\uC9C1\uC6D03"
+  itemPrefab: {fileID: 3601052371078558296, guid: 96a4946acf127eb4080c64d303bf3a5b, type: 3}

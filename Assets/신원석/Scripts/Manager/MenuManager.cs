@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using TMPro;
+using Unity.Jobs;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.XR;
@@ -62,23 +63,20 @@ public class MenuManager : baseManager, IGameManager
     public void CreateMenu(UpMenuSpawnHandler menuSpawnHandler)
     {
         // 만약 같은게 있으면 숫자만 올려주고 
-
-        for (int i = 0; i < menuListCollection.Count; i++)
+        if (menuCollection.TryGetValue(menuSpawnHandler.Name, out var menu))
         {
-            if (menuListCollection[i].MenuName == menuSpawnHandler.Name)
-            {
-                string countStr = menuListCollection[i].MenuObj.transform.GetChild((int)MenuInfo.Number).GetComponent<TextMeshProUGUI>().text;
-                int count = int.Parse(countStr);
-                int count2 = int.Parse(menuSpawnHandler.number);
+            string countStr = menu.transform.GetChild((int)MenuInfo.Number).GetComponent<TextMeshProUGUI>().text;
 
-                count += count2;
-                menuListCollection[i].MenuObj.transform.GetChild((int)MenuInfo.Number).GetComponent<TextMeshProUGUI>().text = count.ToString();
+            int count = int.Parse(countStr);
+            int count2 = int.Parse(menuSpawnHandler.number);
+            count += count2;
 
-                menuListCollection[i].MenuObj.GetComponent<FoodMenuSlot>().FoodAmount = count.ToString();
+            menu.transform.GetChild((int)MenuInfo.Number).GetComponent<TextMeshProUGUI>().text = count.ToString();
+            menu.GetComponent<FoodMenuSlot>().FoodAmount = count.ToString();
 
-                return;
-            }
+            return;
         }
+
 
         // 아니라면 새로 생성하기 
 
@@ -86,56 +84,56 @@ public class MenuManager : baseManager, IGameManager
         obj.transform.GetChild((int)MenuInfo.Image).GetComponent<Image>().sprite = menuSpawnHandler.Image.sprite;
         obj.transform.GetChild((int)MenuInfo.Number).GetComponent<TextMeshProUGUI>().text = menuSpawnHandler.number;
 
-        MenuList menuList = new MenuList();
-        menuList.MenuName = menuSpawnHandler.Name;
-        menuList.MenuObj = obj;
+
 
         obj.GetComponent<FoodMenuSlot>().FoodName = menuSpawnHandler.Name;
         obj.GetComponent<FoodMenuSlot>().FoodAmount = menuSpawnHandler.number;
 
-        menuListCollection.Add(menuList);
-
+        menuCollection.Add(menuSpawnHandler.Name, obj);
     }
 
 
     public void AddMenuBoardIndex()
     {
-        for (int i = 0; i < MenuBoardSlots.Count; i++)
+        MenuIndex.Clear();
+
+        foreach (var kvp in MenuBoardSlots)
         {
-            if (MenuBoardSlots[i].GetComponent<MenuBoardSlot>().Count > 0)
-                MenuIndex.Add(i);
+            var slotObj = kvp.Value;
+            var slot = slotObj.GetComponent<MenuBoardSlot>();
+            if (slot.Count > 0)
+                MenuIndex.Add(kvp.Key);
         }
     }
 
-    public void ChoiceRandomMenu(RandomMenuSelectionHandler randomMenuSelectionHandler)
+    public void ChoiceRandomMenu(RandomMenuSelectionHandler handler)
     {
         AddMenuBoardIndex();
 
-        if (MenuIndex.Count <= 0)
+        // 선택할 슬롯이 없으면 null
+        if (MenuIndex.Count == 0)
         {
-            randomMenuSelectionHandler.CustomerManager.Slot = null;
+            handler.CustomerManager.Slot = null;
             return;
         }
-           
 
-        int randomValue = Random.Range(0, MenuIndex.Count);
+        // 랜덤으로 키 하나 뽑기
+        int rnd = Random.Range(0, MenuIndex.Count);
+        string chosenKey = MenuIndex[rnd];
+        GameObject obj = MenuBoardSlots[chosenKey];
+        MenuBoardSlot slot = obj.GetComponent<MenuBoardSlot>();
 
-        int index = MenuIndex[randomValue];
+        // 선택된 슬롯을 고객 매니저에 전달
+        handler.CustomerManager.Slot = slot;
 
-        MenuBoardSlot slot = MenuBoardSlots[index].GetComponent<MenuBoardSlot>();
-        randomMenuSelectionHandler.CustomerManager.Slot = slot;
 
-        int count = slot.Count;
-        count -= 1;
-        slot.Count = count;
+        slot.Count--;
 
         MenuIndex.Clear();
     }
 
     public void ReduceMenu(MenuReduceHandler randomMenuSelectionHandler)
     {
-
-
         var Slot = randomMenuSelectionHandler.slot;
 
         int count = int.Parse(Slot.NumberText.text);
@@ -144,10 +142,23 @@ public class MenuManager : baseManager, IGameManager
 
         Slot.NumberText.text = count.ToString();
 
-        if(count == 0)
+
+        if (menuCollection.TryGetValue(Slot.NameText.text, out var menu))
         {
-            GameObject.Destroy(Slot.gameObject);
-            MenuBoardSlots.Remove(Slot.gameObject);
+            menu.transform.GetChild((int)MenuInfo.Number).GetComponent<TextMeshProUGUI>().text = count.ToString();
+        }
+
+        if (count == 0)
+        {
+            MenuBoardSlots.Remove(Slot.NameText.text);
+            menuCollection.Remove(Slot.NameText.text);
+
+            if(menu.gameObject != null)
+                GameObject.Destroy(menu.gameObject);
+
+            if (Slot.gameObject != null)
+                GameObject.Destroy(Slot.gameObject);
+
             return;
         }
     }
@@ -164,35 +175,54 @@ public class MenuManager : baseManager, IGameManager
         GameObject prefab = conFig.GetGameObjects()[1];
         GameObject MenuBoardPrefab = conFig.GetGameObjects()[2];
 
-        foreach (var menuData in menuListCollection)
+
+        // 같으면 숫자만 더해줌 
+
+        if (MenuBoardSlots.TryGetValue(handler.Name, out var menu))
         {
-            var obj = GameObject.Instantiate(prefab, MenuBoard.GetComponent<MenuBoard>().ParentTransform);
-            var slot = obj.GetComponent<MenuBoardSlot>();
+            MenuBoardSlot BoardSlot = menu.GetComponent<MenuBoardSlot>();
 
-            // 원본 메뉴 슬롯에서 데이터만 꺼내온다고 가정
-            var src = menuData.MenuObj.GetComponent<FoodMenuSlot>();
+            string countStr = BoardSlot.NumberText.text;
+            int count = int.Parse(countStr);
+            int count2 = int.Parse(handler.number);
 
-            Sprite icon = src.transform.GetChild((int)MenuInfo.Image).GetComponent<Image>().sprite;
-            string number = src.transform.GetChild((int)MenuInfo.Number).GetComponent<TextMeshProUGUI>().text;
-            string name = src.FoodName;
+            count += count2;
 
-            // 설명 맵에서 찾아서 넘기기
-            conFig.GetExplanationData.Map.TryGetValue(name, out string explanation);
+            BoardSlot.Count += count2;
 
-            slot.Init(icon, number, name, explanation);
-
-            MenuBoardSlots.Add(obj);
+            BoardSlot.NumberText.text = count.ToString();
+            
+            return;
         }
+
+
+        var obj = GameObject.Instantiate(prefab, MenuBoard.GetComponent<MenuBoard>().ParentTransform);
+        var slot = obj.GetComponent<MenuBoardSlot>();
+
+        // 원본 메뉴 슬롯에서 데이터만 꺼내온다고 가정
+        var src = menuCollection[handler.Name].GetComponent<FoodMenuSlot>();
+
+        Sprite icon = src.transform.GetChild((int)MenuInfo.Image).GetComponent<Image>().sprite;
+        string number = src.transform.GetChild((int)MenuInfo.Number).GetComponent<TextMeshProUGUI>().text;
+        string name = src.FoodName;
+
+        // 설명 맵에서 찾아서 넘기기
+        conFig.GetExplanationData.Map.TryGetValue(name, out string explanation);
+
+        slot.Init(icon, number, name, explanation);
+
+        MenuBoardSlots.Add(handler.Name,obj);
+
     }
     public void CurrentMenu(MenuLoadedEvent handler)
     {
-        handler.CustomerManager.menuListCollection = menuListCollection;
+        handler.CustomerManager.menuCollection = menuCollection;
         handler.CustomerManager.MenuBoardSlots = MenuBoardSlots;
     }
 
     public void DeleteBoardMenu(MenuBoardSlotDeleteHandler handler)
     {
-        foreach (var menuData in MenuBoardSlots)
+        foreach (var menuData in MenuBoardSlots.Values)
         {
             GameObject.Destroy(menuData);
         }
@@ -201,25 +231,34 @@ public class MenuManager : baseManager, IGameManager
     }
     public void DeleteMenuList(FoodMenuDeleteHandler foodMenuDeleteHandler)
     {
-        for (int i = 0; i < menuListCollection.Count; i++)
+        string name = foodMenuDeleteHandler.foodname;
+
+        // 1) 경영 UI 메뉴 삭제
+        if (menuCollection.TryGetValue(name, out GameObject menuObj))
         {
-            if (menuListCollection[i].MenuName == foodMenuDeleteHandler.foodname)
-            {
-                GameObject.Destroy(menuListCollection[i].MenuObj);
-                menuListCollection.RemoveAt(i);
-                return;
-            }
+            GameObject.Destroy(menuObj);
+            menuCollection.Remove(name);
         }
+
+        // 2) 메뉴판 UI 슬롯 삭제
+        if (MenuBoardSlots.TryGetValue(name, out GameObject boardObj))
+        {
+            GameObject.Destroy(boardObj);
+            MenuBoardSlots.Remove(name);
+        }
+
     }
 
     MenuManagerConfig conFig;
 
     // 경영ui 일떄
-     List<MenuList> menuListCollection = new List<MenuList>();
-    // 메뉴판 일떄
-     List<GameObject> MenuBoardSlots = new List<GameObject>();
+    Dictionary<string, GameObject> menuCollection = new Dictionary<string, GameObject>();
 
-    public List<int> MenuIndex = new List<int>();
+    // 메뉴판 일떄 
+    Dictionary<string, GameObject> MenuBoardSlots = new Dictionary<string, GameObject>();
+
+
+    public List<string> MenuIndex = new List<string>();
     GameObject MenuBoard;
 
 }
