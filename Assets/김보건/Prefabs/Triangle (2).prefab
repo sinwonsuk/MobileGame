@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 6236539083889218047}
   - component: {fileID: 8076583745380265559}
   - component: {fileID: -3197448413423233226}
+  - component: {fileID: 424984993797778545}
   m_Layer: 0
   m_Name: Triangle (2)
   m_TagString: Untagged
@@ -102,3 +103,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pickupRange: 15
   moveSpeed: 5
+--- !u!114 &424984993797778545
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7994347973316693046}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e51eacf0603528149a70606366403da0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ingredientName: "(\uBB38\uC5B4)\uC6B0\uC720"
+  amount: 1

@@ -30,7 +30,7 @@ public class octopus : EnemyBase
         if (floorData.currentStage < 3)
         {
             floorData.NextStage();
-            // 슬라임 재소환
+            // 문어 재소환
             Object.FindFirstObjectByType<MonsterSpawner>().SpawnNextStage();
         }
         else
