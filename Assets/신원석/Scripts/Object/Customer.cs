@@ -1,5 +1,8 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using static UnityEditor.Experimental.AssetDatabaseExperimental.AssetDatabaseCounters;
 
 // Change the access modifier of CustomerState to public to fix CS0051
 public enum CustomerState
@@ -7,7 +10,11 @@ public enum CustomerState
     Idle,
     Move,
     Wait,
-    Eat
+    Eat,
+    GoCalculate,
+    GoCalculate2,
+    calculate,
+    Back,
 }
 
 
@@ -28,7 +35,11 @@ public class Customer : MonoBehaviour
     private void Start()
     {
         firstPosition = transform.position;
+        animator = GetComponent<Animator>();
         navMeshAgent = GetComponent<NavMeshAgent>();
+
+
+
         navMeshAgent.updateRotation = false;
         navMeshAgent.updateUpAxis = false;
         spriteRenderer.enabled = false;
@@ -40,6 +51,19 @@ public class Customer : MonoBehaviour
     }
     private void Update()
     {
+        Vector3 currentPosition = transform.position;
+        Vector3 moveDir = (currentPosition - prevPosition).normalized;
+        prevPosition = currentPosition;
+
+        Vector3 forward = transform.forward;
+        Vector3 right = transform.right;
+
+        float forwardAmount = Vector3.Dot(moveDir, forward); 
+        float rightAmount = Vector3.Dot(moveDir, right);    
+
+        animator.SetFloat("Horizontal", rightAmount);
+        animator.SetFloat("Vertical", forwardAmount);
+
 
         switch (customerState)
         {
@@ -74,18 +98,69 @@ public class Customer : MonoBehaviour
                 break;
             case CustomerState.Eat:
                 {
-                   
+                    animator.SetBool("Eat",true);
 
-                    navMeshAgent.SetDestination(firstPosition);
+                    time += Time.deltaTime;
 
-                    if (Vector2.Distance(firstPosition, transform.position) < 0.01f)
+                    if(time > 2.0f)
                     {
+                        time = 0.0f;
+                        ChangeState(CustomerState.GoCalculate);
                         customerTable.IsSittingAtTable = false;
-                        Destroy(gameObject);
+                        animator.SetBool("Back", true);
+
+                        navMeshAgent.SetDestination(customerManager.counterTransforms[0].transform.position);
+                        return;
+                    }
+
+
+                }
+                break;
+            case CustomerState.GoCalculate:
+                {
+
+                    if (Vector2.Distance(transform.position ,customerManager.counterTransforms[0].transform.position) < 2.0f)
+                    {
+                        customerManager.EnqueueCustomer(this);
+                        ChangeState(CustomerState.GoCalculate2);
+                        return;
                     }
                 }
                 break;
 
+            case CustomerState.GoCalculate2:
+                {
+
+                    if (Vector2.Distance(transform.position, CalculatePosition) < 0.01f)
+                    {
+                        ChangeState(CustomerState.calculate);
+                        return;
+                    }
+                }
+                break;
+            case CustomerState.calculate:
+                {
+                    time += Time.deltaTime;
+
+                    if (time > 5.0f)
+                    {
+                        time = 0.0f;
+                        customerManager.DequeueCustomer();
+                        ChangeState(CustomerState.Back);
+                        return;
+                    }
+                }
+                break;
+            case CustomerState.Back:
+                {
+                    navMeshAgent.SetDestination(firstPosition);
+
+                    if (Vector2.Distance(firstPosition, transform.position) < 0.01f)
+                    {
+                        Destroy(gameObject);
+                    }
+                }
+                break;
             default:
                 break;
         }
@@ -103,8 +178,11 @@ public class Customer : MonoBehaviour
             
     }
 
+    Animator animator;
 
+    float time = 0.0f;
 
+    private Vector3 prevPosition;
     private Transform target;
 
     private Vector3 firstPosition;
@@ -120,7 +198,13 @@ public class Customer : MonoBehaviour
 
     public CustomerState customerState { get; set; } = CustomerState.Idle;
 
-    private NavMeshAgent navMeshAgent;
+    public NavMeshAgent navMeshAgent { get; set; }
 
     [SerializeField] SpriteRenderer spriteRenderer;
+
+
+    public CustomerManager customerManager { get; set; }
+
+    public Vector3 CalculatePosition;
+
 }

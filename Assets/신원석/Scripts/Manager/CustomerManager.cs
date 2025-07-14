@@ -25,6 +25,7 @@ public class CustomerManager : baseManager, IGameManager
     public override void Init()
     {
         EventBus<MenuLoadedEvent>.Raise(new MenuLoadedEvent(this));
+        counterTransforms = GameObject.FindWithTag("Counter").GetComponent<OrderCounter>().QueuePositions;
     }
 
     public void SpawnCustomer(CustomerSpawnHandler customerSpawnHandler)
@@ -69,8 +70,38 @@ public class CustomerManager : baseManager, IGameManager
         }
     }
 
-
-
+    public void EnqueueCustomer(Customer customer)
+    {
+        if (customerQueue.Count < counterTransforms.Count)
+        {
+            customerQueue.Enqueue(customer);
+            UpdateQueueDestinations();
+        }
+        else
+        {
+            //customer.WaitOutside();
+        }
+    }
+    private void UpdateQueueDestinations()
+    {
+        int idx = 0;
+        foreach (Customer cust in customerQueue)
+        {
+           
+            int posIndex = Mathf.Min(idx, counterTransforms.Count - 1);
+            cust.navMeshAgent.SetDestination(counterTransforms[posIndex].position);
+            cust.CalculatePosition = counterTransforms[posIndex].position; 
+            idx++;          
+        }
+    }
+    public void DequeueCustomer()
+    {
+        if (customerQueue.Count > 0)
+        {
+            customerQueue.Dequeue();
+            UpdateQueueDestinations();
+        }
+    }
 
     public void CheckMenu()
     {
@@ -80,14 +111,29 @@ public class CustomerManager : baseManager, IGameManager
             return;
 
         GameObject obj = GameObject.Instantiate(conFig.GetGameObjects()[0]);
-        obj.GetComponent<Customer>().Slot = Slot;
+
+
+        Customer customer = obj.GetComponent<Customer>();
+
+        customers.Add(customer);
+
+        customer.Slot = Slot;
+        customer.customerManager = this;
     }
 
     CustomerManagerConfig conFig;
 
-    List<Customer> customers = new List<Customer>();
+    public List<Customer> customers { get; set; } = new List<Customer>();
+
+    public List<Transform> counterTransforms { get; set; }
+
+    public Queue<Customer> customerQueue { get; set; } = new Queue<Customer>();
+
+
     public Dictionary<string, GameObject> menuCollection { get; set; }
     public Dictionary<string, GameObject> MenuBoardSlots { get; set; }
+
+
 
     public MenuBoardSlot Slot { get; set; }
 

@@ -68,6 +68,7 @@ public class Cook : MonoBehaviour
         {
             if (foodImage.fillAmount < 1)
             {
+                yield return null; // 프레임을 넘겨줌!
                 continue;
             }
             if (Vector2.Distance(transform.position, cookMoveHandler.TableTransform.position) < 0.01f)
