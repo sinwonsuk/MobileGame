@@ -61,10 +61,10 @@ public class AutoShooter : MonoBehaviour
         //animator.ResetTrigger("AttackTrigger");  // 중복 입력 시 애니메이션 끊기 방지
         //animator.SetTrigger("AttackTrigger");
 
-        Vector2 shootDirection = Vector2.up;
+        //Vector2 shootDirection = Vector2.up;
 
-        BulletData data = bulletManager.GetCurrentBullet();
-        SpawnBullet(shootDirection, data);
+        //BulletData data = bulletManager.GetCurrentBullet();
+        //SpawnBullet(shootDirection, data);
 
         // FSM 공격 상태가 아니면 한 번만 진입
         if (currentState == idleState)
@@ -80,10 +80,10 @@ public class AutoShooter : MonoBehaviour
     {
         animator.Play("Player_Battle_Attack", 0, 0f);
 
-        BulletData data = bulletManager.GetCurrentBullet();
+        //BulletData data = bulletManager.GetCurrentBullet();
 
-        Vector2 shootDirection = Vector2.up;
-        SpawnBullet(shootDirection, data);
+        //Vector2 shootDirection = Vector2.up;
+        //SpawnBullet(shootDirection, data);
 
         if (currentState == idleState)
             SetState(attackState);
@@ -133,6 +133,14 @@ public class AutoShooter : MonoBehaviour
         {
             SetState(idleState);
         }
+    }
+
+    public void OnShootFrame() // 애니메이션 호출 함수
+    {
+        BulletData data = bulletManager.GetCurrentBullet();
+        Vector2 shootDirection = Vector2.up;
+
+        SpawnBullet(shootDirection, data);
     }
 
     //Transform FindEnemy()

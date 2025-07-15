@@ -88,15 +88,15 @@ public class StaffBehavior : MonoBehaviour
         if (animator != null)
             animator.SetTrigger("AttackTrigger");
 
-        Vector2 dir = (boss.position - firePoint.position).normalized;
+        //Vector2 dir = (boss.position - firePoint.position).normalized;
 
-        float offset = 0.3f; // 발사 위치 간격
+        //float offset = 0.3f; // 발사 위치 간격
 
-        Vector3 leftFirePos = firePoint.position + firePoint.right * -offset;
-        Vector3 rightFirePos = firePoint.position + firePoint.right * offset;
+        //Vector3 leftFirePos = firePoint.position + firePoint.right * -offset;
+        //Vector3 rightFirePos = firePoint.position + firePoint.right * offset;
 
-        FireBullet(leftFirePos, dir);
-        FireBullet(rightFirePos, dir);
+        //FireBullet(leftFirePos, dir);
+        //FireBullet(rightFirePos, dir);
     }
 
     private void FireBullet(Vector3 position, Vector2 direction)
@@ -112,4 +112,18 @@ public class StaffBehavior : MonoBehaviour
         if (rb2d != null)
             rb2d.AddForce(direction * currentAttackPower, ForceMode2D.Impulse);
     }
+    public void OnShootFrame()
+    {
+        if (boss == null || bulletPrefab == null) return;
+
+        Vector2 dir = (boss.position - firePoint.position).normalized;
+        float offset = 0.3f;
+
+        Vector3 leftFirePos = firePoint.position + firePoint.right * -offset;
+        Vector3 rightFirePos = firePoint.position + firePoint.right * offset;
+
+        FireBullet(leftFirePos, dir);
+        FireBullet(rightFirePos, dir);
+    }
+
 }
