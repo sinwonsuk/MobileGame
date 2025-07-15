@@ -103,8 +103,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletPrefab: {fileID: 7349647033394132940, guid: 7936ce2b8eaf51140b34d7536ca4822e, type: 3}
   firePoint: {fileID: 7316931981689310198}
-  bossTag: a
-  bossLayerName: Boss
+  bossTag: Enemy
+  bossLayerName: Enemy
 --- !u!1 &4793686497172304434
 GameObject:
   m_ObjectHideFlags: 0

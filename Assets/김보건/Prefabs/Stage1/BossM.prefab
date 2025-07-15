@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 8162588789069266161}
   - component: {fileID: 711857340709045013}
   - component: {fileID: 5572705482402218128}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: BossM
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -255,6 +255,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: MonsterHPBar
       objectReference: {fileID: 0}
+    - target: {fileID: 2387850374849227676, guid: 2fd257caf422bfa4aaa97c9b32dac953, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5430171996846177621, guid: 2fd257caf422bfa4aaa97c9b32dac953, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7714322916521658939, guid: 2fd257caf422bfa4aaa97c9b32dac953, type: 3}
       propertyPath: m_LocalScale.x
       value: 1.0108036
@@ -262,6 +270,10 @@ PrefabInstance:
     - target: {fileID: 7743367867301220514, guid: 2fd257caf422bfa4aaa97c9b32dac953, type: 3}
       propertyPath: m_SortingOrder
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8751960851221281616, guid: 2fd257caf422bfa4aaa97c9b32dac953, type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

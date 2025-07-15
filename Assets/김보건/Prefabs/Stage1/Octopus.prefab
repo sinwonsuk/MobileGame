@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: -2192610280662978004}
   - component: {fileID: -1505929933981106746}
   - component: {fileID: 35567429048669607}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Octopus
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -275,6 +275,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: MonsterHPBar
       objectReference: {fileID: 0}
+    - target: {fileID: 2387850374849227676, guid: 2fd257caf422bfa4aaa97c9b32dac953, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5430171996846177621, guid: 2fd257caf422bfa4aaa97c9b32dac953, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7714322916521658939, guid: 2fd257caf422bfa4aaa97c9b32dac953, type: 3}
       propertyPath: m_LocalScale.x
       value: 1.0075041
@@ -282,6 +290,10 @@ PrefabInstance:
     - target: {fileID: 7714322916521658939, guid: 2fd257caf422bfa4aaa97c9b32dac953, type: 3}
       propertyPath: m_ConstrainProportionsScale
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8751960851221281616, guid: 2fd257caf422bfa4aaa97c9b32dac953, type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

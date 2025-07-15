@@ -20,6 +20,9 @@ public class StaffBehavior : MonoBehaviour
     public string bossTag = "a";
     public string bossLayerName = "Boss";
 
+    [SerializeField]
+    float detectRange = 10f;
+
     public void Init(StaffStatsSO stats)
     {
         data = stats;
@@ -47,27 +50,31 @@ public class StaffBehavior : MonoBehaviour
 
     private IEnumerator FindAndShoot()
     {
-        int bossLayer = LayerMask.NameToLayer(bossLayerName);
-
-        while (boss == null)
-        {
-            foreach (var c in GameObject.FindGameObjectsWithTag(bossTag))
-            {
-                if (c.layer == bossLayer)
-                {
-                    boss = c.transform;
-                    break;
-                }
-            }
-            yield return null;
-        }
-
-        // 발사 주기 계산
         float interval = 1f / Mathf.Max(currentAttackSpeed, 0.01f);
 
         while (true)
         {
-            Shoot2D();
+            GameObject[] targets = GameObject.FindGameObjectsWithTag(bossTag);
+            float minDist = Mathf.Infinity;
+            Transform nearest = null;
+
+            foreach (var t in targets)
+            {
+                if (t.layer != LayerMask.NameToLayer(bossLayerName)) continue;
+
+                float dist = Vector2.Distance(firePoint.position, t.transform.position);
+                if (dist < minDist && dist <= detectRange)
+                {
+                    minDist = dist;
+                    nearest = t.transform;
+                }
+            }
+
+            boss = nearest;
+
+            if (boss != null)
+                Shoot2D();
+
             yield return new WaitForSeconds(interval);
         }
     }
