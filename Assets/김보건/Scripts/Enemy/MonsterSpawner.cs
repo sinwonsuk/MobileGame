@@ -52,6 +52,14 @@ public class MonsterSpawner : MonoBehaviour
 
     public void SpawnNextStage()
     {
+
+        if (hasSpawned)
+        {
+            Debug.LogWarning("이미 스폰됨! 중복 방지");
+            return;
+        }
+        hasSpawned = true;
+
         var floorData = FindAnyObjectByType<GameController>()?.GetManager<DungeonManager>()?.Config.selectedFloorData;
 
         if (floorData == null)
@@ -79,5 +87,10 @@ public class MonsterSpawner : MonoBehaviour
 
         EnemyBase enemyBase = slime.GetComponent<EnemyBase>();
         StartCoroutine(MoveDown(enemyBase, slime.transform));
+    }
+
+    public void ResetSpawnFlag()
+    {
+        hasSpawned = false;
     }
 }
