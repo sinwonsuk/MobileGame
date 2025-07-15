@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class OctopusBoss : EnemyBase
+public class SlimeBoss : EnemyBase
 {
     protected override void Start()
     {
@@ -28,7 +28,7 @@ public class OctopusBoss : EnemyBase
         if (floorData.currentStage < 3)
         {
             floorData.NextStage();
-            // 문어 재소환
+            // 슬라임 재소환
             Object.FindFirstObjectByType<MonsterSpawner>().SpawnNextStage();
         }
         else

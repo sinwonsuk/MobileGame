@@ -15,7 +15,7 @@ public class Slime : EnemyBase
         maxHp = 100f + stage * 0f;
         currentHp = maxHp;
 
-        GetComponent<SpriteRenderer>().color = Color.Lerp(Color.green, Color.red, stage / 10f);
+        GetComponent<SpriteRenderer>().color = Color.Lerp(Color.white, Color.red, stage / 10f);
     }
 
     protected override void Die()
