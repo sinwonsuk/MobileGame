@@ -44,48 +44,7 @@ public class CookManager : baseManager, IGameManager
         Cooker.Add(obj);
     }
 
-    //public void CreateFood(CookMakeHandler cookMakeHandler)
-    //{
-    //    //CookInfo cookInfo = new CookInfo
-    //    //{
-    //    //    foodName = cookMakeHandler.foodname,
-    //    //    foodImage = cookMakeHandler.Slot.IconImage.sprite,
-    //    //    waitingTime = 0f // 초기 대기 시간은 0으로 설정
-    //    //};
 
-    //    cookQueue.Enqueue(cookInfo);
-
-    //    if( cooks.Count > 0)
-    //    {
-    //        return;
-    //    }
-    //    else
-    //    {
-    //        // 요리중인 목록이 없으면 요리 시작
-    //        GameObject obj = GameObject.Instantiate(conFig.GameObjects[(int)CookEntityType.Food], conFig.GameObjects[(int)CookEntityType.Chef].transform);
-
-    //        // 어떤 음식이냐 , 이름은 뭐냐 
-    //        obj.GetComponent<Cook>().foodName = cookMakeHandler.foodname;
-    //        obj.GetComponent<Cook>().FoodImage.sprite = cookMakeHandler.Slot.IconImage.sprite;
-    //        obj.GetComponent<Cook>().Cooks = cooks;
-
-
-    //        // 음식의 대기 시간 설정
-    //        for (int i = 0; i < conFig.Foods.Count; i++)
-    //        {
-    //            if (conFig.Foods[i].displayName == cookMakeHandler.foodname)
-    //            {
-    //                obj.GetComponent<Cook>().WaitingTime = conFig.Foods[i].waitingTime;
-    //                break;
-    //            }
-    //        }
-
-    //        cooks.Enqueue(obj.GetComponent<Cook>());
-    //    }
-
-
-
-    //}
     public void CreateFood(CookMakeHandler handler)
     {
         var info = new CookInfo

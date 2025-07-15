@@ -25,7 +25,7 @@ public class ManagementUIOnOff : MonoBehaviour
         {
             EventBus<ManagementActiveHandler>.Raise(new ManagementActiveHandler(isActive, ClickType.FoodSlot));
             EventBus<ManagementActiveHandler>.Raise(new ManagementActiveHandler(isActive, ClickType.FoodAmount));
-            EventBus<MenuBoardSlotSpawnHandler>.Raise(new MenuBoardSlotSpawnHandler());
+            //EventBus<MenuBoardSlotSpawnHandler>.Raise(new MenuBoardSlotSpawnHandler());
             isActive = true;
         }
     }

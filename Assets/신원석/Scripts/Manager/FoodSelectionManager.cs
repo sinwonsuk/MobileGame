@@ -16,13 +16,14 @@ public class FoodSelectionManager : baseManager, IGameManager
     {
         conFig = config;
         slotUI = new List<GameObject>();
-        EventBus<ManagementActiveHandler>.OnEvent += IsManagementActive;
+
+        EventBus<ManagementActiveHandler>.OnEvent += ChangeManagementActive;
         EventBus<SetManagementActiveEvent>.OnEvent += ClickFoodImage;
         EventBus<SetMenuParentTransformHandler>.OnEvent += GetMenuParentTransform;
     }
     ~FoodSelectionManager()
     {
-        EventBus<ManagementActiveHandler>.OnEvent -= IsManagementActive;
+        EventBus<ManagementActiveHandler>.OnEvent -= ChangeManagementActive;
         EventBus<SetManagementActiveEvent>.OnEvent -= ClickFoodImage;
         EventBus<SetMenuParentTransformHandler>.OnEvent -= GetMenuParentTransform;
     }
@@ -50,10 +51,15 @@ public class FoodSelectionManager : baseManager, IGameManager
         }
     }
     // 아래 버튼 
-    public void IsManagementActive(ManagementActiveHandler slotSpawnHandler)
+    public void ChangeManagementActive(ManagementActiveHandler slotSpawnHandler)
     {
         slotUI[(int)slotSpawnHandler.clickType].SetActive(slotSpawnHandler.isActive);
     }
+    public void CheckManagementActive(ManagementActiveCheckHandler managementActiveCheckHandler)
+    {
+        managementActiveCheckHandler.customerManager.isActive = slotUI[(int)managementActiveCheckHandler.clickType].activeInHierarchy;
+    }
+
 
     public override void Update()
     {
