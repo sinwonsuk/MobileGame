@@ -22,7 +22,7 @@ public class CookManager : baseManager, IGameManager
         conFig = config;
 
         EventBus<CookMakeHandler>.OnEvent += CreateFood;
-
+        EventBus<GetFirstCookEvent>.OnEvent += GetFirstCookEvent;
     }
 
 
@@ -30,6 +30,7 @@ public class CookManager : baseManager, IGameManager
     ~CookManager()
     {
         EventBus<CookMakeHandler>.OnEvent -= CreateFood;
+        EventBus<GetFirstCookEvent>.OnEvent -= GetFirstCookEvent;
     }
     public CookManager(BaseScriptableObject baseScriptableObject)
     {
@@ -84,7 +85,10 @@ public class CookManager : baseManager, IGameManager
     }
 
 
-
+    public void GetFirstCookEvent(GetFirstCookEvent getFirstCookEvent)
+    {
+        getFirstCookEvent.employee.Cooks = Cooks;
+    }
     public override void Update()
     {
         TryStartNextCook(); // 새로운 요리가 필요하다면 시작

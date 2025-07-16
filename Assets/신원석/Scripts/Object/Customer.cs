@@ -178,6 +178,8 @@ public class Customer : MonoBehaviour
             
     }
 
+
+
     Animator animator;
 
     float time = 0.0f;
