@@ -10,12 +10,16 @@ public class InventoryUI : MonoBehaviour
     private void OnEnable()
     {
         InventoryManager.Instance.OnInventoryChanged += RefreshUI;
-        RefreshUI();
     }
 
     private void OnDisable()
     {
         InventoryManager.Instance.OnInventoryChanged -= RefreshUI;
+    }
+    private void Update()
+    {
+        RefreshUI();
+
     }
     private void RefreshUI()
     {

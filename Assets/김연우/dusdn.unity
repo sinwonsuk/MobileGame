@@ -652,10 +652,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Button
       objectReference: {fileID: 0}
-    - target: {fileID: 8014505143561373954, guid: ba57954ba348bcb46b3db796ec3296ba, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 8053140847565768491, guid: ba57954ba348bcb46b3db796ec3296ba, type: 3}
       propertyPath: target
       value: 
@@ -720,7 +716,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4945931031854098476, guid: 2acf9a102bafd2f45bb078d8ecd17d13, type: 3}
       propertyPath: m_Name
-      value: employeeSphwn
+      value: employeeSpawn
       objectReference: {fileID: 0}
     - target: {fileID: 4945931031854098476, guid: 2acf9a102bafd2f45bb078d8ecd17d13, type: 3}
       propertyPath: m_IsActive
