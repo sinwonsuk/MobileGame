@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50e546ab1ac3d4241ac81041db591c46, type: 3}
   m_Name: Octopus Ink Risotto
   m_EditorClassIdentifier: 
-  indate: 2025-07-16T02:27:35.110Z
+  indate: 2025-07-16T02:27:35.109Z
   displayName: "\uBB38\uC5B4 \uBA39\uBB3C \uB9AC\uC870\uB610"
   foodSprite: 
   price: 0
