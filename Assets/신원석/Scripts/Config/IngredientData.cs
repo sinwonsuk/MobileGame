@@ -6,7 +6,7 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Food/Ingredient")]
 public class IngredientData : BaseScriptableObject
 {
-    public string inDate;
+    public string indate;
     public string ingredientName;
     public string ingredientSprite;
     public int ingredientPrice;
