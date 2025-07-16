@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50e546ab1ac3d4241ac81041db591c46, type: 3}
   m_Name: Chaos Horn Soup
   m_EditorClassIdentifier: 
-  inDate: 
+  indate: 2025-07-16T02:27:36.856Z
   displayName: "\uD63C\uB3C8\uC758 \uBFD4 \uC218\uD504"
   foodSprite: orcSoup
   price: 0

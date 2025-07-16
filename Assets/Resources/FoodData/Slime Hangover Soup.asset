@@ -12,10 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50e546ab1ac3d4241ac81041db591c46, type: 3}
   m_Name: Slime Hangover Soup
   m_EditorClassIdentifier: 
-  displayName: "\uC2AC\uB77C\uC784 \uD574\uC7A5\uAD6D"
+  indate: 2025-07-16T02:27:36.716Z
+  displayName: "\uC624\uD06C \uD574\uC7A5\uAD6D"
   foodSprite: hangoverSoup
   price: 0
   isUnlock: 0
+  cookingTime: 0
   Ingredients:
   - {fileID: 11400000, guid: fa7aa48057f1aa247bf03b8695f046c8, type: 2}
   - {fileID: 11400000, guid: 366252414b4564546a6e598ffb934a4f, type: 2}

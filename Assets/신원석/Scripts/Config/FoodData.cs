@@ -6,7 +6,7 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Food/FoodData")]
 public class FoodData : BaseScriptableObject
 {
-    public string inDate;
+    public string indate;
     public string displayName;      // 화면에 보일 이름
     public string foodSprite;       // 사진
     public int price;            // 가격

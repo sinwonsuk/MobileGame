@@ -50,7 +50,6 @@ public class CSVTableUploader : MonoBehaviour
 			string[] values = line.Split(',').Select(s => s.Trim()).ToArray();
 			if (values.Length != headers.Length)
 			{
-				Debug.LogWarning($"[SKIP] 열 수 불일치: {line}");
 				continue;
 			}
 
@@ -109,10 +108,6 @@ public class CSVTableUploader : MonoBehaviour
 				var bro = Backend.GameData.UpdateV2(tableName, inDate, Backend.UserInDate, param);
 				Debug.Log(bro.IsSuccess() ? $"[UPDATE SUCCESS] {tableName} : {key}" : $"[UPDATE FAIL] {tableName} : {key} → {bro.GetMessage()}");
 			}
-			else
-			{
-				Debug.Log($"[SKIP] 동일 데이터: {key}");
-			}
 		}
 
 		// 4. CSV에 없는 항목 삭제
@@ -148,6 +143,7 @@ public class CSVTableUploader : MonoBehaviour
 				bro = callback;
 				isDone = true;
 			});
+
 			yield return new WaitUntil(() => isDone);
 
 			if (bro == null || !bro.IsSuccess())
@@ -184,8 +180,6 @@ public class CSVTableUploader : MonoBehaviour
 	}
 
 
-
-	// --- 유틸 함수 ---
 	static string CleanCollapse(string s)
 	{
 		if (string.IsNullOrEmpty(s)) return "";
@@ -226,7 +220,7 @@ public class CSVTableUploader : MonoBehaviour
 		return false;
 	}
 
-	// --- 필드 ---
+
 	static readonly char[] _trimChars = { ' ', '\t', '\r', '\n', '\uFEFF' };
 	static readonly Regex _multiSpace = new(@"[\u00A0\u3000 ]{2,}", RegexOptions.Compiled);
 	private readonly HashSet<string> pendingKeys = new();

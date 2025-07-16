@@ -556,7 +556,7 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 734818742212306379, guid: 2acf9a102bafd2f45bb078d8ecd17d13, type: 3}
   m_PrefabInstance: {fileID: 4938500773492721919}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &1780269392781002871
+--- !u!1001 &2031004287
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -644,22 +644,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4070239610723790913, guid: ba57954ba348bcb46b3db796ec3296ba, type: 3}
-      propertyPath: target
-      value: 
-      objectReference: {fileID: 4742968468296355909}
     - target: {fileID: 4871132986464839262, guid: ba57954ba348bcb46b3db796ec3296ba, type: 3}
       propertyPath: target
       value: 
       objectReference: {fileID: 4742968468296355909}
     - target: {fileID: 8012578227497350306, guid: ba57954ba348bcb46b3db796ec3296ba, type: 3}
       propertyPath: m_Name
-      value: Canvas
+      value: Button
       objectReference: {fileID: 0}
-    - target: {fileID: 8032089393221830631, guid: ba57954ba348bcb46b3db796ec3296ba, type: 3}
-      propertyPath: target
-      value: 
-      objectReference: {fileID: 4742968468296355909}
     - target: {fileID: 8053140847565768491, guid: ba57954ba348bcb46b3db796ec3296ba, type: 3}
       propertyPath: target
       value: 
@@ -724,7 +716,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4945931031854098476, guid: 2acf9a102bafd2f45bb078d8ecd17d13, type: 3}
       propertyPath: m_Name
-      value: employeeSphwn
+      value: employeeSpawn
       objectReference: {fileID: 0}
     - target: {fileID: 4945931031854098476, guid: 2acf9a102bafd2f45bb078d8ecd17d13, type: 3}
       propertyPath: m_IsActive
@@ -1017,7 +1009,7 @@ SceneRoots:
   - {fileID: 6808128826940191023}
   - {fileID: 1049910476}
   - {fileID: 568862380}
-  - {fileID: 1780269392781002871}
+  - {fileID: 2031004287}
   - {fileID: 7537417660909839772}
   - {fileID: 4938500773492721919}
   - {fileID: 368072569}
