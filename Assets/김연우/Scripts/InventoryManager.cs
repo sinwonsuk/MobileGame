@@ -109,7 +109,8 @@ public class InventoryManager : MonoBehaviour
 		string offset = "";
 		const int limit = 100;
 		bool isEnd = false;
-		HashSet<string> existingItems = new HashSet<string>();
+
+		HashSet<string> existingIndates = new HashSet<string>();
 
 		while (!isEnd)
 		{
@@ -117,7 +118,8 @@ public class InventoryManager : MonoBehaviour
 			BackendReturnObject bro = null;
 
 			var where = new Where();
-			where.Equal("ownerIndate", ownerIndate);
+			where.Equal("owner_inDate", ownerIndate);
+			//Debug.Log("[확인용] 현재 ownerIndate: " + ownerIndate);
 			where.Equal("inventoryItemType", "Ingredient");
 
 			Backend.GameData.Get("INVENTORY", where, limit, offset, callback =>
@@ -134,10 +136,33 @@ public class InventoryManager : MonoBehaviour
 				yield break;
 			}
 
+
 			var rows = bro.FlattenRows();
+
+			if (rows == null || rows.Count == 0)
+			{
+				Debug.LogWarning("[InsertInventoryIfNotExists] 서버에서 받은 INVENTORY row 없음!");
+			}
+
+			//foreach (LitJson.JsonData row in rows)
+			//{
+			//	Debug.Log("[Debug 구조 확인] row: " + row.ToJson());
+			//}
+
 			foreach (LitJson.JsonData row in rows)
 			{
-				existingItems.Add(row["inventoryItemName"].ToString());
+				if (row.ContainsKey("inventoryItemIndate"))
+				{
+					string itemIndate = row["inventoryItemIndate"].ToString().Trim();
+					existingIndates.Add(itemIndate);
+					//Debug.Log($"[중복 체크용] 기존 indate: {itemIndate}");
+				}
+				else
+				{
+					//Debug.LogWarning("[중복 체크] 'inventoryItemIndate' 필드가 없음 -> 이름 기준으로 체크 예정");
+					string itemName = row["inventoryItemName"].ToString();
+					existingIndates.Add(itemName); 
+				}
 			}
 
 			try
@@ -162,7 +187,7 @@ public class InventoryManager : MonoBehaviour
 			var runtimeData = allRunTimeIngredients[i];
 			var staticData = allIngredients[i];
 
-			if (!existingItems.Contains(runtimeData.ingredientName))
+			if (!existingIndates.Contains(staticData.indate))
 			{
 				Param param = new Param();
 				param.Add("inventoryItemIndate", staticData.indate);
@@ -174,7 +199,6 @@ public class InventoryManager : MonoBehaviour
 			}
 		}
 
-		// 하나씩 Insert 호출
 		foreach (var param in newParams)
 		{
 			bool isInsertDone = false;
