@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   indate: 2025-07-16T02:27:46.869Z
   ingredientName: "\uAC00\uC2B4\uC0B4"
-  ingredientSprite: 
+  ingredientSprite: griffinMeat
   ingredientPrice: 0

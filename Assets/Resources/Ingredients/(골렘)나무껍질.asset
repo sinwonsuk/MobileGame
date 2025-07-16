@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   indate: 2025-07-16T02:27:44.781Z
   ingredientName: "\uB098\uBB34\uAECD\uC9C8"
-  ingredientSprite: 
+  ingredientSprite: golemWood
   ingredientPrice: 0
