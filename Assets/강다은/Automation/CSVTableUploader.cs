@@ -143,6 +143,7 @@ public class CSVTableUploader : MonoBehaviour
 				bro = callback;
 				isDone = true;
 			});
+
 			yield return new WaitUntil(() => isDone);
 
 			if (bro == null || !bro.IsSuccess())
@@ -179,8 +180,6 @@ public class CSVTableUploader : MonoBehaviour
 	}
 
 
-
-	// --- 유틸 함수 ---
 	static string CleanCollapse(string s)
 	{
 		if (string.IsNullOrEmpty(s)) return "";
@@ -221,7 +220,7 @@ public class CSVTableUploader : MonoBehaviour
 		return false;
 	}
 
-	// --- 필드 ---
+
 	static readonly char[] _trimChars = { ' ', '\t', '\r', '\n', '\uFEFF' };
 	static readonly Regex _multiSpace = new(@"[\u00A0\u3000 ]{2,}", RegexOptions.Compiled);
 	private readonly HashSet<string> pendingKeys = new();

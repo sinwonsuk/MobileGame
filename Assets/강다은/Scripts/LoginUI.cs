@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using BackEnd;
+using System.Collections;
 
 public class LoginUI : MonoBehaviour
 {
@@ -57,9 +58,8 @@ public class LoginUI : MonoBehaviour
 				BackendLogin.Instance.CustomLogin(id, pw,
 					onSuccess: () =>
 					{
-						Debug.Log("로그인 성공 후 데이터 불러오기 시도");
-						BackendGameData.Instance.GameDataGetOrInsert(); // 로그인 성공 후 데이터 불러오기
-						ShowNicknamePanel(); 
+						Debug.Log("로그인 성공, 대기 후 데이터 로드 시작");
+						StartCoroutine(LoginFlowCoroutine());
 					},
 					onFailure: (error) =>
 					{
@@ -93,15 +93,7 @@ public class LoginUI : MonoBehaviour
 			onSuccess: () =>
 			{
 				Debug.Log("로그인 성공");
-				BackendGameData.Instance.GameDataGetOrInsert(); // 로그인 성공 후 데이터 불러오기
-				CheckNickname();
-
-				if (IsAdminAccount())
-				{
-					Debug.Log("<관리자> 계정입니다. StaticData 삽입 테스트");
-					Instantiate(Test, Vector3.zero, Quaternion.identity); // 데이터 삽입 가능한 오브젝트 생성
-				}
-				
+				StartCoroutine(LoginFlowCoroutine());
 			},
 			onFailure: (error) =>
 			{
@@ -163,17 +155,59 @@ public class LoginUI : MonoBehaviour
 
 	}
 
-
 	// 관리자 계정인지 확인하는 함수
 	bool IsAdminAccount()
 	{
 		var bro = Backend.BMember.GetUserInfo();
 		if (!bro.IsSuccess()) return false;
 
-		var json = bro.GetReturnValuetoJSON();
-		string nickname = json["row"]["nickname"].ToString();
+		try
+		{
+			var json = bro.GetReturnValuetoJSON();
+			if (json.ContainsKey("row") && json["row"].ContainsKey("nickname"))
+			{
+				string nickname = json["row"]["nickname"].ToString();
+				return nickname == "no"; // 관리자 닉네임
+			}
+		}
+		catch
+		{
+			Debug.LogWarning("[Admin Check] 닉네임 정보 없음");
+		}
 
-		return nickname == "no"; //관리자 닉네임
+		return false;
+	}
+
+	private IEnumerator LoginFlowCoroutine()
+	{
+		while (string.IsNullOrEmpty(Backend.UserInDate))
+		{
+			yield return null; // 한 프레임 기다림
+		}
+
+		// 정적 테이블 초기화 (server -> scriptable obj)
+		yield return StartCoroutine(staticDataInitializer.InitializeAllStaticData());
+		Debug.Log("정적 테이블 초기화 완료");
+
+		// 유저 인벤토리 존재 확인 및 데이터 삽입
+		string ownerIndate = Backend.UserInDate;
+		yield return StartCoroutine(InventoryManager.Instance.InsertInventoryIfNotExists(ownerIndate));
+
+		//인벤토리 데이터 불러오기
+		yield return StartCoroutine(InventoryManager.Instance.LoadUserInventory(ownerIndate));
+
+		// 기타 유저 게임 데이터 불러오기
+		BackendGameData.Instance.GameDataGetOrInsert();
+
+		// 닉네임 여부 확인
+		CheckNickname();
+
+		// 관리자 계정일 경우 Csv -> Server
+		if (IsAdminAccount())
+		{
+			Debug.Log("<관리자> 계정입니다. StaticData 삽입");
+			Instantiate(Test, Vector3.zero, Quaternion.identity);
+		}
 	}
 
 	[SerializeField] GameObject signUpPanel;
@@ -189,4 +223,6 @@ public class LoginUI : MonoBehaviour
 	[SerializeField] private TMP_InputField nicknameInput;
 
 	[SerializeField] GameObject Test;
+
+	[SerializeField] private StaticDataInitializer staticDataInitializer;
 }

@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50e546ab1ac3d4241ac81041db591c46, type: 3}
   m_Name: "Dragon\u2019s Tear Barbecue"
   m_EditorClassIdentifier: 
+  indate: 2025-07-16T02:27:37.481Z
   displayName: "\uC6A9\uB208\uBB3C \uBC14\uBE44\uD050"
   foodSprite: UntitledArtwork88
   price: 0
   isUnlock: 0
-  explanation: 
-  waitingTime: 3
+  cookingTime: 0
   Ingredients:
   - {fileID: 11400000, guid: f72bebc868ead734993cf6613657c12f, type: 2}
   - {fileID: 11400000, guid: 8693616cded08d345a662320f660bbdc, type: 2}
