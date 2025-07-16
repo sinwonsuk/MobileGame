@@ -18,6 +18,7 @@ public class EnemyBase : MonoBehaviour
     private Vector3 hitShakeOffset = Vector3.zero;
     public Vector3 basePosition;
 
+    protected bool isDead = false;
 
     protected virtual void Start()
     {
@@ -59,7 +60,10 @@ public class EnemyBase : MonoBehaviour
 
     protected virtual void Die()
     {
+        if (isDead) return; // 중복 방지
+        isDead = true;
         Debug.Log($"{gameObject.name} 죽음");
+        FindFirstObjectByType<MonsterSpawner>()?.ResetSpawnFlag();
         DropItem();
         Destroy(gameObject);
     }
@@ -95,6 +99,8 @@ public class EnemyBase : MonoBehaviour
 
     protected virtual void OnTriggerEnter2D(Collider2D collision)
     {
+        if (isDead) return;
+
         if (collision.CompareTag("Player"))
         {
             var dungeonManager = FindAnyObjectByType<GameController>().GetManager<DungeonManager>();

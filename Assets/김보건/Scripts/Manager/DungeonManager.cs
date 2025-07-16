@@ -1,5 +1,6 @@
 using UnityEngine;
 using TMPro;
+using System.Collections.Generic;
 
 public class DungeonManager : baseManager
 {
@@ -11,6 +12,9 @@ public class DungeonManager : baseManager
     private Vector3 originalCameraPos;
     private bool hasSavedCameraPos = false;
 
+    // 드랍아이템 저장용 딕셔너리
+    private readonly Dictionary<string, int> tempLoot = new();
+
     public DungeonManager(DungeonManagerConfig config)
     {
         this.config = config;
@@ -21,7 +25,7 @@ public class DungeonManager : baseManager
         // 런타임에 TextMeshProUGUI 찾아서 할당
         if (config.floorTextUI == null)
         {
-            var textObj = GameObject.Find("FloorText"); // 하이어라키에서 FloorText라는 이름의 오브젝트
+            var textObj = GameObject.Find("FloorText"); 
             if (textObj != null)
             {
                 config.floorTextUI = textObj.GetComponent<TextMeshProUGUI>();
@@ -31,14 +35,14 @@ public class DungeonManager : baseManager
 
         if(config.mapParent == null)
         {
-            var mapParentObj = GameObject.Find("MapParent"); // 하이어라키에서 MapParent라는 이름의 오브젝트
+            var mapParentObj = GameObject.Find("MapParent");
             if(mapParentObj != null)
             {
                 config.mapParent = mapParentObj.transform;
             }
             else
             {
-                Debug.LogError("MapParent 오브젝트를 찾을 수 없습니다.");
+                Debug.LogError("MapParent 오브젝트를 찾을 수 없음");
             }
         }
     }
@@ -58,7 +62,7 @@ public class DungeonManager : baseManager
         var selectedFloorData = this.Config.selectedFloorData;
         selectedFloorData.autoNextFloor = evt.isAutoNext;
 
-        Debug.Log($"[DungeonManager] autoNextFloor 설정됨: {evt.isAutoNext}");
+        Debug.Log($"던전매니저autoNextFloor 설정됨: {evt.isAutoNext}");
     }
 
     public override void Init()
@@ -86,7 +90,7 @@ public class DungeonManager : baseManager
         if (config.floorTextUI != null)
             config.floorTextUI.text = $"LV{floor}";
         else
-            Debug.LogWarning("floorTextUI가 설정되지 않았습니다.");
+            Debug.LogWarning("floorTextUI가 없음");
 
         var camera = Camera.main;
         if (camera != null)
@@ -104,7 +108,7 @@ public class DungeonManager : baseManager
     public void LoadMap()
     {
         int floor = Config.selectedFloorData.selectedFloor;
-        Debug.Log($"[DungeonManager] {floor}층의 맵을 불러옵니다.");
+        Debug.Log($"[DungeonManager] {floor}층의 맵 가져옴");
 
         // 기존 맵 제거
         foreach (Transform child in Config.mapParent)
@@ -120,8 +124,8 @@ public class DungeonManager : baseManager
 
     public void ExitDungeon()
     {
-        Debug.Log("[DungeonManager] 던전 종료 처리");
-
+        Debug.Log("던전 종료 처리");
+        CommitLootToInventory();
         // 맵 제거
         if (config.mapParent != null)
         {
@@ -131,6 +135,27 @@ public class DungeonManager : baseManager
             }
         }
 
+        //미사일제거
+        foreach (var bullet in Object.FindObjectsByType<BaseBullet>(FindObjectsSortMode.None))
+        {
+            GameObject.Destroy(bullet.gameObject);
+        }
+
+        //플레이어제거
+        var player = GameObject.FindGameObjectWithTag("Player");
+        if (player != null)
+        {
+            GameObject.Destroy(player);
+        }
+
+        //몬스터제거
+        foreach (var monster in Object.FindObjectsByType<EnemyBase>(FindObjectsSortMode.None))
+            GameObject.Destroy(monster.gameObject);
+
+        //드랍 아이템 제거
+        foreach (var drop in Object.FindObjectsByType<DroppableItem>(FindObjectsSortMode.None))
+            GameObject.Destroy(drop.gameObject);
+
         //카메라 위치 복귀
         var camera = Camera.main;
         if (camera != null)
@@ -139,6 +164,28 @@ public class DungeonManager : baseManager
 
         config.selectedFloorData.isDungeonMode = false;
         hasSavedCameraPos = false;
+    }
+
+    // 아이템 임시 저장
+    public void AddTempItem(string name, int qty = 1)
+    {
+        if (string.IsNullOrEmpty(name)) return;
+
+        if (tempLoot.ContainsKey(name))
+            tempLoot[name] += qty;
+        else
+            tempLoot[name] = qty;
+
+        Debug.Log($"[DungeonLoot] {name} +{qty} (누적 {tempLoot[name]})");
+    }
+
+    // 인벤토리에 한번에 반영
+    private void CommitLootToInventory()
+    {
+        foreach (var kvp in tempLoot)
+            InventoryManager.Instance.AddItem(kvp.Key, kvp.Value);
+
+        tempLoot.Clear();   // 반영이 끝났으니 비워 두기
     }
 
     public override void ActiveOff() { }

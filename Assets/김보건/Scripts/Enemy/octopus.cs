@@ -11,10 +11,10 @@ public class octopus : EnemyBase
 
         int stage = floorData.currentStage;
 
-        maxHp = 100f + stage * 0f;
+        maxHp = 10f + stage * 0f;
         currentHp = maxHp;
 
-        GetComponent<SpriteRenderer>().color = Color.Lerp(Color.green, Color.red, stage / 10f);
+        GetComponent<SpriteRenderer>().color = Color.Lerp(Color.white, Color.red, stage / 10f);
     }
 
     protected override void Die()
@@ -30,7 +30,7 @@ public class octopus : EnemyBase
         if (floorData.currentStage < 3)
         {
             floorData.NextStage();
-            // 슬라임 재소환
+            // 문어 재소환
             Object.FindFirstObjectByType<MonsterSpawner>().SpawnNextStage();
         }
         else

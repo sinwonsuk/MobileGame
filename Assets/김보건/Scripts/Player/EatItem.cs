@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class EatItem : MonoBehaviour
 {
-    public float pickupRange = 1.5f;
+    public float pickupRange = 200f;
     public float moveSpeed = 5f;
 
     private Transform targetPlayer;
@@ -45,6 +45,13 @@ public class EatItem : MonoBehaviour
 
     void OnCollected()
     {
+        var drop = GetComponent<DroppableItem>();
+        if (drop != null)
+        {
+            var gc = FindAnyObjectByType<GameController>();
+            var dungeonMgr = gc?.GetManager<DungeonManager>();
+            dungeonMgr?.AddTempItem(drop.ingredientName, drop.amount);
+        }
         Debug.Log($"{gameObject.name} È¹µæ");
         Destroy(gameObject);
     }

@@ -41,7 +41,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5332971992470372971}
   m_Layer: 0
-  m_Name: map2
+  m_Name: map3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -109,7 +109,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d80c4cb33f333cc48b4aaf267e0e7053, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  monsterPrefab: {fileID: 519866972757067807, guid: 6de86dd147207a94ab72a32407d23f8a, type: 3}
+  monsterPrefab: {fileID: 519866972757067807, guid: 52a692b581c70fc40868c9e910d2b82f, type: 3}
   bossMonsterPrefab: {fileID: 1253324787291029023, guid: 29620f74c1541ec43b3cc6b503a4dce3, type: 3}
   spawnPosition: {x: -73, y: 10, z: 0}
   descendDuration: 30
@@ -189,7 +189,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: -10
-  m_Sprite: {fileID: 2428870778264881466, guid: ec4788c81d6c14548acc770692d5c457, type: 3}
+  m_Sprite: {fileID: 969790080681415729, guid: 5c6c8fbdec1d1fc41977ae4c374ef759, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

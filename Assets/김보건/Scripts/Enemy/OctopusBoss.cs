@@ -11,7 +11,7 @@ public class OctopusBoss : EnemyBase
 
         int stage = floorData.currentStage;
 
-        maxHp = 500f;
+        maxHp = 50f;
         currentHp = maxHp;
     }
 
@@ -28,7 +28,7 @@ public class OctopusBoss : EnemyBase
         if (floorData.currentStage < 3)
         {
             floorData.NextStage();
-            // 슬라임 재소환
+            // 문어 재소환
             Object.FindFirstObjectByType<MonsterSpawner>().SpawnNextStage();
         }
         else
