@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 6152323489785435712}
   - component: {fileID: 6052494388102397110}
   - component: {fileID: 7567543288521163581}
+  - component: {fileID: -62819685159613084}
   - component: {fileID: 4496589100723293667}
   m_Layer: 0
   m_Name: army_1
@@ -97,9 +98,27 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3899654314294530085}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fc7f9174d9a44b3489160c0965b331cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 4496589100723293667}
+  bulletPrefab: {fileID: 7349647033394132940, guid: 7936ce2b8eaf51140b34d7536ca4822e, type: 3}
+  firePoint: {fileID: 8419969813994771124}
+  bossTag: Enemy
+  bossLayerName: Enemy
+  detectRange: 10
+--- !u!114 &-62819685159613084
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3899654314294530085}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fee5d53f90c9b4046956a92312041335, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 4496589100723293667}
