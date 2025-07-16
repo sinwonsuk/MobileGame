@@ -14,7 +14,6 @@ public class Cook : MonoBehaviour
     {
         EventBus<CookMoveHandler>.OnEvent += MoveFood;
         EventBus<CookFillamountHandler>.OnEvent += FillAmount;
-        EventBus<CookFillamountHandler>.OnEvent += FillAmount;
         EventBus<CookDeleteHandler>.OnEvent += DeleteFood;
     }
     private void OnDisable()
@@ -48,7 +47,6 @@ public class Cook : MonoBehaviour
     {
         cookFillamountHandler.FoodClick.Image = foodImage;
         cookFillamountHandler.FoodClick.foodName = foodName;
-
     }
 
     public void MoveFood(CookMoveHandler cookMoveHandler)
@@ -68,14 +66,14 @@ public class Cook : MonoBehaviour
         {
             if (foodImage.fillAmount < 1)
             {
+                yield return null; 
                 continue;
             }
             if (Vector2.Distance(transform.position, cookMoveHandler.TableTransform.position) < 0.01f)
             {
                 EventBus<CustomerStateChangeHandler>.Raise(new CustomerStateChangeHandler(CustomerState.Eat, cookMoveHandler.customer));
 
-                
-
+              
                 yield break;
             }
 
@@ -96,6 +94,12 @@ public class Cook : MonoBehaviour
     public float WaitingTime { get; set; } // 음식 시간
 
     [SerializeField] private Image foodImage; // 음식 이미지
+
+    public Image FoodImage
+    {
+        get => foodImage;
+    }
+
 
     private Canvas canvas;
 

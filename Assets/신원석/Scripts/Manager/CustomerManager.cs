@@ -14,6 +14,7 @@ public class CustomerManager : baseManager, IGameManager
         conFig = config;
 
         EventBus<CustomerSpawnHandler>.OnEvent += SpawnCustomer;
+        EventBus<GetCusomersEvent>.OnEvent += GetCustomerEvent;
     }
 
     public CustomerManager(BaseScriptableObject baseScriptableObject)
@@ -22,10 +23,25 @@ public class CustomerManager : baseManager, IGameManager
         conFig = (CustomerManagerConfig)baseScriptableObject;
     }
 
+    ~CustomerManager()
+    {
+        EventBus<CustomerSpawnHandler>.OnEvent -= SpawnCustomer;
+        EventBus<GetCusomersEvent>.OnEvent -= GetCustomerEvent;
+    }
+    
     public override void Init()
     {
         EventBus<MenuLoadedEvent>.Raise(new MenuLoadedEvent(this));
+
+
+        counterTransforms = GameObject.FindWithTag("Counter").GetComponent<OrderCounter>().QueuePositions;
     }
+
+    public void GetCustomerEvent(GetCusomersEvent getCustomersEvent)
+    {
+        getCustomersEvent.employee.customers = customers;
+    }
+
 
     public void SpawnCustomer(CustomerSpawnHandler customerSpawnHandler)
     {
@@ -61,7 +77,6 @@ public class CustomerManager : baseManager, IGameManager
                 if (MenuBoardSlots.Count != 0)
                 {
                     CheckMenu();
-                    //EventBus<MenuReduceHandler>.Raise(new MenuReduceHandler(Slot));
                 }
 
                 yield return null;
@@ -69,8 +84,45 @@ public class CustomerManager : baseManager, IGameManager
         }
     }
 
+    public void EnqueueCustomer(Customer customer)
+    {
+        if (customerQueue.Count < counterTransforms.Count)
+        {
+            customerQueue.Enqueue(customer);
+            UpdateQueueDestinations();
+        }
+        else
+        {
+            //customer.WaitOutside();
+        }
+    }
 
+    public void GetCustomers()
 
+    {
+
+    }
+
+    private void UpdateQueueDestinations()
+    {
+        int idx = 0;
+        foreach (Customer cust in customerQueue)
+        {
+           
+            int posIndex = Mathf.Min(idx, counterTransforms.Count - 1);
+            cust.navMeshAgent.SetDestination(counterTransforms[posIndex].position);
+            cust.CalculatePosition = counterTransforms[posIndex].position; 
+            idx++;          
+        }
+    }
+    public void DequeueCustomer()
+    {
+        if (customerQueue.Count > 0)
+        {
+            customerQueue.Dequeue();
+            UpdateQueueDestinations();
+        }
+    }
 
     public void CheckMenu()
     {
@@ -80,14 +132,29 @@ public class CustomerManager : baseManager, IGameManager
             return;
 
         GameObject obj = GameObject.Instantiate(conFig.GetGameObjects()[0]);
-        obj.GetComponent<Customer>().Slot = Slot;
+
+
+        Customer customer = obj.GetComponent<Customer>();
+
+        customers.Add(customer);
+
+        customer.Slot = Slot;
+        customer.customerManager = this;
     }
 
     CustomerManagerConfig conFig;
 
-    List<Customer> customers = new List<Customer>();
+    public List<Customer> customers { get; set; } = new List<Customer>();
+
+    public List<Transform> counterTransforms { get; set; }
+
+    public Queue<Customer> customerQueue { get; set; } = new Queue<Customer>();
+
+
     public Dictionary<string, GameObject> menuCollection { get; set; }
     public Dictionary<string, GameObject> MenuBoardSlots { get; set; }
+
+
 
     public MenuBoardSlot Slot { get; set; }
 
