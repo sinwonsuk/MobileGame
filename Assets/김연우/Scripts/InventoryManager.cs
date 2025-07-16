@@ -288,4 +288,32 @@ public class InventoryManager : MonoBehaviour
 
 		OnInventoryChanged?.Invoke();
 	}
+
+	private void OnApplicationQuit()
+	{
+		SaveImmediately();
+	}
+
+	private void SaveImmediately()
+	{
+		string ownerIndate = Backend.UserInDate;
+
+		for (int i = 0; i < allRunTimeIngredients.Length; i++)
+		{
+			string itemIndate = allIngredients[i].indate;
+			int qty = allRunTimeIngredients[i].ingredientQty;
+
+			Where where = new Where();
+			where.Equal("owner_inDate", ownerIndate);
+			where.Equal("inventoryItemIndate", itemIndate);
+
+			Param param = new Param();
+			param.Add("inventoryQuantity", qty);
+
+			Backend.GameData.Update("INVENTORY", where, param);
+		}
+
+		Debug.Log("종료 시 데이터 저장 요청 완료");
+	}
+
 }
