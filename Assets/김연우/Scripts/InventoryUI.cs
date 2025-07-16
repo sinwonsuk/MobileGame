@@ -1,4 +1,3 @@
-// InventoryUI.cs
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -18,11 +17,6 @@ public class InventoryUI : MonoBehaviour
     {
         InventoryManager.Instance.OnInventoryChanged -= RefreshUI;
     }
-
-    /// <summary>
-    /// UI 갱신
-    /// </summary>
-    // InventoryUI.cs
     private void RefreshUI()
     {
         // 기존 UI 제거
@@ -33,7 +27,7 @@ public class InventoryUI : MonoBehaviour
         foreach (var slot in InventoryManager.Instance.slots)
         {
             // ★ 수량이 0이면 생성하지 않는다
-            if (slot.quantity <= 0)
+            if (slot.runTimeIngredientData.ingredientQty <= 0)
                 continue;
 
             // 수량이 1 이상인 재료만 Instantiate
