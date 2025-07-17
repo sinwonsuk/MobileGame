@@ -10,14 +10,14 @@ public class Bullet2D : MonoBehaviour
     [Tooltip("Å¸°Ù ÅÂ±×")]
     public string targetTag = "a";
 
-    int damage;
+    double damage;
 
     void Start()
     {
         Destroy(gameObject, lifeTime);
     }
 
-    public void SetDamage(int dmg)
+    public void SetDamage(double dmg)
     {
         damage = dmg;
     }

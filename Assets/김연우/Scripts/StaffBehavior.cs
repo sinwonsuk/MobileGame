@@ -1,16 +1,16 @@
 // == StaffBehavior.cs ==
 using UnityEngine;
+using System;
 using System.Collections;
 
 public class StaffBehavior : MonoBehaviour
 {
     StaffStatsSO data;
-
     [SerializeField] Animator animator;
 
-    // 런타임에 계산된 실제 스탯
-    int currentAttackPower;
-    float currentAttackSpeed;
+    // 런타임에 계산된 실제 스탯 (double)
+    double currentAttackPower;
+    double currentAttackSpeed;
 
     Transform boss;
 
@@ -22,8 +22,9 @@ public class StaffBehavior : MonoBehaviour
     public string bossTag = "a";
     public string bossLayerName = "Boss";
 
+    [Header("감지 범위 (double)")]
     [SerializeField]
-    float detectRange = 10f;
+    double detectRange = 10.0;
 
     public void Init(StaffStatsSO stats)
     {
@@ -43,7 +44,7 @@ public class StaffBehavior : MonoBehaviour
 
     void RecalculateStats()
     {
-        // 레벨에 따라 스탯 재계산
+        // 레벨에 따라 스탯 재계산 (double)
         currentAttackPower = data.attack_Power
                            + data.attack_PowerPerLevel * (data.level - 1);
         currentAttackSpeed = data.attack_Speed
@@ -52,19 +53,22 @@ public class StaffBehavior : MonoBehaviour
 
     private IEnumerator FindAndShoot()
     {
-        float interval = 1f / Mathf.Max(currentAttackSpeed, 0.01f);
+        // 인터벌도 double
+        double interval = 1.0 / Math.Max(currentAttackSpeed, 0.01);
 
         while (true)
         {
             GameObject[] targets = GameObject.FindGameObjectsWithTag(bossTag);
-            float minDist = Mathf.Infinity;
+            double minDist = double.PositiveInfinity;
             Transform nearest = null;
 
             foreach (var t in targets)
             {
-                if (t.layer != LayerMask.NameToLayer(bossLayerName)) continue;
+                if (t.layer != LayerMask.NameToLayer(bossLayerName))
+                    continue;
 
-                float dist = Vector2.Distance(firePoint.position, t.transform.position);
+                // Vector2.Distance 반환이 float라서 double 캐스트
+                double dist = Vector2.Distance(firePoint.position, t.transform.position);
                 if (dist < minDist && dist <= detectRange)
                 {
                     minDist = dist;
@@ -77,26 +81,18 @@ public class StaffBehavior : MonoBehaviour
             if (boss != null)
                 Shoot2D();
 
-            yield return new WaitForSeconds(interval);
+            // WaitForSeconds 에는 float 로 캐스팅
+            yield return new WaitForSeconds((float)interval);
         }
     }
 
     private void Shoot2D()
     {
-        if (boss == null || bulletPrefab == null) return;
+        if (boss == null || bulletPrefab == null)
+            return;
 
         if (animator != null)
             animator.SetTrigger("AttackTrigger");
-
-        //Vector2 dir = (boss.position - firePoint.position).normalized;
-
-        //float offset = 0.3f; // 발사 위치 간격
-
-        //Vector3 leftFirePos = firePoint.position + firePoint.right * -offset;
-        //Vector3 rightFirePos = firePoint.position + firePoint.right * offset;
-
-        //FireBullet(leftFirePos, dir);
-        //FireBullet(rightFirePos, dir);
     }
 
     private void FireBullet(Vector3 position, Vector2 direction)
@@ -106,24 +102,29 @@ public class StaffBehavior : MonoBehaviour
 
         var bullet = go.GetComponent<Bullet2D>();
         if (bullet != null)
+            // SetDamage 가 double 인 경우 그 대로 넘겨도 무방
             bullet.SetDamage(currentAttackPower);
 
         var rb2d = go.GetComponent<Rigidbody2D>();
         if (rb2d != null)
-            rb2d.AddForce(direction * currentAttackPower, ForceMode2D.Impulse);
+            // AddForce 는 Vector2 * float 를 받으므로 캐스팅
+            rb2d.AddForce(direction * (float)currentAttackPower, ForceMode2D.Impulse);
     }
+
+    // 애니메이션 이벤트용 프레임 콜백
     public void OnShootFrame()
     {
-        if (boss == null || bulletPrefab == null) return;
+        if (boss == null || bulletPrefab == null)
+            return;
 
         Vector2 dir = (boss.position - firePoint.position).normalized;
-        float offset = 0.3f;
 
-        Vector3 leftFirePos = firePoint.position + firePoint.right * -offset;
-        Vector3 rightFirePos = firePoint.position + firePoint.right * offset;
+        // offset 도 double 로 두고, Transform 연산 시 float 로 캐스팅
+        double offset = 0.3;
+        Vector3 leftFirePos = firePoint.position + firePoint.right * (float)(-offset);
+        Vector3 rightFirePos = firePoint.position + firePoint.right * (float)offset;
 
         FireBullet(leftFirePos, dir);
         FireBullet(rightFirePos, dir);
     }
-
 }
