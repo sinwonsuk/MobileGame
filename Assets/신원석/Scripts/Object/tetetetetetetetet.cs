@@ -19,26 +19,55 @@ public class tetetetetetetetet :MonoBehaviour
 
     private void Update()
     {
+       // Debug.Log(Cooks.Count);
+
+
+
+       
+
         for (int i = 0; i < customers.Count; i++)
         {
-            if (customers[i].Slot == null || customers[i].customerTable == null || Cooks.Count == 0)
+            // 큐 자체가 null 이거나 비어있으면 바로 리턴
+            if (Cooks == null || Cooks.Count == 0)
+                return;
+
+
+            Customer customer = customers[i];
+            if (customer == null)
                 continue;
 
-            if (Cooks.Peek().foodName == customers[i].Slot.NameText.text && Cooks.Peek().FoodImage.fillAmount >= 1.0f && customers[i].customerState == CustomerState.Wait &&
-                customers[i].GetComponentInChildren<FoodClick>().Check ==false)
+            // Slot 과 NameText 유효성 검사
+            MenuBoardSlot slot = customer.Slot;
+            if (slot == null || slot.NameText == null)
+                continue;
+
+            // customerTable 유효성 검사
+            CustomerTable table = customer.customerTable;
+            if (table == null)
+                continue;
+
+            // FoodClick 컴포넌트 검사 (한 번만 호출)
+            FoodClick foodClick = customer.GetComponentInChildren<FoodClick>();
+            if (foodClick == null)
+                continue;
+
+            // 큐에서 꺼낸 Cook 검사
+            Cook cook = Cooks.Peek();
+            Debug.Log(Cooks.Count);
+            if (cook == null || cook.FoodImage == null)
+                continue;
+
+            // 최종 조건 체크
+            if (cook.foodName == slot.NameText.text
+                && cook.FoodImage.fillAmount >= 1.0f
+                && customer.customerState == CustomerState.Wait
+                && !foodClick.Check)
             {
-
-                customers[i].GetComponentInChildren<FoodClick>().Check = true;
-
-                EventBus<CookMoveHandler>.Raise(new CookMoveHandler(customers[i].customerTable.transform, customers[i]));
-
-                if (customers[i].GetComponentInChildren<FoodClick>() == null)
-                {
-                    continue;
-                }
-
-                customers[i].GetComponentInChildren<FoodClick>().DeleteObject();
-               
+                foodClick.Check = true;
+                EventBus<CookMoveHandler>.Raise(
+                    new CookMoveHandler(table.transform, customer)
+                );
+                foodClick.DeleteObject();
             }
         }
     }

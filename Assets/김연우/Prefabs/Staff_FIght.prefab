@@ -679,7 +679,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   staffData: {fileID: 11400000, guid: 4a75a7518e870e64389bc691d8a7e591, type: 2}
-  spawnPoint: {fileID: 6943934065544050891}
+  spawnPoint: {fileID: 0}
   purchaseButton: {fileID: 8360716656577544675}
   _buttonText: {fileID: 1192647099589081663}
   level_num: {fileID: 6836978594318029369}
@@ -695,7 +695,7 @@ GameObject:
   - component: {fileID: 5730167865441692975}
   - component: {fileID: 503415346768284998}
   m_Layer: 5
-  m_Name: Staff_Item
+  m_Name: Staff_FIght
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
