@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class StaffBase : MonoBehaviour
 {
-    protected StaffStatsSO data;
+    StaffStatsSO data;
 
     protected int currentAttackPower;
     protected float currentAttackSpeed;
