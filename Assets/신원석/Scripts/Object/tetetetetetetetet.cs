@@ -19,33 +19,41 @@ public class tetetetetetetetet :MonoBehaviour
 
     private void Update()
     {
-        // 큐 자체가 null 이거나 비어있으면 바로 리턴
-        if (Cooks == null || Cooks.Count == 0)
-            return;
+       // Debug.Log(Cooks.Count);
+
+
+
+       
 
         for (int i = 0; i < customers.Count; i++)
         {
-            var customer = customers[i];
+            // 큐 자체가 null 이거나 비어있으면 바로 리턴
+            if (Cooks == null || Cooks.Count == 0)
+                return;
+
+
+            Customer customer = customers[i];
             if (customer == null)
                 continue;
 
             // Slot 과 NameText 유효성 검사
-            var slot = customer.Slot;
+            MenuBoardSlot slot = customer.Slot;
             if (slot == null || slot.NameText == null)
                 continue;
 
             // customerTable 유효성 검사
-            var table = customer.customerTable;
+            CustomerTable table = customer.customerTable;
             if (table == null)
                 continue;
 
             // FoodClick 컴포넌트 검사 (한 번만 호출)
-            var foodClick = customer.GetComponentInChildren<FoodClick>();
+            FoodClick foodClick = customer.GetComponentInChildren<FoodClick>();
             if (foodClick == null)
                 continue;
 
             // 큐에서 꺼낸 Cook 검사
-            var cook = Cooks.Peek();
+            Cook cook = Cooks.Peek();
+            Debug.Log(Cooks.Count);
             if (cook == null || cook.FoodImage == null)
                 continue;
 
