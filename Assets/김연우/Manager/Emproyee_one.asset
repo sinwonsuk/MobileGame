@@ -15,13 +15,14 @@ MonoBehaviour:
   employeeId: 5
   displayName: Emproyee_one
   staffType: 2
-  level: 0
+  level: 1
   portrait: {fileID: 0}
-  baseSalary: 0
+  baseSalary: 30
   attack_Power: 0
   attack_Speed: 0
   attack_PowerPerLevel: 0
   attack_SpeedPerLevel: 0
-  timer: 2
+  timer: 10
+  cooltime: 120
   explain: "\uACBD\uC601\uC9C1\uC6D0 1"
   itemPrefab: {fileID: 2127192634085561284, guid: 51d09969f1b80f749ac2cf955655017e, type: 3}
