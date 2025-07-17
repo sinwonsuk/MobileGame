@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d3edaa2497bccf49ab4c4cf6538befa, type: 3}
   m_Name: Emproyee_one
   m_EditorClassIdentifier: 
-  employeeId: 5
+  indate: 2025-07-17T15:06:49.663Z
   displayName: Emproyee_one
   staffType: 2
   level: 1

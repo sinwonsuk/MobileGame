@@ -5,7 +5,7 @@ using UnityEngine;
 public class StaffStatsSO : ScriptableObject
 {
     [Header("Identity")]
-    public string employeeId;     // indate key
+    public string indate;     // indate key
     public string displayName;    // 직원 이름
     public StaffType staffType;  //직원 타입 (전투, 경영, 파견)
     [Header("Runtime Level")]
