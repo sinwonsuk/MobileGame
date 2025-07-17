@@ -5,8 +5,8 @@ using UnityEngine;
 public class EnemyBase : MonoBehaviour
 {
     [Header("∞¯≈Î Ω∫≈»")]
-    public float maxHp;
-    protected float currentHp;
+    public double maxHp;
+    protected double currentHp;
 
     [Header("HP Bar ")]
     [SerializeField] private GameObject hpBarPrefab;
@@ -43,7 +43,7 @@ public class EnemyBase : MonoBehaviour
         transform.position = basePosition;
     }
 
-    public virtual void TakeDamage(float damage)
+    public virtual void TakeDamage(double damage)
     {
         currentHp -= damage;
 
