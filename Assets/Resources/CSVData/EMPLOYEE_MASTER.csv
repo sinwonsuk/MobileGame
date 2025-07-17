@@ -1,2 +1,2 @@
-﻿employeeName,employeeLevel,employeeAtk,employeeAtkSpeed,employeePrice
-예시직원,1,1,0.3,1200
+﻿employeeName,staffType,baseSalary,baseAtk,baseAtkSpeed,atkGrowthPerLevel,speedGrowthPerLevel,timer,cooltime,explain
+예시직원,예시타입,1,1,1,1,1,1,1,예시설명

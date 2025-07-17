@@ -206,7 +206,7 @@ public class LoginUI : MonoBehaviour
 		if (IsAdminAccount())
 		{
 			Debug.Log("<관리자> 계정입니다. StaticData 삽입");
-			Instantiate(Test, Vector3.zero, Quaternion.identity);
+			Instantiate(csvUploader, Vector3.zero, Quaternion.identity);
 		}
 	}
 
@@ -222,7 +222,7 @@ public class LoginUI : MonoBehaviour
 
 	[SerializeField] private TMP_InputField nicknameInput;
 
-	[SerializeField] GameObject Test;
+	[SerializeField] GameObject csvUploader;
 
 	[SerializeField] private StaticDataInitializer staticDataInitializer;
 }
