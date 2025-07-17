@@ -28,18 +28,18 @@ public class ShooterStaff : StaffBase
     }
     void Start()
     {
-        //if (bigBulletSkillPrefab != null)
-        //{
-        //    var go = Instantiate(bigBulletSkillPrefab, transform);
-        //    bigBulletSkill = go.GetComponent<ISkill>();
-        //}
+        if (bigBulletSkillPrefab != null)
+        {
+            var go = Instantiate(bigBulletSkillPrefab, transform);
+            bigBulletSkill = go.GetComponent<ISkill>();
+        }
 
-        //skillCooldownBar = GetComponentInChildren<SkillCooldownBar>();
+        skillCooldownBar = GetComponentInChildren<SkillCooldownBar>();
 
-        //if (skillCooldownBar != null && bigBulletSkill is BigBulletSkill concreteSkill)
-        //{
-        //    skillCooldownBar.skill = concreteSkill;
-        //}
+        if (skillCooldownBar != null && bigBulletSkill is BigBulletSkill concreteSkill)
+        {
+            skillCooldownBar.skill = concreteSkill;
+        }
     }
 
     void OnMouseDown()
