@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Animations;
 using UnityEngine;
 using UnityEngine.AI;
 using static UnityEditor.Experimental.AssetDatabaseExperimental.AssetDatabaseCounters;
@@ -55,7 +56,7 @@ public class Customer : MonoBehaviour
         Vector3 moveDir = (currentPosition - prevPosition).normalized;
         prevPosition = currentPosition;
 
-        Vector3 forward = transform.forward;
+        Vector3 forward = transform.up;
         Vector3 right = transform.right;
 
         float forwardAmount = Vector3.Dot(moveDir, forward); 
@@ -119,7 +120,7 @@ public class Customer : MonoBehaviour
             case CustomerState.GoCalculate:
                 {
 
-                    if (Vector2.Distance(transform.position ,customerManager.counterTransforms[0].transform.position) < 2.0f)
+                    if (Vector2.Distance(transform.position ,customerManager.counterTransforms[0].transform.position) < 2.5f)
                     {
                         customerManager.EnqueueCustomer(this);
                         ChangeState(CustomerState.GoCalculate2);
@@ -204,6 +205,20 @@ public class Customer : MonoBehaviour
 
     [SerializeField] SpriteRenderer spriteRenderer;
 
+    [SerializeField] List<AnimatorController> animatorControllers;
+
+    [SerializeField] List<Sprite> sprites;
+
+
+
+    public List<AnimatorController> AnimatorControllers
+    {         
+        get => animatorControllers;
+    }
+    public List<Sprite> Sprites
+    {
+        get => sprites;
+    }
 
     public CustomerManager customerManager { get; set; }
 

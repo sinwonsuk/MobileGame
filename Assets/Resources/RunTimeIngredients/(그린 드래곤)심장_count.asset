@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c39a4a71d37878459352341167eec3c, type: 3}
   m_Name: "(\uADF8\uB9B0 \uB4DC\uB798\uACE4)\uC2EC\uC7A5_count"
   m_EditorClassIdentifier: 
-  ingredientName: 
-  ingredientQty: 0
+  ingredientName: "(\uADF8\uB9B0 \uB4DC\uB798\uACE4)\uC2EC\uC7A5"
+  ingredientQty: 50
