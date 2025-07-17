@@ -103,7 +103,7 @@ public class CustomerManager : baseManager, IGameManager
 
     }
 
-    private void UpdateQueueDestinations()
+    public void UpdateQueueDestinations()
     {
         int idx = 0;
         foreach (Customer cust in customerQueue)

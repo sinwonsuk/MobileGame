@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.Animations;
@@ -38,12 +39,12 @@ public class Customer : MonoBehaviour
         firstPosition = transform.position;
         animator = GetComponent<Animator>();
         navMeshAgent = GetComponent<NavMeshAgent>();
-
+        customerSpriteRenderer = GetComponent<SpriteRenderer>();
 
 
         navMeshAgent.updateRotation = false;
         navMeshAgent.updateUpAxis = false;
-        spriteRenderer.enabled = false;
+        foodSpriteRenderer.enabled = false;
     }
 
     public void ChangeState(CustomerState customerState)
@@ -52,6 +53,7 @@ public class Customer : MonoBehaviour
     }
     private void Update()
     {
+        customerSpriteRenderer.sortingOrder = Mathf.RoundToInt(-transform.position.y * 100);
         Vector3 currentPosition = transform.position;
         Vector3 moveDir = (currentPosition - prevPosition).normalized;
         prevPosition = currentPosition;
@@ -86,8 +88,8 @@ public class Customer : MonoBehaviour
                     if (Vector2.Distance(transform.position, Target.position) < 0.01f)
                     {
                         EventBus<CookMakeHandler>.Raise(new CookMakeHandler(Slot.NameText.text, Slot));
-                        spriteRenderer.enabled = true;
-                        spriteRenderer.sprite = Slot.IconImage.sprite;
+                        foodSpriteRenderer.enabled = true;
+                        foodSpriteRenderer.sprite = Slot.IconImage.sprite;
                         ChangeState(CustomerState.Wait);
                     }
                 }
@@ -110,7 +112,10 @@ public class Customer : MonoBehaviour
                         customerTable.IsSittingAtTable = false;
                         animator.SetBool("Back", true);
 
-                        navMeshAgent.SetDestination(customerManager.counterTransforms[0].transform.position);
+
+                        //customerManager.EnqueueCustomer(this);
+
+                        navMeshAgent.SetDestination(customerManager.counterTransforms[customerManager.customerQueue.Count].transform.position);
                         return;
                     }
 
@@ -119,8 +124,10 @@ public class Customer : MonoBehaviour
                 break;
             case CustomerState.GoCalculate:
                 {
+                    navMeshAgent.SetDestination(customerManager.counterTransforms[customerManager.customerQueue.Count].transform.position);
 
-                    if (Vector2.Distance(transform.position ,customerManager.counterTransforms[0].transform.position) < 2.5f)
+
+                    if (Vector2.Distance(transform.position ,customerManager.counterTransforms[customerManager.customerQueue.Count].transform.position) < 0.01f)
                     {
                         customerManager.EnqueueCustomer(this);
                         ChangeState(CustomerState.GoCalculate2);
@@ -131,8 +138,9 @@ public class Customer : MonoBehaviour
 
             case CustomerState.GoCalculate2:
                 {
+                    //customerManager.UpdateQueueDestinations();
 
-                    if (Vector2.Distance(transform.position, CalculatePosition) < 0.01f)
+                    if (Vector2.Distance(transform.position, customerManager.counterTransforms[0].transform.position) < 0.01f)
                     {
                         ChangeState(CustomerState.calculate);
                         return;
@@ -189,8 +197,10 @@ public class Customer : MonoBehaviour
     private Transform target;
 
     private Vector3 firstPosition;
+    private SpriteRenderer customerSpriteRenderer;
 
     public MenuBoardSlot Slot { get; set; }
+
 
     public Transform Target
     {
@@ -203,7 +213,7 @@ public class Customer : MonoBehaviour
 
     public NavMeshAgent navMeshAgent { get; set; }
 
-    [SerializeField] SpriteRenderer spriteRenderer;
+    [SerializeField] SpriteRenderer foodSpriteRenderer;
 
     [SerializeField] List<AnimatorController> animatorControllers;
 
