@@ -50,4 +50,10 @@ public class Bullet2D : MonoBehaviour
         if (!other.isTrigger)
             Destroy(gameObject);
     }
+
+    void OnBecameInvisible()
+    {
+        Destroy(gameObject);
+    }
+
 }

@@ -45,6 +45,7 @@ public class InventoryManager : MonoBehaviour
             if (data.ingredientName == name)
             {
                 data.ingredientQty += amount;
+
                 return;
             }
         }

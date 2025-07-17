@@ -20,6 +20,7 @@ public class Slime : EnemyBase
 
     protected override void Die()
     {
+        if (isDead) return;
         Debug.Log("ΩΩ∂Û¿” ªÁ∏¡");
         base.Die();
 

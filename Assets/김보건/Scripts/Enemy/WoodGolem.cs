@@ -19,6 +19,7 @@ public class WoodGolem : EnemyBase
 
     protected override void Die()
     {
+        if (isDead) return;
         Debug.Log("°ñ·½ »ç¸Á");
         base.Die();
 

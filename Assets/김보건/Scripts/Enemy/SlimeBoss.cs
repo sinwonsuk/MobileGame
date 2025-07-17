@@ -17,6 +17,7 @@ public class SlimeBoss : EnemyBase
 
     protected override void Die()
     {
+        if (isDead) return;
         Debug.Log("º¸½º »ç¸Á");
         base.Die();
 
