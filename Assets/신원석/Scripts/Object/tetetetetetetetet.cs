@@ -1,30 +1,51 @@
 using System.Collections.Generic;
+using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 
 public class tetetetetetetetet :MonoBehaviour
 {
-
+    [Header("할당할 StaffStatsSO")]
+    public StaffStatsSO stats;              // Inspector 에 할당
     public List<Customer> customers { get; set; } = new List<Customer>();
 
     public Queue<Cook> Cooks { get; set; } = new Queue<Cook>();
 
-
+    private bool isWorking = true;        // 현재 일하는 중인가?
+    private float timeCounter;              // 남은 시간 카운터
     private void Start()
     {
         EventBus<GetCusomersEvent>.Raise(new GetCusomersEvent(this));
         EventBus<GetFirstCookEvent>.Raise(new GetFirstCookEvent(this));
+
+        timeCounter = stats.timer;
     }
 
 
 
     private void Update()
     {
-       // Debug.Log(Cooks.Count);
+        // 1) 타이머 계산
+        timeCounter -= Time.deltaTime;
+        if (timeCounter <= 0f)
+        {
+            if (isWorking)
+            {
+                // 일끝 → 휴식
+                isWorking = false;
+                timeCounter = stats.cooltime;
+            }
+            else
+            {
+                // 휴식끝 → 다시 일
+                isWorking = true;
+                timeCounter = stats.timer;
+            }
+        }
 
-
-
-       
-
+        // 2) 휴식 중일 때는 Auto-Serving 로직을 건너뛴다
+        if (!isWorking)
+            return;
+        // Debug.Log(Cooks.Count);
         for (int i = 0; i < customers.Count; i++)
         {
             // 큐 자체가 null 이거나 비어있으면 바로 리턴

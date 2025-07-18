@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -9,7 +10,7 @@ public class ShooterStaff : StaffBase
 
     [SerializeField] string bossTag = "a";
     [SerializeField] string bossLayerName = "Boss";
-    [SerializeField] float detectRange = 20f;
+    [SerializeField] private double detectRange = 20.0;
 
     [Header("스킬")]
     [SerializeField] private GameObject bigBulletSkillPrefab;
@@ -17,7 +18,6 @@ public class ShooterStaff : StaffBase
 
     private ISkill bigBulletSkill;
     private SkillCooldownBar skillCooldownBar;
-    private bool isSkillReady = true;
 
     Transform boss;
 
@@ -26,6 +26,7 @@ public class ShooterStaff : StaffBase
         base.Init(stats);
         StartCoroutine(FindAndShoot());
     }
+
     void Start()
     {
         if (bigBulletSkillPrefab != null)
@@ -35,11 +36,8 @@ public class ShooterStaff : StaffBase
         }
 
         skillCooldownBar = GetComponentInChildren<SkillCooldownBar>();
-
         if (skillCooldownBar != null && bigBulletSkill is BigBulletSkill concreteSkill)
-        {
             skillCooldownBar.skill = concreteSkill;
-        }
     }
 
     void OnMouseDown()
@@ -51,19 +49,28 @@ public class ShooterStaff : StaffBase
 
     private IEnumerator FindAndShoot()
     {
-        float interval = 1f / Mathf.Max((float)currentAttackSpeed, 0.01f);
-
         while (true)
         {
+            // double 타입으로 interval 계산
+            double interval = 1.0 / Math.Max(currentAttackSpeed, 0.01);
+
+            // 타겟 검색
             GameObject[] targets = GameObject.FindGameObjectsWithTag(bossTag);
-            float minDist = Mathf.Infinity;
+            double minDist = double.PositiveInfinity;
             Transform nearest = null;
+            Vector3 origin = firePoint.position;
 
             foreach (var t in targets)
             {
-                Debug.Log($"[타겟 후보] 이름: {t.name}, 태그: {t.tag}, 레이어: {LayerMask.LayerToName(t.layer)}");
-                if (t.layer != LayerMask.NameToLayer(bossLayerName)) continue;
-                float dist = Vector2.Distance(firePoint.position, t.transform.position);
+                if (t.layer != LayerMask.NameToLayer(bossLayerName))
+                    continue;
+
+                // double 거리 계산
+                Vector3 pos = t.transform.position;
+                double dx = pos.x - origin.x;
+                double dy = pos.y - origin.y;
+                double dist = Math.Sqrt(dx * dx + dy * dy);
+
                 if (dist < minDist && dist <= detectRange)
                 {
                     minDist = dist;
@@ -72,34 +79,31 @@ public class ShooterStaff : StaffBase
             }
 
             boss = nearest;
-
             if (boss != null)
                 Shoot2D();
 
-            yield return new WaitForSeconds(interval);
+            // WaitForSeconds는 float 받으므로 캐스트
+            yield return new WaitForSeconds((float)interval);
         }
     }
 
     private void Shoot2D()
     {
         if (boss == null || bulletPrefab == null) return;
-
-        if (animator != null)
-            animator.SetTrigger("AttackTrigger"); // 애니메이션 트리거
+        animator?.SetTrigger("AttackTrigger");
     }
 
-    public void OnShootFrame()  // 애니메이션 이벤트로 호출
+    public void OnShootFrame()  // 애니메이션 이벤트
     {
         if (boss == null || bulletPrefab == null) return;
 
         Vector2 dir = (boss.position - firePoint.position).normalized;
-        float offset = 0.3f;
+        double offset = 0.3; // double offset
+        Vector3 leftPos = firePoint.position + firePoint.right * (float)-offset;
+        Vector3 rightPos = firePoint.position + firePoint.right * (float)offset;
 
-        Vector3 leftFirePos = firePoint.position + firePoint.right * -offset;
-        Vector3 rightFirePos = firePoint.position + firePoint.right * offset;
-
-        FireBullet(leftFirePos, dir);
-        FireBullet(rightFirePos, dir);
+        FireBullet(leftPos, dir);
+        FireBullet(rightPos, dir);
     }
 
     private void FireBullet(Vector3 position, Vector2 direction)
@@ -107,19 +111,10 @@ public class ShooterStaff : StaffBase
         var go = Instantiate(bulletPrefab, position, Quaternion.identity);
         go.transform.right = direction;
 
-        var bullet = go.GetComponent<Bullet2D>();
-        if (bullet != null)
+        if (go.TryGetComponent<Bullet2D>(out var bullet))
             bullet.SetDamage(currentAttackPower);
 
-        var rb2d = go.GetComponent<Rigidbody2D>();
-        if (rb2d != null)
-            rb2d.AddForce(direction * (float)currentAttackPower, ForceMode2D.Impulse);
+        if (go.TryGetComponent<Rigidbody2D>(out var rb))
+            rb.AddForce(direction * (float)currentAttackPower, ForceMode2D.Impulse);
     }
-
-    //private void OnMouseDown()
-    //{
-    //    if (!isSkillReady) return;
-    //    StartCoroutine(SkillRoutine());
-    //}
-
 }

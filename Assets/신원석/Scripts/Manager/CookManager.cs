@@ -87,7 +87,13 @@ public class CookManager : baseManager, IGameManager
 
     public void GetFirstCookEvent(GetFirstCookEvent getFirstCookEvent)
     {
-        getFirstCookEvent.employee.Cooks = Cooks;
+        if (getFirstCookEvent.cooker != null)
+            getFirstCookEvent.cooker.Cooks = Cooks;
+
+        if (getFirstCookEvent.employee != null)
+            getFirstCookEvent.employee.Cooks = Cooks;
+
+
     }
     public override void Update()
     {
