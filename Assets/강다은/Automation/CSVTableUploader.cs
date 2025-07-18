@@ -8,12 +8,16 @@ using System.Text.RegularExpressions;
 
 public class CSVTableUploader : MonoBehaviour
 {
+	public System.Action onComplete;
+
 	IEnumerator Start()
 	{
 		foreach (string tableName in tableFileNames)
 		{
 			yield return SyncTableWithCsv(tableName);
 		}
+
+		onComplete?.Invoke();
 	}
 
 	IEnumerator SyncTableWithCsv(string tableName)
@@ -82,24 +86,8 @@ public class CSVTableUploader : MonoBehaviour
 				if (inserted)
 				{
 					// Insert 후 해당 key로 서버 다시 조회
-					bool updated = false;
-					Backend.GameData.Get(tableName, new Where(), callback =>
-					{
-						if (callback.IsSuccess())
-						{
-							foreach (LitJson.JsonData row in callback.FlattenRows())
-							{
-								string updatedKey = CreateCompositeKey(row, keyColumns);
-								serverDataMap[updatedKey] = row;
-							}
-						}
-						else
-						{
-							Debug.LogWarning($"[WARNING] 삽입 후 재조회 실패: {callback}");
-						}
-						updated = true;
-					});
-					yield return new WaitUntil(() => updated);
+					yield return LoadAllServerData(tableName, keyColumns, serverDataMap);
+					Debug.Log($"[INSERT SUCCESS] {tableName} : {key}");
 				}
 			}
 			else if (IsRowDifferent(serverDataMap[key], param, key))
@@ -126,6 +114,8 @@ public class CSVTableUploader : MonoBehaviour
 			}
 		}
 	}
+
+
 
 	IEnumerator LoadAllServerData(string tableName, List<string> keyColumns, Dictionary<string, LitJson.JsonData> serverDataMap)
 	{
