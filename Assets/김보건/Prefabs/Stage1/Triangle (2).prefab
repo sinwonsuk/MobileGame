@@ -115,5 +115,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e51eacf0603528149a70606366403da0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ingredientName: "(\uBB38\uC5B4)\uC6B0\uC720"
+  ingredientName: "\uBB38\uC5B4 \uC6B0\uC720"
   amount: 1
