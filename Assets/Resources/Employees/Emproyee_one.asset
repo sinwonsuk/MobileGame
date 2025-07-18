@@ -13,16 +13,16 @@ MonoBehaviour:
   m_Name: Emproyee_one
   m_EditorClassIdentifier: 
   indate: 2025-07-17T15:06:49.663Z
-  displayName: Emproyee_one
+  displayName: "\uACBD\uC601\uC9C1\uC6D01"
   staffType: 2
   level: 1
   portrait: {fileID: 0}
-  baseSalary: 30
+  baseSalary: 100
   attack_Power: 0
   attack_Speed: 0
   attack_PowerPerLevel: 0
   attack_SpeedPerLevel: 0
   timer: 5
-  cooltime: 5
-  explain: "\uACBD\uC601\uC9C1\uC6D0 1"
+  cooltime: 10
+  explain: "\uACBD\uC601 \uC9C1\uC6D01"
   itemPrefab: {fileID: 2127192634085561284, guid: 51d09969f1b80f749ac2cf955655017e, type: 3}

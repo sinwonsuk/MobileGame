@@ -15,9 +15,9 @@ MonoBehaviour:
   indate: 2025-07-16T02:27:36.414Z
   displayName: "\uC5D4\uD2B8 \uC138\uC21C \uB098\uBB3C\uBB34\uCE68"
   foodSprite: seasonedVegetables
-  price: 0
+  price: 210
   isUnlock: 0
-  cookingTime: 0.5
+  cookingTime: 2
   Ingredients:
   - {fileID: 11400000, guid: 8c5ee7781af93e84fbda5780e9ca8d24, type: 2}
   - {fileID: 11400000, guid: eb82d363345dc90489082680109b4e2b, type: 2}

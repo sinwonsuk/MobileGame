@@ -15,9 +15,9 @@ MonoBehaviour:
   indate: 2025-07-16T02:27:37.786Z
   displayName: "\uD654\uC5FC\uC758 \uC2EC\uC7A5 \uC2A4\uD14C\uC774\uD06C"
   foodSprite: fireHeartBBQ
-  price: 0
+  price: 1400
   isUnlock: 0
-  cookingTime: 0
+  cookingTime: 2
   Ingredients:
   - {fileID: 11400000, guid: 3cd299b7c93388c4a85fde8aa75ddc3d, type: 2}
   - {fileID: 11400000, guid: 0d74ecd3bd3149745af6015e5c7c6a3a, type: 2}

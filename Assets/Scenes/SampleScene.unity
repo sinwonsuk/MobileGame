@@ -514,7 +514,7 @@ GameObject:
   - component: {fileID: 438962259}
   m_Layer: 5
   m_Name: Canvas
-  m_TagString: Untagged
+  m_TagString: Canvas
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1180,6 +1180,10 @@ PrefabInstance:
       propertyPath: spawnPoint
       value: 
       objectReference: {fileID: 1737208340}
+    - target: {fileID: 6969825950708190459, guid: 13b01492fc9fd6c4db5dd60f77503498, type: 3}
+      propertyPath: spawnPoint
+      value: 
+      objectReference: {fileID: 1562197533}
     - target: {fileID: 8609734191790404124, guid: 13b01492fc9fd6c4db5dd60f77503498, type: 3}
       propertyPath: rewards.Array.data[0].ingredientName
       value: "\uADF8\uB9AC\uD540 \uAC00\uC2B4\uC0B4"

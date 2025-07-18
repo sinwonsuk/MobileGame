@@ -15,9 +15,9 @@ MonoBehaviour:
   indate: 2025-07-16T02:27:37.129Z
   displayName: "\uBD88\uBA78\uC758 \uBFCC\uB9AC \uC218\uD504"
   foodSprite: beakManSoup
-  price: 0
+  price: 770
   isUnlock: 0
-  cookingTime: 0
+  cookingTime: 2
   Ingredients:
   - {fileID: 11400000, guid: 7d699ce31bec7534d9b709fb18424f33, type: 2}
   - {fileID: 11400000, guid: 5da03fdf38ac18d45892cdc0ce1ea052, type: 2}

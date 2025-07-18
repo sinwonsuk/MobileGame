@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: "\uBBF8\uBBF9\uC0B4\uC810_count"
   m_EditorClassIdentifier: 
   ingredientName: "\uBBF8\uBBF9 \uC0B4\uC810"
-  ingredientQty: 0
+  ingredientQty: 50
