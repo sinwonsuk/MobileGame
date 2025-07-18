@@ -11,7 +11,7 @@ public class octopus : EnemyBase
 
         int stage = floorData.currentStage;
 
-        maxHp = 10f + stage * 0f;
+        maxHp = 100f + stage * 0f;
         currentHp = maxHp;
 
         GetComponent<SpriteRenderer>().color = Color.Lerp(Color.white, Color.red, stage / 10f);
@@ -19,6 +19,7 @@ public class octopus : EnemyBase
 
     protected override void Die()
     {
+        if (isDead) return;
         Debug.Log("¹®¾î »ç¸Á");
         base.Die();
 
