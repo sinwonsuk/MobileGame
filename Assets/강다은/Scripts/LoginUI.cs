@@ -66,7 +66,7 @@ public class LoginUI : MonoBehaviour
 					{
 						Debug.LogError("로그인 실패: " + error);
 					});
-                SceneManager.LoadScene("SampleScene");
+                
             },
 			onFailure: (error) =>
 			{
@@ -102,43 +102,42 @@ public class LoginUI : MonoBehaviour
 				Debug.LogError("로그인 실패: " + error);
 			});
 
-		SceneManager.LoadScene("SampleScene");
-
     }
 
-	void CheckNickname()
+	private IEnumerator CheckNicknameAndProceed()
 	{
 		var bro = Backend.BMember.GetUserInfo();
-
-		if(!bro.IsSuccess())
+		if (!bro.IsSuccess())
 		{
 			Debug.LogError("유저 정보 조회 실패: " + bro.GetMessage());
-			return;
+			yield break;
 		}
 
 		var json = bro.GetReturnValuetoJSON();
-
-		try {
+		try
+		{
 			Debug.Log("[전체 JSON 구조]\n" + json.ToJson());
 			var row = json["row"];
 			string nickname = row["nickname"].ToString();
 
-			if(string.IsNullOrEmpty(nickname) || nickname == "default" || nickname == "null")
+			if (string.IsNullOrEmpty(nickname) || nickname == "default" || nickname == "null")
 			{
 				Debug.Log("닉네임이 설정되지 않았습니다. 닉네임 설정 화면으로 이동합니다.");
-				ShowNicknamePanel();
+				ShowNicknamePanel(); // 대기
 			}
 			else
 			{
 				Debug.Log("이미 닉네임이 설정되어 있습니다: " + nickname);
+				SceneManager.LoadScene("SampleScene");
 			}
 		}
 		catch (System.Exception e)
 		{
-			Debug.Log("닉네임 정보가 없습니다. 닉네임 설정 화면으로 이동합니다. \n" + e);
+			Debug.Log("닉네임 정보 파싱 실패. 닉네임 설정 화면으로 이동합니다. \n" + e);
 			ShowNicknamePanel();
 		}
 	}
+
 
 	public void OnClickConfirmNickname()
 	{
@@ -150,7 +149,8 @@ public class LoginUI : MonoBehaviour
 			Debug.Log("닉네임 설정 성공: " + nickname);
 			BackendGameData.userData.nickname = nickname; // 닉네임 업데이트
 			BackendGameData.Instance.GameDataUpdate(); // 게임 데이터 업데이트
-			// 메인 화면으로 이동하거나 게임 시작 로직 추가
+
+			SceneManager.LoadScene("SampleScene");
 		},
 		onFailure: (error) =>
 		{
@@ -182,6 +182,7 @@ public class LoginUI : MonoBehaviour
 		return false;
 	}
 
+
 	private IEnumerator LoginFlowCoroutine()
 	{
 		while (string.IsNullOrEmpty(Backend.UserInDate))
@@ -203,15 +204,15 @@ public class LoginUI : MonoBehaviour
 		// 기타 유저 게임 데이터 불러오기
 		BackendGameData.Instance.GameDataGetOrInsert();
 
-		// 닉네임 여부 확인
-		CheckNickname();
-
 		// 관리자 계정일 경우 Csv -> Server
 		if (IsAdminAccount())
 		{
 			Debug.Log("<관리자> 계정입니다. StaticData 삽입");
 			Instantiate(csvUploader, Vector3.zero, Quaternion.identity);
 		}
+
+		//닉네임 여부 확인 및 씬 분기
+		yield return StartCoroutine(CheckNicknameAndProceed());
 	}
 
 	[SerializeField] GameObject signUpPanel;
