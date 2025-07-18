@@ -10,16 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0d3edaa2497bccf49ab4c4cf6538befa, type: 3}
-  m_Name: army_two
+  m_Name: army_four
   m_EditorClassIdentifier: 
-  employeeId: 2
-  displayName: army_two
-  level: 2
-  portrait: {fileID: 10917, guid: 0000000000000000f000000000000000, type: 0}
-  baseSalary: 60
-  attack_Power: 20
-  attack_Speed: 2
+  indate: 2025-07-17T15:06:49.509Z
+  displayName: army_four
+  staffType: 0
+  level: 1
+  portrait: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  baseSalary: 140
+  attack_Power: 40
+  attack_Speed: 4
   attack_PowerPerLevel: 1
   attack_SpeedPerLevel: 1
-  explain: "\uC0AC\uB0E5\uD130\uC9C1\uC6D02"
-  itemPrefab: {fileID: 6757378914359798941, guid: b919a00096376d64f8ac9799c21fcc07, type: 3}
+  timer: 0
+  cooltime: 0
+  explain: "\uC0AC\uB0E5\uD130\uC9C1\uC6D04"
+  itemPrefab: {fileID: 3682645169335951382, guid: 9170a5920e139804ebb24f6f35a87581, type: 3}

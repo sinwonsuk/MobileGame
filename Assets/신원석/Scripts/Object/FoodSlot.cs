@@ -20,7 +20,7 @@ public class FoodSlot : MonoBehaviour
     {
         EventBus<SetManagementActiveEvent>.Raise(new SetManagementActiveEvent());
 
-        EventBus<FoodSlotHandler>.Raise(new FoodSlotHandler(foodData.foodSprite));
+        EventBus<FoodSlotHandler>.Raise(new FoodSlotHandler(foodData.foodSprite,foodData.displayName));
 
         for (int i = 0; i < foodData.Ingredients.Count; i++)
         {
@@ -29,7 +29,7 @@ public class FoodSlot : MonoBehaviour
             if (qty == -1)
                 return;
 
-            EventBus<IngredientsPannelSpawnHandler>.Raise(new IngredientsPannelSpawnHandler(foodData.Ingredients[i].ingredientSprite, qty, 0, foodData.displayName));
+            EventBus<IngredientsPannelSpawnHandler>.Raise(new IngredientsPannelSpawnHandler(foodData.Ingredients[i].ingredientSprite, qty, 0, foodData.Ingredients[i].ingredientName));
         }
     }
 

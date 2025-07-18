@@ -10,7 +10,7 @@ public class StaffShopButton : MonoBehaviour
     public Transform spawnPoint;
     public Button purchaseButton;
 
-    StaffBehavior _spawnedStaff;
+    StaffBase _spawnedStaff;
     public TextMeshProUGUI _buttonText;
     public TextMeshProUGUI level_num;
     void Start()
@@ -23,13 +23,17 @@ public class StaffShopButton : MonoBehaviour
     {
         if (_spawnedStaff == null)
         {
-            // -- 첫 구매 --
-            var go = Instantiate(staffData.itemPrefab,
-                                 spawnPoint.position,
-                                 spawnPoint.rotation);
-            _spawnedStaff = go.GetComponent<StaffBehavior>();
-            _spawnedStaff.Init(staffData);
-
+            if(spawnPoint != null)
+            {
+                // -- 첫 구매 --
+                var go = Instantiate(staffData.itemPrefab,
+                                     spawnPoint.position,
+                                     spawnPoint.rotation);
+                _spawnedStaff = go.GetComponent<StaffBase>();
+                _spawnedStaff.Init(staffData);
+            }
+           
+            
             _buttonText.text = "Upgrade";
             level_num.text = $"Lv. {staffData.level}";
         }

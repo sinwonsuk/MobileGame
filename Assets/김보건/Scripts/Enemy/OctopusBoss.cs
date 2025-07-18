@@ -11,12 +11,13 @@ public class OctopusBoss : EnemyBase
 
         int stage = floorData.currentStage;
 
-        maxHp = 50f;
+        maxHp = 100f;
         currentHp = maxHp;
     }
 
     protected override void Die()
     {
+        if (isDead) return;
         Debug.Log("º¸½º »ç¸Á");
         base.Die();
 

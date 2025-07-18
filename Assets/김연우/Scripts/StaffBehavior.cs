@@ -1,129 +1,97 @@
-// == StaffBehavior.cs ==
 using UnityEngine;
-using System.Collections;
+using UnityEngine.Events;
 
 public class StaffBehavior : MonoBehaviour
 {
-    StaffStatsSO data;
+    // 외부에서 접근 가능한 데이터
+    public StaffStatsSO Data { get; private set; }
 
-    [SerializeField] Animator animator;
+    [Header("전투용 런타임 스탯")]
+    private double currentAttackPower;
+    private double currentAttackSpeed;
 
-    // 런타임에 계산된 실제 스탯
-    int currentAttackPower;
-    float currentAttackSpeed;
-
-    Transform boss;
-
-    [Header("발사 설정")]
+    [Header("발사 설정 (사냥꾼 타입)")]
     public GameObject bulletPrefab;
     public Transform firePoint;
+    [SerializeField] private double detectRange = 10.0;
 
-    [Header("타겟 필터링")]
-    public string bossTag = "a";
-    public string bossLayerName = "Boss";
-
-    [SerializeField]
-    float detectRange = 10f;
+    [Header("경영용/파견용 이벤트 (Inspector 연결용)")]
+    public UnityEvent onRestaurantAction;
+    public UnityEvent onDetachmentAction;
 
     public void Init(StaffStatsSO stats)
     {
-        data = stats;
-        data.level = 1;                       // 최초 레벨 1
+        Data = stats;
+        Data.level = 1;
         RecalculateStats();
-        StartCoroutine(FindAndShoot());
+        // Manager에 등록하여 루틴을 제어
+        StaffManager.Instance.RegisterStaff(this);
     }
 
-    public void LevelUp()
+    private void OnDestroy()
     {
-        data.level++;
-        RecalculateStats();
-        Debug.Log($"{data.displayName} leveled to {data.level}: " +
-                  $"Power={currentAttackPower}, Speed={currentAttackSpeed}");
+        if (StaffManager.Instance != null)
+            StaffManager.Instance.UnregisterStaff(this);
     }
 
-    void RecalculateStats()
+    private void RecalculateStats()
     {
-        // 레벨에 따라 스탯 재계산
-        currentAttackPower = data.attack_Power
-                           + data.attack_PowerPerLevel * (data.level - 1);
-        currentAttackSpeed = data.attack_Speed
-                           + data.attack_SpeedPerLevel * (data.level - 1);
+        currentAttackPower = Data.attack_Power + Data.attack_PowerPerLevel * (Data.level - 1);
+        currentAttackSpeed = Data.attack_Speed + Data.attack_SpeedPerLevel * (Data.level - 1);
     }
 
-    private IEnumerator FindAndShoot()
+    // Manager가 호출하는 메서드
+    public void PerformAction()
     {
-        float interval = 1f / Mathf.Max(currentAttackSpeed, 0.01f);
-
-        while (true)
+        switch (Data.staffType)
         {
-            GameObject[] targets = GameObject.FindGameObjectsWithTag(bossTag);
-            float minDist = Mathf.Infinity;
-            Transform nearest = null;
-
-            foreach (var t in targets)
-            {
-                if (t.layer != LayerMask.NameToLayer(bossLayerName)) continue;
-
-                float dist = Vector2.Distance(firePoint.position, t.transform.position);
-                if (dist < minDist && dist <= detectRange)
-                {
-                    minDist = dist;
-                    nearest = t.transform;
-                }
-            }
-
-            boss = nearest;
-
-            if (boss != null)
-                Shoot2D();
-
-            yield return new WaitForSeconds(interval);
+            case StaffType.hunter:
+                FindAndShoot();
+                break;
+            case StaffType.detachment:
+                onDetachmentAction?.Invoke();
+                Debug.Log($"{Data.displayName} 파견 액션 수행");
+                break;
+            case StaffType.restaurant:
+                onRestaurantAction?.Invoke();
+                Debug.Log($"{Data.displayName} 식당 경영 액션 수행");
+                break;
         }
     }
 
-    private void Shoot2D()
+    private void FindAndShoot()
     {
-        if (boss == null || bulletPrefab == null) return;
+        GameObject[] targets = GameObject.FindGameObjectsWithTag("Boss");
+        double minDist = double.PositiveInfinity;
+        Transform nearest = null;
 
-        if (animator != null)
-            animator.SetTrigger("AttackTrigger");
+        foreach (var t in targets)
+        {
+            if (t.layer != LayerMask.NameToLayer("Boss")) continue;
+            double dist = Vector2.Distance(firePoint.position, t.transform.position);
+            if (dist < minDist && dist <= detectRange)
+            {
+                minDist = dist;
+                nearest = t.transform;
+            }
+        }
 
-        //Vector2 dir = (boss.position - firePoint.position).normalized;
-
-        //float offset = 0.3f; // 발사 위치 간격
-
-        //Vector3 leftFirePos = firePoint.position + firePoint.right * -offset;
-        //Vector3 rightFirePos = firePoint.position + firePoint.right * offset;
-
-        //FireBullet(leftFirePos, dir);
-        //FireBullet(rightFirePos, dir);
+        if (nearest != null)
+            FireBullet(nearest.position);
     }
 
-    private void FireBullet(Vector3 position, Vector2 direction)
+    private void FireBullet(Vector3 targetPos)
     {
-        var go = Instantiate(bulletPrefab, position, Quaternion.identity);
-        go.transform.right = direction;
-
-        var bullet = go.GetComponent<Bullet2D>();
-        if (bullet != null)
+        if (bulletPrefab == null) return;
+        var go = Instantiate(bulletPrefab, firePoint.position, Quaternion.identity);
+        Vector2 dir = (targetPos - firePoint.position).normalized;
+        go.transform.right = dir;
+        if (go.TryGetComponent<Bullet2D>(out var bullet))
             bullet.SetDamage(currentAttackPower);
-
-        var rb2d = go.GetComponent<Rigidbody2D>();
-        if (rb2d != null)
-            rb2d.AddForce(direction * currentAttackPower, ForceMode2D.Impulse);
     }
-    public void OnShootFrame()
+    public void LevelUp()
     {
-        if (boss == null || bulletPrefab == null) return;
-
-        Vector2 dir = (boss.position - firePoint.position).normalized;
-        float offset = 0.3f;
-
-        Vector3 leftFirePos = firePoint.position + firePoint.right * -offset;
-        Vector3 rightFirePos = firePoint.position + firePoint.right * offset;
-
-        FireBullet(leftFirePos, dir);
-        FireBullet(rightFirePos, dir);
+        Data.level++;
+        RecalculateStats();
     }
-
 }

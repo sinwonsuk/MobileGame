@@ -1,2 +1,6 @@
-﻿employeeName,employeeLevel,employeeAtk,employeeAtkSpeed,employeePrice
-예시직원,1,1,0.3,1200
+﻿employeeName,staffType,baseSalary,baseAtk,baseAtkSpeed,atkGrowthPerLevel,speedGrowthPerLevel,timer,cooltime,explain
+전투직원1,hunter,200,10,1,1,1,0,0,사냥터 직원1
+전투직원2,hunter,600,40,2,1,1,0,0,사냥터 직원2
+전투직원3,hunter,1000,80,3,1,1,0,0,사냥터 직원3
+전투직원4,hunter,1200,110,40,4,1,0,0,사냥터 직원4
+경영직원1,restaurant,100,0,0,0,0,0,0,경영 직원1

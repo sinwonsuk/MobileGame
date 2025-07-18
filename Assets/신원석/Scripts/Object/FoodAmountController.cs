@@ -87,12 +87,11 @@ public class FoodAmountController : MonoBehaviour
 
     public void FoodAmountConfirmButton()
     {
+ 
 
+        //var Name = foodAmountUI.IngredientPanels[0].transform.GetChild((int)IngredientPannelType.IngredientName).GetComponent<TextMeshProUGUI>();
 
-
-        var Name = foodAmountUI.IngredientPanels[0].transform.GetChild((int)IngredientPannelType.IngredientName).GetComponent<TextMeshProUGUI>();
-
-        foodName = Name.text;
+        foodName = foodAmountUI.foodName;
 
         int tempCurrentAmount = currentAmount;
 
