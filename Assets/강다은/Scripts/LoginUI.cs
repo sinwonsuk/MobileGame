@@ -65,6 +65,7 @@ public class LoginUI : MonoBehaviour
 					{
 						Debug.LogError("로그인 실패: " + error);
 					});
+				// 씬 넘기기
 			},
 			onFailure: (error) =>
 			{
@@ -99,6 +100,8 @@ public class LoginUI : MonoBehaviour
 			{
 				Debug.LogError("로그인 실패: " + error);
 			});
+
+		//씬 넘기기
 	}
 
 	void CheckNickname()
@@ -126,7 +129,6 @@ public class LoginUI : MonoBehaviour
 			else
 			{
 				Debug.Log("이미 닉네임이 설정되어 있습니다: " + nickname);
-				// 메인 화면으로 이동하거나 게임 시작 로직 추가
 			}
 		}
 		catch (System.Exception e)
