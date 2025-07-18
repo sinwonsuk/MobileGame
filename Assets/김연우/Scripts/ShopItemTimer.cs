@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -14,21 +13,18 @@ public class ShopItemTimer : MonoBehaviour
     [Header("타이머 설정")]
     [SerializeField] private float durationHours = 2f;
 
-    [Header("타이머 완료 시 보상 재료 목록")]
+    [Header("타이머 완료 시 보상 목록")]
     [SerializeField] private List<IngredientReward> rewards = new List<IngredientReward>();
 
-    // 보상용 데이터 구조체
     [Serializable]
     public class IngredientReward
     {
-        [Tooltip("추가할 재료 이름")]
-        public string ingredientName;
-        [Tooltip("추가할 수량")]
+        public RunTimeIngredientData ingredientData;
         public int amount;
     }
 
-    private DateTime _endTime;
     private bool _isCounting;
+    private DateTime _endTime;
 
     private void Awake()
     {
@@ -38,7 +34,7 @@ public class ShopItemTimer : MonoBehaviour
             timeText = transform.Find("Time/Value").GetComponent<TMP_Text>();
 
         buyButton.onClick.AddListener(OnBuyClicked);
-        UpdateUIIdle();
+        SetIdleUI();
     }
 
     private void OnBuyClicked()
@@ -46,55 +42,64 @@ public class ShopItemTimer : MonoBehaviour
         SellItem();
 
         buyButton.interactable = false;
-        _endTime = DateTime.Now.AddHours(durationHours);
         _isCounting = true;
-        StartCoroutine(TimerCoroutine());
+        _endTime = DateTime.Now.AddHours(durationHours);
+
+        // 서비스에 타이머 등록 (UI가 꺼져도 계속 돌아감)
+        ShopTimerService.Instance.RegisterTimer(
+            this,
+            _endTime,
+            OnTimerComplete
+        );
     }
 
-    private IEnumerator TimerCoroutine()
+    private void Update()
     {
-        while (_isCounting)
-        {
-            var rem = _endTime - DateTime.Now;
-            if (rem.TotalSeconds <= 0)
-            {
-                _isCounting = false;
-                timeText.text = "00:00:00";
-                OnTimerComplete();
-                yield break;
-            }
+        if (!_isCounting) return;
 
+        // UI가 활성화되어 있는 동안만 남은 시간 갱신
+        var rem = ShopTimerService.Instance.GetRemaining(this);
+        if (rem > TimeSpan.Zero)
+        {
             timeText.text = $"{rem.Hours:00}:{rem.Minutes:00}:{rem.Seconds:00}";
-            yield return new WaitForSeconds(1f);
+        }
+        else
+        {
+            // (안전장치) Update 중에도 혹시 남은 시간이 0 이하라면 즉시 처리
+            OnTimerComplete();
         }
     }
 
     private void OnTimerComplete()
     {
-        abc();                        
+        if (!_isCounting) return;
+        _isCounting = false;
+
+        timeText.text = "00:00:00";
         buyButton.interactable = true;
-        UpdateUIIdle();
+        GiveRewards();
     }
 
     private void SellItem()
     {
-
         Debug.Log("Item sold!");
     }
 
-    private void abc()
+    private void GiveRewards()
     {
         foreach (var reward in rewards)
         {
-            InventoryManager.Instance.AddItem(reward.ingredientName, reward.amount);
+            var data = reward.ingredientData;
+            InventoryManager.Instance.AddItem(data.ingredientName, reward.amount);
 
-            int nowQty = InventoryManager.Instance.GetItemQty(reward.ingredientName);
-            Debug.Log($"[{reward.ingredientName}] +{reward.amount}, 현재 수량: {nowQty}");
+            int nowQty = InventoryManager.Instance.GetItemQty(data.ingredientName);
+            Debug.Log($"[{data.ingredientName}] +{reward.amount}, 현재 수량: {nowQty}");
         }
     }
 
-    private void UpdateUIIdle()
+    private void SetIdleUI()
     {
         timeText.text = "00:00:00";
+        buyButton.interactable = true;
     }
 }

@@ -2068,11 +2068,11 @@ MonoBehaviour:
   timeText: {fileID: 5707338901899243749}
   durationHours: 0.01
   rewards:
-  - ingredientName: "\uB098\uBB34\uAECD\uC9C8"
+  - ingredientData: {fileID: 11400000, guid: a6160647db9b3df46b1d71aed74c7365, type: 2}
     amount: 3
-  - ingredientName: "\uB098\uBB47\uAC00\uC9C0"
+  - ingredientData: {fileID: 11400000, guid: c733201a5443e9842a10938ad3f29e63, type: 2}
     amount: 3
-  - ingredientName: "\uB369\uAD74\uC904\uAE30"
+  - ingredientData: {fileID: 11400000, guid: 9c0d63a1efe237f43a241b41be05d316, type: 2}
     amount: 3
 --- !u!1 &2681811730945604687
 GameObject:
@@ -3786,9 +3786,9 @@ MonoBehaviour:
   timeText: {fileID: 1273449329022548071}
   durationHours: 0.01
   rewards:
-  - ingredientName: "(\uADF8\uB9B0 \uB4DC\uB798\uACE4)\uB208\uBB3C"
+  - ingredientData: {fileID: 11400000, guid: 72f2d6b10f6048a4da71ffea5ab0604c, type: 2}
     amount: 3
-  - ingredientName: "(\uADF8\uB9B0 \uB4DC\uB798\uACE4)\uC2EC\uC7A5"
+  - ingredientData: {fileID: 11400000, guid: 80394b64ea168af49ac7204a81cd1346, type: 2}
     amount: 3
 --- !u!1 &5605974077153122324
 GameObject:
@@ -5384,11 +5384,11 @@ MonoBehaviour:
   timeText: {fileID: 8066017871315936444}
   durationHours: 0.01
   rewards:
-  - ingredientName: "\uAC00\uC2B4\uC0B4"
+  - ingredientData: {fileID: 11400000, guid: 93949912012d1e645beb0af0a2e72ce9, type: 2}
     amount: 3
-  - ingredientName: "(\uADF8\uB9AC\uD540)\uBD80\uB9AC"
+  - ingredientData: {fileID: 11400000, guid: 9b0d58c515b25644eba391b7607401aa, type: 2}
     amount: 3
-  - ingredientName: "(\uADF8\uB9AC\uD540)\uC54C"
+  - ingredientData: {fileID: 11400000, guid: 9e0ddcb4fca5b484abecbcf2f4ac968c, type: 2}
     amount: 3
 --- !u!1 &8249690378103946798
 GameObject:
