@@ -103,7 +103,7 @@ public class CustomerManager : baseManager, IGameManager
 
     }
 
-    private void UpdateQueueDestinations()
+    public void UpdateQueueDestinations()
     {
         int idx = 0;
         foreach (Customer cust in customerQueue)
@@ -133,8 +133,13 @@ public class CustomerManager : baseManager, IGameManager
 
         GameObject obj = GameObject.Instantiate(conFig.GetGameObjects()[0]);
 
-
         Customer customer = obj.GetComponent<Customer>();
+
+        int random = Random.Range(0,customer.AnimatorControllers.Count);
+
+        customer.GetComponent<Animator>().runtimeAnimatorController = customer.AnimatorControllers[random];
+        customer.GetComponent<SpriteRenderer>().sprite = customer.Sprites[random];
+
 
         customers.Add(customer);
 
