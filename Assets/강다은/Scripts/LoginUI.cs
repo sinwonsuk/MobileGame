@@ -1,8 +1,9 @@
-using UnityEngine;
-using UnityEngine.UI;
-using TMPro;
 using BackEnd;
 using System.Collections;
+using TMPro;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class LoginUI : MonoBehaviour
 {
@@ -65,8 +66,8 @@ public class LoginUI : MonoBehaviour
 					{
 						Debug.LogError("로그인 실패: " + error);
 					});
-				// 씬 넘기기
-			},
+                SceneManager.LoadScene("SampleScene");
+            },
 			onFailure: (error) =>
 			{
 				Debug.LogError("회원가입 실패: " + error);
@@ -101,8 +102,9 @@ public class LoginUI : MonoBehaviour
 				Debug.LogError("로그인 실패: " + error);
 			});
 
-		//씬 넘기기
-	}
+		SceneManager.LoadScene("SampleScene");
+
+    }
 
 	void CheckNickname()
 	{

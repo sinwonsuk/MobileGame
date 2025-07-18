@@ -67,6 +67,8 @@ public class FoodAmountUI : MonoBehaviour
     {
         Sprite foodSprite = Resources.Load<Sprite>(foodSlotHandler.Image);
         foodIcon.sprite = foodSprite;
+
+        foodName = foodSlotHandler.name;
     }
 
     [SerializeField] Image foodIcon;
@@ -74,6 +76,8 @@ public class FoodAmountUI : MonoBehaviour
     [SerializeField] Transform transformfoodAmountPanel;
 
     public Image FoodIcon => foodIcon;
+
+    public string foodName { get; set; }
 
 
     public List<GameObject> IngredientPanels { get; set; } = new List<GameObject>();

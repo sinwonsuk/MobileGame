@@ -15,7 +15,7 @@ MonoBehaviour:
   indate: 2025-07-16T02:27:36.856Z
   displayName: "\uD63C\uB3C8\uC758 \uBFD4 \uC218\uD504"
   foodSprite: orcSoup
-  price: 0
+  price: 742
   isUnlock: 0
   cookingTime: 5
   Ingredients:
