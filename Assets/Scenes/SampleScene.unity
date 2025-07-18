@@ -382,6 +382,7 @@ GameObject:
   - component: {fileID: 438962261}
   - component: {fileID: 438962260}
   - component: {fileID: 438962259}
+  - component: {fileID: 438962263}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -476,6 +477,20 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &438962263
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 438962258}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66e913e83eddf4a42b342a06526e3390, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dungeonSelectUI: {fileID: 7750125693894804269}
+  dungeonInGameUI: {fileID: 2722910528324840720}
 --- !u!1 &567236660
 GameObject:
   m_ObjectHideFlags: 0
@@ -507,6 +522,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 718912400}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &610723426 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8937772664615035595, guid: be5d8abb99a2ce945b42a34436e209c6, type: 3}
+  m_PrefabInstance: {fileID: 1794594865}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &614619449
 GameObject:
   m_ObjectHideFlags: 0
@@ -936,19 +956,35 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2044746470591957410, guid: 13b01492fc9fd6c4db5dd60f77503498, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2044746470591957410, guid: 13b01492fc9fd6c4db5dd60f77503498, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2044746470591957410, guid: 13b01492fc9fd6c4db5dd60f77503498, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 0.83717436
       objectReference: {fileID: 0}
     - target: {fileID: 2512486782741600964, guid: 13b01492fc9fd6c4db5dd60f77503498, type: 3}
       propertyPath: m_Name
       value: ShopCanvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 2512486782741600964, guid: 13b01492fc9fd6c4db5dd60f77503498, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5162675604016170786, guid: 13b01492fc9fd6c4db5dd60f77503498, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5162675604016170786, guid: 13b01492fc9fd6c4db5dd60f77503498, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5162675604016170786, guid: 13b01492fc9fd6c4db5dd60f77503498, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: -17
       objectReference: {fileID: 0}
     - target: {fileID: 5222493093719953765, guid: 13b01492fc9fd6c4db5dd60f77503498, type: 3}
       propertyPath: m_Pivot.x
@@ -1030,6 +1066,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6893714895645717506, guid: 13b01492fc9fd6c4db5dd60f77503498, type: 3}
+      propertyPath: spawnPoint
+      value: 
+      objectReference: {fileID: 610723426}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1690,6 +1730,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 3c0caae492301074fa76d63cc346faf6, type: 2}
   - {fileID: 11400000, guid: bdaa32719f38cc04087ed4ac8b65b535, type: 2}
   - {fileID: 11400000, guid: 1a2e0a1f663455c4b8d061a4b6f11eed, type: 2}
+  - {fileID: 11400000, guid: 0862f244904996942851854a5abd9ff6, type: 2}
 --- !u!4 &1637458026
 Transform:
   m_ObjectHideFlags: 0
@@ -1940,7 +1981,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 7203396167099407742, guid: be5d8abb99a2ce945b42a34436e209c6, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -73
       objectReference: {fileID: 0}
     - target: {fileID: 7203396167099407742, guid: be5d8abb99a2ce945b42a34436e209c6, type: 3}
       propertyPath: m_LocalPosition.y
@@ -5034,7 +5075,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7626869284140612874
 Transform:
   m_ObjectHideFlags: 0
