@@ -51,7 +51,7 @@ public class ShooterStaff : StaffBase
 
     private IEnumerator FindAndShoot()
     {
-        float interval = 1f / Mathf.Max(currentAttackSpeed, 0.01f);
+        float interval = 1f / Mathf.Max((float)currentAttackSpeed, 0.01f);
 
         while (true)
         {
@@ -113,7 +113,7 @@ public class ShooterStaff : StaffBase
 
         var rb2d = go.GetComponent<Rigidbody2D>();
         if (rb2d != null)
-            rb2d.AddForce(direction * currentAttackPower, ForceMode2D.Impulse);
+            rb2d.AddForce(direction * (float)currentAttackPower, ForceMode2D.Impulse);
     }
 
     //private void OnMouseDown()

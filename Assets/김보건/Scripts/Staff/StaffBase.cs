@@ -4,8 +4,8 @@ public class StaffBase : MonoBehaviour
 {
     StaffStatsSO data;
 
-    protected int currentAttackPower;
-    protected float currentAttackSpeed;
+    protected double currentAttackPower;
+    protected double currentAttackSpeed;
 
     public virtual void Init(StaffStatsSO stats)
     {
