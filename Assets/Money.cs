@@ -6,6 +6,9 @@ public class Money : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+
+        //moneyText.text = BackendGameData.userData.gold.ToString();
+
         moneyText.text = money.ToString();
     }
 

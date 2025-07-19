@@ -8,6 +8,7 @@ TagManager:
   - Food
   - Counter
   - Canvas
+  - WaitingCustomer
   layers:
   - Default
   - TransparentFX

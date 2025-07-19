@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 967683730201628114}
   - component: {fileID: 7015375241269329650}
   - component: {fileID: 566285158607318317}
+  - component: {fileID: 8511512634935965594}
   m_Layer: 0
   m_Name: CustomerTable 4
   m_TagString: Untagged
@@ -117,7 +118,7 @@ NavMeshObstacle:
   m_Enabled: 1
   serializedVersion: 3
   m_Shape: 1
-  m_Extents: {x: 0.14, y: 0.075, z: 0.39}
+  m_Extents: {x: 0.05, y: 0.05, z: 0.2}
   m_MoveThreshold: 0.1
   m_Carve: 1
   m_CarveOnlyStationary: 1
@@ -136,6 +137,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetTransform: {fileID: 1483239272591042040}
+--- !u!114 &8511512634935965594
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3688959143282305226}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76060f6c961810648bea1a7638f7ff1e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4994390577439940529
 GameObject:
   m_ObjectHideFlags: 0

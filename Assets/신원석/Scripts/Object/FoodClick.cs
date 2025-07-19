@@ -29,7 +29,8 @@ public class FoodClick : MonoBehaviour
 
             if (hit && hit.transform == transform && Check == false && customer.customerState == CustomerState.Wait && Image.fillAmount >= 1.0f && customer.Slot.NameText.text == foodName)
             {
-                //EventBus<CookFillamountHandler>.Raise(new CookFillamountHandler(this));
+
+
                 EventBus<CookMoveHandler>.Raise(new CookMoveHandler(customer.customerTable.transform, customer));
                 Destroy(gameObject);
                 // ...이하 로직

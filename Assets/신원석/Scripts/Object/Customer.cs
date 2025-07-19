@@ -10,6 +10,7 @@ using static UnityEditor.Experimental.AssetDatabaseExperimental.AssetDatabaseCou
 public enum CustomerState
 {
     Idle,
+    MoveStore,
     Move,
     Wait,
     Eat,
@@ -40,7 +41,7 @@ public class Customer : MonoBehaviour
         animator = GetComponent<Animator>();
         navMeshAgent = GetComponent<NavMeshAgent>();
         customerSpriteRenderer = GetComponent<SpriteRenderer>();
-
+        customerSpriteRenderer.sortingOrder = Mathf.RoundToInt(-transform.position.y * 100);
 
         navMeshAgent.updateRotation = false;
         navMeshAgent.updateUpAxis = false;
@@ -62,10 +63,10 @@ public class Customer : MonoBehaviour
         Vector3 right = transform.right;
 
         float forwardAmount = Vector3.Dot(moveDir, forward); 
-        float rightAmount = Vector3.Dot(moveDir, right);    
+        float rightAmount = Vector3.Dot(moveDir, right);
 
-        animator.SetFloat("Horizontal", rightAmount);
-        animator.SetFloat("Vertical", forwardAmount);
+        animator.SetFloat("Horizontal", rightAmount * 10.0f);
+        animator.SetFloat("Vertical", forwardAmount * 10.0f);
 
 
         switch (customerState)
@@ -81,6 +82,19 @@ public class Customer : MonoBehaviour
                         ChangeState(CustomerState.Move);
                 }
                 break;
+            case CustomerState.MoveStore:
+                {
+                    navMeshAgent.SetDestination(storeEntrancePosition);
+
+                    if (Vector2.Distance(transform.position, storeEntrancePosition) < 0.01f)
+                    {
+                        ChangeState(CustomerState.Move);
+                        return;
+                    }
+                }
+                break;
+
+
             case CustomerState.Move:
                 {
                     navMeshAgent.SetDestination(Target.position);
@@ -116,6 +130,7 @@ public class Customer : MonoBehaviour
                         //customerManager.EnqueueCustomer(this);
 
                         navMeshAgent.SetDestination(customerManager.counterTransforms[customerManager.customerQueue.Count].transform.position);
+                        EventBus<CookDeleteHandler>.Raise(new CookDeleteHandler(this));
                         return;
                     }
 
@@ -182,7 +197,6 @@ public class Customer : MonoBehaviour
         {
             customerState = customerStateChangeHandler.customerState;
             EventBus<MenuReduceHandler>.Raise(new MenuReduceHandler(Slot));
-            EventBus<CookDeleteHandler>.Raise(new CookDeleteHandler(this));
         }
             
     }
@@ -233,5 +247,7 @@ public class Customer : MonoBehaviour
     public CustomerManager customerManager { get; set; }
 
     public Vector3 CalculatePosition;
+
+    private Vector2 storeEntrancePosition = new Vector2(2.04f, 3.24f);
 
 }
