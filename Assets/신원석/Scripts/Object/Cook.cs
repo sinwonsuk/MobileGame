@@ -69,7 +69,14 @@ public class Cook : MonoBehaviour
                 yield return null; 
                 continue;
             }
-            if (Vector2.Distance(transform.position, cookMoveHandler.TableTransform.position) < 0.01f)
+
+            Vector2 move = new Vector2(cookMoveHandler.TableTransform.position.x, cookMoveHandler.TableTransform.position.y+0.5f);
+
+
+
+
+
+            if (Vector2.Distance(transform.position, move) < 0.01f)
             {
                 EventBus<CustomerStateChangeHandler>.Raise(new CustomerStateChangeHandler(CustomerState.Eat, cookMoveHandler.customer));
 
@@ -77,7 +84,7 @@ public class Cook : MonoBehaviour
                 yield break;
             }
 
-            transform.position = Vector3.MoveTowards(transform.position, cookMoveHandler.TableTransform.position, Time.deltaTime * speed);
+            transform.position = Vector3.MoveTowards(transform.position, move, Time.deltaTime * speed);
             yield return null;
         }
     }

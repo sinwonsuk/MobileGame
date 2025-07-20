@@ -15,9 +15,9 @@ MonoBehaviour:
   indate: 2025-07-16T02:27:36.268Z
   displayName: "\uBBF8\uBBF9 \uBC14\uBE44\uD050 \uD50C\uB808\uC774\uD2B8"
   foodSprite: 
-  price: 0
+  price: 461
   isUnlock: 0
-  cookingTime: 0
+  cookingTime: 2
   Ingredients:
   - {fileID: 11400000, guid: 85dfad9c52b233c48876e1ad42f0e59d, type: 2}
   - {fileID: 11400000, guid: e9d1a1ebfaf561e42b03ccf1d140512c, type: 2}

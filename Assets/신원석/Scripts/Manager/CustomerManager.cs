@@ -35,6 +35,7 @@ public class CustomerManager : baseManager, IGameManager
 
 
         counterTransforms = GameObject.FindWithTag("Counter").GetComponent<OrderCounter>().QueuePositions;
+        waitingCustomerTransform = GameObject.FindWithTag("WaitingCustomer").transform;
     }
 
     public void GetCustomerEvent(GetCusomersEvent getCustomersEvent)
@@ -131,7 +132,15 @@ public class CustomerManager : baseManager, IGameManager
         if (Slot == null)
             return;
 
-        GameObject obj = GameObject.Instantiate(conFig.GetGameObjects()[0]);
+       
+
+        float postX = Random.Range(-3.0f, 5.0f);
+        float postY = Random.Range(-0.2f, 0.5f);
+
+        Vector3 vector = new Vector3(waitingCustomerTransform.position.x+ postX, waitingCustomerTransform.position.y+ postY);
+
+
+        GameObject obj = GameObject.Instantiate(conFig.GetGameObjects()[0], vector,Quaternion.identity);
 
         Customer customer = obj.GetComponent<Customer>();
 
@@ -166,5 +175,7 @@ public class CustomerManager : baseManager, IGameManager
     public bool isActive { get; set; }
 
     Coroutine coroutine;
+
+    private Transform waitingCustomerTransform;
 
 }

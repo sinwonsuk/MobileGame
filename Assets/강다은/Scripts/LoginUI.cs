@@ -204,15 +204,24 @@ public class LoginUI : MonoBehaviour
 		// 기타 유저 게임 데이터 불러오기
 		BackendGameData.Instance.GameDataGetOrInsert();
 
-		// 관리자 계정일 경우 Csv -> Server
 		if (IsAdminAccount())
 		{
 			Debug.Log("<관리자> 계정입니다. StaticData 삽입");
-			Instantiate(csvUploader, Vector3.zero, Quaternion.identity);
-		}
 
-		//닉네임 여부 확인 및 씬 분기
-		yield return StartCoroutine(CheckNicknameAndProceed());
+			GameObject uploader = Instantiate(csvUploader, Vector3.zero, Quaternion.identity);
+			uploader.GetComponent<CSVTableUploader>().onComplete = () =>
+			{
+				Debug.Log("<관리자> CSV 업로드 완료. 씬 이동 시작");
+				SceneManager.LoadScene("SampleScene");
+			};
+
+			yield break; // 씬 이동은 위 콜백에서 처리, 이 코루틴 종료
+		}
+		else
+		{
+			// 일반 유저 → 닉네임 검사 & 씬 이동
+			yield return StartCoroutine(CheckNicknameAndProceed());
+		}
 	}
 
 	[SerializeField] GameObject signUpPanel;

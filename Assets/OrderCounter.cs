@@ -13,7 +13,11 @@ public class OrderCounter : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        //if(Input.GetMouseButton(0))
+        //{
+        //    EventBus<MoneyChangeMusHandler>.Raise(new MoneyChangeMusHandler(100));
+        //    EventBus<MoneyChangePusHandler>.Raise(new MoneyChangePusHandler(100));
+        //}
     }
 
     [SerializeField] List<Transform> queuePositions = new List<Transform>();
