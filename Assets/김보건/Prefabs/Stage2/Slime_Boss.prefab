@@ -106,7 +106,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHp: 500
   hpBarPrefab: {fileID: 7217008430400931557}
-  dropItem: {fileID: 11400000, guid: 59ac2d1f14b184149b33a5cc436549d8, type: 2}
+  dropItem: {fileID: 11400000, guid: 5f03a6fa824d5f249a0d5a784d15867a, type: 2}
   basePosition: {x: 0, y: 0, z: 0}
 --- !u!61 &8162588789069266161
 BoxCollider2D:
