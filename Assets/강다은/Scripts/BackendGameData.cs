@@ -4,7 +4,6 @@ using UnityEngine;
 
 // 뒤끝 SDK namespace 추가
 using BackEnd;
-using static UnityEngine.Rendering.DebugUI.Table;
 
 public class UserData
 {
