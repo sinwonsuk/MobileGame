@@ -12,4 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: acbfac011009084418e1a1e75265c294, type: 3}
   m_Name: New UI Manager Config
   m_EditorClassIdentifier: 
-  <UiGameObjects>k__BackingField: []
+  <UiGameObjects>k__BackingField:
+  - {fileID: 3452023509685821278, guid: 9d671791808a8114dbddce8528b08d52, type: 3}

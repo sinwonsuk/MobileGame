@@ -45,11 +45,10 @@ public class InventoryManager : MonoBehaviour
             if (data.ingredientName == name)
             {
                 data.ingredientQty += amount;
-
+                OnInventoryChanged?.Invoke();
                 return;
             }
         }
-        OnInventoryChanged?.Invoke();
     }
 
     public int GetItemQty(string name)
@@ -75,10 +74,10 @@ public class InventoryManager : MonoBehaviour
             if (data.ingredientName == name)
             {
                 data.ingredientQty += amount;
+                OnInventoryChanged?.Invoke();
                 return data.ingredientQty.ToString();
             }
         }
-        OnInventoryChanged?.Invoke();
         return "0";
     }
 
@@ -89,10 +88,10 @@ public class InventoryManager : MonoBehaviour
             if (data.ingredientName == name)
             {
                 data.ingredientQty -= amount;
+                OnInventoryChanged?.Invoke();
                 return data.ingredientQty.ToString();
             }
         }
-        OnInventoryChanged?.Invoke();
         return "0";
     }
 
