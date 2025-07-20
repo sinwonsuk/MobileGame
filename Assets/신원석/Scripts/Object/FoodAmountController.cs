@@ -4,21 +4,17 @@ using UnityEngine;
 public class FoodAmountController : MonoBehaviour
 {
 
-
-
     private void OnDisable()
     {
         currentAmount = 0;
         amount.text = "0";
     }
 
-
     void Start()
     {
         amount.text = "0";
     }
 
-    // Update is called once per frame
     void Update()
     {
         

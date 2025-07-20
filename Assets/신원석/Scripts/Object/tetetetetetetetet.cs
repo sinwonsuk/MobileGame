@@ -74,7 +74,6 @@ public class tetetetetetetetet :MonoBehaviour
 
             // 큐에서 꺼낸 Cook 검사
             Cook cook = Cooks.Peek();
-            Debug.Log(Cooks.Count);
             if (cook == null || cook.FoodImage == null)
                 continue;
 

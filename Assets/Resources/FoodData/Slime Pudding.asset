@@ -15,9 +15,9 @@ MonoBehaviour:
   indate: 2025-07-16T02:27:35.482Z
   displayName: "\uC2AC\uB77C\uC784 \uD478\uB529"
   foodSprite: pudding
-  price: 0
+  price: 168
   isUnlock: 0
-  cookingTime: 0
+  cookingTime: 2
   Ingredients:
   - {fileID: 11400000, guid: 6b96e8049fef6a14eb4b17c82612f794, type: 2}
   - {fileID: 11400000, guid: fc529bf0bde6bd84dbcf8f917340546d, type: 2}

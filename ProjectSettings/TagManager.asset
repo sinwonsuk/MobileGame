@@ -7,6 +7,8 @@ TagManager:
   - Enemy
   - Food
   - Counter
+  - Canvas
+  - WaitingCustomer
   layers:
   - Default
   - TransparentFX

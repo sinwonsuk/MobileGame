@@ -15,9 +15,9 @@ MonoBehaviour:
   indate: 2025-07-16T02:27:36.110Z
   displayName: "\uB208\uC54C \uD3EC\uC790 \uC8FC\uC2A4"
   foodSprite: eyeSacJuice
-  price: 0
+  price: 140
   isUnlock: 0
-  cookingTime: 0
+  cookingTime: 2
   Ingredients:
   - {fileID: 11400000, guid: d41333ae33845084da374061d191eaaa, type: 2}
   - {fileID: 11400000, guid: c6d0310f1366a254f90491b3aadcb8c1, type: 2}

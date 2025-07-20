@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: Octopus Ink Risotto
   m_EditorClassIdentifier: 
   indate: 2025-07-16T02:27:35.109Z
-  displayName: "\uBB38\uC5B4 \uBA39\uBB3C \uB9AC\uC870\uB610"
+  displayName: "\uD06C\uB77C\uCF04 \uBA39\uBB3C \uB9AC\uC870\uB610"
   foodSprite: 
-  price: 0
+  price: 100
   isUnlock: 0
-  cookingTime: 0
+  cookingTime: 2
   Ingredients:
   - {fileID: 11400000, guid: eb82d363345dc90489082680109b4e2b, type: 2}
   - {fileID: 11400000, guid: c6d0310f1366a254f90491b3aadcb8c1, type: 2}
