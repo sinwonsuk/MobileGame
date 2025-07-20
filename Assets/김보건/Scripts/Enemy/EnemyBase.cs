@@ -68,13 +68,19 @@ public class EnemyBase : MonoBehaviour
         Destroy(gameObject);
     }
 
-    private void DropItem()
+    protected void DropItem()
     {
         if (dropItem == null || dropItem.possibleDrops.Length == 0) return;
 
-        int rand = Random.Range(0, dropItem.possibleDrops.Length);
+        int count = dropItem.dropCount;
 
-        Instantiate(dropItem.possibleDrops[rand], transform.position, Quaternion.identity);
+        for (int i = 0; i < count; i++)
+        {
+            int rand = Random.Range(0, dropItem.possibleDrops.Length);
+            GameObject dropPrefab = dropItem.possibleDrops[rand];
+
+            GameObject drop = Instantiate(dropPrefab, transform.position, Quaternion.identity);
+        }
     }
 
     protected IEnumerator HitShake()

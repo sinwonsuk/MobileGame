@@ -10,8 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 1104885662397111117}
   - component: {fileID: 1193488260154500573}
+  - component: {fileID: 5136876229912862381}
   - component: {fileID: 4609494681799975025}
   - component: {fileID: 1133432293940626346}
+  - component: {fileID: 5382389168071238520}
   m_Layer: 0
   m_Name: Triangle (1)
   m_TagString: Untagged
@@ -78,8 +80,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 75f5f34dc1b5347e0b8351032682f224, type: 3}
-  m_Color: {r: 0.9716981, g: 0.01375042, b: 0.95551056, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 3c894be1ec5be114fb26141cdb7cfb03, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -89,6 +91,21 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &5136876229912862381
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1382174700729074973}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db9051070d93e7c4d8ba00a3eaa47ecf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  forceMin: 1
+  forceMax: 3
+  eatEnableDelay: 0.5
 --- !u!114 &4609494681799975025
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -102,7 +119,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pickupRange: 15
-  moveSpeed: 5
+  moveSpeed: 10
 --- !u!114 &1133432293940626346
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -115,5 +132,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e51eacf0603528149a70606366403da0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ingredientName: "\uBB38\uC5B4 \uBA39\uBB3C"
+  ingredientData: {fileID: 11400000, guid: 8b6c2909b53da9e4d90fc2a40985083b, type: 2}
   amount: 1
+--- !u!50 &5382389168071238520
+Rigidbody2D:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1382174700729074973}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0

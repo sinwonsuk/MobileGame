@@ -50,7 +50,7 @@ public class EatItem : MonoBehaviour
         {
             var gc = FindAnyObjectByType<GameController>();
             var dungeonMgr = gc?.GetManager<DungeonManager>();
-            dungeonMgr?.AddTempItem(drop.ingredientName, drop.amount);
+            dungeonMgr?.AddTempItem(drop.IngredientName, drop.amount);
         }
         Debug.Log($"{gameObject.name} È¹µæ");
         Destroy(gameObject);
