@@ -134,7 +134,7 @@ public class CustomerManager : baseManager, IGameManager
 
        
 
-        float postX = Random.Range(-3.0f, 5.0f);
+        float postX = Random.Range(-2.0f, 5.0f);
         float postY = Random.Range(-0.2f, 0.5f);
 
         Vector3 vector = new Vector3(waitingCustomerTransform.position.x+ postX, waitingCustomerTransform.position.y+ postY);
