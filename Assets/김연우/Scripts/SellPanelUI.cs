@@ -111,7 +111,7 @@ public class SellPanelUI : MonoBehaviour
 
         // 돈 획득 이벤트
         int gain = sellQty * currentSlot.ingredient.ingredientPrice;
-        //EventBus<MoneyChangePusHandler>.Raise(new MoneyChangePusHandler(gain));
+        EventBus<MoneyChangePusHandler>.Raise(new MoneyChangePusHandler(gain));
 
         // 남은 수량이 0 이상 최대값 재설정
         if (currentSlot.runTimeIngredientData.ingredientQty > 0)

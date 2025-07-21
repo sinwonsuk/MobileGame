@@ -44,6 +44,9 @@ public class StaffShopButton1 : MonoBehaviour
     {
         if (_spawnedStaff1 == null)
         {
+
+
+
             if (spawnPoint1 != null)
             {
                 // -- Ã¹ ±¸¸Å --

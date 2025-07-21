@@ -17,7 +17,7 @@ MonoBehaviour:
   foodSprite: hotPot
   price: 392
   isUnlock: 0
-  cookingTime: 2
+  cookingTime: 34.7
   Ingredients:
   - {fileID: 11400000, guid: 09ae06f3e91a8824a8957174bf4d2a4e, type: 2}
   - {fileID: 11400000, guid: 366252414b4564546a6e598ffb934a4f, type: 2}
