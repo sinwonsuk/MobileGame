@@ -79,8 +79,7 @@ public class Cook : MonoBehaviour
             if (Vector2.Distance(transform.position, move) < 0.01f)
             {
                 EventBus<CustomerStateChangeHandler>.Raise(new CustomerStateChangeHandler(CustomerState.Eat, cookMoveHandler.customer));
-
-              
+                cookMoveHandler.customer.foodPrice = foodPrice;
                 yield break;
             }
 
@@ -99,6 +98,8 @@ public class Cook : MonoBehaviour
     private float speed = 30.0f;
     public string foodName { get; set; } // 음식 이름
     public float WaitingTime { get; set; } // 음식 시간
+
+    public int foodPrice { get; set; } // 음식 가격
 
     [SerializeField] private Image foodImage; // 음식 이미지
 

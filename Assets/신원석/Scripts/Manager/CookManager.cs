@@ -68,8 +68,6 @@ public class CookManager : baseManager, IGameManager
         var nextCookInfo = cookInfos.Dequeue();
         GameObject obj = GameObject.Instantiate(conFig.GameObjects[(int)CookEntityType.Food]);
 
-
-
         Cook cookComponent = obj.GetComponent<Cook>();
       
         for (int i = 0; i < conFig.Foods.Count; i++)
@@ -77,6 +75,7 @@ public class CookManager : baseManager, IGameManager
             if (conFig.Foods[i].displayName == nextCookInfo.foodName)
             {
                 cookComponent.WaitingTime = conFig.Foods[i].cookingTime;
+                cookComponent.foodPrice = conFig.Foods[i].price;
                 break;
             }
         }
