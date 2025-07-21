@@ -1,6 +1,7 @@
 using BackEnd;
 using System.Collections;
 using TMPro;
+using UnityEditor.PackageManager;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -41,12 +42,12 @@ public class LoginUI : MonoBehaviour
 
 		if (string.IsNullOrEmpty(id))
 		{
-			Debug.LogError("아이디를 입력해주세요.");
+			PopupManager.Show("Please Enter the ID.");
 			return;
 		}
 		if (string.IsNullOrEmpty(pw))
 		{
-			Debug.LogError("비밀번호를 입력해주세요.");
+			PopupManager.Show("Please Enter the Password.");
 			return;
 		}
 
@@ -63,13 +64,13 @@ public class LoginUI : MonoBehaviour
 					},
 					onFailure: (error) =>
 					{
-						Debug.LogError("로그인 실패: " + error);
+						PopupManager.Show("로그인에 실패했습니다.\n" + error);
 					});
                 
             },
 			onFailure: (error) =>
 			{
-				Debug.LogError("회원가입 실패: " + error);
+				PopupManager.Show("회원가입에 실패했습니다.\n" + error);
 			});
 	}
 
@@ -81,12 +82,12 @@ public class LoginUI : MonoBehaviour
 
 		if (string.IsNullOrEmpty(id))
 		{
-			Debug.LogError("아이디를 입력해주세요.");
+			PopupManager.Show("Please Enter the ID.");
 			return;
 		}
 		if (string.IsNullOrEmpty(pw))
 		{
-			Debug.LogError("비밀번호를 입력해주세요.");
+			PopupManager.Show("Please Enter the Password.");
 			return;
 		}
 
@@ -98,7 +99,7 @@ public class LoginUI : MonoBehaviour
 			},
 			onFailure: (error) =>
 			{
-				Debug.LogError("로그인 실패: " + error);
+				PopupManager.Show("로그인에 실패했습니다.\n" + error);
 			});
 
     }
@@ -109,6 +110,7 @@ public class LoginUI : MonoBehaviour
 		if (!bro.IsSuccess())
 		{
 			Debug.LogError("유저 정보 조회 실패: " + bro.GetMessage());
+			PopupManager.Show("정보 조회에 실패했습니다.\n");
 			yield break;
 		}
 
@@ -121,8 +123,10 @@ public class LoginUI : MonoBehaviour
 
 			if (string.IsNullOrEmpty(nickname) || nickname == "default" || nickname == "null")
 			{
-				Debug.Log("닉네임이 설정되지 않았습니다. 닉네임 설정 화면으로 이동합니다.");
-				ShowNicknamePanel(); // 대기
+				PopupManager.Show("닉네임이 설정되지 않았습니다.\n닉네임 설정 화면으로 이동합니다.", () =>
+				{
+					ShowNicknamePanel();
+				});
 			}
 			else
 			{
@@ -132,8 +136,11 @@ public class LoginUI : MonoBehaviour
 		}
 		catch (System.Exception e)
 		{
-			Debug.Log("닉네임 정보 파싱 실패. 닉네임 설정 화면으로 이동합니다. \n" + e);
-			ShowNicknamePanel();
+			Debug.LogError("닉네임 정보 조회 중 오류 발생: " + e.Message);
+			PopupManager.Show("닉네임이 설정되지 않았습니다.\n닉네임 설정 화면으로 이동합니다.", () =>
+			{
+				ShowNicknamePanel();
+			});
 		}
 	}
 
@@ -153,7 +160,7 @@ public class LoginUI : MonoBehaviour
 		},
 		onFailure: (error) =>
 		{
-			Debug.LogError("닉네임 설정 실패: " + error);
+			PopupManager.Show("닉네임 설정에 실패하였습니다.");
 		});
 
 	}
