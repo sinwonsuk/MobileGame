@@ -46,15 +46,22 @@ public class Customer : MonoBehaviour
         navMeshAgent.updateRotation = false;
         navMeshAgent.updateUpAxis = false;
         foodSpriteRenderer.enabled = false;
+        foodOrderSpriteRenderer.enabled = false;
     }
 
     public void ChangeState(CustomerState customerState)
     {
         this.customerState = customerState;
     }
+
+    float smooth = 10f; // 값이 높을수록 빠르게 반응, 낮을수록 부드럽게
+    float smoothedForward = 0f;
+    float smoothedRight = 0f;
     private void Update()
     {
         customerSpriteRenderer.sortingOrder = Mathf.RoundToInt(-transform.position.y * 100);
+
+
         Vector3 currentPosition = transform.position;
         Vector3 moveDir = (currentPosition - prevPosition).normalized;
         prevPosition = currentPosition;
@@ -62,11 +69,15 @@ public class Customer : MonoBehaviour
         Vector3 forward = transform.up;
         Vector3 right = transform.right;
 
-        float forwardAmount = Vector3.Dot(moveDir, forward); 
+        float forwardAmount = Vector3.Dot(moveDir, forward);
         float rightAmount = Vector3.Dot(moveDir, right);
 
-        animator.SetFloat("Horizontal", rightAmount * 10.0f);
-        animator.SetFloat("Vertical", forwardAmount * 10.0f);
+        // 여기서 보간 처리
+        smoothedForward = Mathf.Lerp(smoothedForward, forwardAmount, Time.deltaTime * smooth);
+        smoothedRight = Mathf.Lerp(smoothedRight, rightAmount, Time.deltaTime * smooth);
+
+        animator.SetFloat("Horizontal", smoothedRight);
+        animator.SetFloat("Vertical", smoothedForward);
 
 
         switch (customerState)
@@ -104,7 +115,11 @@ public class Customer : MonoBehaviour
                         EventBus<CookMakeHandler>.Raise(new CookMakeHandler(Slot.NameText.text, Slot));
                         foodSpriteRenderer.enabled = true;
                         foodSpriteRenderer.sprite = Slot.IconImage.sprite;
+                        foodOrderSpriteRenderer.enabled = true;
+
+
                         ChangeState(CustomerState.Wait);
+                        return;
                     }
                 }
                 break;
@@ -171,8 +186,9 @@ public class Customer : MonoBehaviour
                         time = 0.0f;
                         customerManager.DequeueCustomer();
                         ChangeState(CustomerState.Back);
+                        EventBus<MoneyChangePusHandler>.Raise(new MoneyChangePusHandler(foodPrice));
                         return;
-                    }
+                    } 
                 }
                 break;
             case CustomerState.Back:
@@ -228,6 +244,7 @@ public class Customer : MonoBehaviour
     public NavMeshAgent navMeshAgent { get; set; }
 
     [SerializeField] SpriteRenderer foodSpriteRenderer;
+    [SerializeField] SpriteRenderer foodOrderSpriteRenderer;
 
     [SerializeField] List<AnimatorController> animatorControllers;
 
@@ -243,6 +260,8 @@ public class Customer : MonoBehaviour
     {
         get => sprites;
     }
+
+    public int foodPrice { get; set; } // 음식 가격
 
     public CustomerManager customerManager { get; set; }
 
