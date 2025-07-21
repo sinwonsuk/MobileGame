@@ -17,7 +17,7 @@ MonoBehaviour:
   foodSprite: squirtle
   price: 1092
   isUnlock: 0
-  cookingTime: 2
+  cookingTime: 93.9
   Ingredients:
   - {fileID: 11400000, guid: 62ce0a1bfc56ab247aa9ff99f982409f, type: 2}
   - {fileID: 11400000, guid: 0d74ecd3bd3149745af6015e5c7c6a3a, type: 2}

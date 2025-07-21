@@ -17,7 +17,7 @@ MonoBehaviour:
   foodSprite: beakManSoup
   price: 770
   isUnlock: 0
-  cookingTime: 2
+  cookingTime: 66.7
   Ingredients:
   - {fileID: 11400000, guid: 7d699ce31bec7534d9b709fb18424f33, type: 2}
   - {fileID: 11400000, guid: 5da03fdf38ac18d45892cdc0ce1ea052, type: 2}
