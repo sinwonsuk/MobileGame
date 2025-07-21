@@ -15,6 +15,10 @@ public class EnemyBase : MonoBehaviour
     [Header("드랍 아이템")]
     [SerializeField] private EnemyDropData dropItem;
 
+    [Header("스폰무적")]
+    protected float invincibleTime = 6f;   // 무적 지속시간 (1초)
+    private float spawnTime;               // 스폰된 시간
+
     private Vector3 hitShakeOffset = Vector3.zero;
     public Vector3 basePosition;
 
@@ -22,7 +26,8 @@ public class EnemyBase : MonoBehaviour
 
     protected virtual void Start()
     {
-        currentHp = maxHp;
+        currentHp = maxHp; 
+        spawnTime = Time.time;
 
         hpBar = GetComponentInChildren<HPBar>();
         if (hpBarPrefab != null)
@@ -45,6 +50,8 @@ public class EnemyBase : MonoBehaviour
 
     public virtual void TakeDamage(double damage)
     {
+        if (Time.time - spawnTime < invincibleTime) return;
+
         currentHp -= damage;
 
         if (hpBar != null)

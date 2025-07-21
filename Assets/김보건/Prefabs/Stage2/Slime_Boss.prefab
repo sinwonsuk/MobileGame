@@ -255,6 +255,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: MonsterHPBar
       objectReference: {fileID: 0}
+    - target: {fileID: 5870452036522936706, guid: 2fd257caf422bfa4aaa97c9b32dac953, type: 3}
+      propertyPath: m_SortingOrder
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 7714322916521658939, guid: 2fd257caf422bfa4aaa97c9b32dac953, type: 3}
       propertyPath: m_LocalScale.x
       value: 1.0108036
