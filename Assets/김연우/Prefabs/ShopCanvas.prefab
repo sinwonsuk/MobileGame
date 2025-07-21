@@ -2052,6 +2052,7 @@ MonoBehaviour:
   purchaseButton: {fileID: 336128261003779836}
   _buttonText: {fileID: 6926592748859335968}
   level_num: {fileID: 3336255352296443174}
+  staff123: 0
 --- !u!114 &2657288329362656287
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3770,6 +3771,7 @@ MonoBehaviour:
   purchaseButton: {fileID: 328988184841629425}
   _buttonText: {fileID: 2954617259030846726}
   level_num: {fileID: 2985444272686290432}
+  staff123: 0
 --- !u!114 &4732541731060211139
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5368,6 +5370,7 @@ MonoBehaviour:
   purchaseButton: {fileID: 4552076539695114410}
   _buttonText: {fileID: 5740118798047414668}
   level_num: {fileID: 1101851410302759660}
+  staff123: 0
 --- !u!114 &8609734191790404124
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6742,8 +6745,13 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6677743565991861811, guid: f5ab6d78e6e0d034aaca794ee74a4dee, type: 3}
+      propertyPath: staff123
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 2629634725085286870, guid: f5ab6d78e6e0d034aaca794ee74a4dee, type: 3}
+    - {fileID: 6677743565991861811, guid: f5ab6d78e6e0d034aaca794ee74a4dee, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
