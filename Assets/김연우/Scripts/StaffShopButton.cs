@@ -13,6 +13,23 @@ public class StaffShopButton : MonoBehaviour
     StaffBase _spawnedStaff;
     public TextMeshProUGUI _buttonText;
     public TextMeshProUGUI level_num;
+
+    void Awake()
+    {
+        // 에디터에서 연결해두지 않았다면
+        if (spawnPoint == null)
+        {
+            var parent = GameObject.Find("MapParent");
+            if (parent != null && parent.transform.childCount > 0)
+            {
+                spawnPoint = parent.transform.GetChild(0);
+            }
+            else
+            {
+                Debug.LogWarning("MapParent가 없거나 자식이 없습니다.");
+            }
+        }
+    }
     void Start()
     {
         level_num.text = $"Lv. 0";
