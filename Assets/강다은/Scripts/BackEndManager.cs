@@ -34,10 +34,10 @@ public class BackendManager : MonoBehaviour
 				Debug.Log("다른 기기에서 로그인 감지됨");
 
 				// 유저 알림
-				PopupManager.Show("다른 기기에서 로그인되어 접속이 종료되었습니다.\n게임을 다시 시작해주세요.");
-
-				// 로그인 씬으로 이동
-				SceneManager.LoadScene("DaniTest");
+				PopupManager.Show("다른 기기에서 로그인되어 접속이 종료되었습니다.", () =>
+				{
+					SceneManager.LoadScene("DaniTest");
+				});
 			};
 		}
 			

@@ -57,7 +57,7 @@ public class AutoSaveManager : MonoBehaviour
 
 	private void Start()
 	{
-		InvokeRepeating(nameof(AutoSaveAll), 180f, 30f);
+		InvokeRepeating(nameof(AutoSaveAll), 10f, 30f);
 	}
 
 	public static AutoSaveManager Instance { get; private set; }
