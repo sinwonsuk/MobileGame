@@ -26,6 +26,4 @@ public class Money : MonoBehaviour
         set => moneyText = value;
     }
 
-    [SerializeField] int money = 10000;
-
 }

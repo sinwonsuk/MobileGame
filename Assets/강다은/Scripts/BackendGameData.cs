@@ -32,9 +32,9 @@ public class UserData
     }
 }
 
-public class BackendGameData
+public class BackendGameData : IAutoSavable
 {
-    private static BackendGameData _instance = null;
+	private static BackendGameData _instance = null;
 
     public static BackendGameData Instance
     {
@@ -70,7 +70,10 @@ public class BackendGameData
 				{
 					gameDataRowInDate = rows[0]["inDate"].ToString();
 					ParseUserData(rows[0]);
-                    onSuccess?.Invoke();       // 성공 콜백 호출
+
+					AutoSaveManager.Instance?.RegisterAutoSavable(this);
+
+					onSuccess?.Invoke();       // 성공 콜백 호출
                     OnUserDataReady?.Invoke(); // 데이터 준비 완료 이벤트 호출
 				}
 				else
@@ -97,20 +100,6 @@ public class BackendGameData
             userData = new UserData();
         }
 
-        Debug.Log("데이터를 초기화합니다.");
-        //userData.level = 1;
-        //userData.atk = 3.5f;
-        //userData.info = "친추는 언제나 환영입니다.";
-        //
-		//userData.equipment.Add("전사의 투구");
-        //userData.equipment.Add("강철 갑옷");
-        //userData.equipment.Add("헤르메스의 군화");
-        //
-        //userData.inventory.Add("빨간포션", 1);
-        //userData.inventory.Add("하얀포션", 1);
-        //userData.inventory.Add("파란포션", 1);
-        
-
 		Debug.Log("뒤끝 업데이트 목록에 해당 데이터들을 추가합니다.");
         Param param = new Param();
         param.Add("nickname", userData.nickname);
@@ -131,17 +120,20 @@ public class BackendGameData
             //삽입한 게임 정보의 고유값입니다.  
             gameDataRowInDate = bro.GetInDate();
 
-            var getBro = Backend.GameData.GetMyData("USER_DATA", new Where());
-            if(getBro.IsSuccess())
-            {
-                var rows = getBro.FlattenRows();
-                if(rows.Count > 0)
-                {
-                    gameDataRowInDate = rows[0]["inDate"].ToString();
-					ParseUserData(rows[0]); // 데이터 파싱
-				}
-			}
-            onSuccess?.Invoke(); // 성공 콜백 호출
+			this.userData = new UserData
+			{
+				nickname = userData.nickname,
+				reputation = userData.reputation,
+				basicAtk = userData.basicAtk,
+				bio = userData.bio,
+				gold = userData.gold,
+				friends = new List<string>(userData.friends)
+			};
+
+			AutoSaveManager.Instance?.RegisterAutoSavable(this);
+
+			onSuccess?.Invoke(); // 성공 콜백 호출
+			OnUserDataReady?.Invoke();
 		}
         else
         {
@@ -204,6 +196,7 @@ public class BackendGameData
             basicAtk = float.Parse(gameDataJson["basicAtk"].ToString()),
             bio = gameDataJson["bio"].ToString(),
 			gold = int.Parse(gameDataJson["gold"].ToString()),
+			friends = new List<string>()
 		};
 
 		foreach (LitJson.JsonData friend in gameDataJson["friends"])
@@ -225,11 +218,6 @@ public class BackendGameData
     // 게임 정보 수정하기
     public void GameDataUpdate()
     {
-        if (userData == null)
-        {
-            Debug.LogError("서버에서 다운받거나 새로 삽입한 데이터가 존재하지 않습니다. Insert 혹은 Get을 통해 데이터를 생성해주세요.");
-            return;
-        }
 
         Param param = new Param();
         param.Add("nickname", userData.nickname);
@@ -243,7 +231,7 @@ public class BackendGameData
 
         if (string.IsNullOrEmpty(gameDataRowInDate))
         {
-            Debug.Log("내 제일 최신 게임 정보 데이터 수정을 요청합니다.");
+            Debug.Log("제일 최신 게임 정보 데이터 수정을 요청합니다.");
 
             bro = Backend.GameData.Update("USER_DATA", new Where(), param);
         }
@@ -256,11 +244,15 @@ public class BackendGameData
 
         if (bro.IsSuccess())
         {
-            Debug.Log("게임 정보 데이터 수정에 성공했습니다. : " + bro);
+            Debug.Log("자동 저장 완료 / 게임 정보 수정 완료 : " + bro);
         }
         else
         {
-            Debug.LogError("게임 정보 데이터 수정에 실패했습니다. : " + bro);
+            Debug.LogError("게임 정보 수정 실패 : " + bro);
         }
     }
+	public void AutoSave()
+	{
+		GameDataUpdate();
+	}
 }

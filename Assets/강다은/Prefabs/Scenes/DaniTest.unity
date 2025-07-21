@@ -448,6 +448,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BackendManager
       objectReference: {fileID: 0}
+    - target: {fileID: 7879679054175226272, guid: deb74a7072c2b4040b0c782928fafe4c, type: 3}
+      propertyPath: autoSaveManagerPrefab
+      value: 
+      objectReference: {fileID: 319117564830110914, guid: 205cb3fd7197a1b4a9a73d6c8fef3c58, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
