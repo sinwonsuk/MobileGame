@@ -7,9 +7,9 @@ public class Money : MonoBehaviour
     void Start()
     {
 
-        //moneyText.text = BackendGameData.userData.gold.ToString();
+        moneyText.text = BackendGameData.userData.gold.ToString();
 
-        moneyText.text = money.ToString();
+        //moneyText.text = money.ToString();
     }
 
     // Update is called once per frame
