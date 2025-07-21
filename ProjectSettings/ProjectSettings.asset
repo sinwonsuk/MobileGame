@@ -268,7 +268,7 @@ PlayerSettings:
   useCustomGradlePropertiesTemplate: 1
   useCustomGradleSettingsTemplate: 1
   useCustomProguardFile: 0
-  AndroidTargetArchitectures: 3
+  AndroidTargetArchitectures: 1
   AndroidSplashScreenScale: 0
   androidSplashScreen: {fileID: 0}
   AndroidKeystoreName: C:/Users/daeun4001/OneDrive/Desktop/user.keystore
@@ -813,7 +813,8 @@ PlayerSettings:
   platformArchitecture: {}
   scriptingBackend:
     Android: 1
-  il2cppCompilerConfiguration: {}
+  il2cppCompilerConfiguration:
+    Android: 0
   il2cppCodeGeneration: {}
   il2cppStacktraceInformation: {}
   managedStrippingLevel: {}
