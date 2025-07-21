@@ -49,11 +49,13 @@ public class BackendGameData
         }
     }
 
-    public static UserData userData;
+    public UserData userData { get; private set; }
 
-    public string gameDataRowInDate = string.Empty;
+	public string gameDataRowInDate = string.Empty;
 
-    public void GameDataGetOrInsert(System.Action onSuccess = null)
+	public event System.Action OnUserDataReady;
+
+	public void GameDataGetOrInsert(System.Action onSuccess = null)
     {
         Debug.Log("게임 정보 존재 여부 확인");
 
@@ -68,15 +70,15 @@ public class BackendGameData
 				{
 					gameDataRowInDate = rows[0]["inDate"].ToString();
 					ParseUserData(rows[0]);
+                    onSuccess?.Invoke();       // 성공 콜백 호출
+                    OnUserDataReady?.Invoke(); // 데이터 준비 완료 이벤트 호출
 				}
 				else
 				{
 					Debug.LogWarning("조회 성공했지만 데이터 없음 → Insert");
 					GameDataInsert(onSuccess);
-					return;
 				}
 
-				onSuccess?.Invoke(); // 성공 콜백 호출
 			}
 			else
 			{

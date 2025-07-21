@@ -147,7 +147,7 @@ public class LoginUI : MonoBehaviour
 	    onSuccess: () =>
 		{
 			Debug.Log("닉네임 설정 성공: " + nickname);
-			BackendGameData.userData.nickname = nickname; // 닉네임 업데이트
+			BackendGameData.Instance.userData.nickname = nickname; // 닉네임 업데이트
 			BackendGameData.Instance.GameDataUpdate(); // 게임 데이터 업데이트
 
 			SceneManager.LoadScene("SampleScene");
@@ -202,26 +202,27 @@ public class LoginUI : MonoBehaviour
 		yield return StartCoroutine(InventoryManager.Instance.LoadUserInventory(ownerIndate));
 
 		// 기타 유저 게임 데이터 불러오기
-		BackendGameData.Instance.GameDataGetOrInsert();
-
-		if (IsAdminAccount())
+		BackendGameData.Instance.GameDataGetOrInsert(() => 
 		{
-			Debug.Log("<관리자> 계정입니다. StaticData 삽입");
-
-			GameObject uploader = Instantiate(csvUploader, Vector3.zero, Quaternion.identity);
-			uploader.GetComponent<CSVTableUploader>().onComplete = () =>
+			if (IsAdminAccount())
 			{
-				Debug.Log("<관리자> CSV 업로드 완료. 씬 이동 시작");
-				SceneManager.LoadScene("SampleScene");
-			};
+				Debug.Log("<관리자> 계정입니다. StaticData 삽입");
 
-			yield break; // 씬 이동은 위 콜백에서 처리, 이 코루틴 종료
-		}
-		else
-		{
-			// 일반 유저 → 닉네임 검사 & 씬 이동
-			yield return StartCoroutine(CheckNicknameAndProceed());
-		}
+				GameObject uploader = Instantiate(csvUploader, Vector3.zero, Quaternion.identity);
+				uploader.GetComponent<CSVTableUploader>().onComplete = () =>
+				{
+					Debug.Log("<관리자> CSV 업로드 완료. 씬 이동 시작");
+					SceneManager.LoadScene("SampleScene");
+				};
+			}
+			else
+			{
+				// 일반 유저 → 닉네임 검사 & 씬 이동
+				StartCoroutine(CheckNicknameAndProceed());
+			}
+		});
+
+		
 	}
 
 	[SerializeField] GameObject signUpPanel;
