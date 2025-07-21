@@ -7,7 +7,7 @@ public class Money : MonoBehaviour
     void Start()
     {
 
-        moneyText.text = BackendGameData.userData.gold.ToString();
+        moneyText.text = BackendGameData.Instance.userData.gold.ToString();
 
         //moneyText.text = money.ToString();
     }
@@ -25,7 +25,5 @@ public class Money : MonoBehaviour
         get => moneyText;
         set => moneyText = value;
     }
-
-    [SerializeField] int money = 10000;
 
 }

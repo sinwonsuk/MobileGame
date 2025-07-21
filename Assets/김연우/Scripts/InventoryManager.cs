@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class InventoryManager : MonoBehaviour
+public class InventoryManager : MonoBehaviour, IAutoSavable
 {
     public static InventoryManager Instance { get; private set; }
 
@@ -20,7 +20,17 @@ public class InventoryManager : MonoBehaviour
 
     public event Action OnInventoryChanged;
 
-    private void Awake()
+	public void AutoSave()
+	{
+		if (inventoryLoaded)
+			SaveImmediately();
+		else
+			Debug.LogWarning("인벤토리 로딩 안 됨 -> 종료 시 저장 생략");
+
+		SaveInventory();
+	}
+
+	private void Awake()
     {
         if (Instance == null)
             Instance = this;
@@ -29,14 +39,13 @@ public class InventoryManager : MonoBehaviour
 
         DontDestroyOnLoad(gameObject);
 
-        // 초기 슬롯 세팅
+		// 초기 슬롯 세팅
 
-        for (int i = 0; i < allIngredients.Length; i++)
+		for (int i = 0; i < allIngredients.Length; i++)
         {
             slots.Add(new InventorySlot(allIngredients[i], allRunTimeIngredients[i]));
         }
-        OnInventoryChanged?.Invoke();
-    }
+	}
 
     public void AddItem(string name, int amount = 1)
     {
@@ -159,9 +168,7 @@ public class InventoryManager : MonoBehaviour
 				}
 				else
 				{
-					//Debug.LogWarning("[중복 체크] 'inventoryItemIndate' 필드가 없음 -> 이름 기준으로 체크 예정");
-					string itemName = row["inventoryItemName"].ToString();
-					existingIndates.Add(itemName); 
+					Debug.LogError("[InsertInventoryIfNotExists] inventoryItemIndate 필드가 누락됨 — 데이터 구조 점검 필요");
 				}
 			}
 
@@ -238,7 +245,7 @@ public class InventoryManager : MonoBehaviour
 			BackendReturnObject bro = null;
 
 			var where = new Where();
-			where.Equal("ownerIndate", ownerIndate);
+			where.Equal("owner_inDate", ownerIndate);
 			where.Equal("inventoryItemType", "Ingredient");
 
 			Backend.GameData.Get("INVENTORY", where, limit, offset, callback =>
@@ -286,12 +293,48 @@ public class InventoryManager : MonoBehaviour
 			}
 		}
 
-		OnInventoryChanged?.Invoke();
+		inventoryLoaded = true;
+
+		OnInventoryChanged += AutoSave;
+		AutoSaveManager.Instance?.RegisterAutoSavable(this);
+
+		Debug.Log("[Inventory] 유저 인벤토리 데이터 로드 완료");
+	}
+
+	public void SaveInventory()
+	{
+		if (!inventoryLoaded)
+		{
+			Debug.LogWarning("[저장 차단] 인벤토리 로딩 안 끝났음");
+			return;
+		}
+
+		string ownerIndate = Backend.UserInDate;
+
+		for (int i = 0; i < allRunTimeIngredients.Length; i++)
+		{
+			string itemIndate = allIngredients[i].indate;
+			int qty = allRunTimeIngredients[i].ingredientQty;
+
+			Where where = new Where();
+			where.Equal("owner_inDate", ownerIndate);
+			where.Equal("inventoryItemIndate", itemIndate);
+
+			Param param = new Param();
+			param.Add("inventoryQuantity", qty);
+
+			Backend.GameData.Update("INVENTORY", where, param);
+		}
+
+		Debug.Log("인벤토리 자동 저장 완료");
 	}
 
 	private void OnApplicationQuit()
 	{
-		SaveImmediately();
+		if (inventoryLoaded)
+			SaveImmediately();
+		else
+			Debug.LogWarning("인벤토리 로딩 안 됨 -> 종료 시 저장 생략");
 	}
 
 	private void SaveImmediately()
@@ -316,4 +359,5 @@ public class InventoryManager : MonoBehaviour
 		Debug.Log("종료 시 인벤 데이터 저장 요청 완료");
 	}
 
+	private bool inventoryLoaded = false;
 }
