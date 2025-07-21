@@ -313,7 +313,7 @@ public class InventoryManager : MonoBehaviour
 			Backend.GameData.Update("INVENTORY", where, param);
 		}
 
-		Debug.Log("종료 시 데이터 저장 요청 완료");
+		Debug.Log("종료 시 인벤 데이터 저장 요청 완료");
 	}
 
 }
