@@ -22,6 +22,8 @@ public class StatUpgradeButton : MonoBehaviour
     private float currentValue;
     private int currentLevel;
 
+    public PlayerStatData playerStats;
+
     void Awake()
     {
         _button = GetComponent<Button>();
@@ -59,21 +61,31 @@ public class StatUpgradeButton : MonoBehaviour
         {
             case StatType.AttackPower:
                 currentValue += upgradeAmount;
+                playerStats.attackPower = currentValue;
                 break;
+
             case StatType.CritChance:
-                // 0.01% 단위로 증가, 최대 100%
                 currentValue = Mathf.Clamp(currentValue + upgradeAmount * 0.1f, 0f, 100f);
+                playerStats.critChance = currentValue;
                 break;
+
             case StatType.AutoAttackInterval:
                 currentValue = Mathf.Max(minAutoAttackInterval, currentValue - upgradeAmount * 0.1f);
+                playerStats.autoAttackInterval = currentValue;
                 break;
+
             case StatType.AutoAttackDamage:
                 currentValue += upgradeAmount;
+                playerStats.autoAttackDamage = currentValue;
                 break;
+
             case StatType.CritDamageMultiplier:
                 currentValue += upgradeAmount * 0.1f;
+                playerStats.critDamageMultiplier = currentValue;
                 break;
         }
+
+        EventBus<StatChangedEvent>.Raise(new StatChangedEvent{changedStatType = statToUpgrade});
     }
 
     float GetStatValue()

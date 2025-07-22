@@ -103,6 +103,42 @@ public class LoginUI : MonoBehaviour
 
     }
 
+	public void OnClickGoogleLoginButton()
+	{
+		StartGoogleLogin();
+	}
+
+	private void StartGoogleLogin()
+	{
+		TheBackend.ToolKit.GoogleLogin.Android.GoogleLogin(OnGoogleLoginCallback);
+	}
+
+	private void OnGoogleLoginCallback(bool isSuccess, string errorMessage, string token)
+	{
+		if (!isSuccess)
+		{
+			Debug.LogError("구글 로그인 실패: " + errorMessage);
+			PopupManager.Show("구글 로그인 실패\n" + errorMessage);
+			return;
+		}
+
+		Debug.Log("구글 토큰: " + token);
+
+		var bro = Backend.BMember.AuthorizeFederation(token, FederationType.Google);
+		if (bro.IsSuccess())
+		{
+			Debug.Log("페더레이션 로그인 성공!");
+			StartCoroutine(LoginFlowCoroutine());
+		}
+		else
+		{
+			Debug.LogError("서버 로그인 실패: " + bro.GetMessage());
+			PopupManager.Show("서버 로그인 실패\n" + bro.GetMessage());
+		}
+	}
+
+
+
 	private IEnumerator CheckNicknameAndProceed()
 	{
 		var bro = Backend.BMember.GetUserInfo();
@@ -117,10 +153,32 @@ public class LoginUI : MonoBehaviour
 		try
 		{
 			Debug.Log("[전체 JSON 구조]\n" + json.ToJson());
+
+			if (!json.ContainsKey("row") || json["row"] == null)
+			{
+				Debug.LogWarning("'row' 키 없음 또는 null");
+				PopupManager.Show("유저 정보가 올바르지 않습니다. 닉네임 설정으로 이동합니다.", () =>
+				{
+					ShowNicknamePanel();
+				});
+				yield break;
+			}
+
 			var row = json["row"];
+
+			if (!row.ContainsKey("nickname") || row["nickname"] == null)
+			{
+				Debug.LogWarning("'nickname' 키 없음 또는 null");
+				PopupManager.Show("닉네임이 없습니다. 설정 화면으로 이동합니다.", () =>
+				{
+					ShowNicknamePanel();
+				});
+				yield break;
+			}
+
 			string nickname = row["nickname"].ToString();
 
-			if (string.IsNullOrEmpty(nickname) || nickname == "default" || nickname == "null")
+			if (string.IsNullOrEmpty(nickname) || nickname == "default" || nickname == "null" || string.IsNullOrEmpty(row["nickname"].ToString()))
 			{
 				PopupManager.Show("닉네임이 설정되지 않았습니다.\n닉네임 설정 화면으로 이동합니다.", () =>
 				{
@@ -136,7 +194,7 @@ public class LoginUI : MonoBehaviour
 		catch (System.Exception e)
 		{
 			Debug.LogError("닉네임 정보 조회 중 오류 발생: " + e.Message);
-			PopupManager.Show("닉네임이 설정되지 않았습니다.\n닉네임 설정 화면으로 이동합니다.", () =>
+			PopupManager.Show("닉네임 확인 중 오류가 발생했습니다.\n설정 화면으로 이동합니다.", () =>
 			{
 				ShowNicknamePanel();
 			});
@@ -245,4 +303,6 @@ public class LoginUI : MonoBehaviour
 	[SerializeField] GameObject csvUploader;
 
 	[SerializeField] private StaticDataInitializer staticDataInitializer;
+
+	private bool isGoogleLoginInProgress = false;
 }

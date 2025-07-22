@@ -1,12 +1,12 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-// µÚ³¡ SDK namespace Ãß°¡
+// ë’¤ë SDK namespace ì¶”ê°€
 using BackEnd;
 using System;
 
-public class BackendLogin
+public class BackendLogin:MonoBehaviour
 {
     private static BackendLogin _instance = null;
 
@@ -25,38 +25,38 @@ public class BackendLogin
 
     public void CustomSignUp(string id, string pw, System.Action onSuccess = null, Action<string> onFailure = null)
     {
-        Debug.Log("È¸¿ø°¡ÀÔÀ» ¿äÃ»ÇÕ´Ï´Ù.");
+        Debug.Log("íšŒì›ê°€ì…ì„ ìš”ì²­í•©ë‹ˆë‹¤.");
 
         var bro = Backend.BMember.CustomSignUp(id, pw);
 
         if (bro.IsSuccess())
         {
-            Debug.Log("È¸¿ø°¡ÀÔ¿¡ ¼º°øÇß½À´Ï´Ù. : " + bro);
+            Debug.Log("íšŒì›ê°€ì…ì— ì„±ê³µí–ˆìŠµë‹ˆë‹¤. : " + bro);
             onSuccess?.Invoke();
 		}
         else
         {
             string errorMessage = bro.GetErrorCode() + " - " + bro.GetMessage();
-			Debug.LogError("È¸¿ø°¡ÀÔ ½ÇÆĞ : " + errorMessage);
+			Debug.LogError("íšŒì›ê°€ì… ì‹¤íŒ¨ : " + errorMessage);
             onFailure?.Invoke(errorMessage);
 		}
     }
 
     public void CustomLogin(string id, string pw, System.Action onSuccess = null, Action<string> onFailure = null)
     {
-        Debug.Log("·Î±×ÀÎÀ» ¿äÃ»ÇÕ´Ï´Ù.");
+        Debug.Log("ë¡œê·¸ì¸ì„ ìš”ì²­í•©ë‹ˆë‹¤.");
 
         var bro = Backend.BMember.CustomLogin(id, pw);
 
         if (bro.IsSuccess())
         {
-            Debug.Log("·Î±×ÀÎÀÌ ¼º°øÇß½À´Ï´Ù. : " + bro);
+            Debug.Log("ë¡œê·¸ì¸ì´ ì„±ê³µí–ˆìŠµë‹ˆë‹¤. : " + bro);
             onSuccess?.Invoke();
 		}
         else
         {
 			string errorMessage = bro.GetErrorCode() + " - " + bro.GetMessage();
-			Debug.LogError("·Î±×ÀÎ ½ÇÆĞ : " + errorMessage);
+			Debug.LogError("ë¡œê·¸ì¸ ì‹¤íŒ¨ : " + errorMessage);
             onFailure?.Invoke(errorMessage);
 		}
     }
@@ -67,14 +67,62 @@ public class BackendLogin
 
 		if (bro.IsSuccess())
 		{
-			Debug.Log("´Ğ³×ÀÓ ¼³Á¤ ¼º°ø: " + bro);
+			Debug.Log("ë‹‰ë„¤ì„ ì„¤ì • ì„±ê³µ: " + bro);
 			onSuccess?.Invoke();
 		}
 		else
 		{
 			string errorMessage = bro.GetErrorCode() + " - " + bro.GetMessage();
-			Debug.LogError("´Ğ³×ÀÓ ¼³Á¤ ½ÇÆĞ : " + errorMessage);
+			Debug.LogError("ë‹‰ë„¤ì„ ì„¤ì • ì‹¤íŒ¨ : " + errorMessage);
 			onFailure?.Invoke(errorMessage);
 		}
+	}
+
+	// êµ¬ê¸€ ë¡œê·¸ì¸ (ë’¤ë íˆ´í‚· ì‚¬ìš©)
+	public void GoogleLogin(Action onSuccess = null, Action<string> onFailure = null)
+	{
+#if UNITY_ANDROID
+		TheBackend.ToolKit.GoogleLogin.Android.GoogleLogin((isSuccess, errorMessage, token) =>
+		{
+			if (!isSuccess)
+			{
+				Debug.LogError("êµ¬ê¸€ ë¡œê·¸ì¸ ì‹¤íŒ¨: " + errorMessage);
+				onFailure?.Invoke(errorMessage);
+				return;
+			}
+
+			Debug.Log("êµ¬ê¸€ í† í°: " + token);
+			var bro = Backend.BMember.AuthorizeFederation(token, FederationType.Google);
+
+			if (bro.IsSuccess())
+			{
+				Debug.Log("êµ¬ê¸€ ì—°ë™ ë¡œê·¸ì¸ ì„±ê³µ: " + bro);
+				onSuccess?.Invoke();
+			}
+			else
+			{
+				string error = bro.GetErrorCode() + " - " + bro.GetMessage();
+				Debug.LogError("í˜ë°ë ˆì´ì…˜ ë¡œê·¸ì¸ ì‹¤íŒ¨: " + error);
+				onFailure?.Invoke(error);
+			}
+		});
+#else
+        Debug.LogError("êµ¬ê¸€ ë¡œê·¸ì¸ì€ Androidì—ì„œë§Œ ì§€ì›ë©ë‹ˆë‹¤.");
+        onFailure?.Invoke("Androidì—ì„œë§Œ ì§€ì›ë©ë‹ˆë‹¤.");
+#endif
+	}
+
+	// êµ¬ê¸€ ë¡œê·¸ì•„ì›ƒ (ê³„ì • ë‹¤ì‹œ ì„ íƒí•˜ê³  ì‹¶ì„ ë•Œ)
+	public void GoogleLogout()
+	{
+#if UNITY_ANDROID
+		TheBackend.ToolKit.GoogleLogin.Android.GoogleSignOut((isSuccess, errorMessage) =>
+		{
+			if (!isSuccess)
+				Debug.LogWarning("êµ¬ê¸€ ë¡œê·¸ì•„ì›ƒ ì‹¤íŒ¨: " + errorMessage);
+			else
+				Debug.Log(" êµ¬ê¸€ ë¡œê·¸ì•„ì›ƒ ì„±ê³µ");
+		});
+#endif
 	}
 }

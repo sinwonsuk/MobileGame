@@ -108,6 +108,7 @@ MonoBehaviour:
   fireInterval: 1.5
   bulletManager: {fileID: 6816575115514426188}
   enemyDetectRange: 10
+  playerStats: {fileID: 11400000, guid: dca1f4670c391e44c98be7ec6d7322e1, type: 2}
   animator: {fileID: 7355629432652728238}
   manualAttackHoldTime: 0.3
 --- !u!114 &6816575115514426188

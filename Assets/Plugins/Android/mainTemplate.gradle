@@ -2,14 +2,17 @@ apply plugin: 'com.android.library'
 apply from: '../shared/keepUnitySymbols.gradle'
 **APPLY_PLUGINS**
 
+
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 // Android Resolver Dependencies Start
-    implementation 'androidx.credentials:credentials:1.5.0' // Assets/TheBackend/Toolkit/GoogleLogin/Android/Editor/BackendGoogleLoginAndroidDependencies.xml:8
-    implementation 'androidx.credentials:credentials-play-services-auth:1.5.0' // Assets/TheBackend/Toolkit/GoogleLogin/Android/Editor/BackendGoogleLoginAndroidDependencies.xml:9
+    implementation 'androidx.credentials:credentials:1.2.0' // Assets/TheBackend/Toolkit/GoogleLogin/Android/Editor/BackendGoogleLoginAndroidDependencies.xml:8
+    implementation 'androidx.credentials:credentials-play-services-auth:1.2.0' // Assets/TheBackend/Toolkit/GoogleLogin/Android/Editor/BackendGoogleLoginAndroidDependencies.xml:9
     implementation 'com.google.android.libraries.identity.googleid:googleid:1.1.1' // Assets/TheBackend/Toolkit/GoogleLogin/Android/Editor/BackendGoogleLoginAndroidDependencies.xml:10
 // Android Resolver Dependencies End
+
 **DEPS**}
+
 
 // Android Resolver Exclusions Start
 android {

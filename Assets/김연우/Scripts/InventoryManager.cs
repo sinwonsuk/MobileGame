@@ -54,7 +54,8 @@ public class InventoryManager : MonoBehaviour, IAutoSavable
             if (data.ingredientName == name)
             {
                 data.ingredientQty += amount;
-                OnInventoryChanged?.Invoke();
+				data.isDirty = true;
+				OnInventoryChanged?.Invoke();
                 return;
             }
         }
@@ -83,7 +84,8 @@ public class InventoryManager : MonoBehaviour, IAutoSavable
             if (data.ingredientName == name)
             {
                 data.ingredientQty += amount;
-                OnInventoryChanged?.Invoke();
+				data.isDirty = true;
+				OnInventoryChanged?.Invoke();
                 return data.ingredientQty.ToString();
             }
         }
@@ -97,7 +99,8 @@ public class InventoryManager : MonoBehaviour, IAutoSavable
             if (data.ingredientName == name)
             {
                 data.ingredientQty -= amount;
-                OnInventoryChanged?.Invoke();
+				data.isDirty = true;
+				OnInventoryChanged?.Invoke();
                 return data.ingredientQty.ToString();
             }
         }
@@ -313,6 +316,9 @@ public class InventoryManager : MonoBehaviour, IAutoSavable
 
 		for (int i = 0; i < allRunTimeIngredients.Length; i++)
 		{
+			var runtimeData = allRunTimeIngredients[i];
+			if (!runtimeData.isDirty) continue;
+
 			string itemIndate = allIngredients[i].indate;
 			int qty = allRunTimeIngredients[i].ingredientQty;
 
@@ -324,9 +330,11 @@ public class InventoryManager : MonoBehaviour, IAutoSavable
 			param.Add("inventoryQuantity", qty);
 
 			Backend.GameData.Update("INVENTORY", where, param);
+
+			runtimeData.isDirty = false;
 		}
 
-		Debug.Log("인벤토리 자동 저장 완료");
+		Debug.Log("변경된 인벤토리만 자동 저장 완료");
 	}
 
 	private void OnApplicationQuit()
@@ -337,12 +345,34 @@ public class InventoryManager : MonoBehaviour, IAutoSavable
 			Debug.LogWarning("인벤토리 로딩 안 됨 -> 종료 시 저장 생략");
 	}
 
+	private void OnApplicationPause(bool pause)
+	{
+		if (pause && inventoryLoaded)
+		{
+			Debug.Log("일시 정지 시 인벤토리 저장");
+			SaveImmediately();
+		}
+	}
+
+	private void OnApplicationFocus(bool hasFocus)
+	{
+		if (!hasFocus && inventoryLoaded)
+		{
+			Debug.Log("포커스 잃을 시 인벤토리 저장");
+			SaveImmediately();
+		}
+	}
+
+
 	private void SaveImmediately()
 	{
 		string ownerIndate = Backend.UserInDate;
 
 		for (int i = 0; i < allRunTimeIngredients.Length; i++)
 		{
+			var runtimeData = allRunTimeIngredients[i];
+			if (!runtimeData.isDirty) continue;
+
 			string itemIndate = allIngredients[i].indate;
 			int qty = allRunTimeIngredients[i].ingredientQty;
 
@@ -354,9 +384,11 @@ public class InventoryManager : MonoBehaviour, IAutoSavable
 			param.Add("inventoryQuantity", qty);
 
 			Backend.GameData.Update("INVENTORY", where, param);
+
+			runtimeData.isDirty = false;
 		}
 
-		Debug.Log("종료 시 인벤 데이터 저장 요청 완료");
+		Debug.Log("종료 시 변경된 인벤 데이터 저장 완료");
 	}
 
 	private bool inventoryLoaded = false;

@@ -65,5 +65,5 @@ public class AutoSaveManager : MonoBehaviour
 	private Dictionary<IAutoSavable, float> lastSaveTimes = new();
 	private List<IAutoSavable> autoSavables = new();
 
-	private const float saveInterval = 60f;
+	private const float saveInterval = 20f;
 }

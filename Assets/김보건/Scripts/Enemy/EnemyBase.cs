@@ -14,6 +14,10 @@ public class EnemyBase : MonoBehaviour
     [Header("드랍 아이템")]
     [SerializeField] private EnemyDropData dropItem;
 
+    [Header("스폰무적")]
+    protected float invincibleTime = 6f;   // 무적 지속시간 (1초)
+    private float spawnTime;               // 스폰된 시간
+
     private Vector3 hitShakeOffset = Vector3.zero;
     public Vector3 basePosition;
 
@@ -21,7 +25,8 @@ public class EnemyBase : MonoBehaviour
 
     protected virtual void Start()
     {
-        currentHp = maxHp;
+        currentHp = maxHp; 
+        spawnTime = Time.time;
 
         hpBar = GetComponentInChildren<HPBar>();
         if (hpBarPrefab != null)
@@ -44,6 +49,8 @@ public class EnemyBase : MonoBehaviour
 
     public virtual void TakeDamage(double damage)
     {
+        if (Time.time - spawnTime < invincibleTime) return;
+
         currentHp -= damage;
 
         if (hpBar != null)
@@ -64,7 +71,13 @@ public class EnemyBase : MonoBehaviour
         Debug.Log($"{gameObject.name} 죽음");
         FindFirstObjectByType<MonsterSpawner>()?.ResetSpawnFlag();
         DropItem();
-        Destroy(gameObject);
+
+        Animator animator = GetComponent<Animator>();
+        if (animator != null)
+        {
+            animator.SetTrigger("DeadTrigger");
+        }
+
     }
 
     protected void DropItem()
@@ -111,10 +124,17 @@ public class EnemyBase : MonoBehaviour
             var dungeonManager = FindAnyObjectByType<GameController>().GetManager<DungeonManager>();
             var floorData = dungeonManager.Config.selectedFloorData;
 
+            Object.FindFirstObjectByType<MonsterSpawner>()?.ResetSpawnFlag();//스폰상태초기화
+
             floorData.ResetStage();               // 스테이지 초기화
             Destroy(gameObject);
             Object.FindFirstObjectByType<MonsterSpawner>().SpawnNextStage();
         }
+    }
+
+    public virtual void OnDeathAnimationEnd()
+    {
+        Destroy(gameObject);
     }
 
 }
