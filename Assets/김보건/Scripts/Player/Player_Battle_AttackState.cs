@@ -23,6 +23,9 @@ public class Player_Battle_AttackState : IShooterState
 
     public void Update()
     {
+        if (shooter == null)
+            return;
+
         // 자동공격 상태일 경우 계속 유지
         if (shooter.IsEnemyNearby())
         {
