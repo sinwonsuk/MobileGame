@@ -1,12 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Animations;
 using UnityEngine;
 using UnityEngine.AI;
-using static UnityEditor.Experimental.AssetDatabaseExperimental.AssetDatabaseCounters;
 
-// Change the access modifier of CustomerState to public to fix CS0051
 public enum CustomerState
 {
     Idle,
@@ -246,13 +243,13 @@ public class Customer : MonoBehaviour
     [SerializeField] SpriteRenderer foodSpriteRenderer;
     [SerializeField] SpriteRenderer foodOrderSpriteRenderer;
 
-    [SerializeField] List<AnimatorController> animatorControllers;
+    [SerializeField] List<RuntimeAnimatorController> animatorControllers;
 
     [SerializeField] List<Sprite> sprites;
 
 
 
-    public List<AnimatorController> AnimatorControllers
+    public List<RuntimeAnimatorController> AnimatorControllers
     {         
         get => animatorControllers;
     }
