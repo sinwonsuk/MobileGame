@@ -1,5 +1,6 @@
 using Unity.IO.LowLevel.Unsafe;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class AutoShooter : MonoBehaviour
 {
@@ -10,6 +11,8 @@ public class AutoShooter : MonoBehaviour
 
     private float timer;
 
+    public PlayerStatData playerStats;
+
     public Animator animator;
     IShooterState currentState;
     public Player_Battle_IdleState idleState;
@@ -17,31 +20,77 @@ public class AutoShooter : MonoBehaviour
 
     public float manualAttackHoldTime = 0.3f;  // 터치 후 유지 시간
 
+    private bool isShopOpen = false; // UI Shop 열림 여부
+
+    void OnEnable()
+    {
+        EventBus<ShopUIEvent>.OnEvent += OnShopUIEvent;
+        EventBus<StatChangedEvent>.OnEvent += OnStatChanged;
+    }
+
+    void OnDisable()
+    {
+        EventBus<ShopUIEvent>.OnEvent -= OnShopUIEvent;
+        EventBus<StatChangedEvent>.OnEvent -= OnStatChanged;
+    }
+
+    private void OnShopUIEvent(ShopUIEvent evt)
+    {
+        isShopOpen = evt.isShopOpen;
+    }
+
     void Start()
     {
+
         idleState = new Player_Battle_IdleState(this);
         attackState = new Player_Battle_AttackState(this);
         SetState(idleState); // 처음엔 idle 상태
+
+        fireInterval = playerStats.autoAttackInterval;
+
+        if (bulletManager != null && bulletManager.GetCurrentBullet() != null)
+        {
+            bulletManager.GetCurrentBullet().damage = playerStats.autoAttackDamage;
+        }
     }
 
     void Update()
     {
         currentState?.Update();
 
-        if (Input.GetMouseButtonDown(0))
+        if (EventSystem.current.IsPointerOverGameObject()) return;
+        if (isShopOpen) return;
+
+    #if UNITY_EDITOR
+        if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
         {
             if (currentState == idleState)
             {
-                //SetState(attackState); // 상태 전환
-                TouchAttack();         // 발사
+                TouchAttack();
             }
             else if (currentState == attackState)
             {
-                TouchAttack();         // 연속 발사 가능
+                TouchAttack();
                 timer = 0f;
             }
         }
+    #else
+        if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began &&
+            !EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId))
+        {
+                    if (currentState == idleState)
+        {
+            TouchAttack();
+        }
+        else if (currentState == attackState)
+        {
+            TouchAttack();
+            timer = 0f;
+        }
+        }
+    #endif
     }
+
     public void SetState(IShooterState newState)
     {
         currentState?.Exit();
@@ -141,6 +190,19 @@ public class AutoShooter : MonoBehaviour
         Vector2 shootDirection = Vector2.up;
 
         SpawnBullet(shootDirection, data);
+    }
+
+    void OnStatChanged(StatChangedEvent evt)
+    {
+        // 전체 갱신
+        fireInterval = playerStats.autoAttackInterval;
+
+        if (bulletManager != null && bulletManager.GetCurrentBullet() != null)
+        {
+            bulletManager.GetCurrentBullet().damage = playerStats.autoAttackDamage;
+        }
+
+        Debug.Log($"[AutoShooter] Stat changed: {evt.changedStatType}, fireInterval: {fireInterval}, damage: {bulletManager.GetCurrentBullet().damage}");
     }
 
     //Transform FindEnemy()

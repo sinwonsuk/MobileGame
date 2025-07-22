@@ -6,6 +6,7 @@ public class uiset : MonoBehaviour
        public void OnButtonClicked()
     {
         bool shouldOpen = !target.activeSelf;
+        EventBus<ShopUIEvent>.Raise(new ShopUIEvent(shouldOpen));
         target.SetActive(shouldOpen);
     }
 
