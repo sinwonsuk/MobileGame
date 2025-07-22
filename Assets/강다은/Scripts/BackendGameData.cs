@@ -32,24 +32,25 @@ public class UserData
     }
 }
 
-public class BackendGameData : IAutoSavable
+public class BackendGameData : MonoBehaviour, IAutoSavable
 {
-	private static BackendGameData _instance = null;
+	public static BackendGameData Instance { get; private set; }
 
-    public static BackendGameData Instance
-    {
-        get
-        {
-            if (_instance == null)
-            {
-                _instance = new BackendGameData();
-            }
+	private void Awake()
+	{
+		if (Instance == null)
+		{
+			Instance = this;
+			DontDestroyOnLoad(gameObject);  
+		}
+		else
+		{
+			Destroy(gameObject); 
+		}
+	}
 
-            return _instance;
-        }
-    }
 
-    public UserData userData { get; private set; }
+	public UserData userData { get; private set; }
 
 	public string gameDataRowInDate = string.Empty;
 

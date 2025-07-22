@@ -6,7 +6,7 @@ using UnityEngine;
 using BackEnd;
 using System;
 
-public class BackendLogin
+public class BackendLogin:MonoBehaviour
 {
     private static BackendLogin _instance = null;
 
