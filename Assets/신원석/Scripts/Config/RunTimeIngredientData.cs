@@ -8,4 +8,7 @@ public class RunTimeIngredientData : BaseScriptableObject
 {
     public string ingredientName;
     public int ingredientQty;
+
+	[NonSerialized]
+	public bool isDirty = false; // 변경 여부 체크용
 }

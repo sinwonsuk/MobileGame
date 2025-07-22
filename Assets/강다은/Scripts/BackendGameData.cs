@@ -1,9 +1,9 @@
-using System.Collections.Generic;
-using System.Text;
-using UnityEngine;
-
 // 뒤끝 SDK namespace 추가
 using BackEnd;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using UnityEngine;
 
 public class UserData
 {
@@ -30,6 +30,33 @@ public class UserData
 
 		return result.ToString();
     }
+
+	private UserData lastSnapshot;
+
+	public void TakeSnapshot()
+	{
+		lastSnapshot = new UserData
+		{
+			nickname = this.nickname,
+			reputation = this.reputation,
+			basicAtk = this.basicAtk,
+			bio = this.bio,
+			gold = this.gold,
+			friends = new List<string>(this.friends)
+		};
+	}
+
+	public bool HasChanged()
+	{
+		if (lastSnapshot == null) return true;
+
+		return nickname != lastSnapshot.nickname ||
+			   reputation != lastSnapshot.reputation ||
+			   basicAtk != lastSnapshot.basicAtk ||
+			   bio != lastSnapshot.bio ||
+			   gold != lastSnapshot.gold ||
+			   !Enumerable.SequenceEqual(friends, lastSnapshot.friends);
+	}
 }
 
 public class BackendGameData : MonoBehaviour, IAutoSavable
@@ -254,6 +281,14 @@ public class BackendGameData : MonoBehaviour, IAutoSavable
     }
 	public void AutoSave()
 	{
-		GameDataUpdate();
+		if (userData.HasChanged())
+		{
+			GameDataUpdate();
+			userData.TakeSnapshot();
+		}
+		else
+		{
+			Debug.Log("유저 정보 변경 사항 없음 -> 저장 생략");
+		}
 	}
 }

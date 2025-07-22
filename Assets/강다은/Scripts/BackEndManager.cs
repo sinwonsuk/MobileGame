@@ -51,6 +51,25 @@ public class BackendManager : MonoBehaviour
 		BackendGameData.Instance.GameDataUpdate();
 	}
 
+	void OnApplicationPause(bool pause)
+	{
+		if (pause)
+		{
+			Debug.Log("일시 정지 시 데이터 저장");
+			BackendGameData.Instance.GameDataUpdate();
+		}
+	}
+
+	void OnApplicationFocus(bool hasFocus)
+	{
+		if (!hasFocus)
+		{
+			Debug.Log("포커스 잃을 시 데이터 저장");
+			BackendGameData.Instance.GameDataUpdate();
+		}
+	}
+
+
 	public static BackendManager Instance;
 	public GameObject autoSaveManagerPrefab;
 }
