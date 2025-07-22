@@ -3,25 +3,21 @@ using UnityEngine;
 public class InventoryUI : MonoBehaviour
 {
     [Header("UI Slot Prefab")]
-    public GameObject slotPrefab;      // → 반드시 인스펙터에 할당!
-    public Transform contentParent;    // → 반드시 인스펙터에 할당!
+    public GameObject slotPrefab;
+    public Transform contentParent;
 
-    private void Awake()
-    {
-        // (기존 Start 대신 Awake에 구독해도 무방합니다)
-        EventBus<ToggleInventoryEvent>.OnEvent += OnToggleInventory;
-    }
     private void Start()
     {
-        // 1) Inspector 참조 체크
+        gameObject.SetActive(false);
+        // 필드 할당 체크
         if (slotPrefab == null || contentParent == null)
         {
             Debug.LogError("[InventoryUI] slotPrefab 혹은 contentParent가 할당되지 않았습니다.", this);
-            enabled = false; // 이 컴포넌트 비활성화
+            enabled = false;
             return;
         }
 
-        // 2) 싱글턴 체크 & 이벤트 구독
+        // 인벤토리 변경 이벤트 구독
         if (InventoryManager.Instance != null)
         {
             InventoryManager.Instance.OnInventoryChanged += RefreshUI;
@@ -33,9 +29,10 @@ public class InventoryUI : MonoBehaviour
             return;
         }
 
-        // 3) 첫 화면 렌더
+        // 초기 UI 생성
         RefreshUI();
     }
+
 
     private void OnDestroy()
     {
