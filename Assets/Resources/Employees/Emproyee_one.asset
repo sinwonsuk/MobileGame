@@ -22,7 +22,7 @@ MonoBehaviour:
   attack_Speed: 0
   attack_PowerPerLevel: 0
   attack_SpeedPerLevel: 0
-  timer: 5
-  cooltime: 10
+  timer: 0
+  cooltime: 0
   explain: "\uACBD\uC601 \uC9C1\uC6D01"
   itemPrefab: {fileID: 2127192634085561284, guid: 51d09969f1b80f749ac2cf955655017e, type: 3}

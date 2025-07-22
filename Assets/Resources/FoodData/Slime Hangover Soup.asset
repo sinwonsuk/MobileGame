@@ -17,7 +17,7 @@ MonoBehaviour:
   foodSprite: hangoverSoup
   price: 882
   isUnlock: 0
-  cookingTime: 2
+  cookingTime: 76.2
   Ingredients:
   - {fileID: 11400000, guid: fa7aa48057f1aa247bf03b8695f046c8, type: 2}
   - {fileID: 11400000, guid: 366252414b4564546a6e598ffb934a4f, type: 2}

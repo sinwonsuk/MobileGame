@@ -91,7 +91,7 @@ GameObject:
   - component: {fileID: 2090201345800658592}
   - component: {fileID: 6201177190903533226}
   - component: {fileID: 1776585771872047366}
-  - component: {fileID: 6677743565991861811}
+  - component: {fileID: 7191265486176182133}
   m_Layer: 5
   m_Name: Buy/Soldout
   m_TagString: Untagged
@@ -201,7 +201,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &6677743565991861811
+--- !u!114 &7191265486176182133
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -210,14 +210,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 4104900460358395253}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fce3b78eb62e10d4082dafe25aad8e47, type: 3}
+  m_Script: {fileID: 11500000, guid: 23143e5ebf6cdea40aa28db508595d3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  staffData: {fileID: 11400000, guid: 9613c8cec24b4324e8ef553e65d33481, type: 2}
-  spawnPoint: {fileID: 0}
-  purchaseButton: {fileID: 1776585771872047366}
-  _buttonText: {fileID: 8947995980593457882}
-  level_num: {fileID: 3621275727725052636}
+  staffData1: {fileID: 11400000, guid: 9613c8cec24b4324e8ef553e65d33481, type: 2}
+  spawnPoint1: {fileID: 0}
+  purchaseButton1: {fileID: 1776585771872047366}
+  _buttonText1: {fileID: 8947995980593457882}
+  level_num1: {fileID: 3621275727725052636}
+  staff13: 0
 --- !u!1 &7160610616623073874
 GameObject:
   m_ObjectHideFlags: 0

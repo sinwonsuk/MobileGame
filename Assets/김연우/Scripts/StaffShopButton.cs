@@ -9,10 +9,44 @@ public class StaffShopButton : MonoBehaviour
     public StaffStatsSO staffData;
     public Transform spawnPoint;
     public Button purchaseButton;
-
+    StaffStatsSO staff;
     StaffBase _spawnedStaff;
     public TextMeshProUGUI _buttonText;
     public TextMeshProUGUI level_num;
+    public StaffType staff123;
+    void Awake()
+    {
+        if (spawnPoint == null)// 에디터에서 연결해두지 않았다면
+        {
+            if (staff123==StaffType.hunter)
+            {
+                var parent = GameObject.Find("MapParent");
+                if (parent != null && parent.transform.childCount > 0)
+                {
+                    spawnPoint = parent.transform.GetChild(0);
+                }
+                else
+                {
+                    Debug.LogWarning("MapParent가 없거나 자식이 없습니다rrrr.");
+                }
+            }
+            else if(staff123 == StaffType.restaurant)
+            {
+                var parent = GameObject.Find("GameObject (2)");
+                if (parent != null)
+                {
+                    spawnPoint = parent.transform;
+                }
+                else
+                {
+                    Debug.LogWarning("MapParent가 없거나 자식이 없습니다.gaewe");
+                }
+
+            }
+
+           
+        }
+    }
     void Start()
     {
         level_num.text = $"Lv. 0";
@@ -23,7 +57,7 @@ public class StaffShopButton : MonoBehaviour
     {
         if (_spawnedStaff == null)
         {
-            if(spawnPoint != null)
+            if (spawnPoint != null)
             {
                 // -- 첫 구매 --
                 var go = Instantiate(staffData.itemPrefab,
@@ -32,8 +66,8 @@ public class StaffShopButton : MonoBehaviour
                 _spawnedStaff = go.GetComponent<StaffBase>();
                 _spawnedStaff.Init(staffData);
             }
-           
-            
+
+
             _buttonText.text = "Upgrade";
             level_num.text = $"Lv. {staffData.level}";
         }

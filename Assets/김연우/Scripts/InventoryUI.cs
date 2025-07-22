@@ -1,44 +1,62 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 public class InventoryUI : MonoBehaviour
 {
     [Header("UI Slot Prefab")]
-    public GameObject slotPrefab;
-    public Transform contentParent;
+    public GameObject slotPrefab;      // → 반드시 인스펙터에 할당!
+    public Transform contentParent;    // → 반드시 인스펙터에 할당!
 
-    private void OnEnable()
+    private void Start()
     {
-        InventoryManager.Instance.OnInventoryChanged += RefreshUI;
-    }
+        // 1) Inspector 참조 체크
+        if (slotPrefab == null || contentParent == null)
+        {
+            Debug.LogError("[InventoryUI] slotPrefab 혹은 contentParent가 할당되지 않았습니다.", this);
+            enabled = false; // 이 컴포넌트 비활성화
+            return;
+        }
 
-    private void OnDisable()
-    {
-        InventoryManager.Instance.OnInventoryChanged -= RefreshUI;
-    }
-    private void Update()
-    {
+        // 2) 싱글턴 체크 & 이벤트 구독
+        if (InventoryManager.Instance != null)
+        {
+            InventoryManager.Instance.OnInventoryChanged += RefreshUI;
+        }
+        else
+        {
+            Debug.LogError("[InventoryUI] InventoryManager.Instance가 null입니다!", this);
+            enabled = false;
+            return;
+        }
+
+        // 3) 첫 화면 렌더
         RefreshUI();
-
     }
+
+    private void OnDestroy()
+    {
+        // 안전하게 해제
+        if (InventoryManager.Instance != null)
+            InventoryManager.Instance.OnInventoryChanged -= RefreshUI;
+    }
+
     private void RefreshUI()
     {
-        // 기존 UI 제거
+        // 더블 체크: 혹시 호출된 상태라면 다시 한번 널 방어
+        if (contentParent == null || slotPrefab == null || InventoryManager.Instance == null)
+            return;
+
+        // 기존 슬롯 제거
         foreach (Transform child in contentParent)
             Destroy(child.gameObject);
 
-        // slots 리스트를 순회하면서
+        // 수량>0인 슬롯만 다시 생성
         foreach (var slot in InventoryManager.Instance.slots)
         {
-            // ★ 수량이 0이면 생성하지 않는다
             if (slot.runTimeIngredientData.ingredientQty <= 0)
                 continue;
 
-            // 수량이 1 이상인 재료만 Instantiate
             var go = Instantiate(slotPrefab, contentParent);
-            var slotUI = go.GetComponent<InventorySlotUI>();
-            slotUI.SetSlot(slot);
+            go.GetComponent<InventorySlotUI>().SetSlot(slot);
         }
     }
-
 }

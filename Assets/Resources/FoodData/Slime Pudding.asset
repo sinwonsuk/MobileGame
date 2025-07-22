@@ -17,7 +17,7 @@ MonoBehaviour:
   foodSprite: pudding
   price: 168
   isUnlock: 0
-  cookingTime: 2
+  cookingTime: 15.8
   Ingredients:
   - {fileID: 11400000, guid: 6b96e8049fef6a14eb4b17c82612f794, type: 2}
   - {fileID: 11400000, guid: fc529bf0bde6bd84dbcf8f917340546d, type: 2}

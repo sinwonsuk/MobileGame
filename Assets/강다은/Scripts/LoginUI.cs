@@ -1,6 +1,7 @@
 using BackEnd;
 using System.Collections;
 using TMPro;
+using UnityEditor.PackageManager;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -42,12 +43,12 @@ public class LoginUI : MonoBehaviour
 
 		if (string.IsNullOrEmpty(id))
 		{
-			Debug.LogError("아이디를 입력해주세요.");
+			PopupManager.Show("Please Enter the ID.");
 			return;
 		}
 		if (string.IsNullOrEmpty(pw))
 		{
-			Debug.LogError("비밀번호를 입력해주세요.");
+			PopupManager.Show("Please Enter the Password.");
 			return;
 		}
 
@@ -64,13 +65,13 @@ public class LoginUI : MonoBehaviour
 					},
 					onFailure: (error) =>
 					{
-						Debug.LogError("로그인 실패: " + error);
+						PopupManager.Show("로그인에 실패했습니다.\n" + error);
 					});
                 
             },
 			onFailure: (error) =>
 			{
-				Debug.LogError("회원가입 실패: " + error);
+				PopupManager.Show("회원가입에 실패했습니다.\n" + error);
 			});
 	}
 
@@ -82,12 +83,12 @@ public class LoginUI : MonoBehaviour
 
 		if (string.IsNullOrEmpty(id))
 		{
-			Debug.LogError("아이디를 입력해주세요.");
+			PopupManager.Show("Please Enter the ID.");
 			return;
 		}
 		if (string.IsNullOrEmpty(pw))
 		{
-			Debug.LogError("비밀번호를 입력해주세요.");
+			PopupManager.Show("Please Enter the Password.");
 			return;
 		}
 
@@ -99,7 +100,7 @@ public class LoginUI : MonoBehaviour
 			},
 			onFailure: (error) =>
 			{
-				Debug.LogError("로그인 실패: " + error);
+				PopupManager.Show("로그인에 실패했습니다.\n" + error);
 			});
 
     }
@@ -110,6 +111,7 @@ public class LoginUI : MonoBehaviour
 		if (!bro.IsSuccess())
 		{
 			Debug.LogError("유저 정보 조회 실패: " + bro.GetMessage());
+			PopupManager.Show("정보 조회에 실패했습니다.\n");
 			yield break;
 		}
 
@@ -122,8 +124,10 @@ public class LoginUI : MonoBehaviour
 
 			if (string.IsNullOrEmpty(nickname) || nickname == "default" || nickname == "null")
 			{
-				Debug.Log("닉네임이 설정되지 않았습니다. 닉네임 설정 화면으로 이동합니다.");
-				ShowNicknamePanel(); // 대기
+				PopupManager.Show("닉네임이 설정되지 않았습니다.\n닉네임 설정 화면으로 이동합니다.", () =>
+				{
+					ShowNicknamePanel();
+				});
 			}
 			else
 			{
@@ -133,8 +137,11 @@ public class LoginUI : MonoBehaviour
 		}
 		catch (System.Exception e)
 		{
-			Debug.Log("닉네임 정보 파싱 실패. 닉네임 설정 화면으로 이동합니다. \n" + e);
-			ShowNicknamePanel();
+			Debug.LogError("닉네임 정보 조회 중 오류 발생: " + e.Message);
+			PopupManager.Show("닉네임이 설정되지 않았습니다.\n닉네임 설정 화면으로 이동합니다.", () =>
+			{
+				ShowNicknamePanel();
+			});
 		}
 	}
 
@@ -147,14 +154,14 @@ public class LoginUI : MonoBehaviour
 	    onSuccess: () =>
 		{
 			Debug.Log("닉네임 설정 성공: " + nickname);
-			BackendGameData.userData.nickname = nickname; // 닉네임 업데이트
+			BackendGameData.Instance.userData.nickname = nickname; // 닉네임 업데이트
 			BackendGameData.Instance.GameDataUpdate(); // 게임 데이터 업데이트
 
 			SceneManager.LoadScene("SampleScene");
 		},
 		onFailure: (error) =>
 		{
-			Debug.LogError("닉네임 설정 실패: " + error);
+			PopupManager.Show("닉네임 설정에 실패하였습니다.");
 		});
 
 	}
@@ -202,26 +209,27 @@ public class LoginUI : MonoBehaviour
 		yield return StartCoroutine(InventoryManager.Instance.LoadUserInventory(ownerIndate));
 
 		// 기타 유저 게임 데이터 불러오기
-		BackendGameData.Instance.GameDataGetOrInsert();
-
-		if (IsAdminAccount())
+		BackendGameData.Instance.GameDataGetOrInsert(() => 
 		{
-			Debug.Log("<관리자> 계정입니다. StaticData 삽입");
-
-			GameObject uploader = Instantiate(csvUploader, Vector3.zero, Quaternion.identity);
-			uploader.GetComponent<CSVTableUploader>().onComplete = () =>
+			if (IsAdminAccount())
 			{
-				Debug.Log("<관리자> CSV 업로드 완료. 씬 이동 시작");
-				SceneManager.LoadScene("SampleScene");
-			};
+				Debug.Log("<관리자> 계정입니다. StaticData 삽입");
 
-			yield break; // 씬 이동은 위 콜백에서 처리, 이 코루틴 종료
-		}
-		else
-		{
-			// 일반 유저 → 닉네임 검사 & 씬 이동
-			yield return StartCoroutine(CheckNicknameAndProceed());
-		}
+				GameObject uploader = Instantiate(csvUploader, Vector3.zero, Quaternion.identity);
+				uploader.GetComponent<CSVTableUploader>().onComplete = () =>
+				{
+					Debug.Log("<관리자> CSV 업로드 완료. 씬 이동 시작");
+					SceneManager.LoadScene("SampleScene");
+				};
+			}
+			else
+			{
+				// 일반 유저 → 닉네임 검사 & 씬 이동
+				StartCoroutine(CheckNicknameAndProceed());
+			}
+		});
+
+		
 	}
 
 	[SerializeField] GameObject signUpPanel;
