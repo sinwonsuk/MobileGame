@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Octopus_Dead
+  m_Name: OctopusBoss_Dead
   serializedVersion: 7
   m_Legacy: 0
   m_Compressed: 0
@@ -21,11 +21,11 @@ AnimationClip:
   - serializedVersion: 2
     curve:
     - time: 0
-      value: {fileID: 21300000, guid: e842976f7a5605c45ae45d308b0e45c0, type: 3}
+      value: {fileID: 21300000, guid: ad25a39409b7c784fade244ae2e38558, type: 3}
     - time: 0.16666667
-      value: {fileID: 21300000, guid: bc32f045acd58124a8904cd86ad4afc6, type: 3}
+      value: {fileID: 21300000, guid: 6d76729962a8a0c46894da99187a3089, type: 3}
     - time: 0.33333334
-      value: {fileID: 21300000, guid: 2ed30cc3f422bdd4da55e14ef644b5e6, type: 3}
+      value: {fileID: 21300000, guid: e64dd04972fd5b940b43345cc01b87b6, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
@@ -48,9 +48,9 @@ AnimationClip:
       isIntCurve: 0
       isSerializeReferenceCurve: 0
     pptrCurveMapping:
-    - {fileID: 21300000, guid: e842976f7a5605c45ae45d308b0e45c0, type: 3}
-    - {fileID: 21300000, guid: bc32f045acd58124a8904cd86ad4afc6, type: 3}
-    - {fileID: 21300000, guid: 2ed30cc3f422bdd4da55e14ef644b5e6, type: 3}
+    - {fileID: 21300000, guid: ad25a39409b7c784fade244ae2e38558, type: 3}
+    - {fileID: 21300000, guid: 6d76729962a8a0c46894da99187a3089, type: 3}
+    - {fileID: 21300000, guid: e64dd04972fd5b940b43345cc01b87b6, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}

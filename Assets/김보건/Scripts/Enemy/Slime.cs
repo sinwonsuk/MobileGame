@@ -57,6 +57,11 @@ public class Slime : EnemyBase
         }
     }
 
+    public override void OnDeathAnimationEnd()
+    {
+        base.OnDeathAnimationEnd();
+    }
+
 
     //private IEnumerator DelayNextFloor(DungeonManager dungeonManager, SelectedFloorData floorData)
     //{

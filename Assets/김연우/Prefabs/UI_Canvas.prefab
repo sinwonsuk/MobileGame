@@ -3153,6 +3153,7 @@ MonoBehaviour:
   purchaseButton: {fileID: 7688404292464640286}
   _buttonText: {fileID: 5731341061623066193}
   level_num: {fileID: 8118588249487607413}
+  staff123: 0
 --- !u!114 &9002536805304625268
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3960,6 +3961,7 @@ MonoBehaviour:
   purchaseButton: {fileID: 8888496130529318185}
   _buttonText: {fileID: 1030623065104415177}
   level_num: {fileID: 5221684129217041114}
+  staff123: 0
 --- !u!114 &8966751102825809188
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7363,6 +7365,7 @@ MonoBehaviour:
   purchaseButton: {fileID: 5332965942365127428}
   _buttonText: {fileID: 3966400015418382652}
   level_num: {fileID: 2626970486558712737}
+  staff123: 0
 --- !u!114 &8694328217317650240
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9709,6 +9712,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2778257606223693652}
     m_Modifications:
+    - target: {fileID: 7761064923379992101, guid: 1987af1e5c88ecf4c93482f6414e1e77, type: 3}
+      propertyPath: playerStats
+      value: 
+      objectReference: {fileID: 11400000, guid: dca1f4670c391e44c98be7ec6d7322e1, type: 2}
     - target: {fileID: 8035100530375968189, guid: 1987af1e5c88ecf4c93482f6414e1e77, type: 3}
       propertyPath: m_Name
       value: Item
@@ -10118,6 +10125,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 2778257606223693652}
     m_Modifications:
     - target: {fileID: 7761064923379992101, guid: 1987af1e5c88ecf4c93482f6414e1e77, type: 3}
+      propertyPath: playerStats
+      value: 
+      objectReference: {fileID: 11400000, guid: dca1f4670c391e44c98be7ec6d7322e1, type: 2}
+    - target: {fileID: 7761064923379992101, guid: 1987af1e5c88ecf4c93482f6414e1e77, type: 3}
       propertyPath: statToUpgrade
       value: 3
       objectReference: {fileID: 0}
@@ -10428,6 +10439,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 2778257606223693652}
     m_Modifications:
     - target: {fileID: 7761064923379992101, guid: 1987af1e5c88ecf4c93482f6414e1e77, type: 3}
+      propertyPath: playerStats
+      value: 
+      objectReference: {fileID: 11400000, guid: dca1f4670c391e44c98be7ec6d7322e1, type: 2}
+    - target: {fileID: 7761064923379992101, guid: 1987af1e5c88ecf4c93482f6414e1e77, type: 3}
       propertyPath: statToUpgrade
       value: 2
       objectReference: {fileID: 0}
@@ -10534,6 +10549,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 2778257606223693652}
     m_Modifications:
     - target: {fileID: 7761064923379992101, guid: 1987af1e5c88ecf4c93482f6414e1e77, type: 3}
+      propertyPath: playerStats
+      value: 
+      objectReference: {fileID: 11400000, guid: dca1f4670c391e44c98be7ec6d7322e1, type: 2}
+    - target: {fileID: 7761064923379992101, guid: 1987af1e5c88ecf4c93482f6414e1e77, type: 3}
       propertyPath: statToUpgrade
       value: 4
       objectReference: {fileID: 0}
@@ -10639,6 +10658,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2778257606223693652}
     m_Modifications:
+    - target: {fileID: 7761064923379992101, guid: 1987af1e5c88ecf4c93482f6414e1e77, type: 3}
+      propertyPath: playerStats
+      value: 
+      objectReference: {fileID: 11400000, guid: dca1f4670c391e44c98be7ec6d7322e1, type: 2}
     - target: {fileID: 7761064923379992101, guid: 1987af1e5c88ecf4c93482f6414e1e77, type: 3}
       propertyPath: statToUpgrade
       value: 1
