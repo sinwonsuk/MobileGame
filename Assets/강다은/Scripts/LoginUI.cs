@@ -103,6 +103,42 @@ public class LoginUI : MonoBehaviour
 
     }
 
+	public void OnClickGoogleLoginButton()
+	{
+		StartGoogleLogin();
+	}
+
+	private void StartGoogleLogin()
+	{
+		TheBackend.ToolKit.GoogleLogin.Android.GoogleLogin(OnGoogleLoginCallback);
+	}
+
+	private void OnGoogleLoginCallback(bool isSuccess, string errorMessage, string token)
+	{
+		if (!isSuccess)
+		{
+			Debug.LogError("구글 로그인 실패: " + errorMessage);
+			PopupManager.Show("구글 로그인 실패\n" + errorMessage);
+			return;
+		}
+
+		Debug.Log("구글 토큰: " + token);
+
+		var bro = Backend.BMember.AuthorizeFederation(token, FederationType.Google);
+		if (bro.IsSuccess())
+		{
+			Debug.Log("페더레이션 로그인 성공!");
+			StartCoroutine(LoginFlowCoroutine());
+		}
+		else
+		{
+			Debug.LogError("서버 로그인 실패: " + bro.GetMessage());
+			PopupManager.Show("서버 로그인 실패\n" + bro.GetMessage());
+		}
+	}
+
+
+
 	private IEnumerator CheckNicknameAndProceed()
 	{
 		var bro = Backend.BMember.GetUserInfo();
@@ -267,4 +303,6 @@ public class LoginUI : MonoBehaviour
 	[SerializeField] GameObject csvUploader;
 
 	[SerializeField] private StaticDataInitializer staticDataInitializer;
+
+	private bool isGoogleLoginInProgress = false;
 }
