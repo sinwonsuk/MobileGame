@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using UnityEditor.Animations;
 using UnityEngine;
 using UnityEngine.AI;
-using static UnityEditor.Experimental.AssetDatabaseExperimental.AssetDatabaseCounters;
 
 // Change the access modifier of CustomerState to public to fix CS0051
 public enum CustomerState

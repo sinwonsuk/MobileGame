@@ -14,13 +14,15 @@ public class FoodManager : baseManager, IGameManager
         conFig = config;
         EventBus<FoodDecreaseHandler>.OnEvent += DecreaseFood;
         EventBus<FoodIncreaseHandler>.OnEvent += IncreaseFood;
-        EventBus<FoodQuantityChangedEvent>.OnEvent += GetFoodIngredientQty;
+        EventBus<EnhanceFoodSlotsSpawnHandler>.OnEvent += CreateEnhanceFoodSlot;
+        EventBus<EnhanceFoodSlotsDeleteHandler>.OnEvent += DeleteEnhanceFoodSlot;
     }
     ~FoodManager()
     {
         EventBus<FoodDecreaseHandler>.OnEvent -= DecreaseFood;
         EventBus<FoodIncreaseHandler>.OnEvent -= IncreaseFood;
-        EventBus<FoodQuantityChangedEvent>.OnEvent -= GetFoodIngredientQty;
+        EventBus<EnhanceFoodSlotsSpawnHandler>.OnEvent -= CreateEnhanceFoodSlot;
+        EventBus<EnhanceFoodSlotsDeleteHandler>.OnEvent -= DeleteEnhanceFoodSlot;
     }
 
 
@@ -41,22 +43,34 @@ public class FoodManager : baseManager, IGameManager
         {
             EventBus<SlotSpawnHandler>.Raise(new SlotSpawnHandler(conFig.GetSlotUI(),conFig.GetFoods()[i]));
         }
+
     }
 
-    public void GetFoodIngredientQty(FoodQuantityChangedEvent dddd)
+    public void CreateEnhanceFoodSlot(EnhanceFoodSlotsSpawnHandler enhanceFoodData)
     {
-        foreach (var foodData in foodDic.Values)
+        for (int i = 0; i < conFig.GetFoods().Count; i++)
         {
-            foreach (var ingredient in foodData.Ingredients)
-            {
-                if (dddd.Inven.keyValuePairs.TryGetValue(ingredient.ingredientName, out var inven))
-                {
-                    //ingredient.qty = dddd.Inven.keyValuePairs[ingredient.ingredientName];
-                }
-            }
+            EventBus<EnhanceFoodSlotSpawnHandler>.Raise(new EnhanceFoodSlotSpawnHandler(conFig.GetEnhanceSlotUI(), conFig.GetFoods()[i]));
         }
     }
 
+    public void DeleteEnhanceFoodSlot(EnhanceFoodSlotsDeleteHandler enhanceFoodData)
+    {
+         EventBus<EnhanceFoodSlotDeleteHandler>.Raise(new EnhanceFoodSlotDeleteHandler());
+    }
+
+
+    public void SetFoodData(FoodData foodData)
+    {
+        if (foodDic.ContainsKey(foodData.displayName))
+        {
+            foodDic[foodData.displayName] = foodData;
+        }
+        else
+        {
+            foodDic.Add(foodData.displayName, foodData);
+        }
+    }
 
     public void DecreaseFood(FoodDecreaseHandler foodAmountHandler)
     {
@@ -69,6 +83,22 @@ public class FoodManager : baseManager, IGameManager
             return;
         }   
     }
+
+    public void DecreaseEnhanceFood(EnhanceFoodDecreaseHandler foodAmountHandler)
+    {
+        if (foodDic.TryGetValue(foodAmountHandler.foodName, out var foodData))
+        {
+            for (int j = 0; j < foodData.Ingredients.Count; j++)
+            {
+                if (foodData.Ingredients[j].ingredientName == foodAmountHandler.ingredientName)
+                {
+                    InventoryManager.Instance.DecreaseQty(foodData.Ingredients[j].ingredientName, foodAmountHandler.Setquantity);
+                    return;
+                }
+            }           
+        }
+    }
+
 
     public void IncreaseFood(FoodIncreaseHandler foodAmountHandler)
     {

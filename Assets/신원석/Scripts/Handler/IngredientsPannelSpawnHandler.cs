@@ -8,6 +8,7 @@ public struct IngredientsPannelSpawnHandler : IEvent
         this.CurrentIngredientAmount = CurrentIngredientAmount;
         this.NeedIngredientAmount = NeedIngredientAmount;
         this.IngredientName = IngredientName;
+
     }
 
     public string Image { get; set; }
@@ -17,5 +18,7 @@ public struct IngredientsPannelSpawnHandler : IEvent
     public int NeedIngredientAmount { get; set; }
 
     public int CurrentIngredientAmount { get; set; }
+
+
 
 }

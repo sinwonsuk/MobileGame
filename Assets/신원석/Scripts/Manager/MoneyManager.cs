@@ -54,6 +54,8 @@ public class MoneyManager : baseManager, IGameManager
         {
             intmoney -= moneyChangeHandler.money;
             money.MoneyText.text = intmoney.ToString();
+            BackendGameData.userData.gold = intmoney;
+
         }
 
     }
@@ -65,6 +67,8 @@ public class MoneyManager : baseManager, IGameManager
 
         intmoney += moneyChangeHandler.money;
         money.MoneyText.text = intmoney.ToString();
+        BackendGameData.userData.gold = intmoney;
+
     }
 
 

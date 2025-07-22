@@ -21,3 +21,44 @@ MonoBehaviour:
   Ingredients:
   - {fileID: 11400000, guid: f72bebc868ead734993cf6613657c12f, type: 2}
   - {fileID: 11400000, guid: 8693616cded08d345a662320f660bbdc, type: 2}
+  enhanceSteps:
+  - indate: 
+    step: 0
+    materials:
+    - indate: 
+      name: 
+      quantity: 0
+    - indate: 
+      name: 
+      quantity: 0
+    cost: 0
+  - indate: 
+    step: 0
+    materials:
+    - indate: 
+      name: 
+      quantity: 0
+    - indate: 
+      name: 
+      quantity: 0
+    cost: 0
+  - indate: 
+    step: 0
+    materials:
+    - indate: 
+      name: 
+      quantity: 0
+    - indate: 
+      name: 
+      quantity: 0
+    cost: 0
+  - indate: 
+    step: 0
+    materials:
+    - indate: 
+      name: 
+      quantity: 0
+    - indate: 
+      name: 
+      quantity: 0
+    cost: 0
