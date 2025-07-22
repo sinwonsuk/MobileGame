@@ -159,7 +159,7 @@ GameObject:
   - component: {fileID: 4872129433966723519}
   - component: {fileID: 8578009873691484851}
   - component: {fileID: 47009041662638571}
-  - component: {fileID: 4618042617732670723}
+  - component: {fileID: 5553850463506179114}
   m_Layer: 5
   m_Name: Button (1)
   m_TagString: Untagged
@@ -269,9 +269,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 4618042617732670723}
-        m_TargetAssemblyTypeName: InventoryUIOnOff, Assembly-CSharp
-        m_MethodName: Toggle
+      - m_Target: {fileID: 5553850463506179114}
+        m_TargetAssemblyTypeName: ToggleInventoryButton, Assembly-CSharp
+        m_MethodName: ToggleInventory
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -281,7 +281,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &4618042617732670723
+--- !u!114 &5553850463506179114
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -290,7 +290,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 249947871999646904}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 729122d7536a1534fbb650a25af9a10d, type: 3}
+  m_Script: {fileID: 11500000, guid: af8e72268cf3fd04f91fe0e1dac27e89, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &987054921138024714

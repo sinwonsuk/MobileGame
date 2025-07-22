@@ -7,7 +7,7 @@ public class Money : MonoBehaviour
     void Start()
     {
 
-        moneyText.text = BackendGameData.Instance.userData.gold.ToString();
+        //moneyText.text = BackendGameData.Instance.userData.gold.ToString();
 
         //moneyText.text = money.ToString();
     }

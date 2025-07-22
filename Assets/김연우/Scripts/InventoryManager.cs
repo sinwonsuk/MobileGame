@@ -35,7 +35,7 @@ public class InventoryManager : MonoBehaviour, IAutoSavable
         if (Instance == null)
             Instance = this;
         else
-            Destroy(gameObject);
+            Destroy(gameObject);	
 
         DontDestroyOnLoad(gameObject);
 

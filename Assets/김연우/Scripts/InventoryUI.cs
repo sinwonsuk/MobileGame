@@ -6,6 +6,11 @@ public class InventoryUI : MonoBehaviour
     public GameObject slotPrefab;      // → 반드시 인스펙터에 할당!
     public Transform contentParent;    // → 반드시 인스펙터에 할당!
 
+    private void Awake()
+    {
+        // (기존 Start 대신 Awake에 구독해도 무방합니다)
+        EventBus<ToggleInventoryEvent>.OnEvent += OnToggleInventory;
+    }
     private void Start()
     {
         // 1) Inspector 참조 체크
@@ -37,6 +42,8 @@ public class InventoryUI : MonoBehaviour
         // 안전하게 해제
         if (InventoryManager.Instance != null)
             InventoryManager.Instance.OnInventoryChanged -= RefreshUI;
+
+        EventBus<ToggleInventoryEvent>.OnEvent -= OnToggleInventory;
     }
 
     private void RefreshUI()
@@ -58,5 +65,10 @@ public class InventoryUI : MonoBehaviour
             var go = Instantiate(slotPrefab, contentParent);
             go.GetComponent<InventorySlotUI>().SetSlot(slot);
         }
+    }
+    private void OnToggleInventory(ToggleInventoryEvent evt)
+    {
+        // 꺼져있으면 켜고, 켜져있으면 끄기
+        gameObject.SetActive(!gameObject.activeSelf);
     }
 }

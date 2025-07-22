@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 388f811015666644087876976c3692a1, type: 3}
+  m_Name: New Interior Data
+  m_EditorClassIdentifier: 
+  interiorName: 1234
+  icon: {fileID: 21300000, guid: 541c9b2dd9cda5046babe614ab1cbf3e, type: 3}
+  prefab: {fileID: 4466419753647960567, guid: 57c1998dbad162743a2c68977d0951c4, type: 3}
+  placementPosition: {x: 0, y: 3.286, z: 0}
+  placementRotation: {x: 0, y: 0, z: 0}
+  description: 
