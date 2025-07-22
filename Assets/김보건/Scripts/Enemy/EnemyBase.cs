@@ -124,6 +124,8 @@ public class EnemyBase : MonoBehaviour
             var dungeonManager = FindAnyObjectByType<GameController>().GetManager<DungeonManager>();
             var floorData = dungeonManager.Config.selectedFloorData;
 
+            Object.FindFirstObjectByType<MonsterSpawner>()?.ResetSpawnFlag();//스폰상태초기화
+
             floorData.ResetStage();               // 스테이지 초기화
             Destroy(gameObject);
             Object.FindFirstObjectByType<MonsterSpawner>().SpawnNextStage();
