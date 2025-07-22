@@ -72,7 +72,13 @@ public class EnemyBase : MonoBehaviour
         Debug.Log($"{gameObject.name} Á×À½");
         FindFirstObjectByType<MonsterSpawner>()?.ResetSpawnFlag();
         DropItem();
-        Destroy(gameObject);
+
+        Animator animator = GetComponent<Animator>();
+        if (animator != null)
+        {
+            animator.SetTrigger("DeadTrigger");
+        }
+
     }
 
     protected void DropItem()
@@ -123,6 +129,11 @@ public class EnemyBase : MonoBehaviour
             Destroy(gameObject);
             Object.FindFirstObjectByType<MonsterSpawner>().SpawnNextStage();
         }
+    }
+
+    public virtual void OnDeathAnimationEnd()
+    {
+        Destroy(gameObject);
     }
 
 }

@@ -53,4 +53,10 @@ public class WoodGolemBoss : EnemyBase
             Object.FindFirstObjectByType<MonsterSpawner>().SpawnNextStage();
         }
     }
+
+    public override void OnDeathAnimationEnd()
+    {
+        base.OnDeathAnimationEnd();
+    }
+
 }

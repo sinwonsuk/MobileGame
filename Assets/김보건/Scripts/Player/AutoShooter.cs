@@ -1,5 +1,6 @@
 using Unity.IO.LowLevel.Unsafe;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class AutoShooter : MonoBehaviour
 {
@@ -17,6 +18,23 @@ public class AutoShooter : MonoBehaviour
 
     public float manualAttackHoldTime = 0.3f;  // 터치 후 유지 시간
 
+    private bool isShopOpen = false; // UI Shop 열림 여부
+
+    void OnEnable()
+    {
+        EventBus<ShopUIEvent>.OnEvent += OnShopUIEvent;
+    }
+
+    void OnDisable()
+    {
+        EventBus<ShopUIEvent>.OnEvent -= OnShopUIEvent;
+    }
+
+    private void OnShopUIEvent(ShopUIEvent evt)
+    {
+        isShopOpen = evt.isShopOpen;
+    }
+
     void Start()
     {
         idleState = new Player_Battle_IdleState(this);
@@ -27,6 +45,9 @@ public class AutoShooter : MonoBehaviour
     void Update()
     {
         currentState?.Update();
+
+        if (EventSystem.current.IsPointerOverGameObject()) return;
+        if (isShopOpen) return;
 
         if (Input.GetMouseButtonDown(0))
         {

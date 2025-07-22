@@ -56,6 +56,11 @@ public class octopus : EnemyBase
         }
     }
 
+    public override void OnDeathAnimationEnd()
+    {
+        base.OnDeathAnimationEnd();
+    }
+
     //private IEnumerator DelayNextFloor(DungeonManager dungeonManager, SelectedFloorData floorData)
     //{
     //    yield return new WaitForSeconds(3f);
