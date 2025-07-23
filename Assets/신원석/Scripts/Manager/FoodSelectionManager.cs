@@ -55,11 +55,6 @@ public class FoodSelectionManager : baseManager, IGameManager
     {
         slotUI[(int)slotSpawnHandler.clickType].SetActive(slotSpawnHandler.isActive);
     }
-    public void CheckManagementActive(ManagementActiveCheckHandler managementActiveCheckHandler)
-    {
-        managementActiveCheckHandler.customerManager.isActive = slotUI[(int)managementActiveCheckHandler.clickType].activeInHierarchy;
-    }
-
 
     public override void Update()
     {

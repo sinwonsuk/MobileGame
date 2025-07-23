@@ -51,60 +51,6 @@ public class FoodSlotUI : MonoBehaviour
         obj.GetComponent<FoodSlot>().foodData = slotSpawnHandler.foodData;
     }
 
-    //public void CreateMenu(MenuSpawnHandler menuSpawnHandler)
-    //{
-    //    // 만약 같은게 있으면 숫자만 올려주고 
-
-    //    for (int i = 0; i < menuListCollection.Count; i++)
-    //    {
-    //        if (menuListCollection[i].MenuName == menuSpawnHandler.Name)
-    //        {
-    //            string countStr = menuListCollection[i].MenuObj.transform.GetChild((int)MenuInfo.Number).GetComponent<TextMeshProUGUI>().text;
-    //            int count = int.Parse(countStr);
-    //            int count2 = int.Parse(menuSpawnHandler.number);
-
-    //            count += count2;
-    //            menuListCollection[i].MenuObj.transform.GetChild((int)MenuInfo.Number).GetComponent<TextMeshProUGUI>().text = count.ToString();
-
-    //            menuListCollection[i].MenuObj.GetComponent<FoodMenuSlot>().FoodAmount = count.ToString();
-
-    //            return;
-    //        }
-    //    }
-
-    //    // 아니라면 새로 생성하기 
-
-    //    GameObject obj = Instantiate(menuSlot, menuTransform);
-    //    obj.transform.GetChild((int)MenuInfo.Image).GetComponent<Image>().sprite = menuSpawnHandler.Image.sprite;
-    //    obj.transform.GetChild((int)MenuInfo.Number).GetComponent<TextMeshProUGUI>().text = menuSpawnHandler.number;
-
-    //    MenuList menuList = new MenuList();
-    //    menuList.MenuName = menuSpawnHandler.Name;
-    //    menuList.MenuObj = obj;
-
-
-    //    obj.GetComponent<FoodMenuSlot>().FoodName = menuSpawnHandler.Name;
-    //    obj.GetComponent<FoodMenuSlot>().FoodAmount = menuSpawnHandler.number;
-
-    //    menuListCollection.Add(menuList);
-
-    //}
-
-    //public void DeleteMenuList(FoodMenuDeleteHandler foodMenuDeleteHandler)
-    //{
-    //    for (int i = 0; i < menuListCollection.Count; i++)
-    //    {
-    //        if (menuListCollection[i].MenuName == foodMenuDeleteHandler.foodname)
-    //        {
-    //            Destroy(menuListCollection[i].MenuObj);
-    //            menuListCollection.RemoveAt(i);
-    //            return;
-    //        }
-    //    }        
-    //}
-
-
-
 
     [SerializeField] Transform slotTransform;
     [SerializeField] Transform menuTransform;

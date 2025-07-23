@@ -1,10 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using static UnityEngine.Rendering.DebugUI;
 using static UnityEngine.RuleTile.TilingRuleOutput;
 using Transform = UnityEngine.Transform;
+
+public enum CustomerType
+{
+    FruitCustomer,
+    WhiteCatCustomer,
+    BlackCatCustomer,
+}
+
 
 public class CustomerManager : baseManager, IGameManager
 {
@@ -46,9 +55,9 @@ public class CustomerManager : baseManager, IGameManager
 
     public void SpawnCustomer(CustomerSpawnHandler customerSpawnHandler)
     {
-        for (int i = 0; i < conFig.GetGameObjects().Count; i++)
+        for (int i = 0; i < conFig.Customers.Count; i++)
         {
-            GameObject.Instantiate(conFig.GetGameObjects()[i]);
+            GameObject.Instantiate(conFig.Customers[i]);
         }
     }
 
@@ -65,7 +74,7 @@ public class CustomerManager : baseManager, IGameManager
 
     public IEnumerator CheckMenuRoutine()
     {
-        EventBus<ManagementActiveCheckHandler>.Raise(new ManagementActiveCheckHandler(ClickType.FoodSlot, this));
+
 
         if (isActive == false)
         {
@@ -127,33 +136,64 @@ public class CustomerManager : baseManager, IGameManager
 
     public void CheckMenu()
     {
-        EventBus<RandomMenuSelectionHandler>.Raise(new RandomMenuSelectionHandler(this));
+        // 현재 남아있는 메뉴 이름 
+        List<string> availableMenus = MenuBoardSlots.Keys.ToList();
 
-        if (Slot == null)
+    
+        // 손님 후보 인덱스로 저장 
+        List<int> candidateIndices = new List<int>();
+
+        // 음식 타입인 손님 전부 대려옴 
+        for (int i = 0; i < conFig.Customers.Count; i++)
+        {
+            Customer prefab = conFig.Customers[i].GetComponent<Customer>();
+            foreach (var food in prefab.FoodDatas)
+            {
+                if (availableMenus.Contains(food.displayName))
+                {
+                    candidateIndices.Add(i);
+                    break;
+                }
+            }
+        }
+
+        // 손님이 원하는 음식이 아니면 리턴 
+        if (candidateIndices.Count == 0)
             return;
 
-       
-
-        float postX = Random.Range(-2.0f, 5.0f);
-        float postY = Random.Range(-0.2f, 0.5f);
-
-        Vector3 vector = new Vector3(waitingCustomerTransform.position.x+ postX, waitingCustomerTransform.position.y+ postY);
-
-
-        GameObject obj = GameObject.Instantiate(conFig.GetGameObjects()[0], vector,Quaternion.identity);
-
-        Customer customer = obj.GetComponent<Customer>();
-
-        int random = Random.Range(0,customer.AnimatorControllers.Count);
-
-        customer.GetComponent<Animator>().runtimeAnimatorController = customer.AnimatorControllers[random];
-        customer.GetComponent<SpriteRenderer>().sprite = customer.Sprites[random];
+        // 손님 중 랜덤 선택
+        int candidateIndex = candidateIndices[Random.Range(0, candidateIndices.Count)];
+        GameObject prefabObj = conFig.Customers[candidateIndex];
+        Customer prefabCust = prefabObj.GetComponent<Customer>();
+        // 이제 손님 나옴 
 
 
-        customers.Add(customer);
+        // 이제 이 손님이 원하는 음식 넣어줌(손님이 원하는 음식이 여러개 있을경우)
+        List<string> matchedMenus = new List<string>();
+        foreach (var food in prefabCust.FoodDatas)
+        {
+            if (availableMenus.Contains(food.displayName))
+                matchedMenus.Add(food.displayName);
+        }
 
-        customer.Slot = Slot;
-        customer.customerManager = this;
+        // 손님이 원하는 음식중의 랜덤으로 선택 
+        string chosenMenu = matchedMenus[Random.Range(0, matchedMenus.Count)];
+        GameObject menuObj = MenuBoardSlots[chosenMenu];
+        MenuBoardSlot slot = menuObj.GetComponent<MenuBoardSlot>();
+
+        // 손님 init설정 
+        float postX = Random.Range(spawnMinX, spawnMaxX);
+        float postY = Random.Range(spawnMinY, spawnMaxY);
+        Vector3 vector = new Vector3(waitingCustomerTransform.position.x + postX, waitingCustomerTransform.position.y + postY);
+
+        GameObject obj = GameObject.Instantiate(prefabObj, vector, Quaternion.identity);
+        Customer customerObj = obj.GetComponent<Customer>();
+
+        // 매니저의 손님 저장 
+        customers.Add(customerObj);
+        // 손님 init 설정 
+        customerObj.Slot = slot;
+        customerObj.customerManager = this;
     }
 
     CustomerManagerConfig conFig;
@@ -178,4 +218,8 @@ public class CustomerManager : baseManager, IGameManager
 
     private Transform waitingCustomerTransform;
 
+    private float spawnMinX = -2.0f;
+    private float spawnMaxX = 5.0f;
+    private float spawnMinY = -0.2f;
+    private float spawnMaxY = 0.5f;
 }

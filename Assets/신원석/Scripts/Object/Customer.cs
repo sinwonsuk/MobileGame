@@ -243,20 +243,6 @@ public class Customer : MonoBehaviour
     [SerializeField] SpriteRenderer foodSpriteRenderer;
     [SerializeField] SpriteRenderer foodOrderSpriteRenderer;
 
-    [SerializeField] List<RuntimeAnimatorController> animatorControllers;
-
-    [SerializeField] List<Sprite> sprites;
-
-
-
-    public List<RuntimeAnimatorController> AnimatorControllers
-    {         
-        get => animatorControllers;
-    }
-    public List<Sprite> Sprites
-    {
-        get => sprites;
-    }
 
     public int foodPrice { get; set; } // 음식 가격
 
@@ -265,5 +251,13 @@ public class Customer : MonoBehaviour
     public Vector3 CalculatePosition;
 
     private Vector2 storeEntrancePosition = new Vector2(2.04f, 3.24f);
+
+    [SerializeField] List<FoodData> foodDatas = new List<FoodData>();
+
+    public List<FoodData> FoodDatas
+    {
+        get => foodDatas;
+        set => foodDatas = value;
+    }
 
 }
