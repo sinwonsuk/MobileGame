@@ -7,6 +7,9 @@ public class ExitDungeon : MonoBehaviour
     public void OnClickMainMenu()
     {
         dungeonInGameUI.SetActive(false);
+
+        EventBus<DungeonSlideToggleEvent>.Raise(new DungeonSlideToggleEvent(false));
+
         var gameController = FindAnyObjectByType<GameController>();
         if (gameController != null)
         {

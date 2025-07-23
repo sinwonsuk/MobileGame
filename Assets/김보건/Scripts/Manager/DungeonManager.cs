@@ -103,6 +103,7 @@ public class DungeonManager : baseManager
 
             camera.transform.position = new Vector3(map.transform.position.x, map.transform.position.y, camera.transform.position.z);
         }
+
     }
 
     public void LoadMap()

@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7a8019ef1deac24989a5d1aebcf563a, type: 3}
+  m_Name: MushroomBossDrop
+  m_EditorClassIdentifier: 
+  possibleDrops:
+  - {fileID: 1382174700729074973, guid: 99a83b533ec409d418c6d84584cebe7e, type: 3}
+  - {fileID: 7994347973316693046, guid: 2723eada5c1a7fd4a807a31af17d4a38, type: 3}
+  dropCount: 6

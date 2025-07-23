@@ -26,6 +26,8 @@ public class GameController : MonoBehaviour
         Register<DungeonManager, DungeonManagerConfig>(config => new DungeonManager(config));
         Register<MoneyManager, MoneyManagerConfig>(config => new MoneyManager(config));
         //Register<EnhanceFoodUIManager, EnhanceFoodManagerConfig>(config => new EnhanceFoodUIManager(config));
+        Register<CameraSlideManager, CameraSlideManagerConfig>(config => new CameraSlideManager(config));
+
 
         InitAll();
         ActiveOffAll();
@@ -45,7 +47,7 @@ public class GameController : MonoBehaviour
     
         TConfig config = (TConfig)dicBaseScriptableObject[typeof(TConfig)];
         TManager manager = factory(config);
-        // Á¦³×¸¯Àº new TManager °¡ ¾ÈµÇ¼­ ¾îÂ¿¼ö¾øÀÌ Func<TConfig, TManager> factory »ç¿ë 
+        // ï¿½ï¿½ï¿½×¸ï¿½ï¿½ï¿½ new TManager ï¿½ï¿½ ï¿½ÈµÇ¼ï¿½ ï¿½ï¿½Â¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Func<TConfig, TManager> factory ï¿½ï¿½ï¿½ 
         RegisterMap(manager);
     }
 
@@ -54,7 +56,7 @@ public class GameController : MonoBehaviour
         managerMap[typeof(T1)] = manager;
     }
 
-    // ÀüºÎ´Ù ÃÊ±âÈ­ 
+    // ï¿½ï¿½ï¿½Î´ï¿½ ï¿½Ê±ï¿½È­ 
     private void InitAll()
     {
         foreach (var manager in managerMap.Values)
@@ -86,13 +88,13 @@ public class GameController : MonoBehaviour
     }
 
 
-    // È¤½Ã ¸ô¶ó ¸¸µë 
+    // È¤ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ 
     public T GetManager<T>() where T : baseManager
     {
         return (T)managerMap[typeof(T)];
 
-        // »ç¿ë ¿¹½Ã
-        //GetManager<UIManager>().ÇÔ¼ö      
+        // ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+        //GetManager<UIManager>().ï¿½Ô¼ï¿½      
     }
 
     void Update()
