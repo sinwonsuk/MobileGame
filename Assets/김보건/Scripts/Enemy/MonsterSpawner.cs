@@ -6,7 +6,7 @@ public class MonsterSpawner : MonoBehaviour
 {
     public GameObject monsterPrefab;
     public GameObject bossMonsterPrefab;
-    public Vector3 spawnPosition = new Vector3(-73, 10, 0);
+    public Vector3 spawnPosition = new Vector3(-10, 10, 0);
     public float descendDuration = 10f;
 
     private bool hasSpawned = false;

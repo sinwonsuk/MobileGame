@@ -9,10 +9,11 @@ public class DungeonSelectUI : MonoBehaviour
 
     public void OnClickFloorButton(int floor)
     {
-        dungeonInGameUI.SetActive(true);
+        dungeonInGameUI.SetActive(false);
         selectedFloorData.selectedFloor = floor;
         selectedFloorData.ResetStage();
         selectedFloorData.isDungeonMode = true;
+        EventBus<DungeonSlideToggleEvent>.Raise(new DungeonSlideToggleEvent(true));
         //UnityEngine.SceneManagement.SceneManager.LoadScene("BoTest");
 
         selectedFloorData.autoNextFloor = autoNextToggle.GetIsOn();

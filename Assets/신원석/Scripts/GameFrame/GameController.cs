@@ -25,6 +25,7 @@ public class GameController : MonoBehaviour
         Register<CookManager, CookManagerConfig>(Config => new CookManager(Config));
         Register<DungeonManager, DungeonManagerConfig>(config => new DungeonManager(config));
         Register<MoneyManager, MoneyManagerConfig>(config => new MoneyManager(config));
+        Register<CameraSlideManager, CameraSlideManagerConfig>(config => new CameraSlideManager(config));
 
 
         InitAll();
