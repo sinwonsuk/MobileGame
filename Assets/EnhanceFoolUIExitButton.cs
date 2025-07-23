@@ -17,7 +17,10 @@ public class EnhanceFoodSelectUIExitButton : MonoBehaviour
     public void OnClick()
     {
         EventBus<EnhanceFoodUIActiveHandler>.Raise(new EnhanceFoodUIActiveHandler(false));
-
+        EventBus<ButtonHandler>.Raise(new ButtonHandler(true));
     }
-
+    public void Back()
+    {
+        EventBus<SetEnhanceFoodActiveEvent>.Raise(new SetEnhanceFoodActiveEvent());
+    }
 }

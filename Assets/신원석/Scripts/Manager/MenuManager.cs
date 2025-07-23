@@ -93,7 +93,7 @@ public class MenuManager : baseManager, IGameManager
     }
 
 
-    public void AddMenuBoardIndex()
+    public void AddMenuBoardIndex(Customer customer)
     {
         MenuIndex.Clear();
 
@@ -101,21 +101,35 @@ public class MenuManager : baseManager, IGameManager
         {
             var slotObj = kvp.Value;
             var slot = slotObj.GetComponent<MenuBoardSlot>();
-            if (slot.Count > 0)
-                MenuIndex.Add(kvp.Key);
+
+            for (int i = 0; i < customer.FoodDatas.Count; i++)
+            {
+                if (customer.FoodDatas[i].displayName == slot.NameText.text && slot.Count > 0)
+                {
+                    MenuIndex.Add(kvp.Key);
+                    break;
+                }
+            }
         }
     }
 
     public void ChoiceRandomMenu(RandomMenuSelectionHandler handler)
     {
-        AddMenuBoardIndex();
+        AddMenuBoardIndex(handler.customer);
 
         // 선택할 슬롯이 없으면 null
         if (MenuIndex.Count == 0)
         {
-            handler.CustomerManager.Slot = null;
+            handler.customer.Slot = null;
             return;
         }
+
+
+        // 손님 타입에 따라 음식 다르게 하기 
+
+        // handler.customer.
+
+
 
         // 랜덤으로 키 하나 뽑기
         int rnd = Random.Range(0, MenuIndex.Count);
@@ -123,8 +137,8 @@ public class MenuManager : baseManager, IGameManager
         GameObject obj = MenuBoardSlots[chosenKey];
         MenuBoardSlot slot = obj.GetComponent<MenuBoardSlot>();
 
-        // 선택된 슬롯을 고객 매니저에 전달
-        handler.CustomerManager.Slot = slot;
+        // 선택된 슬롯을 고객에 전달
+        handler.customer.Slot = slot;
 
 
         slot.Count--;

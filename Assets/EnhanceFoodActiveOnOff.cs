@@ -5,7 +5,7 @@ public class EnhanceFoodActiveOnOff : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-
+        EventBus<ButtonHandler>.OnEvent += ManagementButtonisActive;
     }
 
     // Update is called once per frame
@@ -28,6 +28,11 @@ public class EnhanceFoodActiveOnOff : MonoBehaviour
             EventBus<EnhanceFoodUIActiveHandler>.Raise(new EnhanceFoodUIActiveHandler(isActive));
             isActive = true;
         }
+    }
+
+    public void ManagementButtonisActive(ButtonHandler buttonHandler)
+    {
+        isActive = buttonHandler.isActive;
     }
 
     bool isActive = true;

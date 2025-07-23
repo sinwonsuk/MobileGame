@@ -10,11 +10,12 @@ public class CustomerManagerConfig : BaseScriptableObject
         type = typeof(CustomerManagerConfig);
     }
 
-    public List<GameObject> GetGameObjects()
+    public List<GameObject> Customers
     {
-        return GameObjects;
+        get => gameObjects;
+        set => gameObjects = value;
     }
 
     [field: SerializeField]
-    List<GameObject> GameObjects { get; set; }
+    List<GameObject> gameObjects { get; set; }
 }

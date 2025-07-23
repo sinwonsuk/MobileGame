@@ -12,5 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93663a05421106d4fac11c4931a3d421, type: 3}
   m_Name: Customer Manager Config
   m_EditorClassIdentifier: 
-  <GameObjects>k__BackingField:
+  <gameObjects>k__BackingField:
+  - {fileID: 7010813214275849741, guid: 6b93eb116b1b75e499ffbec04f2a2ae3, type: 3}
   - {fileID: 7010813214275849741, guid: e1bdeb155c6c88a4a9bf3525c031d1ab, type: 3}
+  - {fileID: 7010813214275849741, guid: 09a858e1bddaec94b8dad54c2ef9a13d, type: 3}

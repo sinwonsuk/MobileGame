@@ -843,7 +843,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   amount: {fileID: 3036447390724187029}
   foodAmountUI: {fileID: 722343556279447591}
-  foodSlotUI: {fileID: 10528355420052018, guid: 2b26f5b3e18a7524f849c57e6cfb17f4, type: 3}
 --- !u!1 &3341643440220535737
 GameObject:
   m_ObjectHideFlags: 0
@@ -877,11 +876,11 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1188116787802853142}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 0.5}
-  m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: -36.1, y: 9.00002}
+  m_AnchorMin: {x: 0, y: 0.5}
+  m_AnchorMax: {x: 0, y: 0.5}
+  m_AnchoredPosition: {x: 0.19999695, y: 0}
   m_SizeDelta: {x: 45.82971, y: 151.3381}
-  m_Pivot: {x: 1, y: 0.5}
+  m_Pivot: {x: 0, y: 0.5}
 --- !u!222 &8828371864655042485
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2066,11 +2065,11 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1188116787802853142}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0.5}
-  m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 9.00002}
-  m_SizeDelta: {x: 45.82971, y: 151.3381}
-  m_Pivot: {x: 0, y: 0.5}
+  m_AnchorMin: {x: 1, y: 0.5}
+  m_AnchorMax: {x: 1, y: 0.5}
+  m_AnchoredPosition: {x: -35.6, y: 0}
+  m_SizeDelta: {x: 45.829712, y: 151.3381}
+  m_Pivot: {x: 1, y: 0.5}
 --- !u!222 &6076752618015041327
 CanvasRenderer:
   m_ObjectHideFlags: 0
