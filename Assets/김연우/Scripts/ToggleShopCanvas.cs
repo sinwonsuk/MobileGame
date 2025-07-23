@@ -1,24 +1,35 @@
-
+// ToggleShopCanvas.cs
 using UnityEngine;
 
 public class ToggleShopCanvas : MonoBehaviour
 {
     private void Awake()
     {
-        EventBus<ToggleShopEvent>.OnEvent += OnToggle;
+        // 샵 토글은 기존대로
+        EventBus<ToggleShopEvent>.OnEvent += OnToggleShop;
+        // 인벤토리가 열리면 무조건 꺼지도록
+        EventBus<ToggleInventoryEvent>.OnEvent += OnInventoryOpened;
     }
+
     private void Start()
     {
         gameObject.SetActive(false);
     }
+
     private void OnDestroy()
     {
-        EventBus<ToggleShopEvent>.OnEvent -= OnToggle;
+        EventBus<ToggleShopEvent>.OnEvent -= OnToggleShop;
+        EventBus<ToggleInventoryEvent>.OnEvent -= OnInventoryOpened;
     }
 
-    private void OnToggle(ToggleShopEvent evt)
+    private void OnToggleShop(ToggleShopEvent evt)
     {
-        // 이 컴포넌트가 붙어있는 Canvas를 토글
         gameObject.SetActive(!gameObject.activeSelf);
+    }
+
+    private void OnInventoryOpened(ToggleInventoryEvent evt)
+    {
+        if (gameObject.activeSelf)
+            gameObject.SetActive(false);
     }
 }

@@ -1,24 +1,38 @@
-
+// ToggleInventoryCanvas.cs
 using UnityEngine;
 
 public class ToggleInventoryCanvas : MonoBehaviour
 {
     private void Awake()
     {
-        EventBus<ToggleInventoryEvent>.OnEvent += OnToggle;
-    }
-    private void Start()
-    {
-        gameObject.SetActive(false);
-    }
-    private void OnDestroy()
-    {
-        EventBus<ToggleInventoryEvent>.OnEvent -= OnToggle;
+        // 인벤토리 토글은 기존대로
+        EventBus<ToggleInventoryEvent>.OnEvent += OnToggleInventory;
+        // 샵이 열리면 무조건 꺼지도록
+        EventBus<ToggleShopEvent>.OnEvent += OnShopOpened;
     }
 
-    private void OnToggle(ToggleInventoryEvent evt)
+    private void Start()
     {
-        // 이 컴포넌트가 붙어있는 Canvas를 토글
+        // 시작 시 둘 다 꺼진 상태
+        gameObject.SetActive(false);
+    }
+
+    private void OnDestroy()
+    {
+        EventBus<ToggleInventoryEvent>.OnEvent -= OnToggleInventory;
+        EventBus<ToggleShopEvent>.OnEvent -= OnShopOpened;
+    }
+
+    private void OnToggleInventory(ToggleInventoryEvent evt)
+    {
+        // 본인 상태 토글
         gameObject.SetActive(!gameObject.activeSelf);
+    }
+
+    private void OnShopOpened(ToggleShopEvent evt)
+    {
+        // 샵 이벤트가 들어오면 자신이 켜져 있든 꺼져 있든 무조건 끔
+        if (gameObject.activeSelf)
+            gameObject.SetActive(false);
     }
 }
