@@ -17,6 +17,7 @@ public class DungeonSelectUI : MonoBehaviour
 
         selectedFloorData.autoNextFloor = autoNextToggle.GetIsOn();
 
+        EventBus<ButtonisActiveHandler>.Raise(new ButtonisActiveHandler(false));
 
         var controller = FindAnyObjectByType<GameController>();
         //controller.ActiveOffAll(); // 다른 매니저 끄고

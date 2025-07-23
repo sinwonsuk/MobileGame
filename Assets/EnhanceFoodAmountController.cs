@@ -23,10 +23,23 @@ public class EnhanceFoodAmountController : MonoBehaviour
     public void FoodAmountConfirmButton()
     {
 
+
+
+
+
+
         FoodData data = enhanceFoodUI.foodData;
 
         var materials = data.enhanceSteps[data.Level].ingredients;
 
+
+        for (int i = 0; i < materials.Count; i++)
+        {
+            if (materials[i].quantity > InventoryManager.Instance.GetItemQty(materials[i].name))
+            {
+                return;
+            }
+        }
 
         for (int i = 0; i < materials.Count; i++)
         {
