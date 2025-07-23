@@ -14,24 +14,22 @@ public class StaffShopButton1 : MonoBehaviour
     public TextMeshProUGUI _buttonText1;
     public TextMeshProUGUI level_num1;
     public StaffType staff13;
+    private int money;
     void Awake()
     {
+        money = staffData1.baseSalary;
         if (spawnPoint1 == null)// 에디터에서 연결해두지 않았다면
         {
-            
-                var parent = GameObject.Find("GameObject (2)");
-                if (parent != null)
-                {
-                    spawnPoint1 = parent.transform;
-                }
-                else
-                {
-                    Debug.LogWarning("MapParent가 없거나 자식이 없습니다.gaewe");
-                }
 
-            
+            var parent1 = GameObject.Find("MapParent");
+            if (parent1 != null && parent1.transform.childCount > 0)
+            {
+                spawnPoint1 = parent1.transform.GetChild(4);
+            }
 
-           
+
+
+
         }
     }
     void Start()
@@ -42,10 +40,10 @@ public class StaffShopButton1 : MonoBehaviour
 
     void OnButtonClicked()
     {
+        EventBus<MoneyChangeMusHandler>.Raise(new MoneyChangeMusHandler(money));
+        money = staffData1.baseSalary * staffData1.level;
         if (_spawnedStaff1 == null)
         {
-
-
 
             if (spawnPoint1 != null)
             {

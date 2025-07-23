@@ -8,7 +8,6 @@ public class InventoryUI : MonoBehaviour
 
     private void Start()
     {
-        gameObject.SetActive(false);
         // 필드 할당 체크
         if (slotPrefab == null || contentParent == null)
         {

@@ -41,7 +41,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4534422893450700624}
   - component: {fileID: 317264812556089151}
-  - component: {fileID: -6498536288442297496}
+  - component: {fileID: 3598887972457235084}
   m_Layer: 0
   m_Name: army_2
   m_TagString: Untagged
@@ -120,7 +120,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &-6498536288442297496
+--- !u!114 &3598887972457235084
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -129,10 +129,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 6757378914359798941}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fc7f9174d9a44b3489160c0965b331cd, type: 3}
+  m_Script: {fileID: 11500000, guid: fee5d53f90c9b4046956a92312041335, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animator: {fileID: 0}
   bulletPrefab: {fileID: 7349647033394132940, guid: 7936ce2b8eaf51140b34d7536ca4822e, type: 3}
   firePoint: {fileID: 4601180328829254033}
   bossTag: Enemy
   bossLayerName: Enemy
+  detectRange: 20
+  bigBulletSkillPrefab: {fileID: 0}
+  skillCooldown: 5

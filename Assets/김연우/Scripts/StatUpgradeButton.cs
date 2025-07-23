@@ -1,50 +1,63 @@
-// StatUpgradeButton.cs
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using Unity.VisualScripting;
 
 [RequireComponent(typeof(Button))]
 public class StatUpgradeButton : MonoBehaviour
 {
-    [Header("Settings")]
     public StatType statToUpgrade;
-    public float initialValue = 10f;           // 처음 수치 (Inspector에 설정)
-    public float upgradeAmount = 1f;           // 업그레이드 증분
-    public float minAutoAttackInterval = 0.1f; // 자동공격 최소 간격 (간격 감소 시)
+    public float initialValue = 10f;
+    public float upgradeAmount = 1f;
+    public float minAutoAttackInterval = 0.1f;
 
-    [Header("UI References")]
     public TMP_Text nameText;
     public TMP_Text levelText;
     public TMP_Text valueText;
     public TMP_Text buttonText;
-
+    public TMP_Text moneyText;
     private Button _button;
     private float currentValue;
     private int currentLevel;
-
+    private int buy_money = 100;
+    private int money_value =0;
     public PlayerStatData playerStats;
+
+    // ★ 저장 키
+    private string levelKey => $"{statToUpgrade}_level";
+    private string valueKey => $"{statToUpgrade}_value";
 
     void Awake()
     {
+        money_value = currentLevel * buy_money;
         _button = GetComponent<Button>();
+        PlayerPrefs.DeleteKey(levelKey);
+        PlayerPrefs.DeleteKey(valueKey);
     }
 
     void Start()
     {
-        // 초기값 세팅
-        currentValue = initialValue;
-        currentLevel = 0;
+        // 불러오기
+        currentLevel = PlayerPrefs.GetInt(levelKey, 1);
 
-        // 버튼 클릭 핸들러
-        _button.onClick.AddListener(() =>
-        {
-            currentLevel++;
-            UpgradeStat();
-            RefreshUI();
-            Debug.Log($"[StatUpgrade] {GetStatDisplayName(statToUpgrade)} leveled up to {currentLevel}. New value: {GetStatValue():F2}");
-        });
+        if (PlayerPrefs.HasKey(valueKey))
+            currentValue = PlayerPrefs.GetFloat(valueKey);
+        else
+            currentValue = initialValue + upgradeAmount * currentLevel;
 
+        _button.onClick.AddListener(OnClick);
         RefreshUI();
+    }
+
+    void OnClick()
+    {
+        money_value = currentLevel * buy_money;
+        EventBus<MoneyChangeMusHandler>.Raise(new MoneyChangeMusHandler(money_value));
+        currentLevel++;
+        UpgradeStat();
+        Save();
+        RefreshUI();
+        Debug.Log($"[StatUpgrade] {GetStatDisplayName(statToUpgrade)} leveled up to {currentLevel}. New value: {GetStatValue():F2}");
     }
 
     void RefreshUI()
@@ -52,7 +65,8 @@ public class StatUpgradeButton : MonoBehaviour
         nameText.text = GetStatDisplayName(statToUpgrade);
         levelText.text = $"Lv.{currentLevel}";
         valueText.text = FormatStatValue(GetStatValue());
-        buttonText.text = currentLevel == 0 ? "Buy" : "Upgrade";
+        buttonText.text="Upgrade";
+        moneyText.text = $"Money : {money_value}";
     }
 
     void UpgradeStat()
@@ -63,48 +77,44 @@ public class StatUpgradeButton : MonoBehaviour
                 currentValue += upgradeAmount;
                 playerStats.attackPower = currentValue;
                 break;
-
             case StatType.CritChance:
                 currentValue = Mathf.Clamp(currentValue + upgradeAmount * 0.1f, 0f, 100f);
                 playerStats.critChance = currentValue;
                 break;
-
             case StatType.AutoAttackInterval:
                 currentValue = Mathf.Max(minAutoAttackInterval, currentValue - upgradeAmount * 0.1f);
                 playerStats.autoAttackInterval = currentValue;
                 break;
-
             case StatType.AutoAttackDamage:
                 currentValue += upgradeAmount;
                 playerStats.autoAttackDamage = currentValue;
                 break;
-
             case StatType.CritDamageMultiplier:
                 currentValue += upgradeAmount * 0.1f;
                 playerStats.critDamageMultiplier = currentValue;
                 break;
         }
-
-        EventBus<StatChangedEvent>.Raise(new StatChangedEvent{changedStatType = statToUpgrade});
+        EventBus<StatChangedEvent>.Raise(new StatChangedEvent { changedStatType = statToUpgrade });
     }
 
-    float GetStatValue()
+    // ★ 저장 메서드
+    void Save()
     {
-        return currentValue;
+        PlayerPrefs.SetInt(levelKey, currentLevel);
+        PlayerPrefs.SetFloat(valueKey, currentValue);
+        PlayerPrefs.Save();
     }
+
+    float GetStatValue() => currentValue;
 
     string FormatStatValue(float value)
     {
         switch (statToUpgrade)
         {
-            case StatType.CritChance:
-                return $"{value:F1}%";
-            case StatType.AutoAttackInterval:
-                return $"{value:F2}s";
-            case StatType.CritDamageMultiplier:
-                return $"{currentValue:F1}배";
-            default:
-                return $"{value:F0}";
+            case StatType.CritChance: return $"{value:F1}%";
+            case StatType.AutoAttackInterval: return $"{value:F2}s";
+            case StatType.CritDamageMultiplier: return $"{value:F1}배";
+            default: return $"{value:F0}";
         }
     }
 

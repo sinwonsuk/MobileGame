@@ -15,7 +15,9 @@ MonoBehaviour:
   indate: 2025-07-17T15:06:49.205Z
   displayName: army_two
   staffType: 0
-  level: 2
+  level: 1
+  explain: "\uC0AC\uB0E5\uD130\uC9C1\uC6D02"
+  itemPrefab: {fileID: 3899654314294530085, guid: 732dd9b7cbd523541bbf804d92b2bb15, type: 3}
   portrait: {fileID: 10917, guid: 0000000000000000f000000000000000, type: 0}
   baseSalary: 60
   attack_Power: 20
@@ -24,5 +26,3 @@ MonoBehaviour:
   attack_SpeedPerLevel: 1
   timer: 0
   cooltime: 0
-  explain: "\uC0AC\uB0E5\uD130\uC9C1\uC6D02"
-  itemPrefab: {fileID: 6757378914359798941, guid: b919a00096376d64f8ac9799c21fcc07, type: 3}

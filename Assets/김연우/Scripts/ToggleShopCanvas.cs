@@ -1,11 +1,11 @@
 
 using UnityEngine;
 
-public class ToggleInventoryCanvas : MonoBehaviour
+public class ToggleShopCanvas : MonoBehaviour
 {
     private void Awake()
     {
-        EventBus<ToggleInventoryEvent>.OnEvent += OnToggle;
+        EventBus<ToggleShopEvent>.OnEvent += OnToggle;
     }
     private void Start()
     {
@@ -13,10 +13,10 @@ public class ToggleInventoryCanvas : MonoBehaviour
     }
     private void OnDestroy()
     {
-        EventBus<ToggleInventoryEvent>.OnEvent -= OnToggle;
+        EventBus<ToggleShopEvent>.OnEvent -= OnToggle;
     }
 
-    private void OnToggle(ToggleInventoryEvent evt)
+    private void OnToggle(ToggleShopEvent evt)
     {
         // 이 컴포넌트가 붙어있는 Canvas를 토글
         gameObject.SetActive(!gameObject.activeSelf);

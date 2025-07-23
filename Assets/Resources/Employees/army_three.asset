@@ -16,6 +16,8 @@ MonoBehaviour:
   displayName: army_three
   staffType: 0
   level: 1
+  explain: "\uC0AC\uB0E5\uD130\uC9C1\uC6D03"
+  itemPrefab: {fileID: 3899654314294530085, guid: 732dd9b7cbd523541bbf804d92b2bb15, type: 3}
   portrait: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
   baseSalary: 100
   attack_Power: 30
@@ -24,5 +26,3 @@ MonoBehaviour:
   attack_SpeedPerLevel: 1
   timer: 0
   cooltime: 0
-  explain: "\uC0AC\uB0E5\uD130\uC9C1\uC6D03"
-  itemPrefab: {fileID: 3601052371078558296, guid: 96a4946acf127eb4080c64d303bf3a5b, type: 3}

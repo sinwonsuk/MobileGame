@@ -21,19 +21,16 @@ public class SellPanelUI : MonoBehaviour
 
     void Awake()
     {
-        // 씬 로드 직후에 한 번만 구독
         InventorySlotUI.OnSlotClicked += ShowPanel;
     }
 
     void OnDestroy()
     {
-        // 오브젝트가 파괴될 때 정리
         InventorySlotUI.OnSlotClicked -= ShowPanel;
     }
 
     void OnEnable()
     {
-        InventorySlotUI.OnSlotClicked += ShowPanel;
         leftBtn.onClick.AddListener(OnLeft);
         rightBtn.onClick.AddListener(OnRight);
         qtyInput.onValueChanged.AddListener(OnInputChanged);
@@ -42,7 +39,6 @@ public class SellPanelUI : MonoBehaviour
 
     void OnDisable()
     {
-        InventorySlotUI.OnSlotClicked -= ShowPanel;
         leftBtn.onClick.RemoveAllListeners();
         rightBtn.onClick.RemoveAllListeners();
         qtyInput.onValueChanged.RemoveAllListeners();
@@ -51,14 +47,21 @@ public class SellPanelUI : MonoBehaviour
 
     private void ShowPanel(InventorySlot slot)
     {
-        Debug.Log("[SellPanelUI] 슬롯 클릭 감지 → 패널 띄우기", this);
         currentSlot = slot;
         sellQty = 1;
+
+        // UI 세팅
         previewImage.sprite = Resources.Load<Sprite>(slot.ingredient.ingredientSprite);
         nameText.text = slot.ingredient.ingredientName;
         priceText.text = slot.ingredient.ingredientPrice.ToString();
-        qtyInput.text = sellQty.ToString();
+
+        // 초기 입력값 설정 (콜백 없이)
+        qtyInput.SetTextWithoutNotify(sellQty.ToString());
         UpdateTotal();
+
+        // 판매 버튼 활성화
+        sellBtn.interactable = true;
+
         gameObject.SetActive(true);
     }
 
@@ -67,59 +70,93 @@ public class SellPanelUI : MonoBehaviour
         if (sellQty > 1)
         {
             sellQty--;
-            qtyInput.text = sellQty.ToString();
+            qtyInput.SetTextWithoutNotify(sellQty.ToString());
             UpdateTotal();
         }
     }
 
     private void OnRight()
     {
+        if (currentSlot == null) return;
+
         int max = currentSlot.runTimeIngredientData.ingredientQty;
         if (sellQty < max)
         {
             sellQty++;
-            qtyInput.text = sellQty.ToString();
+            qtyInput.SetTextWithoutNotify(sellQty.ToString());
             UpdateTotal();
         }
     }
 
     private void OnInputChanged(string s)
     {
+        // 슬롯이 없으면 아무 것도 없음
+        if (currentSlot == null)
+            return;
+
         if (int.TryParse(s, out int v))
         {
             int max = currentSlot.runTimeIngredientData.ingredientQty;
             sellQty = Mathf.Clamp(v, 1, max);
-            qtyInput.text = sellQty.ToString();
+            qtyInput.SetTextWithoutNotify(sellQty.ToString());
             UpdateTotal();
         }
         else
         {
-            qtyInput.text = sellQty.ToString();
+            qtyInput.SetTextWithoutNotify(sellQty.ToString());
         }
     }
 
     private void UpdateTotal()
     {
+        if (currentSlot == null)
+        {
+            totalText.text = string.Empty;
+            return;
+        }
+
         int total = sellQty * currentSlot.ingredient.ingredientPrice;
         totalText.text = total.ToString();
     }
 
     private void OnSell()
     {
-        // 1) 인벤토리에서 수량 차감 이벤트
+        if (currentSlot == null) return;
+
+        // 1) 인벤토리에서 수량 차감
         InventoryManager.Instance.DecreaseQty(currentSlot.ingredient.ingredientName, sellQty);
 
-        // 돈 획득 이벤트
+        // 2) 돈 획득 이벤트
         int gain = sellQty * currentSlot.ingredient.ingredientPrice;
         EventBus<MoneyChangePusHandler>.Raise(new MoneyChangePusHandler(gain));
 
-        // 남은 수량이 0 이상 최대값 재설정
+        // 3) 남은 수량이 있으면 입력값 재조정
         if (currentSlot.runTimeIngredientData.ingredientQty > 0)
         {
             int max = currentSlot.runTimeIngredientData.ingredientQty;
             sellQty = Mathf.Min(sellQty, max);
-            qtyInput.text = sellQty.ToString();
+            qtyInput.SetTextWithoutNotify(sellQty.ToString());
             UpdateTotal();
         }
+
+        // 4) 필드만 초기화 (패널은 유지)
+        ClearFields();
+    }
+
+    private void ClearFields()
+    {
+        currentSlot = null;
+        sellQty = 0;
+
+        previewImage.sprite = null;
+        nameText.text = string.Empty;
+        priceText.text = string.Empty;
+        totalText.text = string.Empty;
+
+        // 콜백 없이 입력만 지우기
+        qtyInput.SetTextWithoutNotify(string.Empty);
+
+        // 버튼 비활성화
+        sellBtn.interactable = false;
     }
 }
