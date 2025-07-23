@@ -75,7 +75,7 @@ public class CookManager : baseManager, IGameManager
             if (conFig.Foods[i].displayName == nextCookInfo.foodName)
             {
                 cookComponent.WaitingTime = conFig.Foods[i].cookingTime;
-                cookComponent.foodPrice = conFig.Foods[i].price;
+                cookComponent.foodPrice = conFig.Foods[i].enhanceSteps[conFig.Foods[i].Level-1].cost;
                 break;
             }
         }

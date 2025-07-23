@@ -2,11 +2,12 @@ using UnityEngine;
 
 public struct RandomMenuSelectionHandler :IEvent
 {
-    public RandomMenuSelectionHandler(CustomerManager customerManager)
+    public RandomMenuSelectionHandler(Customer customer)
     {
-        this.CustomerManager = customerManager;
+
+        this.customer = customer;
     }
 
-    public CustomerManager CustomerManager { get; set; }
 
+    public Customer customer { get; set; }
 }

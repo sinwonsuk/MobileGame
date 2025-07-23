@@ -249,7 +249,7 @@ GameObject:
   - component: {fileID: 1879596746024441776}
   - component: {fileID: 3947128491850373737}
   m_Layer: 0
-  m_Name: Customer
+  m_Name: BlackCatCustomer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -285,15 +285,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   foodSpriteRenderer: {fileID: 5580176247553754303}
   foodOrderSpriteRenderer: {fileID: 4051747760832245466}
-  animatorControllers:
-  - {fileID: 9100000, guid: e0898c8fb4e8fb44d9a33a8361bebfa3, type: 2}
-  - {fileID: 9100000, guid: a177d7febcb812141818249157a8390a, type: 2}
-  - {fileID: 9100000, guid: be182f2f2b041f64b8d676678e5579c4, type: 2}
-  sprites:
-  - {fileID: 21300000, guid: 86d88fbed1ab8354d8d323604af736b2, type: 3}
-  - {fileID: 21300000, guid: ee29d1666276f844e975e94878361a25, type: 3}
-  - {fileID: 21300000, guid: 9468cbb40f8b595468174c38711f65ed, type: 3}
   CalculatePosition: {x: 0, y: 0, z: 0}
+  foodDatas:
+  - {fileID: 11400000, guid: ccf5132b1c4ada748967a80d739d4a3c, type: 2}
+  - {fileID: 11400000, guid: e641b0846e80d31458d34e9ad4c58e58, type: 2}
+  - {fileID: 11400000, guid: a5f6f60fabfefdf4f825a30d4bb8a5f7, type: 2}
 --- !u!195 &8469050025533593545
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -360,7 +356,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 3
-  m_Sprite: {fileID: 21300000, guid: 86d88fbed1ab8354d8d323604af736b2, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 9468cbb40f8b595468174c38711f65ed, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

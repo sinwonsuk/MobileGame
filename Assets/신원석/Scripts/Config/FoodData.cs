@@ -12,7 +12,25 @@ public class FoodData : BaseScriptableObject
     public int price;            // 가격
     public bool isUnlock;          // 해금 여부 
     public float cookingTime; // 대기 시간 
+    public int Level;
 
-    public List<IngredientData> Ingredients;
+    public List<IngredientData> Ingredients; // 재료 목록
+    public List<EnhanceStepData> enhanceSteps; // 강화 단계 목록
+}
 
+[System.Serializable]
+public class EnhanceStepData
+{
+    public string indate;
+    public int step;
+    public List<EnhanceMaterialData> ingredients;
+    public int cost;
+}
+
+[System.Serializable]
+public class EnhanceMaterialData
+{
+    public string indate;
+    public string name;
+    public int quantity;
 }

@@ -17,7 +17,59 @@ MonoBehaviour:
   foodSprite: orcSoup
   price: 742
   isUnlock: 0
-  cookingTime: 64.3
+  cookingTime: 2
+  Level: 1
   Ingredients:
   - {fileID: 11400000, guid: fd56a8b06c6e07541b56aecb13256f30, type: 2}
   - {fileID: 11400000, guid: deac93d9a9ba5d84e814dbf0819dcc8c, type: 2}
+  enhanceSteps:
+  - indate: 
+    step: 1
+    ingredients:
+    - indate: 
+      name: "\uBA38\uB9BF\uACE0\uAE30"
+      quantity: 1
+    - indate: 
+      name: "\uBFD4\uB2EC\uC778\uBB3C"
+      quantity: 1
+    cost: 1000
+  - indate: 
+    step: 2
+    ingredients:
+    - indate: 
+      name: "\uBA38\uB9BF\uACE0\uAE30"
+      quantity: 2
+    - indate: 
+      name: "\uBFD4\uB2EC\uC778\uBB3C"
+      quantity: 2
+    cost: 2000
+  - indate: 
+    step: 3
+    ingredients:
+    - indate: 
+      name: "\uBA38\uB9BF\uACE0\uAE30"
+      quantity: 3
+    - indate: 
+      name: "\uBFD4\uB2EC\uC778\uBB3C"
+      quantity: 3
+    cost: 3000
+  - indate: 
+    step: 4
+    ingredients:
+    - indate: 
+      name: "\uBA38\uB9BF\uACE0\uAE30"
+      quantity: 4
+    - indate: 
+      name: "\uBFD4\uB2EC\uC778\uBB3C"
+      quantity: 4
+    cost: 4000
+  - indate: 
+    step: 5
+    ingredients:
+    - indate: 
+      name: "\uBA38\uB9BF\uACE0\uAE30"
+      quantity: 5
+    - indate: 
+      name: "\uBFD4\uB2EC\uC778\uBB3C"
+      quantity: 5
+    cost: 5000

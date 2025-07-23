@@ -24,6 +24,11 @@ public class FoodManagerConfig : BaseScriptableObject
     [field: SerializeField]
     GameObject SlotUI { get; set; }
 
-
+    [field: SerializeField]
+    GameObject EnhanceSlotUI { get; set; }
+    public GameObject GetEnhanceSlotUI()
+    {
+        return EnhanceSlotUI;
+    }
 }
 
