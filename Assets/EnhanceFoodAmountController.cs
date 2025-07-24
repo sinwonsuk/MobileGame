@@ -32,6 +32,9 @@ public class EnhanceFoodAmountController : MonoBehaviour
 
         var materials = data.enhanceSteps[data.Level].ingredients;
 
+        var sucessRate = data.enhanceSteps[data.Level].successRate;
+
+        int random = Random.Range(0, 100);
 
         for (int i = 0; i < materials.Count; i++)
         {
@@ -41,14 +44,26 @@ public class EnhanceFoodAmountController : MonoBehaviour
             }
         }
 
+
         for (int i = 0; i < materials.Count; i++)
         {
             EventBus<EnhanceFoodDecreaseHandler>.Raise(new EnhanceFoodDecreaseHandler(data.displayName, materials[i].name, materials[i].quantity));
         }
 
-        data.Level += 1;
+        enhanceResult.gameObject.SetActive(true);
 
-        EventBus<SetEnhanceFoodActiveEvent>.Raise(new SetEnhanceFoodActiveEvent());
+        if (random > sucessRate) // 애는 실패
+        {
+            enhanceResult.Text.text = "강화실패";
+        }
+        else // 애는 성공 
+        {
+            enhanceResult.Text.text = "강화성공";
+            data.Level += 1;
+        }
+
+
+
 
 
 
@@ -58,5 +73,8 @@ public class EnhanceFoodAmountController : MonoBehaviour
 
 
     [SerializeField] EnhanceFoodUI enhanceFoodUI;
+    [SerializeField] EnhanceResult enhanceResult;
+
+
     public Transform MenuParentTransform { get; set; }
 }

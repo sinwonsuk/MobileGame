@@ -1,0 +1,40 @@
+using TMPro;
+using UnityEngine;
+
+public class EnhanceResult : MonoBehaviour
+{
+    [SerializeField] private TextMeshProUGUI text;
+
+
+    public TextMeshProUGUI Text
+    {
+        get => text;
+        set => text = value;
+    }
+
+    private float time;
+
+    private void OnDisable()
+    {
+        time = 0f;
+        // 한 프레임 뒤에 호출되도록
+        Invoke(nameof(RaiseToggleEvent), 0f);
+    }
+
+    private void RaiseToggleEvent()
+    {
+        EventBus<SetEnhanceFoodActiveEvent>.Raise(new SetEnhanceFoodActiveEvent());
+    }
+
+    private void Update()
+    {
+        time += Time.deltaTime;
+        if (time > 1f)
+            gameObject.SetActive(false);
+    }
+
+    public void Click()
+    {
+        gameObject.SetActive(false);
+    }
+}
