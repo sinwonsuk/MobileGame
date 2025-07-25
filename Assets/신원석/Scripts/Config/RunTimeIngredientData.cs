@@ -6,6 +6,7 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Inven/inven")]
 public class RunTimeIngredientData : BaseScriptableObject
 {
+    public string indate;
     public string ingredientName;
     public int ingredientQty;
 

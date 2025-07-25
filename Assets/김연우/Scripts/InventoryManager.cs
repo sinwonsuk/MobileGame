@@ -47,11 +47,11 @@ public class InventoryManager : MonoBehaviour, IAutoSavable
         }
 	}
 
-    public void AddItem(string name, int amount = 1)
+    public void AddItem(string indate, int amount = 1)
     {
         foreach (var data in allRunTimeIngredients)
         {
-            if (data.ingredientName == name)
+            if (data.indate == indate)
             {
                 data.ingredientQty += amount;
 				data.isDirty = true;
@@ -61,14 +61,14 @@ public class InventoryManager : MonoBehaviour, IAutoSavable
         }
     }
 
-    public int GetItemQty(string name)
+    public int GetItemQty(string indate)
     {
-        if (name == "")
+        if (indate == "")
             return -1;
 
         foreach (var data in allRunTimeIngredients)
         {
-            if (data.ingredientName == name)
+            if (data.ingredientName == indate)
             {
                 return data.ingredientQty;
             }
@@ -77,11 +77,11 @@ public class InventoryManager : MonoBehaviour, IAutoSavable
         return 0; // 해당 재료가 없을 경우 0 반환
     }
 
-    public string IncreaseQty(string name, int amount = 1)
+    public string IncreaseQty(string indate, int amount = 1)
     {
         foreach (var data in allRunTimeIngredients)
         {
-            if (data.ingredientName == name)
+            if (data.ingredientName == indate)
             {
                 data.ingredientQty += amount;
 				data.isDirty = true;
@@ -92,11 +92,11 @@ public class InventoryManager : MonoBehaviour, IAutoSavable
         return "0";
     }
 
-    public string DecreaseQty(string name, int amount = 1)
+    public string DecreaseQty(string indate, int amount = 1)
     {
         foreach (var data in allRunTimeIngredients)
         {
-            if (data.ingredientName == name)
+            if (data.ingredientName == indate)
             {
                 data.ingredientQty -= amount;
 				data.isDirty = true;
@@ -107,9 +107,6 @@ public class InventoryManager : MonoBehaviour, IAutoSavable
         return "0";
     }
 
-    /// <summary>
-    /// 전체 초기화
-    /// </summary>
     public void ClearInventory()
     {
         slots.Clear();
