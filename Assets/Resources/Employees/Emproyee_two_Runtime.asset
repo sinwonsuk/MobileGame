@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8bdc616157887594cb79b902ac24492c, type: 3}
-  m_Name: Emproyee_one_Runtime
+  m_Name: Emproyee_two_Runtime
   m_EditorClassIdentifier: 
-  indate: 2025-07-17T15:06:49.663Z
-  displayName: "\uACBD\uC601\uC9C1\uC6D01"
+  indate: 
+  displayName: 
   staffType: 2
-  level: 1
+  level: 0
   attack_Power: 0
   attack_Speed: 0
   timer: 0

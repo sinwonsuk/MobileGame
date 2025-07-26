@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bdc616157887594cb79b902ac24492c, type: 3}
   m_Name: army_three_Runtime
   m_EditorClassIdentifier: 
-  indate: 
-  displayName: 
+  indate: 2025-07-17T15:06:49.358Z
+  displayName: army_three
   staffType: 0
-  level: 0
+  level: 1
   attack_Power: 0
   attack_Speed: 0
   timer: 0
