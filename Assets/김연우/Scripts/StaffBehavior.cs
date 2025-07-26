@@ -5,7 +5,7 @@ public class StaffBehavior : MonoBehaviour
 {
     // 외부에서 접근 가능한 데이터
     public StaffStatsSO Data { get; private set; }
-
+    public RuntimeStaffStatsSO RuntimeData { get; private set; }
     [Header("전투용 런타임 스탯")]
     private double currentAttackPower;
     private double currentAttackSpeed;
@@ -22,7 +22,7 @@ public class StaffBehavior : MonoBehaviour
     public void Init(StaffStatsSO stats)
     {
         Data = stats;
-        Data.level = 1;
+        RuntimeData.level = 1;
         RecalculateStats();
         // Manager에 등록하여 루틴을 제어
         StaffManager.Instance.RegisterStaff(this);
@@ -36,8 +36,8 @@ public class StaffBehavior : MonoBehaviour
 
     private void RecalculateStats()
     {
-        currentAttackPower = Data.attack_Power + Data.attack_PowerPerLevel * (Data.level - 1);
-        currentAttackSpeed = Data.attack_Speed + Data.attack_SpeedPerLevel * (Data.level - 1);
+        currentAttackPower = Data.basic_attack_Power + (RuntimeData.level * 0.1);
+        currentAttackSpeed = Data.basic_attack_Speed + (RuntimeData.level - 1);
     }
 
     // Manager가 호출하는 메서드
@@ -91,7 +91,7 @@ public class StaffBehavior : MonoBehaviour
     }
     public void LevelUp()
     {
-        Data.level++;
+        RuntimeData.level++;
         RecalculateStats();
     }
 }

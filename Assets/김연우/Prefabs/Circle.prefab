@@ -101,3 +101,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stats: {fileID: 11400000, guid: 9613c8cec24b4324e8ef553e65d33481, type: 2}
+  Runtimestats: {fileID: 11400000, guid: 0710c59b58182954381060ff210ec24b, type: 2}

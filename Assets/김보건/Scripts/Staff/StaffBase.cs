@@ -3,28 +3,27 @@ using UnityEngine;
 public class StaffBase : MonoBehaviour
 {
     StaffStatsSO data;
-
+    RuntimeStaffStatsSO Runtimedata;
     protected double currentAttackPower;
     protected double currentAttackSpeed;
 
-    public virtual void Init(StaffStatsSO stats)
+    public virtual void Init(StaffStatsSO stats, RuntimeStaffStatsSO Runtimestats) 
     {
         data = stats;
-        data.level = 1;
+        Runtimedata = Runtimestats;
+        Runtimedata.level = 1;
         RecalculateStats();
     }
 
     public virtual void LevelUp()
     {
-        data.level++;
+        Runtimedata.level++;
         RecalculateStats();
     }
 
     protected virtual void RecalculateStats()
     {
-        currentAttackPower = data.attack_Power
-                           + data.attack_PowerPerLevel * (data.level - 1);
-        currentAttackSpeed = data.attack_Speed
-                           + data.attack_SpeedPerLevel * (data.level - 1);
+        currentAttackPower = data.basic_attack_Power +  (Runtimedata.level * 0.1);
+        currentAttackSpeed = data.basic_attack_Speed + (Runtimedata.level - 1);
     }
 }

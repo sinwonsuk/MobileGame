@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0d3edaa2497bccf49ab4c4cf6538befa, type: 3}
-  m_Name: Emproyee_one
+  m_Name: Emproyee_two
   m_EditorClassIdentifier: 
-  indate: 2025-07-17T15:06:49.663Z
+  indate: 
   displayName: "\uACBD\uC601\uC9C1\uC6D01"
   staffType: 2
   explain: "\uACBD\uC601 \uC9C1\uC6D01"
