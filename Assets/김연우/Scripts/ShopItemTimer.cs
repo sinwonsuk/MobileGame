@@ -90,9 +90,9 @@ public class ShopItemTimer : MonoBehaviour
         foreach (var reward in rewards)
         {
             var data = reward.ingredientData;
-            InventoryManager.Instance.AddItem(data.ingredientName, reward.amount);
+            InventoryManager.Instance.AddItem(data.indate, reward.amount);
 
-            int nowQty = InventoryManager.Instance.GetItemQty(data.ingredientName);
+            int nowQty = InventoryManager.Instance.GetItemQty(data.indate);
             Debug.Log($"[{data.ingredientName}] +{reward.amount}, 현재 수량: {nowQty}");
         }
     }
