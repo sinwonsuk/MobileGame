@@ -4,8 +4,9 @@ using UnityEngine.UI;
 
 public class StaffShopButton : MonoBehaviour
 {
-    [Header("ÇÒ´çÇÒ Á÷¿ø µ¥ÀÌÅÍ(SO)")]
+    [Header("ï¿½Ò´ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(SO)")]
     public StaffStatsSO staffData;
+    public RuntimeStaffStatsSO RuntimeStaffData;
     public Transform spawnPoint;
     public Button purchaseButton;
     StaffStatsSO staff;
@@ -18,9 +19,9 @@ public class StaffShopButton : MonoBehaviour
     void Awake()
     {
         money = staffData.baseSalary;
-        if (spawnPoint == null)// ¿¡µðÅÍ¿¡¼­ ¿¬°áÇØµÎÁö ¾Ê¾Ò´Ù¸é
+        if (spawnPoint == null)// ï¿½ï¿½ï¿½ï¿½ï¿½Í¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Øµï¿½ï¿½ï¿½ ï¿½Ê¾Ò´Ù¸ï¿½
         {
-            var parent = GameObject.Find("MapParent");
+            var parent = GameObject.Find("MapPoint");
             switch (num1)
             {
                 case "first":
@@ -30,7 +31,7 @@ public class StaffShopButton : MonoBehaviour
                     }
                     else
                     {
-                        Debug.LogWarning("MapParent°¡ ¾ø°Å³ª ÀÚ½ÄÀÌ ¾ø½À´Ï´Ùrrrr.");
+                        Debug.LogWarning("MapParentï¿½ï¿½ ï¿½ï¿½ï¿½Å³ï¿½ ï¿½Ú½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½rrrr.");
                     }
                     break;
                 case "second":
@@ -40,7 +41,7 @@ public class StaffShopButton : MonoBehaviour
                     }
                     else
                     {
-                        Debug.LogWarning("MapParent°¡ ¾ø°Å³ª ÀÚ½ÄÀÌ ¾ø½À´Ï´Ùrrrr.");
+                        Debug.LogWarning("MapParentï¿½ï¿½ ï¿½ï¿½ï¿½Å³ï¿½ ï¿½Ú½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½rrrr.");
                     }
                     break;
                 case "third":
@@ -50,7 +51,7 @@ public class StaffShopButton : MonoBehaviour
                     }
                     else
                     {
-                        Debug.LogWarning("MapParent°¡ ¾ø°Å³ª ÀÚ½ÄÀÌ ¾ø½À´Ï´Ùrrrr.");
+                        Debug.LogWarning("MapParentï¿½ï¿½ ï¿½ï¿½ï¿½Å³ï¿½ ï¿½Ú½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½rrrr.");
                     }
                     break;
                 case "forth":
@@ -60,7 +61,7 @@ public class StaffShopButton : MonoBehaviour
                     }
                     else
                     {
-                        Debug.LogWarning("MapParent°¡ ¾ø°Å³ª ÀÚ½ÄÀÌ ¾ø½À´Ï´Ùrrrr.");
+                        Debug.LogWarning("MapParentï¿½ï¿½ ï¿½ï¿½ï¿½Å³ï¿½ ï¿½Ú½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½rrrr.");
                     }
                     break;
 
@@ -79,28 +80,28 @@ public class StaffShopButton : MonoBehaviour
     void OnButtonClicked()
     {
         EventBus<MoneyChangeMusHandler>.Raise(new MoneyChangeMusHandler(money));
-        money = staffData.baseSalary * staffData.level;
+        money = staffData.baseSalary * RuntimeStaffData.level;
         if (_spawnedStaff == null)
         {
             if (spawnPoint != null)
             {
-                // -- Ã¹ ±¸¸Å --
+                // -- Ã¹ ï¿½ï¿½ï¿½ï¿½ --
                 var go = Instantiate(staffData.itemPrefab,
                                      spawnPoint.position,
                                      spawnPoint.rotation);
                 _spawnedStaff = go.GetComponent<StaffBase>();
-                _spawnedStaff.Init(staffData);
+                _spawnedStaff.Init(staffData, RuntimeStaffData);
             }
 
 
             _buttonText.text = "Upgrade";
-            level_num.text = $"Lv. {staffData.level}";
+            level_num.text = $"Lv. {RuntimeStaffData.level}";
         }
         else
         {
-            // -- ·¹º§¾÷(¾÷±×·¹ÀÌµå) --
+            // -- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½ï¿½×·ï¿½ï¿½Ìµï¿½) --
             _spawnedStaff.LevelUp();
-            level_num.text = $"Lv. {staffData.level}";
+            level_num.text = $"Lv. {RuntimeStaffData.level}";
         }
     }
 }
@@ -110,7 +111,7 @@ using UnityEngine.UI;
 
 public class StaffShopButton : MonoBehaviour
 {
-    [Header("ÇÒ´çÇÒ Á÷¿ø µ¥ÀÌÅÍ(SO)")]
+    [Header("ï¿½Ò´ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(SO)")]
     public StaffStatsSO staffData;
     public Transform spawnPoint;
     public Button purchaseButton;
@@ -121,7 +122,7 @@ public class StaffShopButton : MonoBehaviour
     public StaffType staff123;
     void Awake()
     {
-        if (spawnPoint == null)// ¿¡µðÅÍ¿¡¼­ ¿¬°áÇØµÎÁö ¾Ê¾Ò´Ù¸é
+        if (spawnPoint == null)// ï¿½ï¿½ï¿½ï¿½ï¿½Í¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Øµï¿½ï¿½ï¿½ ï¿½Ê¾Ò´Ù¸ï¿½
         {
             if (staff123 == StaffType.hunter)
             {
@@ -132,7 +133,7 @@ public class StaffShopButton : MonoBehaviour
                 }
                 else
                 {
-                    Debug.LogWarning("MapParent°¡ ¾ø°Å³ª ÀÚ½ÄÀÌ ¾ø½À´Ï´Ùrrrr.");
+                    Debug.LogWarning("MapParentï¿½ï¿½ ï¿½ï¿½ï¿½Å³ï¿½ ï¿½Ú½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½rrrr.");
                 }
             }
             else if (staff123 == StaffType.restaurant)
@@ -144,7 +145,7 @@ public class StaffShopButton : MonoBehaviour
                 }
                 else
                 {
-                    Debug.LogWarning("MapParent°¡ ¾ø°Å³ª ÀÚ½ÄÀÌ ¾ø½À´Ï´Ù.gaewe");
+                    Debug.LogWarning("MapParentï¿½ï¿½ ï¿½ï¿½ï¿½Å³ï¿½ ï¿½Ú½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.gaewe");
                 }
 
             }
@@ -164,7 +165,7 @@ public class StaffShopButton : MonoBehaviour
         {
             if (spawnPoint != null)
             {
-                // -- Ã¹ ±¸¸Å --
+                // -- Ã¹ ï¿½ï¿½ï¿½ï¿½ --
                 var go = Instantiate(staffData.itemPrefab,
                                      spawnPoint.position,
                                      spawnPoint.rotation);
@@ -178,7 +179,7 @@ public class StaffShopButton : MonoBehaviour
         }
         else
         {
-            // -- ·¹º§¾÷(¾÷±×·¹ÀÌµå) --
+            // -- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½ï¿½×·ï¿½ï¿½Ìµï¿½) --
             _spawnedStaff.LevelUp();
             level_num.text = $"Lv. {staffData.level}";
         }

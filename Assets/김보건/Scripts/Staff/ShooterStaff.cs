@@ -23,9 +23,9 @@ public class ShooterStaff : StaffBase
 
     Transform boss;
 
-    public override void Init(StaffStatsSO stats)
+    public override void Init(StaffStatsSO stats, RuntimeStaffStatsSO Runtimestats)
     {
-        base.Init(stats);
+        base.Init(stats, Runtimestats);
         StartCoroutine(FindAndShoot());
     }
 

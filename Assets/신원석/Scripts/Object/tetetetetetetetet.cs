@@ -6,18 +6,19 @@ public class tetetetetetetetet : StaffBase
 {
     [Header("할당할 StaffStatsSO")]
     public StaffStatsSO stats;              // Inspector 에 할당
+    public RuntimeStaffStatsSO Runtimestats;
     public List<Customer> customers { get; set; } = new List<Customer>();
 
     public Queue<Cook> Cooks { get; set; } = new Queue<Cook>();
 
     private bool isWorking = true;        // 현재 일하는 중인가?
-    private float timeCounter;              // 남은 시간 카운터
+    private double timeCounter;              // 남은 시간 카운터
     private void Start()
     {
         EventBus<GetCusomersEvent>.Raise(new GetCusomersEvent(this));
         EventBus<GetFirstCookEvent>.Raise(new GetFirstCookEvent(this));
 
-        timeCounter = stats.timer;
+        timeCounter = Runtimestats.timer;
     }
 
 
@@ -32,13 +33,13 @@ public class tetetetetetetetet : StaffBase
             {
                 // 일끝 → 휴식
                 isWorking = false;
-                timeCounter = stats.cooltime;
+                timeCounter = Runtimestats.cooltime;
             }
             else
             {
                 // 휴식끝 → 다시 일
                 isWorking = true;
-                timeCounter = stats.timer;
+                timeCounter = Runtimestats.timer;
             }
         }
 

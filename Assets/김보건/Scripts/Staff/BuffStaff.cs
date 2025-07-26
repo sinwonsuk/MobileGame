@@ -7,9 +7,9 @@ public class BuffStaff : StaffBase
     [SerializeField] float buffRange = 5f;
     [SerializeField] LayerMask allyLayer;
 
-    public override void Init(StaffStatsSO stats)
+    public override void Init(StaffStatsSO stats, RuntimeStaffStatsSO Runtimestats)
     {
-        base.Init(stats);
+        base.Init(stats, Runtimestats);
         StartCoroutine(ApplyBuff());
     }
 
