@@ -18,8 +18,13 @@ public class EnemyBase : MonoBehaviour
     protected float invincibleTime = 6f;   // 무적 지속시간 (1초)
     private float spawnTime;               // 스폰된 시간
 
+    private Vector3 logicalPosition;  // 이동 좌표 기준
     private Vector3 hitShakeOffset = Vector3.zero;
+    private Coroutine shakeCoroutine;
     public Vector3 basePosition;
+    private Transform playerTarget;
+
+    protected float moveSpeed = 0.5f;
 
     protected bool isDead = false;
 
@@ -28,17 +33,27 @@ public class EnemyBase : MonoBehaviour
         currentHp = maxHp; 
         spawnTime = Time.time;
 
+        playerTarget = GameObject.FindGameObjectWithTag("Player")?.transform;
+
         hpBar = GetComponentInChildren<HPBar>();
         if (hpBarPrefab != null)
         {
             hpBar.SetHP(currentHp, maxHp);
         }
+
+        logicalPosition = transform.position;
     }
 
     public virtual void Update()
     {
         // 내려오는 위치 + 맞을때 흔들림
-        transform.position = basePosition + hitShakeOffset;
+        //transform.position = basePosition + hitShakeOffset;
+
+        Vector3 direction = (playerTarget.position - logicalPosition).normalized;
+        logicalPosition += direction * moveSpeed * Time.deltaTime;
+
+        // 흔들림이 포함된 실제 위치로 표시
+        transform.position = logicalPosition + hitShakeOffset;
     }
 
     public void SetBasePosition(Vector3 pos)
@@ -49,14 +64,18 @@ public class EnemyBase : MonoBehaviour
 
     public virtual void TakeDamage(double damage)
     {
-        if (Time.time - spawnTime < invincibleTime) return;
+        //if (Time.time - spawnTime < invincibleTime) return;
 
         currentHp -= damage;
 
         if (hpBar != null)
             hpBar.SetHP(currentHp, maxHp);
 
-        StartCoroutine(HitShake());
+
+        if (shakeCoroutine != null)
+            StopCoroutine(shakeCoroutine);
+
+        shakeCoroutine = StartCoroutine(HitShake());
 
         if (currentHp <= 0)
         {
@@ -71,6 +90,8 @@ public class EnemyBase : MonoBehaviour
         Debug.Log($"{gameObject.name} 죽음");
         FindFirstObjectByType<MonsterSpawner>()?.ResetSpawnFlag();
         DropItem();
+
+        FindAnyObjectByType<MonsterSpawner>()?.MonsterKilled();
 
         Animator animator = GetComponent<Animator>();
         if (animator != null)

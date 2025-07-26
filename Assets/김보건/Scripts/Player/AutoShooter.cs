@@ -1,6 +1,8 @@
 using Unity.IO.LowLevel.Unsafe;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using static UnityEngine.GraphicsBuffer;
+using UnityEngine.InputSystem;
 
 public class AutoShooter : MonoBehaviour
 {
@@ -22,16 +24,40 @@ public class AutoShooter : MonoBehaviour
 
     private bool isShopOpen = false; // UI Shop 열림 여부
 
+    private InputAction attackAction;
+
     void OnEnable()
     {
         EventBus<ShopUIEvent>.OnEvent += OnShopUIEvent;
         EventBus<StatChangedEvent>.OnEvent += OnStatChanged;
+        attackAction = new InputAction(type: InputActionType.Button, binding: "<Pointer>/press"); // 마우스와 터치 대응
+        attackAction.performed += OnAttackInput;
+        attackAction.Enable();
     }
 
     void OnDisable()
     {
         EventBus<ShopUIEvent>.OnEvent -= OnShopUIEvent;
         EventBus<StatChangedEvent>.OnEvent -= OnStatChanged;
+
+        attackAction.performed -= OnAttackInput;
+        attackAction.Disable();
+    }
+
+    private void OnAttackInput(InputAction.CallbackContext context)
+    {
+        if (EventSystem.current.IsPointerOverGameObject()) return;
+        if (isShopOpen) return;
+
+        if (currentState == idleState)
+        {
+            TouchAttack();
+        }
+        else if (currentState == attackState)
+        {
+            TouchAttack();
+            timer = 0f;
+        }
     }
 
     private void OnShopUIEvent(ShopUIEvent evt)
@@ -61,34 +87,34 @@ public class AutoShooter : MonoBehaviour
         if (EventSystem.current.IsPointerOverGameObject()) return;
         if (isShopOpen) return;
 
-    #if UNITY_EDITOR
-        if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
-        {
-            if (currentState == idleState)
-            {
-                TouchAttack();
-            }
-            else if (currentState == attackState)
-            {
-                TouchAttack();
-                timer = 0f;
-            }
-        }
-    #else
-        if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began &&
-            !EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId))
-        {
-                    if (currentState == idleState)
-        {
-            TouchAttack();
-        }
-        else if (currentState == attackState)
-        {
-            TouchAttack();
-            timer = 0f;
-        }
-        }
-    #endif
+    //#if UNITY_EDITOR
+    //    if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
+    //    {
+    //        if (currentState == idleState)
+    //        {
+    //            TouchAttack();
+    //        }
+    //        else if (currentState == attackState)
+    //        {
+    //            TouchAttack();
+    //            timer = 0f;
+    //        }
+    //    }
+    //#else
+    //    if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began &&
+    //        !EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId))
+    //    {
+    //                if (currentState == idleState)
+    //    {
+    //        TouchAttack();
+    //    }
+    //    else if (currentState == attackState)
+    //    {
+    //        TouchAttack();
+    //        timer = 0f;
+    //    }
+    //    }
+    //#endif
     }
 
     public void SetState(IShooterState newState)
@@ -158,6 +184,7 @@ public class AutoShooter : MonoBehaviour
         GameObject bulletObj = Instantiate(data.bulletPrefab, firePoint.position, Quaternion.identity);
         BaseBullet bullet = bulletObj.GetComponent<BaseBullet>();
         bullet.Initialize(direction, data.speed, data.damage);
+
     }
 
     public bool IsEnemyNearby()
@@ -187,7 +214,14 @@ public class AutoShooter : MonoBehaviour
     public void OnShootFrame() // 애니메이션 호출 함수
     {
         BulletData data = bulletManager.GetCurrentBullet();
-        Vector2 shootDirection = Vector2.up;
+
+        Vector2 shootDirection;
+
+        Transform target = FindEnemy();
+        if (target != null)
+            shootDirection = (target.position - firePoint.position).normalized;
+        else
+            shootDirection = Vector2.up; // 적 없으면 위로
 
         SpawnBullet(shootDirection, data);
     }
@@ -205,23 +239,23 @@ public class AutoShooter : MonoBehaviour
         Debug.Log($"[AutoShooter] Stat changed: {evt.changedStatType}, fireInterval: {fireInterval}, damage: {bulletManager.GetCurrentBullet().damage}");
     }
 
-    //Transform FindEnemy()
-    //{
-    //    GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+    Transform FindEnemy()
+    {
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
 
-    //    Transform nearest = null;
-    //    float minDist = Mathf.Infinity;
+        Transform nearest = null;
+        float minDist = Mathf.Infinity;
 
-    //    foreach (GameObject enemy in enemies)
-    //    {
-    //        float dist = Vector2.Distance(firePoint.position, enemy.transform.position);
-    //        if (dist < minDist && dist <= enemyDetectRange)
-    //        {
-    //            minDist = dist;
-    //            nearest = enemy.transform;
-    //        }
-    //    }
+        foreach (GameObject enemy in enemies)
+        {
+            float dist = Vector2.Distance(firePoint.position, enemy.transform.position);
+            if (dist < minDist && dist <= enemyDetectRange)
+            {
+                minDist = dist;
+                nearest = enemy.transform;
+            }
+        }
 
-    //    return nearest;
-    //}
+        return nearest;
+    }
 }

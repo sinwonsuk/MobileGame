@@ -81,7 +81,18 @@ public class DungeonManager : baseManager
 
         var map = Object.Instantiate(floorData.mapPrefab, config.mapParent);
 
-        map.GetComponentInChildren<MonsterSpawner>()?.SpawnNextStage();
+        //map.GetComponentInChildren<MonsterSpawner>()?.SpawnNextStage();
+
+        var spawner = map.GetComponentInChildren<MonsterSpawner>();
+
+        if (config.selectedFloorData.IsLastStage())
+        {
+            spawner?.SpawnNextStage(); // 보스 한 마리 소환
+        }
+        else
+        {
+            spawner?.StartMonsterWave(); // 일반 몬스터 50마리 순차 리스폰
+        }
 
         var spawn = map.transform.Find("PlayerSpawnPoint");
         Object.Instantiate(config.playerPrefab, spawn != null ? spawn.position : Vector3.zero, Quaternion.identity);
@@ -119,8 +130,27 @@ public class DungeonManager : baseManager
 
         // 새 맵 인스턴스화
         var newMapPrefab = Config.mapDatabase.GetMapPrefab(floor);
-        if (newMapPrefab != null)
-            Object.Instantiate(newMapPrefab, Config.mapParent);
+        if (newMapPrefab == null)
+        {
+            Debug.LogError("맵 프리팹 없음");
+            return;
+        }
+
+        var mapInstance = Object.Instantiate(newMapPrefab, Config.mapParent);
+
+        // 3) 스포너에서 웨이브/보스 시작
+        var spawner = mapInstance.GetComponentInChildren<MonsterSpawner>();
+        if (spawner == null)
+        {
+            Debug.LogError("MonsterSpawner를 찾을 수 없음");
+            return;
+        }
+
+        // 스테이지는 ResetStage()로 1이 된 상태라고 가정
+        if (Config.selectedFloorData.IsLastStage())
+            spawner.SpawnNextStage();     // 보스 1마리
+        else
+            spawner.StartMonsterWave();
     }
 
     public void ExitDungeon()

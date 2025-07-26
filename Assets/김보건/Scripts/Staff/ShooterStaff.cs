@@ -15,6 +15,8 @@ public class ShooterStaff : StaffBase
     [Header("스킬")]
     [SerializeField] private GameObject bigBulletSkillPrefab;
     [SerializeField] private float skillCooldown = 5f;
+    private float originalCooldown;
+
 
     private ISkill bigBulletSkill;
     private SkillCooldownBar skillCooldownBar;
@@ -27,6 +29,13 @@ public class ShooterStaff : StaffBase
         StartCoroutine(FindAndShoot());
     }
 
+    public float SkillCooldown
+    {
+        get => skillCooldown;
+        set => skillCooldown = value;
+    }
+
+
     void Start()
     {
         if (bigBulletSkillPrefab != null)
@@ -34,6 +43,8 @@ public class ShooterStaff : StaffBase
             var go = Instantiate(bigBulletSkillPrefab, transform);
             bigBulletSkill = go.GetComponent<ISkill>();
         }
+
+        originalCooldown = skillCooldown;
 
         skillCooldownBar = GetComponentInChildren<SkillCooldownBar>();
         if (skillCooldownBar != null && bigBulletSkill is BigBulletSkill concreteSkill)
@@ -116,5 +127,11 @@ public class ShooterStaff : StaffBase
 
         if (go.TryGetComponent<Rigidbody2D>(out var rb))
             rb.AddForce(direction * (float)currentAttackPower, ForceMode2D.Impulse);
+    }
+
+    public void ResetCooldown()
+    {
+        skillCooldown = originalCooldown;
+        Debug.Log("쿨타임 복구");
     }
 }
