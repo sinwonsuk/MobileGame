@@ -5,8 +5,9 @@ using UnityEngine.UI;
 
 public class StaffShopButton1 : MonoBehaviour
 {
-    [Header("ÇÒ´çÇÒ Á÷¿ø µ¥ÀÌÅÍ(SO)")]
+    [Header("ï¿½Ò´ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(SO)")]
     public StaffStatsSO staffData1;
+    public RuntimeStaffStatsSO RuntimestaffData1;
     public Transform spawnPoint1;
     public Button purchaseButton1;
     StaffStatsSO staff1;
@@ -18,10 +19,10 @@ public class StaffShopButton1 : MonoBehaviour
     void Awake()
     {
         money = staffData1.baseSalary;
-        if (spawnPoint1 == null)// ¿¡µðÅÍ¿¡¼­ ¿¬°áÇØµÎÁö ¾Ê¾Ò´Ù¸é
+        if (spawnPoint1 == null)// ï¿½ï¿½ï¿½ï¿½ï¿½Í¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Øµï¿½ï¿½ï¿½ ï¿½Ê¾Ò´Ù¸ï¿½
         {
 
-            var parent1 = GameObject.Find("MapParent");
+            var parent1 = GameObject.Find("MapPoint");
             if (parent1 != null && parent1.transform.childCount > 0)
             {
                 spawnPoint1 = parent1.transform.GetChild(4);
@@ -41,29 +42,29 @@ public class StaffShopButton1 : MonoBehaviour
     void OnButtonClicked()
     {
         EventBus<MoneyChangeMusHandler>.Raise(new MoneyChangeMusHandler(money));
-        money = staffData1.baseSalary * staffData1.level;
+        money = staffData1.baseSalary * RuntimestaffData1.level;
         if (_spawnedStaff1 == null)
         {
 
             if (spawnPoint1 != null)
             {
-                // -- Ã¹ ±¸¸Å --
+                // -- Ã¹ ï¿½ï¿½ï¿½ï¿½ --
                 var go = Instantiate(staffData1.itemPrefab,
                                      spawnPoint1.position,
                                      spawnPoint1.rotation);
                 _spawnedStaff1 = go.GetComponent<StaffBase>();
-                _spawnedStaff1.Init(staffData1);
+                _spawnedStaff1.Init(staffData1, RuntimestaffData1);
             }
 
 
             _buttonText1.text = "Upgrade";
-            level_num1.text = $"Lv. {staffData1.level}";
+            level_num1.text = $"Lv. {RuntimestaffData1.level}";
         }
         else
         {
-            // -- ·¹º§¾÷(¾÷±×·¹ÀÌµå) --
+            // -- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½ï¿½×·ï¿½ï¿½Ìµï¿½) --
             _spawnedStaff1.LevelUp();
-            level_num1.text = $"Lv. {staffData1.level}";
+            level_num1.text = $"Lv. {RuntimestaffData1.level}";
         }
     }
 }

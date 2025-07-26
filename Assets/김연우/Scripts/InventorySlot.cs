@@ -13,6 +13,7 @@ public class InventorySlot
         this.runTimeIngredientData = runTimeIngredientData;
 
         this.runTimeIngredientData.ingredientName = ingredient.ingredientName;
+        this.runTimeIngredientData.indate = ingredient.indate;
         quantity = this.runTimeIngredientData.ingredientQty;
     }
 }

@@ -679,10 +679,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   staffData: {fileID: 11400000, guid: 4a75a7518e870e64389bc691d8a7e591, type: 2}
+  RuntimeStaffData: {fileID: 0}
   spawnPoint: {fileID: 0}
   purchaseButton: {fileID: 8360716656577544675}
   _buttonText: {fileID: 1192647099589081663}
   level_num: {fileID: 6836978594318029369}
+  staff123: 0
+  num1: 
+  money: 0
 --- !u!1 &7648590890411457053
 GameObject:
   m_ObjectHideFlags: 0
