@@ -115,12 +115,10 @@ public class CSVTableUploader : MonoBehaviour
 		}
 	}
 
-
-
 	IEnumerator LoadAllServerData(string tableName, List<string> keyColumns, Dictionary<string, LitJson.JsonData> serverDataMap)
 	{
-		string offset = "";
-		int limit = 100;
+		string offset = null;
+		const int limit = 100;
 		bool isEnd = false;
 
 		while (!isEnd)
@@ -128,11 +126,22 @@ public class CSVTableUploader : MonoBehaviour
 			bool isDone = false;
 			BackendReturnObject bro = null;
 
-			Backend.GameData.Get(tableName, new Where(), limit, offset, callback =>
+			if (string.IsNullOrEmpty(offset))
 			{
-				bro = callback;
-				isDone = true;
-			});
+				Backend.GameData.Get(tableName, new Where(), limit, callback =>
+				{
+					bro = callback;
+					isDone = true;
+				});
+			}
+			else
+			{
+				Backend.GameData.Get(tableName, new Where(), limit, offset, callback =>
+				{
+					bro = callback;
+					isDone = true;
+				});
+			}
 
 			yield return new WaitUntil(() => isDone);
 
@@ -142,23 +151,24 @@ public class CSVTableUploader : MonoBehaviour
 				yield break;
 			}
 
-			foreach (LitJson.JsonData row in bro.FlattenRows())
+			var rows = bro.FlattenRows();
+			foreach (LitJson.JsonData row in rows)
 			{
 				string key = CreateCompositeKey(row, keyColumns);
 				serverDataMap[key] = row;
 			}
 
-			//  JSON 수동 파싱해서 offset 추출
 			try
 			{
 				var json = LitJson.JsonMapper.ToObject(bro.GetReturnValue());
-				if (json.ContainsKey("offset"))
+
+				if (json.ContainsKey("firstKey") && json["firstKey"] != null)
 				{
-					offset = json["offset"].ToString();
+					offset = json["firstKey"].ToJson();  // 전체 JSON 구조 직렬화
 				}
 				else
 				{
-					isEnd = true; // offset 없으면 더 이상 없음
+					isEnd = true;  // 더 이상 데이터 없음
 				}
 			}
 			catch (Exception e)
@@ -166,8 +176,10 @@ public class CSVTableUploader : MonoBehaviour
 				Debug.LogWarning($"[WARN] offset 파싱 실패 → 종료 처리: {e.Message}");
 				isEnd = true;
 			}
+
 		}
 	}
+
 
 
 	static string CleanCollapse(string s)
@@ -232,5 +244,6 @@ public class CSVTableUploader : MonoBehaviour
 		{ "EQUIPMENT_EFFECTS", new List<string> { "effectIndate" } },
 		{ "EMPLOYEE_MASTER", new List<string> { "employeeName" } },
 		{ "FOOD_GRADES", new List<string> { "foodIndate", "grade" } }
+
 	};
 }

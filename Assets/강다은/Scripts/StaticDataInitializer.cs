@@ -73,7 +73,7 @@ public class StaticDataInitializer : MonoBehaviour
 
 	IEnumerator LoadTableData(string tableName, System.Action<LitJson.JsonData> applyAction)
 	{
-		string offset = "";
+		string firstKey = null;
 		const int limit = 100;
 		bool isEnd = false;
 
@@ -82,11 +82,24 @@ public class StaticDataInitializer : MonoBehaviour
 			bool isDone = false;
 			BackendReturnObject bro = null;
 
-			Backend.GameData.Get(tableName, new Where(), limit, offset, callback =>
+			// 첫 요청이면 firstKey 없이
+			if (string.IsNullOrEmpty(firstKey))
 			{
-				bro = callback;
-				isDone = true;
-			});
+				Backend.GameData.Get(tableName, new Where(), limit, callback =>
+				{
+					bro = callback;
+					isDone = true;
+				});
+			}
+			else
+			{
+				// firstKey로 이어받기
+				Backend.GameData.Get(tableName, new Where(), limit, firstKey, callback =>
+				{
+					bro = callback;
+					isDone = true;
+				});
+			}
 
 			yield return new WaitUntil(() => isDone);
 
@@ -97,23 +110,32 @@ public class StaticDataInitializer : MonoBehaviour
 			}
 
 			var rows = bro.FlattenRows();
-
 			foreach (LitJson.JsonData row in rows)
 			{
 				applyAction(row);
 			}
 
-
-			if (rows.Count < limit)
+			// 다음 firstKey 추출
+			try
 			{
-				isEnd = true;
+				var json = LitJson.JsonMapper.ToObject(bro.GetReturnValue());
+				if (json.ContainsKey("firstKey") && json["firstKey"] != null)
+				{
+					firstKey = json["firstKey"]["inDate"]["S"].ToString();
+				}
+				else
+				{
+					isEnd = true;
+				}
 			}
-			else
+			catch (Exception e)
 			{
-				offset = rows[rows.Count - 1]["inDate"].ToString();
+				Debug.LogWarning($"[WARN] firstKey 파싱 실패 → 종료 처리: {e.Message}");
+				isEnd = true;
 			}
 		}
 	}
+
 
 	[SerializeField] private List<IngredientData> ingredientDataList;
 	[SerializeField] private List<FoodData> foodDataList;

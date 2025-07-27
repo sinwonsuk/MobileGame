@@ -110,7 +110,7 @@ public class EmployeeManager : MonoBehaviour, IAutoSavable
 
 	public IEnumerator LoadEmployeeData(string ownerIndate)
 	{
-		string offset = "";
+		string firstKey = null;
 		bool isEnd = false;
 
 		while (!isEnd)
@@ -121,11 +121,22 @@ public class EmployeeManager : MonoBehaviour, IAutoSavable
 			var where = new Where();
 			where.Equal("owner_inDate", ownerIndate);
 
-			Backend.GameData.Get("EMPLOYEE_PLAYER", where, 100, offset, callback =>
+			if (string.IsNullOrEmpty(firstKey))
 			{
-				bro = callback;
-				isDone = true;
-			});
+				Backend.GameData.Get("EMPLOYEE_PLAYER", where, 100, callback =>
+				{
+					bro = callback;
+					isDone = true;
+				});
+			}
+			else
+			{
+				Backend.GameData.Get("EMPLOYEE_PLAYER", where, 100, firstKey, callback =>
+				{
+					bro = callback;
+					isDone = true;
+				});
+			}
 
 			yield return new WaitUntil(() => isDone);
 
@@ -152,15 +163,29 @@ public class EmployeeManager : MonoBehaviour, IAutoSavable
 				}
 			}
 
-			var json = LitJson.JsonMapper.ToObject(bro.GetReturnValue());
-			offset = json.ContainsKey("offset") ? json["offset"].ToString() : null;
-			isEnd = string.IsNullOrEmpty(offset);
+			try
+			{
+				var json = LitJson.JsonMapper.ToObject(bro.GetReturnValue());
+				if (json.ContainsKey("firstKey") && json["firstKey"] != null)
+				{
+					firstKey = json["firstKey"]["inDate"]["S"].ToString();
+				}
+				else
+				{
+					isEnd = true;
+				}
+			}
+			catch (Exception e)
+			{
+				Debug.LogWarning($"[LoadEmployeeData] firstKey 파싱 실패 -> 종료 처리: {e.Message}");
+				isEnd = true;
+			}
 		}
 
 		employeeDataLoaded = true;
-
 		AutoSaveManager.Instance?.RegisterAutoSavable(this);
 	}
+
 
 	public void AutoSave()
 	{

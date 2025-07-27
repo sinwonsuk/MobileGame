@@ -117,7 +117,7 @@ public class InventoryManager : MonoBehaviour, IAutoSavable
 
 	public IEnumerator InsertInventoryIfNotExists(string ownerIndate)
 	{
-		string offset = "";
+		string firstKey = null;
 		const int limit = 100;
 		bool isEnd = false;
 
@@ -130,14 +130,24 @@ public class InventoryManager : MonoBehaviour, IAutoSavable
 
 			var where = new Where();
 			where.Equal("owner_inDate", ownerIndate);
-			//Debug.Log("[확인용] 현재 ownerIndate: " + ownerIndate);
 			where.Equal("inventoryItemType", "Ingredient");
 
-			Backend.GameData.Get("INVENTORY", where, limit, offset, callback =>
+			if (string.IsNullOrEmpty(firstKey))
 			{
-				bro = callback;
-				isDone = true;
-			});
+				Backend.GameData.Get("INVENTORY", where, limit, callback =>
+				{
+					bro = callback;
+					isDone = true;
+				});
+			}
+			else
+			{
+				Backend.GameData.Get("INVENTORY", where, limit, firstKey, callback =>
+				{
+					bro = callback;
+					isDone = true;
+				});
+			}
 
 			yield return new WaitUntil(() => isDone);
 
@@ -147,7 +157,6 @@ public class InventoryManager : MonoBehaviour, IAutoSavable
 				yield break;
 			}
 
-
 			var rows = bro.FlattenRows();
 
 			if (rows == null || rows.Count == 0)
@@ -155,18 +164,12 @@ public class InventoryManager : MonoBehaviour, IAutoSavable
 				Debug.LogWarning("[InsertInventoryIfNotExists] 서버에서 받은 INVENTORY row 없음!");
 			}
 
-			//foreach (LitJson.JsonData row in rows)
-			//{
-			//	Debug.Log("[Debug 구조 확인] row: " + row.ToJson());
-			//}
-
 			foreach (LitJson.JsonData row in rows)
 			{
 				if (row.ContainsKey("inventoryItemIndate"))
 				{
 					string itemIndate = row["inventoryItemIndate"].ToString().Trim();
 					existingIndates.Add(itemIndate);
-					//Debug.Log($"[중복 체크용] 기존 indate: {itemIndate}");
 				}
 				else
 				{
@@ -177,14 +180,18 @@ public class InventoryManager : MonoBehaviour, IAutoSavable
 			try
 			{
 				var json = LitJson.JsonMapper.ToObject(bro.GetReturnValue());
-				if (json.ContainsKey("offset"))
-					offset = json["offset"].ToString();
+				if (json.ContainsKey("firstKey") && json["firstKey"] != null)
+				{
+					firstKey = json["firstKey"]["inDate"]["S"].ToString();
+				}
 				else
+				{
 					isEnd = true;
+				}
 			}
 			catch (Exception e)
 			{
-				Debug.LogWarning($"[Inventory] offset 파싱 실패 - 종료 처리: {e.Message}");
+				Debug.LogWarning($"[Inventory] firstKey 파싱 실패 - 종료 처리: {e.Message}");
 				isEnd = true;
 			}
 		}
@@ -237,7 +244,7 @@ public class InventoryManager : MonoBehaviour, IAutoSavable
 
 	public IEnumerator LoadUserInventory(string ownerIndate)
 	{
-		string offset = "";
+		string firstKey = null;
 		const int limit = 100;
 		bool isEnd = false;
 
@@ -250,11 +257,22 @@ public class InventoryManager : MonoBehaviour, IAutoSavable
 			where.Equal("owner_inDate", ownerIndate);
 			where.Equal("inventoryItemType", "Ingredient");
 
-			Backend.GameData.Get("INVENTORY", where, limit, offset, callback =>
+			if (string.IsNullOrEmpty(firstKey))
 			{
-				bro = callback;
-				isDone = true;
-			});
+				Backend.GameData.Get("INVENTORY", where, limit, callback =>
+				{
+					bro = callback;
+					isDone = true;
+				});
+			}
+			else
+			{
+				Backend.GameData.Get("INVENTORY", where, limit, firstKey, callback =>
+				{
+					bro = callback;
+					isDone = true;
+				});
+			}
 
 			yield return new WaitUntil(() => isDone);
 
@@ -279,9 +297,9 @@ public class InventoryManager : MonoBehaviour, IAutoSavable
 			try
 			{
 				var json = LitJson.JsonMapper.ToObject(bro.GetReturnValue());
-				if (json.ContainsKey("offset"))
+				if (json.ContainsKey("firstKey") && json["firstKey"] != null)
 				{
-					offset = json["offset"].ToString();
+					firstKey = json["firstKey"]["inDate"]["S"].ToString();
 				}
 				else
 				{
@@ -290,7 +308,7 @@ public class InventoryManager : MonoBehaviour, IAutoSavable
 			}
 			catch (Exception e)
 			{
-				Debug.LogWarning($"[Inventory] offset 파싱 실패 -> 종료 처리: {e.Message}");
+				Debug.LogWarning($"[Inventory] firstKey 파싱 실패 -> 종료 처리: {e.Message}");
 				isEnd = true;
 			}
 		}
@@ -302,6 +320,7 @@ public class InventoryManager : MonoBehaviour, IAutoSavable
 
 		Debug.Log("[Inventory] 유저 인벤토리 데이터 로드 완료");
 	}
+
 
 	public void SaveInventory()
 	{
@@ -398,10 +417,6 @@ public class InventoryManager : MonoBehaviour, IAutoSavable
 			if (staticData != null)
 			{
 				runtime.ingredientName = staticData.ingredientName;
-			}
-			else
-			{
-				Debug.LogWarning($"[초기화 실패] {runtime.indate} 에 해당하는 마스터 직원 데이터가 없습니다.");
 			}
 		}
 	}
