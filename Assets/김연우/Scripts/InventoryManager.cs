@@ -39,6 +39,8 @@ public class InventoryManager : MonoBehaviour, IAutoSavable
 
         DontDestroyOnLoad(gameObject);
 
+		InitializeDisplayNamesFromStatic();
+
 		// 초기 슬롯 세팅
 
 		for (int i = 0; i < allIngredients.Length; i++)
@@ -68,7 +70,7 @@ public class InventoryManager : MonoBehaviour, IAutoSavable
 
         foreach (var data in allRunTimeIngredients)
         {
-            if (data.ingredientName == indate)
+            if (data.indate == indate)
             {
                 return data.ingredientQty;
             }
@@ -81,7 +83,7 @@ public class InventoryManager : MonoBehaviour, IAutoSavable
     {
         foreach (var data in allRunTimeIngredients)
         {
-            if (data.ingredientName == indate)
+            if (data.indate == indate)
             {
                 data.ingredientQty += amount;
 				data.isDirty = true;
@@ -96,7 +98,7 @@ public class InventoryManager : MonoBehaviour, IAutoSavable
     {
         foreach (var data in allRunTimeIngredients)
         {
-            if (data.ingredientName == indate)
+            if (data.indate == indate)
             {
                 data.ingredientQty -= amount;
 				data.isDirty = true;
@@ -182,7 +184,7 @@ public class InventoryManager : MonoBehaviour, IAutoSavable
 			}
 			catch (Exception e)
 			{
-				Debug.LogWarning($"[Inventory] offset 파싱 실패 → 종료 처리: {e.Message}");
+				Debug.LogWarning($"[Inventory] offset 파싱 실패 - 종료 처리: {e.Message}");
 				isEnd = true;
 			}
 		}
@@ -386,6 +388,22 @@ public class InventoryManager : MonoBehaviour, IAutoSavable
 		}
 
 		Debug.Log("종료 시 변경된 인벤 데이터 저장 완료");
+	}
+
+	private void InitializeDisplayNamesFromStatic()
+	{
+		foreach (var runtime in allRunTimeIngredients)
+		{
+			var staticData = allIngredients.FirstOrDefault(s => s.indate == runtime.indate);
+			if (staticData != null)
+			{
+				runtime.ingredientName = staticData.ingredientName;
+			}
+			else
+			{
+				Debug.LogWarning($"[초기화 실패] {runtime.indate} 에 해당하는 마스터 직원 데이터가 없습니다.");
+			}
+		}
 	}
 
 	private bool inventoryLoaded = false;

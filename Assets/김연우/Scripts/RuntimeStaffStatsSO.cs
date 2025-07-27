@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "StaffStats", menuName = "Clicker/RuntimeStaff Stats")]
@@ -14,4 +15,7 @@ public class RuntimeStaffStatsSO : ScriptableObject
     [Header("경영직원")]
     public double timer;//현재 실행시간
     public double cooltime;// 현재 쉬는시간
+
+    [NonSerialized]
+    public bool isDirty = false;
 }

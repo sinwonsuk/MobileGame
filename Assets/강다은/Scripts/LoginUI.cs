@@ -264,6 +264,10 @@ public class LoginUI : MonoBehaviour
 		//인벤토리 데이터 불러오기
 		yield return StartCoroutine(InventoryManager.Instance.LoadUserInventory(ownerIndate));
 
+		// 직원 데이터 삽입
+		yield return StartCoroutine(EmployeeManager.Instance.InsertEmployeesIfNotExists(ownerIndate));
+		yield return StartCoroutine(EmployeeManager.Instance.LoadEmployeeData(ownerIndate));
+
 		// 기타 유저 게임 데이터 불러오기
 		BackendGameData.Instance.GameDataGetOrInsert(() => 
 		{
