@@ -28,7 +28,7 @@ public class EnhanceFoodSlot : MonoBehaviour
 
         for (int i = 0; i < foodData.Ingredients.Count; i++)
         {
-            int qty = InventoryManager.Instance.GetItemQty(foodData.Ingredients[i].ingredientName);
+            int qty = InventoryManager.Instance.GetItemQty(foodData.Ingredients[i].indate);
 
             if (qty == -1)
                 return;

@@ -38,7 +38,7 @@ public class EnhanceFoodAmountController : MonoBehaviour
 
         for (int i = 0; i < materials.Count; i++)
         {
-            if (materials[i].quantity > InventoryManager.Instance.GetItemQty(materials[i].name))
+            if (materials[i].quantity > InventoryManager.Instance.GetItemQty(materials[i].indate))
             {
                 return;
             }
