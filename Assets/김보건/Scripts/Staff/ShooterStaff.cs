@@ -123,10 +123,10 @@ public class ShooterStaff : StaffBase
         go.transform.right = direction;
 
         if (go.TryGetComponent<Bullet2D>(out var bullet))
-            bullet.SetDamage(currentAttackPower);
+            bullet.SetDamage((float)runtimeData.attack_Power);
 
         if (go.TryGetComponent<Rigidbody2D>(out var rb))
-            rb.AddForce(direction * (float)currentAttackPower, ForceMode2D.Impulse);
+            rb.AddForce(direction * (float)runtimeData.attack_Power, ForceMode2D.Impulse);
     }
 
     public void ResetCooldown()

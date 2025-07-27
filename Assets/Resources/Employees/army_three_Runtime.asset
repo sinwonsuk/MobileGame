@@ -15,7 +15,7 @@ MonoBehaviour:
   indate: 2025-07-27T01:21:43.535Z
   displayName: army_three
   staffType: 0
-  level: 1
+  level: 0
   attack_Power: 0
   attack_Speed: 0
   timer: 0

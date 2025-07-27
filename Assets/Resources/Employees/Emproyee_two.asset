@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Emproyee_two
   m_EditorClassIdentifier: 
   indate: 2025-07-27T01:21:44.015Z
-  displayName: "\uACBD\uC601\uC9C1\uC6D01"
+  displayName: "\uACBD\uC601\uC9C1\uC6D02"
   staffType: 2
   explain: "\uACBD\uC601 \uC9C1\uC6D01"
   itemPrefab: {fileID: 2127192634085561284, guid: 51d09969f1b80f749ac2cf955655017e, type: 3}

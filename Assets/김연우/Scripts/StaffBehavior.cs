@@ -48,10 +48,6 @@ public class StaffBehavior : MonoBehaviour
             case StaffType.hunter:
                 FindAndShoot();
                 break;
-            case StaffType.detachment:
-                onDetachmentAction?.Invoke();
-                Debug.Log($"{Data.displayName} 파견 액션 수행");
-                break;
             case StaffType.restaurant:
                 onRestaurantAction?.Invoke();
                 Debug.Log($"{Data.displayName} 식당 경영 액션 수행");
