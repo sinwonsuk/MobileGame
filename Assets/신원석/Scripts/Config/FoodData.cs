@@ -23,6 +23,7 @@ public class EnhanceStepData
 {
     public string indate;
     public int step;
+    public int successRate;
     public List<EnhanceMaterialData> ingredients;
     public int cost;
 }

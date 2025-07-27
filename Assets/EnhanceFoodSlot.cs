@@ -17,14 +17,14 @@ public class EnhanceFoodSlot : MonoBehaviour
 
     public void CreateFoodUI()
     {
-        if (foodData.Level == foodData.enhanceSteps.Count-1)
+        if (foodData.Level == foodData.enhanceSteps.Count)
             return;
 
 
         EventBus<SetEnhanceFoodActiveEvent>.Raise(new SetEnhanceFoodActiveEvent());
 
         // 아직 가격 미정 
-        EventBus<EnhanceFoodSlotHandler>.Raise(new EnhanceFoodSlotHandler(foodData,foodData.foodSprite, foodData.displayName, foodData.Level+1, foodData.enhanceSteps[foodData.Level].cost, foodData.enhanceSteps[foodData.Level+1].step, foodData.enhanceSteps[foodData.Level + 1].cost, foodData.enhanceSteps.Count));
+        EventBus<EnhanceFoodSlotHandler>.Raise(new EnhanceFoodSlotHandler(foodData,foodData.foodSprite, foodData.displayName, foodData.Level, foodData.enhanceSteps[foodData.Level-1].cost, foodData.enhanceSteps[foodData.Level].step, foodData.enhanceSteps[foodData.Level].cost, foodData.enhanceSteps.Count));
 
         for (int i = 0; i < foodData.Ingredients.Count; i++)
         {

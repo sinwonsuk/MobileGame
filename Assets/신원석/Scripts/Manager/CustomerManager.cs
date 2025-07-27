@@ -136,10 +136,23 @@ public class CustomerManager : baseManager, IGameManager
 
     public void CheckMenu()
     {
-        // 현재 남아있는 메뉴 이름 
-        List<string> availableMenus = MenuBoardSlots.Keys.ToList();
 
-    
+
+        List<string> availableMenus = new List<string>();
+
+        foreach (var kvp in MenuBoardSlots)
+        {
+            MenuBoardSlot slots = kvp.Value.GetComponent<MenuBoardSlot>();
+            if (slots.Count > 0)
+            {
+                availableMenus.Add(kvp.Key);
+            }
+        }
+
+        if (availableMenus.Count == 0)
+            return;
+
+
         // 손님 후보 인덱스로 저장 
         List<int> candidateIndices = new List<int>();
 
@@ -194,6 +207,10 @@ public class CustomerManager : baseManager, IGameManager
         // 손님 init 설정 
         customerObj.Slot = slot;
         customerObj.customerManager = this;
+
+
+        slot.Count--;
+
     }
 
     CustomerManagerConfig conFig;
