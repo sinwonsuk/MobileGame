@@ -50,12 +50,10 @@ public class StaticDataInitializer : MonoBehaviour
 			{
 				target.displayName = row["employeeName"].ToString();
 				target.baseSalary = int.Parse(row["baseSalary"].ToString());
-				target.attack_Power = double.Parse(row["baseAtk"].ToString());
-				target.attack_Speed = double.Parse(row["baseAtkSpeed"].ToString());
-				target.attack_PowerPerLevel = double.Parse(row["atkGrowthPerLevel"].ToString());
-				target.attack_SpeedPerLevel = double.Parse(row["speedGrowthPerLevel"].ToString());
-				target.timer = float.Parse(row["timer"].ToString());
-				target.cooltime = float.Parse(row["cooltime"].ToString());
+				target.basic_attack_Power = double.Parse(row["baseAtk"].ToString());
+				target.basic_attack_Speed = double.Parse(row["baseAtkSpeed"].ToString());
+				target.basictimer = double.Parse(row["timer"].ToString());
+				target.basiccooltime = double.Parse(row["cooltime"].ToString());
 				target.explain = row["explain"].ToString();
 
 				if (Enum.TryParse(row["staffType"].ToString(), out StaffType type))
