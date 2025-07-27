@@ -47,14 +47,24 @@ public class DungeonManager : baseManager
         }
     }
 
-    private void OnEnable()
-    {
-        EventBus<AutoNextFloorChangedEvent>.OnEvent += OnAutoNextChanged;
-    }
+    //private void OnEnable()
+    //{
+    //    EventBus<AutoNextFloorChangedEvent>.OnEvent += OnAutoNextChanged;
+    //    EventBus<StageChangedEvent>.OnEvent += OnStageChanged;
+
+    //}
 
     private void OnDisable()
     {
         EventBus<AutoNextFloorChangedEvent>.OnEvent -= OnAutoNextChanged;
+        EventBus<StageChangedEvent>.OnEvent -= OnStageChanged;
+    }
+
+    private void OnStageChanged(StageChangedEvent e)
+    {
+        if (config.floorTextUI == null) return;
+        Debug.Log($"[UI] StageChangedEvent 수신: stage={e.stage}, isBoss={e.isBoss}");
+        config.floorTextUI.text = e.isBoss ? "BossStage" : $"{e.stage}Stage";
     }
 
     void OnAutoNextChanged(AutoNextFloorChangedEvent evt)
@@ -69,9 +79,17 @@ public class DungeonManager : baseManager
     {
         if (config.selectedFloorData == null || config.selectedFloorData.isDungeonMode == false)
             return;
-        
+
+        EventBus<AutoNextFloorChangedEvent>.OnEvent += OnAutoNextChanged;
+        EventBus<StageChangedEvent>.OnEvent += OnStageChanged;
+
         int floor = config.selectedFloorData.selectedFloor;
         var floorData = config.mapDatabase.GetFloorData(floor);
+
+        bool isBoss = config.selectedFloorData.IsLastStage();
+
+        if (config.floorTextUI != null)
+            config.floorTextUI.text = (isBoss ? "BossStage" : "1Stage");
 
         if (floorData == null)
         {
@@ -79,7 +97,16 @@ public class DungeonManager : baseManager
             return;
         }
 
+        // 기존 맵 제거
         var map = Object.Instantiate(floorData.mapPrefab, config.mapParent);
+
+
+        // 이전 참조 초기화 후, 다시 연결
+        config.floorTextUI = null;
+        config.floorTextUI = FindFloorText(map.transform);
+
+        // 연결되자마자 1회 갱신
+        RefreshFloorStageText();
 
         //map.GetComponentInChildren<MonsterSpawner>()?.SpawnNextStage();
 
@@ -97,12 +124,6 @@ public class DungeonManager : baseManager
         var spawn = map.transform.Find("PlayerSpawnPoint");
         Object.Instantiate(config.playerPrefab, spawn != null ? spawn.position : Vector3.zero, Quaternion.identity);
 
-        // UI에 현재 층 표시
-        if (config.floorTextUI != null)
-            config.floorTextUI.text = $"LV{floor}";
-        else
-            Debug.LogWarning("floorTextUI가 없음");
-
         var camera = Camera.main;
         if (camera != null)
         {
@@ -115,6 +136,12 @@ public class DungeonManager : baseManager
             camera.transform.position = new Vector3(map.transform.position.x, map.transform.position.y, camera.transform.position.z);
         }
 
+    }
+
+    ~DungeonManager()
+    {
+        EventBus<AutoNextFloorChangedEvent>.OnEvent -= OnAutoNextChanged;
+        EventBus<StageChangedEvent>.OnEvent -= OnStageChanged;
     }
 
     public void LoadMap()
@@ -138,7 +165,12 @@ public class DungeonManager : baseManager
 
         var mapInstance = Object.Instantiate(newMapPrefab, Config.mapParent);
 
-        // 3) 스포너에서 웨이브/보스 시작
+        config.floorTextUI = null;
+        config.floorTextUI = FindFloorText(mapInstance.transform);
+
+        RefreshFloorStageText();
+
+        // 웨이브, 보스 시작
         var spawner = mapInstance.GetComponentInChildren<MonsterSpawner>();
         if (spawner == null)
         {
@@ -146,7 +178,7 @@ public class DungeonManager : baseManager
             return;
         }
 
-        // 스테이지는 ResetStage()로 1이 된 상태라고 가정
+        // 스테이지는 ResetStage()로 1이 된 상태
         if (Config.selectedFloorData.IsLastStage())
             spawner.SpawnNextStage();     // 보스 1마리
         else
@@ -217,6 +249,31 @@ public class DungeonManager : baseManager
             InventoryManager.Instance.AddItem(kvp.Key, kvp.Value);
 
         tempLoot.Clear();   // 반영이 끝났으니 비워 두기
+    }
+
+    private void RefreshFloorStageText()
+    {
+        if (config.floorTextUI == null || config.selectedFloorData == null) return;
+
+        int stage = config.selectedFloorData.currentStage;
+        bool isBoss = config.selectedFloorData.IsLastStage();
+
+        config.floorTextUI.text = isBoss ? "BossStage" : $"{stage}Stage";
+    }
+
+    private TextMeshProUGUI FindFloorText(Transform root)
+    {
+        // 1) 경로로 시도 (프리팹에 경로가 일정하다면 가장 확실)
+        var byPath = root.Find("DungeonUI/InGameUI/FloorText");
+        if (byPath)
+            return byPath.GetComponent<TextMeshProUGUI>();
+
+        // 2) 이름으로 탐색
+        foreach (var t in root.GetComponentsInChildren<TextMeshProUGUI>(true))
+            if (t.name == "FloorText") return t;
+
+        // 3) 최후의 보루: 첫 TMP를 사용(이름 불문)
+        return root.GetComponentInChildren<TextMeshProUGUI>(true);
     }
 
     public override void ActiveOff() { }

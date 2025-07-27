@@ -24,17 +24,19 @@ public class OctopusBoss : EnemyBase
         var dungeonManager = FindAnyObjectByType<GameController>().GetManager<DungeonManager>();
         var floorData = dungeonManager.Config.selectedFloorData;
 
-        Debug.Log($"[Slime] autoNextFloor 값 확인: {floorData.autoNextFloor}");
+        Debug.Log($"autoNextFloor 값 확인: {floorData.autoNextFloor}");
 
         if (floorData.autoNextFloor)
         {
             floorData.selectedFloor++;
             floorData.ResetStage();
+            EventBus<StageChangedEvent>.Raise(new StageChangedEvent(floorData.currentStage, false));
             dungeonManager.LoadMap();
         }
         else
         {
             floorData.ResetStage();
+            EventBus<StageChangedEvent>.Raise(new StageChangedEvent(floorData.currentStage, false));
             //Object.FindFirstObjectByType<MonsterSpawner>()?.SpawnNextStage();  // 다시 1부터 시작
             var spawner = Object.FindFirstObjectByType<MonsterSpawner>();
             spawner?.StartMonsterWave();

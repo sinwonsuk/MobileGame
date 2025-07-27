@@ -12,6 +12,10 @@ public class DungeonSelectUI : MonoBehaviour
         dungeonInGameUI.SetActive(false);
         selectedFloorData.selectedFloor = floor;
         selectedFloorData.ResetStage();
+
+        EventBus<StageChangedEvent>.Raise(new StageChangedEvent(1, false));
+
+        // 선택한 층의 던전 활성화
         selectedFloorData.isDungeonMode = true;
         EventBus<DungeonSlideToggleEvent>.Raise(new DungeonSlideToggleEvent(true));
         //UnityEngine.SceneManagement.SceneManager.LoadScene("BoTest");

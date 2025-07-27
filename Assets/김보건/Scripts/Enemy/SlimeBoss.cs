@@ -11,7 +11,7 @@ public class SlimeBoss : EnemyBase
 
         int stage = floorData.currentStage;
 
-        maxHp = 50f;
+        maxHp = 100f;
         currentHp = maxHp;
     }
 
@@ -26,31 +26,19 @@ public class SlimeBoss : EnemyBase
 
         Debug.Log($"[Slime] autoNextFloor 값 확인: {floorData.autoNextFloor}");
 
-        if (floorData.currentStage < 3)
+        if (floorData.autoNextFloor)
         {
-            floorData.NextStage();
-            // 슬라임 재소환
-            Object.FindFirstObjectByType<MonsterSpawner>().SpawnNextStage();
+            floorData.selectedFloor++;
+            floorData.ResetStage();
+            dungeonManager.LoadMap();
         }
         else
         {
-            Debug.Log("스테이지 1-10 클리어!");
-
-            if (floorData.autoNextFloor)
-            {
-                // 다음 층으로 이동
-                floorData.selectedFloor++;
-                floorData.ResetStage();
-
-                dungeonManager.LoadMap();
-            }
-            else
-            {
-                // 다시 1-1부터 반복
-                floorData.ResetStage();
-            }
-
-            Object.FindFirstObjectByType<MonsterSpawner>().SpawnNextStage();
+            floorData.ResetStage();
+            EventBus<StageChangedEvent>.Raise(new StageChangedEvent(floorData.currentStage, false));
+            //Object.FindFirstObjectByType<MonsterSpawner>()?.SpawnNextStage();  // 다시 1부터 시작
+            var spawner = Object.FindFirstObjectByType<MonsterSpawner>();
+            spawner?.StartMonsterWave();
         }
     }
 
