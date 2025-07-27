@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bdc616157887594cb79b902ac24492c, type: 3}
   m_Name: Emproyee_one_Runtime
   m_EditorClassIdentifier: 
-  indate: 2025-07-17T15:06:49.663Z
+  indate: 2025-07-27T01:21:43.830Z
   displayName: "\uACBD\uC601\uC9C1\uC6D01"
   staffType: 2
   level: 1

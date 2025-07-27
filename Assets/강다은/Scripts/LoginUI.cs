@@ -304,5 +304,4 @@ public class LoginUI : MonoBehaviour
 
 	[SerializeField] private StaticDataInitializer staticDataInitializer;
 
-	private bool isGoogleLoginInProgress = false;
 }

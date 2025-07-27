@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d3edaa2497bccf49ab4c4cf6538befa, type: 3}
   m_Name: army_four
   m_EditorClassIdentifier: 
-  indate: 2025-07-17T15:06:49.509Z
+  indate: 2025-07-27T01:21:43.672Z
   displayName: army_four
   staffType: 0
   explain: "\uC0AC\uB0E5\uD130\uC9C1\uC6D04"
