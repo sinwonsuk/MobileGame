@@ -16,6 +16,7 @@ public class FoodManager : baseManager, IGameManager
         EventBus<FoodIncreaseHandler>.OnEvent += IncreaseFood;
         EventBus<EnhanceFoodSlotsSpawnHandler>.OnEvent += CreateEnhanceFoodSlot;
         EventBus<EnhanceFoodSlotsDeleteHandler>.OnEvent += DeleteEnhanceFoodSlot;
+        EventBus<EnhanceFoodDecreaseHandler>.OnEvent += DecreaseEnhanceFood;
     }
     ~FoodManager()
     {
@@ -23,6 +24,7 @@ public class FoodManager : baseManager, IGameManager
         EventBus<FoodIncreaseHandler>.OnEvent -= IncreaseFood;
         EventBus<EnhanceFoodSlotsSpawnHandler>.OnEvent -= CreateEnhanceFoodSlot;
         EventBus<EnhanceFoodSlotsDeleteHandler>.OnEvent -= DeleteEnhanceFoodSlot;
+        EventBus<EnhanceFoodDecreaseHandler>.OnEvent -= DecreaseEnhanceFood;
     }
 
 
@@ -78,7 +80,7 @@ public class FoodManager : baseManager, IGameManager
         {
             for (int j = 0; j < foodData.Ingredients.Count; j++)
             {
-                InventoryManager.Instance.DecreaseQty(foodData.Ingredients[j].ingredientName, foodAmountHandler.Setquantity);
+                InventoryManager.Instance.DecreaseQty(foodData.Ingredients[j].indate, foodAmountHandler.Setquantity);
             }
             return;
         }   
@@ -92,7 +94,7 @@ public class FoodManager : baseManager, IGameManager
             {
                 if (foodData.Ingredients[j].ingredientName == foodAmountHandler.ingredientName)
                 {
-                    InventoryManager.Instance.DecreaseQty(foodData.Ingredients[j].ingredientName, foodAmountHandler.Setquantity);
+                    InventoryManager.Instance.DecreaseQty(foodData.Ingredients[j].indate, foodAmountHandler.Setquantity);
                     return;
                 }
             }           

@@ -1,6 +1,7 @@
 using System.Diagnostics;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class FoodClick : MonoBehaviour
@@ -15,15 +16,21 @@ public class FoodClick : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Mouse.current == null)
         {
+            UnityEngine.Debug.LogWarning("Mouse.current is NULL!");
+            return;
+        }
 
-            if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject())
-                return;
+        if (Touchscreen.current != null && Touchscreen.current.primaryTouch.press.wasPressedThisFrame)
+        {
 
             EventBus<CookFillamountHandler>.Raise(new CookFillamountHandler(this));
 
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+            Vector2 touchPosition = Touchscreen.current.primaryTouch.position.ReadValue();
+            Ray ray = Camera.main.ScreenPointToRay(touchPosition);
+
             RaycastHit2D hit = Physics2D.GetRayIntersection(ray);
 
             if (hit && hit.transform == transform && Check == false && customer.customerState == CustomerState.Wait && Image.fillAmount >= 1.0f && customer.Slot.NameText.text == foodName)
