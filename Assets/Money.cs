@@ -4,12 +4,13 @@ using UnityEngine;
 public class Money : MonoBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
+    private int money = 10000;
     void Start()
     {
 
         //moneyText.text = BackendGameData.Instance.userData.gold.ToString();
 
-        //moneyText.text = money.ToString();
+        moneyText.text = money.ToString();
     }
 
     // Update is called once per frame

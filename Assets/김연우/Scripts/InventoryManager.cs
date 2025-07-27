@@ -68,7 +68,7 @@ public class InventoryManager : MonoBehaviour, IAutoSavable
 
         foreach (var data in allRunTimeIngredients)
         {
-            if (data.ingredientName == indate)
+            if (data.indate == indate)
             {
                 return data.ingredientQty;
             }
@@ -81,7 +81,7 @@ public class InventoryManager : MonoBehaviour, IAutoSavable
     {
         foreach (var data in allRunTimeIngredients)
         {
-            if (data.ingredientName == indate)
+            if (data.indate == indate)
             {
                 data.ingredientQty += amount;
 				data.isDirty = true;
@@ -96,7 +96,7 @@ public class InventoryManager : MonoBehaviour, IAutoSavable
     {
         foreach (var data in allRunTimeIngredients)
         {
-            if (data.ingredientName == indate)
+            if (data.indate == indate)
             {
                 data.ingredientQty -= amount;
 				data.isDirty = true;

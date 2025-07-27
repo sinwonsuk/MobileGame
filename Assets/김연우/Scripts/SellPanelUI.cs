@@ -124,7 +124,7 @@ public class SellPanelUI : MonoBehaviour
         if (currentSlot == null) return;
 
         // 1) 인벤토리에서 수량 차감
-        InventoryManager.Instance.DecreaseQty(currentSlot.ingredient.ingredientName, sellQty);
+        InventoryManager.Instance.DecreaseQty(currentSlot.ingredient.indate, sellQty);
 
         // 2) 돈 획득 이벤트
         int gain = sellQty * currentSlot.ingredient.ingredientPrice;

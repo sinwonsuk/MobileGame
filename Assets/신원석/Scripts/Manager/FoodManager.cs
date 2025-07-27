@@ -78,7 +78,7 @@ public class FoodManager : baseManager, IGameManager
         {
             for (int j = 0; j < foodData.Ingredients.Count; j++)
             {
-                InventoryManager.Instance.DecreaseQty(foodData.Ingredients[j].ingredientName, foodAmountHandler.Setquantity);
+                InventoryManager.Instance.DecreaseQty(foodData.Ingredients[j].indate, foodAmountHandler.Setquantity);
             }
             return;
         }   
@@ -92,7 +92,7 @@ public class FoodManager : baseManager, IGameManager
             {
                 if (foodData.Ingredients[j].ingredientName == foodAmountHandler.ingredientName)
                 {
-                    InventoryManager.Instance.DecreaseQty(foodData.Ingredients[j].ingredientName, foodAmountHandler.Setquantity);
+                    InventoryManager.Instance.DecreaseQty(foodData.Ingredients[j].indate, foodAmountHandler.Setquantity);
                     return;
                 }
             }           

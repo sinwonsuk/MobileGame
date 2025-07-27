@@ -9,5 +9,5 @@ public class DroppableItem : MonoBehaviour
     public int amount = 1;
 
     // 자동으로 ingredientData에서 이름 가져오기
-    public string IngredientName => ingredientData != null ? ingredientData.ingredientName : "";
+    public string IngredientIndate => ingredientData != null ? ingredientData.indate : "";
 }
