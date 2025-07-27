@@ -6,7 +6,7 @@ public class StaffManager : MonoBehaviour
     public static StaffManager Instance { get; private set; }
 
     public List<StaffBehavior> staffs = new List<StaffBehavior>();
-    public Dictionary<StaffBehavior, float> nextActionTime = new Dictionary<StaffBehavior, float>();
+    public Dictionary<StaffBehavior, double> nextActionTime = new Dictionary<StaffBehavior, double>();
 
     private void Awake()
     {
@@ -22,7 +22,7 @@ public class StaffManager : MonoBehaviour
         {
             staffs.Add(staff);
             // 첫 실행 시간을 staff.Data.timer 이후로 설정
-            nextActionTime[staff] = Time.time + staff.Data.timer;
+            nextActionTime[staff] = Time.time + staff.RuntimeData.timer;
         }
     }
 
@@ -42,9 +42,12 @@ public class StaffManager : MonoBehaviour
             {
                 staff.PerformAction();
                 // 다음 실행 시간을 timer + cooltime 이후로 설정
-                float delay = staff.Data.timer + staff.Data.cooltime;
+                double delay = staff.RuntimeData.timer + staff.RuntimeData.cooltime;
                 nextActionTime[staff] = now + delay;
             }
         }
     }
+
+
+
 }

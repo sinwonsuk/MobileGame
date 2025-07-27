@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d3edaa2497bccf49ab4c4cf6538befa, type: 3}
+  m_Name: Emproyee_two
+  m_EditorClassIdentifier: 
+  indate: 2025-07-27T01:21:44.015Z
+  displayName: "\uACBD\uC601\uC9C1\uC6D01"
+  staffType: 2
+  explain: "\uACBD\uC601 \uC9C1\uC6D01"
+  itemPrefab: {fileID: 2127192634085561284, guid: 51d09969f1b80f749ac2cf955655017e, type: 3}
+  portrait: {fileID: 0}
+  baseSalary: 100
+  basic_attack_Power: 0
+  basic_attack_Speed: 0
+  basictimer: 5
+  basiccooltime: 120

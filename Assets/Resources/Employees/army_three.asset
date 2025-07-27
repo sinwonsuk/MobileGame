@@ -12,17 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d3edaa2497bccf49ab4c4cf6538befa, type: 3}
   m_Name: army_three
   m_EditorClassIdentifier: 
-  indate: 2025-07-17T15:06:49.358Z
+  indate: 2025-07-27T01:21:43.535Z
   displayName: army_three
   staffType: 0
-  level: 1
   explain: "\uC0AC\uB0E5\uD130\uC9C1\uC6D03"
   itemPrefab: {fileID: 3899654314294530085, guid: 732dd9b7cbd523541bbf804d92b2bb15, type: 3}
   portrait: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
   baseSalary: 100
-  attack_Power: 30
-  attack_Speed: 3
-  attack_PowerPerLevel: 1
-  attack_SpeedPerLevel: 1
-  timer: 0
-  cooltime: 0
+  basic_attack_Power: 30
+  basic_attack_Speed: 0.3
+  basictimer: 0
+  basiccooltime: 0
