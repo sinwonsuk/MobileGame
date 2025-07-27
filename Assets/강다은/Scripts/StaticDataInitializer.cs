@@ -40,6 +40,58 @@ public class StaticDataInitializer : MonoBehaviour
 				}
 			}));
 
+		Dictionary<(string foodIndate, int step), EnhanceStepData> stepDataMap = new();
+		yield return StartCoroutine(LoadTableData("FOOD_GRADES", row =>
+		{
+			string foodIndate = row["foodIndate"].ToString();
+			int step = int.Parse(row["grade"].ToString());
+
+			EnhanceStepData stepData = new EnhanceStepData
+			{
+				indate = row["inDate"].ToString(),
+				step = int.Parse(row["grade"].ToString()),
+				cost = int.Parse(row["goldCost"].ToString()),
+				successRate = float.Parse(row["successRate"].ToString()),
+				ingredients = new List<EnhanceMaterialData>()
+			};
+
+			stepDataMap[(foodIndate, step)] = stepData;
+		}));
+
+		foreach (var food in foodDataList)
+		{
+			var matchingSteps = stepDataMap
+				.Where(pair => pair.Key.foodIndate == food.indate)
+				.OrderBy(pair => pair.Key.step)
+				.Select(pair => pair.Value)
+				.ToList();
+
+			food.enhanceSteps = matchingSteps;
+			Debug.Log($"[ENHANCE] {food.displayName} 강화 단계 {matchingSteps.Count}개 연결 완료");
+		}
+
+		//yield return StartCoroutine(LoadTableData("FOOD_ENHANCE_MATERIAL", row =>
+		//{
+		//	string foodIndate = row["foodIndate"].ToString();
+		//	int step = int.Parse(row["grade"].ToString());
+		//
+		//	if (stepDataMap.TryGetValue((foodIndate, step), out var stepData))
+		//	{
+		//		var material = new EnhanceMaterialData
+		//		{
+		//			indate = row["ingredientIndate"].ToString(),
+		//			name = row["ingredientName"].ToString(),
+		//			quantity = int.Parse(row["quantity"].ToString())
+		//		};
+		//		stepData.ingredients.Add(material);
+		//	}
+		//	else
+		//	{
+		//		Debug.LogWarning($"[WARN] stepDataMap에 ({foodIndate}, {step}) 없음");
+		//	}
+		//}));
+
+
 		yield return StartCoroutine(LoadTableData(
 		tableName: "EMPLOYEE_MASTER",
 		applyAction: (row) =>
