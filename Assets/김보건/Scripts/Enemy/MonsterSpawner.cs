@@ -129,6 +129,8 @@ public class MonsterSpawner : MonoBehaviour
                 hasSpawned = false;  
                 var floorData = FindAnyObjectByType<GameController>()?.GetManager<DungeonManager>()?.Config.selectedFloorData;
                 floorData?.SetLastStage();
+
+                EventBus<StageChangedEvent>.Raise(new StageChangedEvent(floorData.currentStage, floorData.IsLastStage()));
             }
         }
 

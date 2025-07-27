@@ -5348,6 +5348,10 @@ PrefabInstance:
       value: first
       objectReference: {fileID: 0}
     - target: {fileID: 5250878315030430003, guid: 41acb5bea256b704b8984bd0607259cc, type: 3}
+      propertyPath: spawnPoint
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5250878315030430003, guid: 41acb5bea256b704b8984bd0607259cc, type: 3}
       propertyPath: RuntimeStaffData
       value: 
       objectReference: {fileID: 11400000, guid: 5434265849396264ba9a0390daac71dd, type: 2}
