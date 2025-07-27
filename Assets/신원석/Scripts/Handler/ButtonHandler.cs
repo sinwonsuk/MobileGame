@@ -12,9 +12,9 @@ public struct ButtonHandler : IEvent
 
 }
 
-public struct EnhanceFoodButtonHandler : IEvent
+public struct ButtonisActiveHandler : IEvent
 {
-    public EnhanceFoodButtonHandler(bool isActive)
+    public ButtonisActiveHandler(bool isActive)
     {
         this.isActive = isActive;
     }

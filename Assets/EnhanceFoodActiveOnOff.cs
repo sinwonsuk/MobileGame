@@ -6,6 +6,7 @@ public class EnhanceFoodActiveOnOff : MonoBehaviour
     void Start()
     {
         EventBus<ButtonHandler>.OnEvent += ManagementButtonisActive;
+        EventBus<ButtonisActiveHandler>.OnEvent += ManagementButtonisActive;
     }
 
     // Update is called once per frame
@@ -34,6 +35,12 @@ public class EnhanceFoodActiveOnOff : MonoBehaviour
     {
         isActive = buttonHandler.isActive;
     }
+
+    public void ManagementButtonisActive(ButtonisActiveHandler buttonHandler)
+    {
+        gameObject.SetActive(buttonHandler.isActive);
+    }
+
 
     bool isActive = true;
 

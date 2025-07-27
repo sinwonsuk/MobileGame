@@ -17,5 +17,8 @@ public class ExitDungeon : MonoBehaviour
             if (dungeonManager != null)
                 dungeonManager.ExitDungeon();
         }
+
+
+        EventBus<ButtonisActiveHandler>.Raise(new ButtonisActiveHandler(true));
     }
 }

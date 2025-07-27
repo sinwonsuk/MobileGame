@@ -16,6 +16,7 @@ public class FoodManager : baseManager, IGameManager
         EventBus<FoodIncreaseHandler>.OnEvent += IncreaseFood;
         EventBus<EnhanceFoodSlotsSpawnHandler>.OnEvent += CreateEnhanceFoodSlot;
         EventBus<EnhanceFoodSlotsDeleteHandler>.OnEvent += DeleteEnhanceFoodSlot;
+        EventBus<EnhanceFoodDecreaseHandler>.OnEvent += DecreaseEnhanceFood;
     }
     ~FoodManager()
     {
@@ -23,6 +24,7 @@ public class FoodManager : baseManager, IGameManager
         EventBus<FoodIncreaseHandler>.OnEvent -= IncreaseFood;
         EventBus<EnhanceFoodSlotsSpawnHandler>.OnEvent -= CreateEnhanceFoodSlot;
         EventBus<EnhanceFoodSlotsDeleteHandler>.OnEvent -= DeleteEnhanceFoodSlot;
+        EventBus<EnhanceFoodDecreaseHandler>.OnEvent -= DecreaseEnhanceFood;
     }
 
 
