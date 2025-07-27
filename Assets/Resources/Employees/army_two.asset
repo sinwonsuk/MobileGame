@@ -16,7 +16,7 @@ MonoBehaviour:
   displayName: army_two
   staffType: 0
   explain: "\uC0AC\uB0E5\uD130\uC9C1\uC6D02"
-  itemPrefab: {fileID: 3899654314294530085, guid: 732dd9b7cbd523541bbf804d92b2bb15, type: 3}
+  itemPrefab: {fileID: 3899654314294530085, guid: d1a82fce191fda648a81a6ce6e8b7119, type: 3}
   portrait: {fileID: 10917, guid: 0000000000000000f000000000000000, type: 0}
   baseSalary: 60
   basic_attack_Power: 20
