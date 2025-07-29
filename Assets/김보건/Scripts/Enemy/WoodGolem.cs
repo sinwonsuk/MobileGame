@@ -11,7 +11,7 @@ public class WoodGolem : EnemyBase
 
         int stage = floorData.currentStage;
 
-        maxHp = 100f + stage * 0f;
+        maxHp = 10f + stage * 0f;
         currentHp = maxHp;
 
         GetComponent<SpriteRenderer>().color = Color.Lerp(Color.white, Color.red, stage / 10f);
@@ -20,40 +20,12 @@ public class WoodGolem : EnemyBase
     protected override void Die()
     {
         if (isDead) return;
-        Debug.Log("골렘 사망");
+        Debug.Log("사망");
         base.Die();
+        var spawner = Object.FindFirstObjectByType<MonsterSpawner>();
+        //spawner?.MonsterKilled();
 
-        var dungeonManager = FindAnyObjectByType<GameController>().GetManager<DungeonManager>();
-        var floorData = dungeonManager.Config.selectedFloorData;
-
-        Debug.Log($"[골렘] autoNextFloor 값 확인: {floorData.autoNextFloor}");
-
-        if (floorData.currentStage < 3)
-        {
-            floorData.NextStage();
-            // 슬라임 재소환
-            Object.FindFirstObjectByType<MonsterSpawner>().SpawnNextStage();
-        }
-        else
-        {
-            Debug.Log("스테이지 1-10 클리어!");
-
-            if (floorData.autoNextFloor)
-            {
-                // 다음 층으로 이동
-                floorData.selectedFloor++;
-                floorData.ResetStage();
-
-                dungeonManager.LoadMap();
-            }
-            else
-            {
-                // 다시 1-1부터 반복
-                floorData.ResetStage();
-            }
-
-            Object.FindFirstObjectByType<MonsterSpawner>().SpawnNextStage();
-        }
+        spawner?.TrySpawnBossOnce();
     }
 
     public override void OnDeathAnimationEnd()

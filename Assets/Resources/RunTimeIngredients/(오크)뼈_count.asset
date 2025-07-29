@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: "(\uC624\uD06C)\uBF08_count"
   m_EditorClassIdentifier: 
   indate: 2025-07-16T02:27:45.958Z
-  ingredientName: "\uC624\uD06C \uBF08"
-  ingredientQty: 0
+  ingredientName: "(\uC624\uD06C)\uBF08"
+  ingredientQty: 99

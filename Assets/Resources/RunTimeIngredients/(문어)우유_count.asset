@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: "(\uBB38\uC5B4)\uC6B0\uC720_count"
   m_EditorClassIdentifier: 
   indate: 2025-07-16T02:27:44.030Z
-  ingredientName: "\uBB38\uC5B4 \uC6B0\uC720"
-  ingredientQty: 0
+  ingredientName: "(\uBB38\uC5B4)\uC6B0\uC720"
+  ingredientQty: 99

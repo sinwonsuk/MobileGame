@@ -340,7 +340,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7059710110440084692, guid: ee4c0304f410b8d4bb1d38131fc5902b, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2987,6 +2987,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 570bde4c30bab334e9eb0e6b8ebf0f4c, type: 2}
   - {fileID: 11400000, guid: 2fe20234cf4bb924eae56938a6de53a5, type: 2}
   - {fileID: 11400000, guid: 2ca434b224a7b7a43ade8bb95495eb09, type: 2}
+  - {fileID: 11400000, guid: 353860085e9b77346b3cec69a2a5713a, type: 2}
 --- !u!4 &1637458026
 Transform:
   m_ObjectHideFlags: 0

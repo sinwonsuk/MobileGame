@@ -231,7 +231,7 @@ public class CSVTableUploader : MonoBehaviour
 	private List<string> tableFileNames = new List<string>
 	{
 		"FOODS", "FURNITURES", "FOOD_INGREDIENTS", "INGREDIENTS",
-		"EQUIPMENTS", "EQUIPMENT_EFFECTS", "EMPLOYEE_MASTER", "FOOD_GRADES"
+		"EQUIPMENTS", "EQUIPMENT_EFFECTS", "EMPLOYEE_MASTER", "FOOD_GRADES", "FOOD_ENHANCE_MATERIAL"
 	};
 
 	private Dictionary<string, List<string>> uniqueKeyColumnsMap = new()
@@ -243,7 +243,7 @@ public class CSVTableUploader : MonoBehaviour
 		{ "EQUIPMENTS", new List<string> { "equipmentName" } },
 		{ "EQUIPMENT_EFFECTS", new List<string> { "effectIndate" } },
 		{ "EMPLOYEE_MASTER", new List<string> { "employeeName" } },
-		{ "FOOD_GRADES", new List<string> { "foodIndate", "grade" } }
-
+		{ "FOOD_GRADES", new List<string> { "foodIndate", "grade" } },
+		{ "FOOD_ENHANCE_MATERIAL", new List<string> { "foodEnhanceIndate", "ingredientIndate" } }
 	};
 }

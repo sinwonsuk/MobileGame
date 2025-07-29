@@ -112,8 +112,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   monsterPrefab: {fileID: 519866972757067807, guid: 8881ac80ff3946d47a40ce8929c12b5a, type: 3}
   bossMonsterPrefab: {fileID: 1253324787291029023, guid: af30848d2e038ff4d999ff3638c2f182, type: 3}
-  spawnPosition: {x: -10, y: 10, z: 0}
+  spawnXRange: {x: -13, y: -7}
+  spawnYRange: {x: 1, y: 6}
   descendDuration: 30
+  maxKillsBeforeBoss: 10
+  totalMonsters: 10
+  spawnInterval: 0.2
 --- !u!1 &4333127889849772433
 GameObject:
   m_ObjectHideFlags: 0
@@ -209,6 +213,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 5332971992470372971}
     m_Modifications:
+    - target: {fileID: 37920712195094869, guid: 82b58aefc5285dd409fef9a8b68af9f4, type: 3}
+      propertyPath: m_fontSize
+      value: 36
+      objectReference: {fileID: 0}
+    - target: {fileID: 37920712195094869, guid: 82b58aefc5285dd409fef9a8b68af9f4, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 36
+      objectReference: {fileID: 0}
     - target: {fileID: 2287357689877519984, guid: 82b58aefc5285dd409fef9a8b68af9f4, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -288,6 +300,10 @@ PrefabInstance:
     - target: {fileID: 2287357689877519984, guid: 82b58aefc5285dd409fef9a8b68af9f4, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2914061745908242991, guid: 82b58aefc5285dd409fef9a8b68af9f4, type: 3}
+      propertyPath: m_SortingOrder
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 5374365292748851858, guid: 82b58aefc5285dd409fef9a8b68af9f4, type: 3}
       propertyPath: m_Name

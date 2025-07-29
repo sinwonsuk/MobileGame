@@ -34,6 +34,12 @@ public class GameController : MonoBehaviour
         GetControllerAll();
     }
 
+    private void Start()
+    {
+        SoundManager.GetInstance().PlayBgm(SoundManager.bgm.GameBgm);
+    }
+
+
     void ConnectBaseScriptableObject()
     {
         for (int i = 0; i < baseScriptableObjects.Count; i++)

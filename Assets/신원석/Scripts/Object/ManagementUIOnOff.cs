@@ -19,14 +19,26 @@ public class ManagementUIOnOff : MonoBehaviour
     {
         if( isActive)
         {
+            SoundManager.GetInstance().SfxPlay(SoundManager.sfx.Click, false);
+
             EventBus<ManagementActiveHandler>.Raise(new ManagementActiveHandler(isActive,ClickType.FoodSlot));
             isActive = false;
+
+            // °­È­µµ off
+            EventBus<EnhanceFoodUIActiveHandler>.Raise(new EnhanceFoodUIActiveHandler(isActive));
+    //        EventBus<ButtonHandler>.Raise(new ButtonHandler(isActive));
         }
         else
         {
+            SoundManager.GetInstance().SfxPlay(SoundManager.sfx.Click, false);
+
             EventBus<ManagementActiveHandler>.Raise(new ManagementActiveHandler(isActive, ClickType.FoodSlot));
             EventBus<ManagementActiveHandler>.Raise(new ManagementActiveHandler(isActive, ClickType.FoodAmount));
+
+            
             isActive = true;
+
+   //         EventBus<ButtonHandler>.Raise(new ButtonHandler(isActive));
         }
     }
 
@@ -41,6 +53,6 @@ public class ManagementUIOnOff : MonoBehaviour
     }
 
 
-    bool isActive = true;
+    public bool isActive { get; set; } = true;
 
 }
