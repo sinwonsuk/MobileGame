@@ -20,6 +20,6 @@ MonoBehaviour:
   portrait: {fileID: 10911, guid: 0000000000000000f000000000000000, type: 0}
   baseSalary: 20
   basic_attack_Power: 10
-  basic_attack_Speed: 0.1
+  basic_attack_Speed: 0.5
   basictimer: 0
   basiccooltime: 0

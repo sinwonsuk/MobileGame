@@ -9,10 +9,9 @@ public class ShooterStaff : StaffBase
     [SerializeField] Animator animator;
     [SerializeField] GameObject bulletPrefab;
     [SerializeField] Transform firePoint;
-
-    [SerializeField] string bossTag = "a";
-    [SerializeField] string bossLayerName = "Boss";
     [SerializeField] private double detectRange = 20.0;
+
+    private Transform target;
 
     [Header("스킬")]
     [SerializeField] private GameObject bigBulletSkillPrefab;
@@ -28,12 +27,17 @@ public class ShooterStaff : StaffBase
     private InputAction clickAction;
     private bool isShopOpen = false; //  상점 열리면 입력 무시
 
+    private bool _inited = false;
+    private float nextFireTime = 0f;
+
     Transform boss;
 
     public override void Init(StaffStatsSO stats, RuntimeStaffStatsSO Runtimestats)
     {
         base.Init(stats, Runtimestats);
-        StartCoroutine(FindAndShoot());
+        _inited = true;
+        nextFireTime = 0f;
+        //StartCoroutine(AutoAttackLoop());
     }
 
     void OnEnable()
@@ -116,75 +120,96 @@ public class ShooterStaff : StaffBase
         }
     }
 
-    private IEnumerator FindAndShoot()
+    void Update()
     {
-        while (true)
+        if (!_inited) return;
+
+        if (IsEnemyNearby())
         {
-            // double 타입으로 interval 계산
-            double interval = 1.0 / Math.Max(currentAttackSpeed, 0.01);
-
-            // 타겟 검색
-            GameObject[] targets = GameObject.FindGameObjectsWithTag(bossTag);
-            double minDist = double.PositiveInfinity;
-            Transform nearest = null;
-            Vector3 origin = firePoint.position;
-
-            foreach (var t in targets)
-            {
-                if (t.layer != LayerMask.NameToLayer(bossLayerName))
-                    continue;
-
-                // double 거리 계산
-                Vector3 pos = t.transform.position;
-                double dx = pos.x - origin.x;
-                double dy = pos.y - origin.y;
-                double dist = Math.Sqrt(dx * dx + dy * dy);
-
-                if (dist < minDist && dist <= detectRange)
-                {
-                    minDist = dist;
-                    nearest = t.transform;
-                }
-            }
-
-            boss = nearest;
-            if (boss != null)
-                Shoot2D();
-
-            // WaitForSeconds는 float 받으므로 캐스트
-            yield return new WaitForSeconds((float)interval);
+            TryAutoFire();
         }
     }
 
-    private void Shoot2D()
+    private void TryAutoFire()
     {
-        if (boss == null || bulletPrefab == null) return;
-        animator?.SetTrigger("AttackTrigger");
+        if (Time.time < nextFireTime) return;
+
+        target = FindNearestEnemy();
+        if (target != null)
+        {
+            animator?.SetTrigger("AttackTrigger");
+            nextFireTime = Time.time + (1f / Mathf.Max((float)currentAttackSpeed, 0.01f));
+        }
     }
 
-    public void OnShootFrame()  // 애니메이션 이벤트
+    private bool IsEnemyNearby()
     {
-        if (boss == null || bulletPrefab == null) return;
-
-        Vector2 dir = (boss.position - firePoint.position).normalized;
-        double offset = 0.3; // double offset
-        Vector3 leftPos = firePoint.position + firePoint.right * (float)-offset;
-        Vector3 rightPos = firePoint.position + firePoint.right * (float)offset;
-
-        FireBullet(leftPos, dir);
-        FireBullet(rightPos, dir);
+        Vector3 origin = (firePoint != null) ? firePoint.position : transform.position;
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        foreach (var e in enemies)
+        {
+            if (Vector2.Distance(transform.position, e.transform.position) <= detectRange)
+                return true;
+        }
+        return false;
     }
 
-    private void FireBullet(Vector3 position, Vector2 direction)
+    //private IEnumerator AutoAttackLoop()
+    //{
+    //    while (true)
+    //    {
+    //        yield return new WaitForSeconds(1f / Mathf.Max((float)currentAttackSpeed, 0.01f));
+
+    //        target = FindNearestEnemy();
+    //        if (target != null)
+    //            animator?.SetTrigger("AttackTrigger");
+    //    }
+    //}
+
+    private Transform FindNearestEnemy()
     {
-        var go = Instantiate(bulletPrefab, position, Quaternion.identity);
-        go.transform.right = direction;
+        Vector3 origin = (firePoint != null) ? firePoint.position : transform.position;
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        Transform nearest = null;
+        float minDist = Mathf.Infinity;
+
+        foreach (GameObject e in enemies)
+        {
+            float dist = Vector2.Distance(transform.position, e.transform.position);
+            if (dist < minDist && dist <= detectRange)
+            {
+                minDist = dist;
+                nearest = e.transform;
+            }
+        }
+
+        return nearest;
+    }
+
+    // 애니메이션 이벤트에서 호출됨
+    public void OnShootFrame()
+    {
+        if (target == null || bulletPrefab == null || firePoint == null) return;
+
+        Vector2 dir = (target.position - firePoint.position).normalized;
+        float offset = 0.3f;
+        Vector3 left = firePoint.position + firePoint.right * -offset;
+        Vector3 right = firePoint.position + firePoint.right * offset;
+
+        FireBullet(left, dir);
+        FireBullet(right, dir);
+    }
+
+    private void FireBullet(Vector3 pos, Vector2 dir)
+    {
+        GameObject go = Instantiate(bulletPrefab, pos, Quaternion.identity);
+        go.transform.right = dir;
+
+        if (go.TryGetComponent<Rigidbody2D>(out var rb))
+            rb.AddForce(dir * (float)runtimeData.attack_Power, ForceMode2D.Impulse);
 
         if (go.TryGetComponent<Bullet2D>(out var bullet))
             bullet.SetDamage((float)runtimeData.attack_Power);
-
-        if (go.TryGetComponent<Rigidbody2D>(out var rb))
-            rb.AddForce(direction * (float)runtimeData.attack_Power, ForceMode2D.Impulse);
     }
 
     public void ResetCooldown()
