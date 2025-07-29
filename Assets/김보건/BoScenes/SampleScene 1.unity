@@ -330,6 +330,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5243046651838388394, guid: ee4c0304f410b8d4bb1d38131fc5902b, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -95.09994
+      objectReference: {fileID: 0}
     - target: {fileID: 5900945138854398829, guid: ee4c0304f410b8d4bb1d38131fc5902b, type: 3}
       propertyPath: dungeonInGameUI
       value: 
