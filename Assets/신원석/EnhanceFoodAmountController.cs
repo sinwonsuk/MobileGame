@@ -23,7 +23,7 @@ public class EnhanceFoodAmountController : MonoBehaviour
     public void FoodAmountConfirmButton()
     {
 
-
+        SoundManager.GetInstance().SfxPlay(SoundManager.sfx.Click,false);
 
 
 

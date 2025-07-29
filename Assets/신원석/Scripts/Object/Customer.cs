@@ -87,7 +87,7 @@ public class Customer : MonoBehaviour
                     if (Target == null || customerTable == null)
                         return;
                     else
-                        ChangeState(CustomerState.Move);
+                        ChangeState(CustomerState.MoveStore);
                 }
                 break;
             case CustomerState.MoveStore:
@@ -96,7 +96,9 @@ public class Customer : MonoBehaviour
 
                     if (Vector2.Distance(transform.position, storeEntrancePosition) < 0.01f)
                     {
+                        SoundManager.GetInstance().SfxPlay(SoundManager.sfx.Foot, true, 1.0f);
                         ChangeState(CustomerState.Move);
+                        
                         return;
                     }
                 }
@@ -105,6 +107,7 @@ public class Customer : MonoBehaviour
 
             case CustomerState.Move:
                 {
+                    
                     navMeshAgent.SetDestination(Target.position);
 
                     if (Vector2.Distance(transform.position, Target.position) < 0.01f)
@@ -114,7 +117,7 @@ public class Customer : MonoBehaviour
                         foodSpriteRenderer.sprite = Slot.IconImage.sprite;
                         foodOrderSpriteRenderer.enabled = true;
 
-
+                        SoundManager.GetInstance().Sfx_Stop(SoundManager.sfx.Foot);
                         ChangeState(CustomerState.Wait);
                         return;
                     }
@@ -184,6 +187,7 @@ public class Customer : MonoBehaviour
                         customerManager.DequeueCustomer();
                         ChangeState(CustomerState.Back);
                         EventBus<MoneyChangePusHandler>.Raise(new MoneyChangePusHandler(foodPrice));
+                        SoundManager.GetInstance().SfxPlay(SoundManager.sfx.money, false);
                         return;
                     } 
                 }

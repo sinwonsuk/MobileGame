@@ -17,6 +17,8 @@ public class EnhanceFoodSlot : MonoBehaviour
 
     public void CreateFoodUI()
     {
+        SoundManager.GetInstance().SfxPlay(SoundManager.sfx.Click, false);
+
         if (foodData.Level == foodData.enhanceSteps.Count)
             return;
 

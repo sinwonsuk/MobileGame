@@ -18,6 +18,8 @@ public class FoodSlot : MonoBehaviour
 
     public void CreateFoodUI()
     {
+        SoundManager.GetInstance().SfxPlay(SoundManager.sfx.Click, false);
+
         EventBus<SetManagementActiveEvent>.Raise(new SetManagementActiveEvent());
 
         EventBus<FoodSlotHandler>.Raise(new FoodSlotHandler(foodData.foodSprite,foodData.displayName));

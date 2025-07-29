@@ -28,6 +28,8 @@ public class FoodAmountController : MonoBehaviour
     }
     public void IncreaseAmount()
     {
+        SoundManager.GetInstance().SfxPlay(SoundManager.sfx.Click, false);
+
         for (int i = 0; i < foodAmountUI.IngredientPanels.Count; i++)
         {
             var amountText = foodAmountUI.IngredientPanels[i].transform.GetChild((int)IngredientPannelType.NeedIngredientAmount).GetComponent<TextMeshProUGUI>();
@@ -61,6 +63,8 @@ public class FoodAmountController : MonoBehaviour
     }
     public void DecreaseAmount()
     {
+        SoundManager.GetInstance().SfxPlay(SoundManager.sfx.Click, false);
+
         if (currentAmount <= 0)
             return;
 
@@ -83,7 +87,7 @@ public class FoodAmountController : MonoBehaviour
 
     public void FoodAmountConfirmButton()
     {
- 
+        SoundManager.GetInstance().SfxPlay(SoundManager.sfx.Click, false);
 
         //var Name = foodAmountUI.IngredientPanels[0].transform.GetChild((int)IngredientPannelType.IngredientName).GetComponent<TextMeshProUGUI>();
 
