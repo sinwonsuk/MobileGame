@@ -35,7 +35,22 @@ public class EnhanceFoodSlot : MonoBehaviour
             if (qty == -1)
                 return;
 
-            EventBus<IngredientsPannelSpawnHandler>.Raise(new IngredientsPannelSpawnHandler(foodData.Ingredients[i].ingredientSprite, qty,foodData.enhanceSteps[foodData.Level].ingredients[i].quantity, foodData.Ingredients[i].ingredientName));
+            int futureQty = 0;
+
+
+            var ingredients = foodData.enhanceSteps[foodData.Level].ingredients;
+
+
+            for (int j = 0; j < ingredients.Count; j++)
+            {
+                if (ingredients[j].indate == foodData.Ingredients[i].indate)
+                {
+                    futureQty = ingredients[j].quantity;
+                    break;
+                }
+            }
+
+            EventBus<IngredientsPannelSpawnHandler>.Raise(new IngredientsPannelSpawnHandler(foodData.Ingredients[i].ingredientSprite, qty, futureQty, foodData.Ingredients[i].ingredientName));
         }
 
 
