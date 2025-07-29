@@ -55,3 +55,31 @@ MonoBehaviour:
     possibleMonsters: []
     minMonsterCount: 0
     maxMonsterCount: 0
+  - floorNumber: 7
+    mapPrefab: {fileID: 2203518148440082803, guid: 8d19b981135468543adc878fdc80dec7, type: 3}
+    backgroundImage: {fileID: 0}
+    bgm: {fileID: 0}
+    possibleMonsters: []
+    minMonsterCount: 0
+    maxMonsterCount: 0
+  - floorNumber: 8
+    mapPrefab: {fileID: 2203518148440082803, guid: 2ffe98b7e09c65e46bea6daa8376429e, type: 3}
+    backgroundImage: {fileID: 0}
+    bgm: {fileID: 0}
+    possibleMonsters: []
+    minMonsterCount: 0
+    maxMonsterCount: 0
+  - floorNumber: 9
+    mapPrefab: {fileID: 2203518148440082803, guid: fcf41092ba0058248ad04353f4096766, type: 3}
+    backgroundImage: {fileID: 0}
+    bgm: {fileID: 0}
+    possibleMonsters: []
+    minMonsterCount: 0
+    maxMonsterCount: 0
+  - floorNumber: 10
+    mapPrefab: {fileID: 2203518148440082803, guid: 137a659a443932640976e15d3da3574a, type: 3}
+    backgroundImage: {fileID: 0}
+    bgm: {fileID: 0}
+    possibleMonsters: []
+    minMonsterCount: 0
+    maxMonsterCount: 0

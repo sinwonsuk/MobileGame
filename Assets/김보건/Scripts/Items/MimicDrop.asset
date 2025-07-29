@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: MimicDrop
   m_EditorClassIdentifier: 
   possibleDrops:
-  - {fileID: 1382174700729074973, guid: 7cf954e2d5d104945898be51d34017de, type: 3}
+  - {fileID: 1382174700729074973, guid: 12fdb30a8c81117489b284827de4bee0, type: 3}
+  - {fileID: 7994347973316693046, guid: 770343675afb5574abb0a557c32e4a18, type: 3}
   dropCount: 1

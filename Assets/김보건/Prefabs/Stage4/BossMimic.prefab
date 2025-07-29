@@ -126,7 +126,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea47943b35be80949b43e1aa4170b959, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHp: 0
+  maxHp: 500
   hpBarPrefab: {fileID: 1018875100444368544}
   dropItem: {fileID: 11400000, guid: 5b308a1da9aecc140ab35716bddf1105, type: 2}
   basePosition: {x: 0, y: 0, z: 0}
