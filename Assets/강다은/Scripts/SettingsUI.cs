@@ -15,11 +15,39 @@ public class SettingsUI : MonoBehaviour
 		privacyPolicyButton.onClick.AddListener(() => Application.OpenURL(privacyPolicyUrl));
 		deleteAccountButton.onClick.AddListener(() => Application.OpenURL(deleteAccountUrl));
 
+		bgmSlider.value = PlayerPrefs.GetFloat("BGMVolume", 0.2f);
+		sfxSlider.value = PlayerPrefs.GetFloat("SFXVolume", 0.5f);
+
+		ApplyVolumes();
+
+		// 슬라이더 값 변경시 볼륨 업데이트
+		bgmSlider.onValueChanged.AddListener(OnBgmChanged);
+		sfxSlider.onValueChanged.AddListener(OnSfxChanged);
+
 		nicknamePopup.SetActive(false);
 		settingsPanel.SetActive(false);
 	}
 
-	void OpenNicknamePopup()
+	private void OnBgmChanged(float volume)
+	{
+		SoundManager.GetInstance().SetSoundBgm(volume);
+		PlayerPrefs.SetFloat("BGMVolume", volume);
+	}
+
+	private void OnSfxChanged(float volume)
+	{
+		SoundManager.GetInstance().sfxVolume = volume;
+		SoundManager.GetInstance().UpdateSfxVolumes();
+		PlayerPrefs.SetFloat("SFXVolume", volume);
+	}
+
+	private void ApplyVolumes()
+	{
+		SoundManager.GetInstance().SetSoundBgm(bgmSlider.value);
+		SoundManager.GetInstance().sfxVolume = sfxSlider.value;
+		SoundManager.GetInstance().UpdateSfxVolumes();
+	}
+void OpenNicknamePopup()
 	{
 		nicknamePopup.SetActive(true);
 		nicknameInput.text = "";
