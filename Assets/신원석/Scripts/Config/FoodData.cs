@@ -22,6 +22,7 @@ public class FoodData : BaseScriptableObject
 public class EnhanceStepData
 {
     public string indate;
+    public string foodIndate;
     public int step;
     public float successRate;
     public List<EnhanceMaterialData> ingredients;

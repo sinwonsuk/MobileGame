@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 696453bce3ffd9547a53f4296dc93406
+guid: 2f730c1ae545c244ca4c3d24df778591
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 2643502470492498710
-    second: basicGreenGrangonDead1_0
+      213: 6177155923185160037
+    second: bossDragonDead2_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -51,7 +51,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 64
+  spritePixelsToUnits: 25
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -139,13 +139,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: basicGreenGrangonDead1_0
+      name: bossDragonDead2_0
       rect:
         serializedVersion: 2
-        x: 4
-        y: 0
-        width: 57
-        height: 64
+        x: 0
+        y: 42
+        width: 250
+        height: 358
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -154,8 +154,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 61ba294bd7b9fa420800000000000000
-      internalID: 2643502470492498710
+      spriteID: 56fc6ab859aa9b550800000000000000
+      internalID: 6177155923185160037
       vertices: []
       indices: 
       edges: []
@@ -174,7 +174,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      basicGreenGrangonDead1_0: 2643502470492498710
+      bossDragonDead2_0: 6177155923185160037
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
