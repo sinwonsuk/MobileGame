@@ -1440,7 +1440,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 295719878518904340}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 3597932597050006500}
+        m_TargetAssemblyTypeName: LoginUI, Assembly-CSharp
+        m_MethodName: OnClickGoogleLoginButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &3763926138528647688
 GameObject:
   m_ObjectHideFlags: 0
@@ -4481,7 +4493,7 @@ MonoBehaviour:
   SignPwInput: {fileID: 1816443546311622013}
   nicknameInput: {fileID: 1073108939772510611}
   csvUploader: {fileID: 2031662332115826547, guid: d99e7e46e18553a428e2ba5d89e02566, type: 3}
-  staticDataInitializer: {fileID: 0}
+  staticDataInitializer: {fileID: 8391016157448364573, guid: a48c1c724b5a79d4d922c9306d0ff86d, type: 3}
 --- !u!1 &8917136085900871565
 GameObject:
   m_ObjectHideFlags: 0

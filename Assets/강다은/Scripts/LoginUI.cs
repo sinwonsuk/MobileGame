@@ -253,48 +253,71 @@ public class LoginUI : MonoBehaviour
 			yield return null; // 한 프레임 기다림
 		}
 
-		// 정적 테이블 초기화 (server -> scriptable obj)
-		yield return StartCoroutine(staticDataInitializer.InitializeAllStaticData());
-		Debug.Log("정적 테이블 초기화 완료");
-
 		// 유저 인벤토리 존재 확인 및 데이터 삽입
 		string ownerIndate = Backend.UserInDate;
 		yield return StartCoroutine(InventoryManager.Instance.InsertInventoryIfNotExists(ownerIndate));
-
-		//인벤토리 데이터 불러오기
 		yield return StartCoroutine(InventoryManager.Instance.LoadUserInventory(ownerIndate));
 
 		// 직원 데이터 삽입
 		yield return StartCoroutine(EmployeeManager.Instance.InsertEmployeesIfNotExists(ownerIndate));
 		yield return StartCoroutine(EmployeeManager.Instance.LoadEmployeeData(ownerIndate));
 
-		// 기타 유저 게임 데이터 불러오기
-		BackendGameData.Instance.GameDataGetOrInsert(() => 
+		bool isDone = false;
+		BackendGameData.Instance.GameDataGetOrInsert(() =>
 		{
-			if (IsAdminAccount())
-			{
-				Debug.Log("<관리자> 계정입니다. StaticData 삽입");
-
-				GameObject uploader = Instantiate(csvUploader, Vector3.zero, Quaternion.identity);
-				uploader.GetComponent<CSVTableUploader>().onComplete = () =>
-				{
-					Debug.Log("<관리자> CSV 업로드 완료. 씬 이동 시작");
-					SceneManager.LoadScene("SampleScene");
-				};
-			}
-			else
-			{
-				// 일반 유저 → 닉네임 검사 & 씬 이동
-				StartCoroutine(CheckNicknameAndProceed());
-			}
+			isDone = true;
 		});
+		yield return new WaitUntil(() => isDone);
 
+		if (IsAdminAccount())
+		{
+			Debug.Log("<관리자> StaticData + CSV 시작");
+
+			// StaticData 초기화
+			GameObject initializerGO = Instantiate(staticDataInitializer, Vector3.zero, Quaternion.identity);
+			var initializer = initializerGO.GetComponent<StaticDataInitializer>();
+
+			if (initializer == null)
+			{
+				Debug.LogError("StaticDataInitializer 없음");
+				yield break;
+			}
+
+			yield return StartCoroutine(initializer.InitializeAllStaticData());
+			Debug.Log("정적 데이터 초기화 완료");
+
+			// CSV 업로더
+			GameObject uploaderGO = Instantiate(csvUploader, Vector3.zero, Quaternion.identity);
+			var uploader = uploaderGO.GetComponent<CSVTableUploader>();
+
+			if (uploader == null)
+			{
+				Debug.LogError("CSVUploader 없음");
+				yield break;
+			}
+
+			bool uploadDone = false;
+			uploader.onComplete = () =>
+			{
+				uploadDone = true;
+			};
+
+			yield return new WaitUntil(() => uploadDone);
+			Debug.Log("CSV 업로드 완료, 씬 이동");
+
+			SceneManager.LoadScene("SampleScene");
+		}
+		else
+		{
+			// 일반 유저 -> 닉네임 검사 후 씬 이동
+			yield return StartCoroutine(CheckNicknameAndProceed());
+		}
 		
 	}
 
-	[SerializeField] GameObject signUpPanel;
-	[SerializeField] GameObject loginPanel;
-	[SerializeField] GameObject nicknamePanel;
+	[SerializeField] private GameObject signUpPanel;
+	[SerializeField] private GameObject loginPanel;
+	[SerializeField] private GameObject nicknamePanel;
 
 	[SerializeField] private TMP_InputField loginIdInput;
 	[SerializeField] private TMP_InputField loginPwInput;
@@ -304,8 +327,8 @@ public class LoginUI : MonoBehaviour
 
 	[SerializeField] private TMP_InputField nicknameInput;
 
-	[SerializeField] GameObject csvUploader;
+	[SerializeField] private GameObject csvUploader;
 
-	[SerializeField] private StaticDataInitializer staticDataInitializer;
+	[SerializeField] private GameObject staticDataInitializer;
 
 }
