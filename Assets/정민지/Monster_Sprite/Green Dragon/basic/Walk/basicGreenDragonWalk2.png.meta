@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 7e71b3e4a2a53e34a923a7b5e09cd2d8
+guid: 4e0567400f50d33498971e0e17664447
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -3061806190202600421
-    second: basicGreenGrangonWalk3_0
+      213: -3285615252998314622
+    second: basicGreenDragonWalk2_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -139,13 +139,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: basicGreenGrangonWalk3_0
+      name: basicGreenDragonWalk2_0
       rect:
         serializedVersion: 2
         x: 4
         y: 0
         width: 57
-        height: 64
+        height: 63
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -154,8 +154,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: b14c1edfd774285d0800000000000000
-      internalID: -3061806190202600421
+      spriteID: 2852e68d5562762d0800000000000000
+      internalID: -3285615252998314622
       vertices: []
       indices: 
       edges: []
@@ -174,7 +174,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      basicGreenGrangonWalk3_0: -3061806190202600421
+      basicGreenDragonWalk2_0: -3285615252998314622
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

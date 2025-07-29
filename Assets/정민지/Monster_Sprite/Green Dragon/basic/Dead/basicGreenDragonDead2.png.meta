@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 4f9869a5513c7b9458c4fb7cf3d591d6
+guid: 348ec409b293c8249ba40ff466abd231
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 3347421232443090375
-    second: basicGreenGrangonDead2_0
+      213: 4891870535484221569
+    second: basicGreenDragonDead2_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -139,7 +139,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: basicGreenGrangonDead2_0
+      name: basicGreenDragonDead2_0
       rect:
         serializedVersion: 2
         x: 4
@@ -154,8 +154,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 7c5ee5120ed647e20800000000000000
-      internalID: 3347421232443090375
+      spriteID: 188acb2755a63e340800000000000000
+      internalID: 4891870535484221569
       vertices: []
       indices: 
       edges: []
@@ -174,7 +174,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      basicGreenGrangonDead2_0: 3347421232443090375
+      basicGreenDragonDead2_0: 4891870535484221569
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
