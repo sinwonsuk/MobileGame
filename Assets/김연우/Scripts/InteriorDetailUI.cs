@@ -38,6 +38,5 @@ public class InteriorDetailUI : MonoBehaviour
     private void OnUseClicked()
     {
         InteriorManager.Instance.UseInterior(currentSlot.data.interiorName);
-        panel.SetActive(false);
     }
 }
