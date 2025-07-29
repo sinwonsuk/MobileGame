@@ -11,6 +11,8 @@ public class Bullet2D : MonoBehaviour
     public string targetTag = "a";
 
     double damage;
+    bool hasHit = false;
+    bool isPiercing = false;
 
     void Start()
     {
@@ -37,13 +39,15 @@ public class Bullet2D : MonoBehaviour
         //    }
 
         //}
+        if (hasHit && !isPiercing) return;
 
         var enemy = other.GetComponent<EnemyBase>();
         if (enemy != null)
         {
+            hasHit = true;
             enemy.TakeDamage(damage);
-            Destroy(gameObject);
-            return;
+            if (!isPiercing)                 // 관통탄이 아니면 즉시 파괴
+                Destroy(gameObject);
         }
 
         // 벽 등 다른 것에 닿아도 제거
