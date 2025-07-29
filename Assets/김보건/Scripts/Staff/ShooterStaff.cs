@@ -113,10 +113,9 @@ public class ShooterStaff : StaffBase
         }
 
         skillCooldownBar = GetComponentInChildren<SkillCooldownBar>();
-        if (skillCooldownBar != null && bigBulletSkill is BigBulletSkill concrete)
+        if (skillCooldownBar != null && bigBulletSkill is ICooldownReadable readable && bigBulletSkill is MonoBehaviour mb)
         {
-            // 변경된 SkillCooldownBar에 범용 세터 사용
-            skillCooldownBar.SetSkill(concrete, concrete);
+            skillCooldownBar.SetSkill(readable, mb);
         }
     }
 
