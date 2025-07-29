@@ -122,6 +122,7 @@ public class SettingsUI : MonoBehaviour
 		PopupManager.Show("정말 로그아웃 하시겠습니까?", () =>
 		{
 			Backend.BMember.Logout();
+			SoundManager.GetInstance().Bgm_Stop();
 			SceneManager.LoadScene("DaniTest");
 		});
 	}
