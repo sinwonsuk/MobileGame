@@ -16,6 +16,7 @@ public class FoodSelectUIButton : MonoBehaviour
 
     public void OnClick()
     {
+        SoundManager.GetInstance().SfxPlay(SoundManager.sfx.Click,false);
         EventBus<ManagementActiveHandler>.Raise(new ManagementActiveHandler(false,ClickType.FoodSlot));
         EventBus<ManagementActiveHandler>.Raise(new ManagementActiveHandler(false, ClickType.FoodAmount));
         EventBus<ButtonHandler>.Raise(new ButtonHandler(true));

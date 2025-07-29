@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 6152323489785435712}
   - component: {fileID: 6052494388102397110}
-  - component: {fileID: -62819685159613084}
   - component: {fileID: -2942117698233103072}
   - component: {fileID: 4496589100723293667}
   - component: {fileID: 8626386624504621129}
@@ -93,26 +92,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &-62819685159613084
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3899654314294530085}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fee5d53f90c9b4046956a92312041335, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  animator: {fileID: 4496589100723293667}
-  bulletPrefab: {fileID: 7349647033394132940, guid: 7936ce2b8eaf51140b34d7536ca4822e, type: 3}
-  firePoint: {fileID: 8419969813994771124}
-  bossTag: Enemy
-  bossLayerName: Enemy
-  detectRange: 10
-  bigBulletSkillPrefab: {fileID: 6769856111372669258, guid: c98f6412a8b120d4ab9703af3061a6e3, type: 3}
-  skillCooldown: 5
 --- !u!114 &-2942117698233103072
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -125,11 +104,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07274e0f037d68b44bdcf73e1e7a9e1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animator: {fileID: 4496589100723293667}
-  buffRange: 5
-  allyLayer:
+  buffSkillPrefab: {fileID: 8885708416180907857, guid: cbc048d713025de40aa8a55a0e2cb3a6, type: 3}
+  skillOrigin: {fileID: 0}
+  clickMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 4294967295
+  animator: {fileID: 4496589100723293667}
+  bulletPrefab: {fileID: 7349647033394132940, guid: 7936ce2b8eaf51140b34d7536ca4822e, type: 3}
+  firePoint: {fileID: 8419969813994771124}
+  detectRange: 20
 --- !u!95 &4496589100723293667
 Animator:
   serializedVersion: 7

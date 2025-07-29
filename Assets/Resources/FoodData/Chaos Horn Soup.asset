@@ -17,64 +17,117 @@ MonoBehaviour:
   foodSprite: orcSoup
   price: 742
   isUnlock: 0
-  cookingTime: 1
-  Level: 4
+  cookingTime: 64.3
+  Level: 6
   Ingredients:
   - {fileID: 11400000, guid: fd56a8b06c6e07541b56aecb13256f30, type: 2}
   - {fileID: 11400000, guid: deac93d9a9ba5d84e814dbf0819dcc8c, type: 2}
   enhanceSteps:
-  - indate: 
+  - indate: 2025-07-27T05:59:08.624Z
+    foodIndate: 2025-07-16T02:27:36.856Z
     step: 1
-    successRate: 70
+    successRate: 100
     ingredients:
-    - indate: 
-      name: "\uBA38\uB9BF\uACE0\uAE30"
+    - indate: 2025-07-16T02:27:46.301Z
+      name: "\uBFD4 \uB2EC\uC778 \uBB3C"
       quantity: 1
-    - indate: 
-      name: "\uBFD4\uB2EC\uC778\uBB3C"
+    - indate: 2025-07-16T02:27:45.666Z
+      name: "\uC624\uD06C \uBA38\uB9BF\uACE0\uAE30"
       quantity: 1
-    cost: 1000
-  - indate: 
+    cost: 0
+  - indate: 2025-07-27T05:59:08.777Z
+    foodIndate: 2025-07-16T02:27:36.856Z
     step: 2
-    successRate: 70
+    successRate: 95
     ingredients:
-    - indate: 
-      name: "\uBA38\uB9BF\uACE0\uAE30"
-      quantity: 2
-    - indate: 
-      name: "\uBFD4\uB2EC\uC778\uBB3C"
-      quantity: 2
-    cost: 2000
-  - indate: 
+    - indate: 2025-07-16T02:27:46.301Z
+      name: "\uBFD4 \uB2EC\uC778 \uBB3C"
+      quantity: 5
+    - indate: 2025-07-16T02:27:45.666Z
+      name: "\uC624\uD06C \uBA38\uB9BF\uACE0\uAE30"
+      quantity: 3
+    cost: 0
+  - indate: 2025-07-27T05:59:08.920Z
+    foodIndate: 2025-07-16T02:27:36.856Z
     step: 3
-    successRate: 70
+    successRate: 88
     ingredients:
-    - indate: 
-      name: "\uBA38\uB9BF\uACE0\uAE30"
-      quantity: 3
-    - indate: 
-      name: "\uBFD4\uB2EC\uC778\uBB3C"
-      quantity: 3
-    cost: 3000
-  - indate: 
+    - indate: 2025-07-16T02:27:46.301Z
+      name: "\uBFD4 \uB2EC\uC778 \uBB3C"
+      quantity: 7
+    - indate: 2025-07-16T02:27:45.666Z
+      name: "\uC624\uD06C \uBA38\uB9BF\uACE0\uAE30"
+      quantity: 4
+    cost: 0
+  - indate: 2025-07-27T05:59:09.054Z
+    foodIndate: 2025-07-16T02:27:36.856Z
     step: 4
-    successRate: 70
+    successRate: 78
     ingredients:
-    - indate: 
-      name: "\uBA38\uB9BF\uACE0\uAE30"
-      quantity: 4
-    - indate: 
-      name: "\uBFD4\uB2EC\uC778\uBB3C"
-      quantity: 4
-    cost: 4000
-  - indate: 
+    - indate: 2025-07-16T02:27:46.301Z
+      name: "\uBFD4 \uB2EC\uC778 \uBB3C"
+      quantity: 11
+    - indate: 2025-07-16T02:27:45.666Z
+      name: "\uC624\uD06C \uBA38\uB9BF\uACE0\uAE30"
+      quantity: 7
+    cost: 0
+  - indate: 2025-07-27T05:59:09.203Z
+    foodIndate: 2025-07-16T02:27:36.856Z
     step: 5
-    successRate: 70
+    successRate: 65
     ingredients:
-    - indate: 
-      name: "\uBA38\uB9BF\uACE0\uAE30"
-      quantity: 5
-    - indate: 
-      name: "\uBFD4\uB2EC\uC778\uBB3C"
-      quantity: 5
-    cost: 5000
+    - indate: 2025-07-16T02:27:46.301Z
+      name: "\uBFD4 \uB2EC\uC778 \uBB3C"
+      quantity: 16
+    - indate: 2025-07-16T02:27:45.666Z
+      name: "\uC624\uD06C \uBA38\uB9BF\uACE0\uAE30"
+      quantity: 11
+    cost: 0
+  - indate: 2025-07-27T05:59:09.338Z
+    foodIndate: 2025-07-16T02:27:36.856Z
+    step: 6
+    successRate: 50
+    ingredients:
+    - indate: 2025-07-16T02:27:46.301Z
+      name: "\uBFD4 \uB2EC\uC778 \uBB3C"
+      quantity: 22
+    - indate: 2025-07-16T02:27:45.666Z
+      name: "\uC624\uD06C \uBA38\uB9BF\uACE0\uAE30"
+      quantity: 16
+    cost: 0
+  - indate: 2025-07-27T05:59:09.472Z
+    foodIndate: 2025-07-16T02:27:36.856Z
+    step: 7
+    successRate: 35
+    ingredients:
+    - indate: 2025-07-16T02:27:46.301Z
+      name: "\uBFD4 \uB2EC\uC778 \uBB3C"
+      quantity: 29
+    - indate: 2025-07-16T02:27:45.666Z
+      name: "\uC624\uD06C \uBA38\uB9BF\uACE0\uAE30"
+      quantity: 22
+    cost: 0
+  - indate: 2025-07-27T05:59:09.592Z
+    foodIndate: 2025-07-16T02:27:36.856Z
+    step: 8
+    successRate: 20
+    ingredients:
+    - indate: 2025-07-16T02:27:46.301Z
+      name: "\uBFD4 \uB2EC\uC778 \uBB3C"
+      quantity: 37
+    - indate: 2025-07-16T02:27:45.666Z
+      name: "\uC624\uD06C \uBA38\uB9BF\uACE0\uAE30"
+      quantity: 29
+    cost: 0
+  - indate: 2025-07-27T05:59:09.708Z
+    foodIndate: 2025-07-16T02:27:36.856Z
+    step: 9
+    successRate: 10
+    ingredients:
+    - indate: 2025-07-16T02:27:46.301Z
+      name: "\uBFD4 \uB2EC\uC778 \uBB3C"
+      quantity: 46
+    - indate: 2025-07-16T02:27:45.666Z
+      name: "\uC624\uD06C \uBA38\uB9BF\uACE0\uAE30"
+      quantity: 37
+    cost: 0

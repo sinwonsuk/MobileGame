@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using static SoundManager;
 
 public class Cooker : MonoBehaviour
 {
@@ -21,20 +22,39 @@ public class Cooker : MonoBehaviour
 
             if (Cooks.Count == 0)
             {
+                SoundManager.GetInstance().Sfx_Stop(SoundManager.sfx.Cooking);
+                soundcheck = false;
                 animator.SetBool("Cooking", false);
                 return;
             }
             else if(currentCook.FoodImage.fillAmount >= 1.0f)
             {
+                SoundManager.GetInstance().Sfx_Stop(SoundManager.sfx.Cooking);
+
+
+                if(soundcheck ==false)
+                {
+                    SoundManager.GetInstance().SfxPlay(SoundManager.sfx.FoodCompleted, false);
+                    soundcheck = true;
+                }
+             
                 animator.SetBool("Cooking", false);
             }
             else 
             {
+                soundcheck = false;
                 animator.SetBool("Cooking", true);
+
+                if ( !SoundManager.GetInstance().AnySfxPlaying(SoundManager.sfx.Cooking))
+                {
+                    SoundManager.GetInstance().SfxPlay(SoundManager.sfx.Cooking,false);
+                }
             }
         }
 
     }
+
+    private bool soundcheck = false;
 
     Animator animator; 
 }
