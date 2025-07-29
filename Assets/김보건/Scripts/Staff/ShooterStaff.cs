@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 
 public class ShooterStaff : StaffBase
 {
@@ -17,9 +19,14 @@ public class ShooterStaff : StaffBase
     [SerializeField] private float skillCooldown = 5f;
     private float originalCooldown;
 
+    // 클릭 판정용
+    [SerializeField] private LayerMask clickMask = ~0;
 
     private ISkill bigBulletSkill;
     private SkillCooldownBar skillCooldownBar;
+
+    private InputAction clickAction;
+    private bool isShopOpen = false; //  상점 열리면 입력 무시
 
     Transform boss;
 
@@ -27,6 +34,63 @@ public class ShooterStaff : StaffBase
     {
         base.Init(stats, Runtimestats);
         StartCoroutine(FindAndShoot());
+    }
+
+    void OnEnable()
+    {
+        //EventBus<ShopUIEvent>.OnEvent += OnShopUIEvent;
+
+        clickAction = new InputAction(type: InputActionType.Button, binding: "<Pointer>/press");
+        clickAction.performed += OnPointerPressed;
+        clickAction.Enable();
+    }
+
+    void OnDisable()
+    {
+        //EventBus<ShopUIEvent>.OnEvent -= OnShopUIEvent;
+
+        clickAction.performed -= OnPointerPressed;
+        clickAction.Disable();
+    }
+
+    private void OnPointerPressed(InputAction.CallbackContext ctx)
+    {
+        if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject()) return;
+        if (isShopOpen) return;
+
+        // 현재 포인터 스크린 좌표 구하기 (마우스/터치 공통)
+        Vector2 screenPos = Vector2.zero;
+        if (Mouse.current != null) screenPos = Mouse.current.position.ReadValue();
+        else if (Touchscreen.current != null) screenPos = Touchscreen.current.primaryTouch.position.ReadValue();
+
+        // 스크린→월드 변환 후, 포인트 오버랩으로 "내 자신" 클릭인지 확인
+        Vector3 world = Camera.main.ScreenToWorldPoint(new Vector3(screenPos.x, screenPos.y, 0f));
+        Vector2 p = new Vector2(world.x, world.y);
+
+        // 한 점에 겹치는 2D 콜라이더들 중에서 내 트랜스폼(또는 자식)을 눌렀는지 확인
+        var hits = Physics2D.OverlapPointAll(p, clickMask);
+        foreach (var hit in hits)
+        {
+            if (hit != null && (hit.transform == transform || hit.transform.IsChildOf(transform)))
+            {
+                TryCastSkill();
+                break;
+            }
+        }
+    }
+
+    public void TryCastSkill()
+    {
+        if (bigBulletSkill == null)
+        {
+            Debug.LogWarning("[ShooterStaff] bigBulletSkill == null (프리팹/컴포넌트 확인)");
+            return;
+        }
+        if (!bigBulletSkill.CanCast()) return;
+
+        var origin = firePoint != null ? firePoint : transform;
+        bigBulletSkill.Cast(origin);
+        // Debug.Log("[ShooterStaff] BigBullet Cast!");
     }
 
     public float SkillCooldown
@@ -44,18 +108,12 @@ public class ShooterStaff : StaffBase
             bigBulletSkill = go.GetComponent<ISkill>();
         }
 
-        originalCooldown = skillCooldown;
-
         skillCooldownBar = GetComponentInChildren<SkillCooldownBar>();
-        if (skillCooldownBar != null && bigBulletSkill is BigBulletSkill concreteSkill)
-            skillCooldownBar.skill = concreteSkill;
-    }
-
-    void OnMouseDown()
-    {
-        Debug.Log("클릭됨");
-        if (bigBulletSkill != null && bigBulletSkill.CanCast())
-            bigBulletSkill.Cast(firePoint);
+        if (skillCooldownBar != null && bigBulletSkill is BigBulletSkill concrete)
+        {
+            // 변경된 SkillCooldownBar에 범용 세터 사용
+            skillCooldownBar.SetSkill(concrete, concrete);
+        }
     }
 
     private IEnumerator FindAndShoot()

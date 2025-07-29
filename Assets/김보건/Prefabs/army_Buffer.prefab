@@ -113,6 +113,9 @@ MonoBehaviour:
   detectRange: 10
   bigBulletSkillPrefab: {fileID: 6769856111372669258, guid: c98f6412a8b120d4ab9703af3061a6e3, type: 3}
   skillCooldown: 5
+  clickMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
 --- !u!114 &-2942117698233103072
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -125,11 +128,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07274e0f037d68b44bdcf73e1e7a9e1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animator: {fileID: 4496589100723293667}
-  buffRange: 5
-  allyLayer:
+  buffSkillPrefab: {fileID: 8885708416180907857, guid: cbc048d713025de40aa8a55a0e2cb3a6, type: 3}
+  skillOrigin: {fileID: 0}
+  clickMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 4294967295
 --- !u!95 &4496589100723293667
 Animator:
   serializedVersion: 7

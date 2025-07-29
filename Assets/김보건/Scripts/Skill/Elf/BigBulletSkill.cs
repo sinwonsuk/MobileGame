@@ -1,49 +1,65 @@
 using System.Collections;
 using UnityEngine;
 
-public class BigBulletSkill : MonoBehaviour, ISkill
+public class BigBulletSkill : MonoBehaviour, ISkill, ICooldownReadable
 {
     [SerializeField] private GameObject bigBulletPrefab;
     [SerializeField] private float bulletSpeed = 20f;
     [SerializeField] private int bulletDamage = 100;
+
+
     [SerializeField] private float skillCooldown = 3f; 
     [SerializeField] private float detectRange = 25f;
 
+    private float _cooldownProgress = 999f; // 시작 시 즉시 사용 가능
+    private float _cooldownSpeed = 1f;      // 로컬 배율
+    private int _buffStack = 0;
 
-    private float lastCastTime = -999f;
-
-    public bool CanCast()
+    void OnEnable()
     {
-        return Time.time >= lastCastTime + skillCooldown;
+        EventBus<CooldownSpeedBuffEvent>.OnEvent += OnBuffEvent;
     }
+
+    void OnDisable()
+    {
+        EventBus<CooldownSpeedBuffEvent>.OnEvent -= OnBuffEvent;
+    }
+
+    void Update()
+    {
+        // 쿨다운 중이면 진행
+        if (_cooldownProgress < skillCooldown)
+        {
+            _cooldownProgress += Time.deltaTime * _cooldownSpeed;
+            if (_cooldownProgress > skillCooldown) _cooldownProgress = skillCooldown;
+        }
+    }
+
+    public bool CanCast() => _cooldownProgress >= skillCooldown;
 
     public void Cast(Transform origin)
     {
         if (!CanCast()) return;
 
         Transform nearestEnemy = FindNearestEnemy(origin.position);
+        Vector3 dir = (nearestEnemy != null)
+            ? (nearestEnemy.position - origin.position).normalized
+            : origin.up;
 
-
-        Vector3 dir;
-        if (nearestEnemy != null)
-            dir = (nearestEnemy.position - origin.position).normalized;
-        else
-            dir = origin.up; // 적 없으면 일직선
         Vector3 pos = origin.position;
 
         GameObject bullet = Instantiate(bigBulletPrefab, pos, Quaternion.identity);
         bullet.transform.right = dir;
         bullet.transform.localScale *= 2f;
 
-        var bulletScript = bullet.GetComponent<Bullet2D>();
-        if (bulletScript != null)
+        if (bullet.TryGetComponent<Bullet2D>(out var bulletScript))
             bulletScript.SetDamage(bulletDamage);
 
-        var rb = bullet.GetComponent<Rigidbody2D>();
-        if (rb != null)
+        if (bullet.TryGetComponent<Rigidbody2D>(out var rb))
             rb.AddForce(dir * bulletSpeed, ForceMode2D.Impulse);
 
-        lastCastTime = Time.time; // 쿨타임 갱신
+        // 쿨다운 시작
+        _cooldownProgress = 0f;
     }
 
     private Transform FindNearestEnemy(Vector3 origin)
@@ -61,14 +77,27 @@ public class BigBulletSkill : MonoBehaviour, ISkill
                 nearest = e.transform;
             }
         }
-
         return nearest;
     }
 
+    // 게이지용 0~1
     public float GetCooldownRatio()
     {
-        float elapsed = Time.time - lastCastTime;
-        return Mathf.Clamp01(elapsed / skillCooldown);
+        if (skillCooldown <= 0f) return 1f;
+        return Mathf.Clamp01(_cooldownProgress / skillCooldown);
     }
 
+    private void OnBuffEvent(CooldownSpeedBuffEvent e)
+    {
+        _buffStack++;
+        _cooldownSpeed = e.Multiplier;
+        StartCoroutine(CoBuffTimer(e.Duration));
+    }
+
+    private IEnumerator CoBuffTimer(float duration)
+    {
+        yield return new WaitForSeconds(duration);
+        _buffStack = Mathf.Max(0, _buffStack - 1);
+        if (_buffStack == 0) _cooldownSpeed = 1f;
+    }
 }

@@ -109,7 +109,7 @@ public class StaffShopButton : MonoBehaviour
     private void OnButtonClicked()
     {
         // 돈 차감
-        EventBus<MoneyChangeMusHandler>.Raise(new MoneyChangeMusHandler(money));
+        //EventBus<MoneyChangeMusHandler>.Raise(new MoneyChangeMusHandler(money));
 
         if (RuntimeStaffData.level == 0)
         {
