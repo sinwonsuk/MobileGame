@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Emproyee_two_Runtime
   m_EditorClassIdentifier: 
   indate: 2025-07-27T01:21:44.015Z
-  displayName: 
-  staffType: 2
+  displayName: "\uACBD\uC601\uC9C1\uC6D02"
+  staffType: 1
   level: 0
   attack_Power: 0
   attack_Speed: 0

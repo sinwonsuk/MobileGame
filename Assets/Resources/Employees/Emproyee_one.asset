@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   indate: 2025-07-27T01:21:43.830Z
   displayName: "\uACBD\uC601\uC9C1\uC6D01"
-  staffType: 2
+  staffType: 1
   explain: "\uACBD\uC601 \uC9C1\uC6D01"
   itemPrefab: {fileID: 2127192634085561284, guid: 51d09969f1b80f749ac2cf955655017e, type: 3}
   portrait: {fileID: 0}

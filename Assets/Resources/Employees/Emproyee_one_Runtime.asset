@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   indate: 2025-07-27T01:21:43.830Z
   displayName: "\uACBD\uC601\uC9C1\uC6D01"
-  staffType: 2
+  staffType: 1
   level: 0
   attack_Power: 0
   attack_Speed: 0
