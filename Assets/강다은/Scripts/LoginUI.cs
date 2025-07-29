@@ -6,9 +6,30 @@ using UnityEngine.SceneManagement;
 
 public class LoginUI : MonoBehaviour
 {
-	private void Start()
+	private IEnumerator Start()
 	{
-		ShowLogin();
+		// Backend 초기화될 때까지 기다림
+		while (!Backend.IsInitialized)
+		{
+			yield return null;
+		}
+
+		Debug.Log("Backend 초기화 완료됨, 자동 로그인 시도");
+
+		// 자동 로그인 시도
+		Backend.BMember.LoginWithTheBackendToken(callback =>
+		{
+			if (callback.IsSuccess())
+			{
+				Debug.Log("BackendToken 자동 로그인 성공");
+				StartCoroutine(LoginFlowCoroutine());
+			}
+			else
+			{
+				Debug.Log("자동 로그인 실패, 수동 로그인 화면으로");
+				ShowLogin();
+			}
+		});
 	}
 
 	public void ShowLogin()

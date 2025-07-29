@@ -1,7 +1,9 @@
-using UnityEngine;
-using UnityEngine.UI;
-using TMPro;
+using BackEnd;
 using System;
+using TMPro;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class SettingsUI : MonoBehaviour
 {
@@ -11,6 +13,7 @@ public class SettingsUI : MonoBehaviour
 		confirmNicknameButton.onClick.AddListener(SubmitNicknameChange);
 		cancelNicknameButton.onClick.AddListener(CloseNicknamePopup);
 		cancelSettingsButton.onClick.AddListener(CloseSettingsPanel);
+		logoutButton.onClick.AddListener(OnClickLogout);
 
 		privacyPolicyButton.onClick.AddListener(() => Application.OpenURL(privacyPolicyUrl));
 		deleteAccountButton.onClick.AddListener(() => Application.OpenURL(deleteAccountUrl));
@@ -47,7 +50,7 @@ public class SettingsUI : MonoBehaviour
 		SoundManager.GetInstance().sfxVolume = sfxSlider.value;
 		SoundManager.GetInstance().UpdateSfxVolumes();
 	}
-void OpenNicknamePopup()
+	void OpenNicknamePopup()
 	{
 		nicknamePopup.SetActive(true);
 		nicknameInput.text = "";
@@ -114,6 +117,16 @@ void OpenNicknamePopup()
 		);
 	}
 
+	public void OnClickLogout()
+	{
+		PopupManager.Show("정말 로그아웃 하시겠습니까?", () =>
+		{
+			Backend.BMember.Logout();
+			SceneManager.LoadScene("DaniTest");
+		});
+	}
+
+
 
 	[Header("Setting Panel")]
 	[SerializeField] private GameObject settingsPanel;
@@ -133,6 +146,9 @@ void OpenNicknamePopup()
 	[Header("External Links")]
 	[SerializeField] private Button privacyPolicyButton;
 	[SerializeField] private Button deleteAccountButton;
+
+	[Header("Logout")]
+	[SerializeField] private Button logoutButton;
 
 	private string deleteAccountUrl = "https://storage.thebackend.io/1ea3f14d34e89530ea88b3245bc82dc17d5f52ce1554049f19fce9219a847cfce18bb88949ceff97e661eeb9a3bb828c69c5513c1e8700aec55b0fa6edd7a5ea14603f7a7268841be4987142de/withdraw/ko/index.html#/customLogin";
 	private string privacyPolicyUrl = "https://storage.thebackend.io/1585238bf7ffe74a960bde13f7e1258f4a8836d27df3b152aef67fd7839b1fc6/privacy.html"; 
