@@ -11,7 +11,6 @@ public class StaffBase : MonoBehaviour
     {
         data = stats;
         runtimeData = Runtimestats;
-        runtimeData.level = 1;
 
         // staffType 분기 처리
         switch (data.staffType)

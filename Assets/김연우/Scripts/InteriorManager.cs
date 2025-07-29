@@ -20,11 +20,25 @@ public class InteriorManager : MonoBehaviour
         else { Destroy(gameObject); return; }
 
         DontDestroyOnLoad(gameObject);
+
         // 슬롯 초기화
         for (int i = 0; i < allInteriors.Length; i++)
         {
             slots.Add(new InteriorSlot(allInteriors[i], allRunTimeInteriors[i]));
         }
+
+        // 이미 사용 중인 인테리어 자동 생성
+        foreach (var slot in slots)
+        {
+            if (slot.runtimeData.isUsed && slot.runtimeData.instance == null)
+            {
+                Vector3 pos = slot.data.placementPosition;
+                // 회전 정보가 필요하면 Quaternion.identity 대신 slot.data.placementRotation 사용
+                var go = Instantiate(slot.data.prefab, pos, Quaternion.identity);
+                slot.runtimeData.instance = go;
+            }
+        }
+
         OnInteriorChanged?.Invoke();
     }
 
@@ -47,9 +61,7 @@ public class InteriorManager : MonoBehaviour
         {
             // SO에 저장된 위치·회전으로 인스턴스 생성
             Vector3 pos = slot.data.placementPosition;
-            Quaternion rot = Quaternion.Euler(slot.data.placementRotation);
-
-            var go = Instantiate(slot.data.prefab, pos, rot);
+            var go = Instantiate(slot.data.prefab, pos, Quaternion.identity);
             slot.runtimeData.instance = go;
             slot.runtimeData.isUsed = true;
         }
@@ -64,6 +76,4 @@ public class InteriorManager : MonoBehaviour
 
         OnInteriorChanged?.Invoke();
     }
-
-
 }

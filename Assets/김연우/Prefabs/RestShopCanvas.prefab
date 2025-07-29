@@ -1173,7 +1173,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -270, y: 523}
+  m_AnchoredPosition: {x: -336, y: 523}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &9058581479623604673
@@ -1359,7 +1359,7 @@ GameObject:
   - component: {fileID: 7753583062409868419}
   - component: {fileID: 1969364077599194125}
   m_Layer: 5
-  m_Name: Staff_Item
+  m_Name: Interior_Item
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2069,7 +2069,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -158, y: 522}
+  m_AnchoredPosition: {x: -224, y: 522}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &60528410272255302
@@ -2292,6 +2292,7 @@ GameObject:
   - component: {fileID: 2787202912305848550}
   - component: {fileID: 5680752076347167696}
   - component: {fileID: 637125266938391649}
+  - component: {fileID: 428962931319985970}
   m_Layer: 5
   m_Name: Buy/Soldout
   m_TagString: Untagged
@@ -2401,6 +2402,21 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &428962931319985970
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9151474518725011993}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6494369d78168e344bb204a8f943e545, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interiorData: {fileID: 11400000, guid: bac082e3bd2c5384abe77aa1363b7002, type: 2}
+  RuntimeInteriorData: {fileID: 11400000, guid: 218360a37dc03f04c8bc5864262ddc59, type: 2}
+  purchaseButton: {fileID: 637125266938391649}
 --- !u!1001 &5874747714696646309
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2496,6 +2512,10 @@ PrefabInstance:
     - target: {fileID: 5528645273617092722, guid: f5ab6d78e6e0d034aaca794ee74a4dee, type: 3}
       propertyPath: num1
       value: sixth
+      objectReference: {fileID: 0}
+    - target: {fileID: 5528645273617092722, guid: f5ab6d78e6e0d034aaca794ee74a4dee, type: 3}
+      propertyPath: stafType
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5528645273617092722, guid: f5ab6d78e6e0d034aaca794ee74a4dee, type: 3}
       propertyPath: staffData
@@ -2622,6 +2642,10 @@ PrefabInstance:
     - target: {fileID: 5528645273617092722, guid: f5ab6d78e6e0d034aaca794ee74a4dee, type: 3}
       propertyPath: num1
       value: fifth
+      objectReference: {fileID: 0}
+    - target: {fileID: 5528645273617092722, guid: f5ab6d78e6e0d034aaca794ee74a4dee, type: 3}
+      propertyPath: stafType
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5528645273617092722, guid: f5ab6d78e6e0d034aaca794ee74a4dee, type: 3}
       propertyPath: staff123

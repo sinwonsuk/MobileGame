@@ -16,7 +16,7 @@ public class StaffShopButton : MonoBehaviour
     public TextMeshProUGUI _buttonText;
     public TextMeshProUGUI level_num;
 
-    public StaffType staff123;
+    public StaffType stafType;
     public string num1;
     public int money;
 
@@ -24,7 +24,7 @@ public class StaffShopButton : MonoBehaviour
     {
         money = staffData.baseSalary;
         // --- 디버깅 로그 추가 ---
-        Debug.Log($"[{staffData.displayName}] num1 = {num1}, initial spawnPoint = {spawnPoint}", this);
+       
         // 스폰 포인트가 지정되지 않았다면
         if (spawnPoint == null)
         {
@@ -73,6 +73,7 @@ public class StaffShopButton : MonoBehaviour
                     break;
             }
         }
+        Debug.Log($"[{staffData.displayName}] num1 = {num1}, initial spawnPoint = {spawnPoint}", this);
         // 여전히 null 이면 경고
         if (spawnPoint == null)
             Debug.LogWarning($"[{staffData.displayName}] SpawnStaff 불가 – spawnPoint가 null입니다.", this);
@@ -82,7 +83,7 @@ public class StaffShopButton : MonoBehaviour
 
     void Start()
     {
-        RuntimeStaffData.level = 0;
+        //RuntimeStaffData.level = 0;
         // 2) 버튼 리스너 등록 & UI 초기화
         purchaseButton.onClick.AddListener(OnButtonClicked);
         RefreshUI();
@@ -109,16 +110,18 @@ public class StaffShopButton : MonoBehaviour
     private void OnButtonClicked()
     {
         // 돈 차감
-        EventBus<MoneyChangeMusHandler>.Raise(new MoneyChangeMusHandler(money));
+        
 
         if (RuntimeStaffData.level == 0)
         {
+            EventBus<MoneyChangeMusHandler>.Raise(new MoneyChangeMusHandler(staffData.baseSalary));
             // 첫 구매
-            RuntimeStaffData.level = 1;
+            RuntimeStaffData.level++;
             SpawnStaff();
         }
         else
         {
+            EventBus<MoneyChangeMusHandler>.Raise(new MoneyChangeMusHandler(money));
             _spawnedStaff.LevelUp();
         }
 

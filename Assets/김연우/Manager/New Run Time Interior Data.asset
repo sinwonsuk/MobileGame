@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: New Run Time Interior Data
   m_EditorClassIdentifier: 
   interiorName: 1234
-  isOwned: 1
+  isOwned: 0
   isUsed: 0
   instance: {fileID: 0}
