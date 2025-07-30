@@ -88,6 +88,12 @@ public class EnemyBase : MonoBehaviour
         if (isDead) return; // 중복 방지
         isDead = true;
         Debug.Log($"{gameObject.name} 죽음");
+
+        //충돌삭제
+        Collider2D col = GetComponent<Collider2D>();
+        if (col != null)
+            col.enabled = false;
+
         FindFirstObjectByType<MonsterSpawner>()?.ResetSpawnFlag();
         DropItem();
 
@@ -98,6 +104,8 @@ public class EnemyBase : MonoBehaviour
         {
             animator.SetTrigger("DeadTrigger");
         }
+
+        StartCoroutine(FadeOutAndDestroy());
 
     }
 
@@ -151,6 +159,32 @@ public class EnemyBase : MonoBehaviour
             Destroy(gameObject);
             Object.FindFirstObjectByType<MonsterSpawner>().SpawnNextStage();
         }
+    }
+
+    private IEnumerator FadeOutAndDestroy()
+    {
+        SpriteRenderer sr = GetComponent<SpriteRenderer>();
+        if (sr == null)
+        {
+            Destroy(gameObject);
+            yield break;
+        }
+
+        float duration = 0.5f; // 사라지는 시간
+        float elapsed = 0f;
+        Color originalColor = sr.color;
+
+        while (elapsed < duration)
+        {
+            float alpha = Mathf.Lerp(1f, 0f, elapsed / duration);
+            sr.color = new Color(originalColor.r, originalColor.g, originalColor.b, alpha);
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        sr.color = new Color(originalColor.r, originalColor.g, originalColor.b, 0f);
+
+        Destroy(gameObject);
     }
 
     public virtual void OnDeathAnimationEnd()
