@@ -3,6 +3,7 @@ using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class LoginUI : MonoBehaviour
 {
@@ -209,7 +210,13 @@ public class LoginUI : MonoBehaviour
 			else
 			{
 				Debug.Log("이미 닉네임이 설정되어 있습니다: " + nickname);
-				SceneManager.LoadScene("SampleScene");
+
+                // 
+
+
+                StartCoroutine(LoadSceneAsync("SampleScene"));
+
+                //SceneManager.LoadScene("SampleScene");
 			}
 		}
 		catch (System.Exception e)
@@ -234,7 +241,10 @@ public class LoginUI : MonoBehaviour
 			BackendGameData.Instance.userData.nickname = nickname; // 닉네임 업데이트
 			BackendGameData.Instance.GameDataUpdate(); // 게임 데이터 업데이트
 
-			SceneManager.LoadScene("SampleScene");
+
+            StartCoroutine(LoadSceneAsync("SampleScene"));
+
+            //SceneManager.LoadScene("SampleScene");
 		},
 		onFailure: (error) =>
 		{
@@ -269,7 +279,12 @@ public class LoginUI : MonoBehaviour
 
 	private IEnumerator LoginFlowCoroutine()
 	{
-		while (string.IsNullOrEmpty(Backend.UserInDate))
+        // 이미지 뛰우기 
+        loadingImage.gameObject.SetActive(true);
+
+
+
+        while (string.IsNullOrEmpty(Backend.UserInDate))
 		{
 			yield return null; // 한 프레임 기다림
 		}
@@ -326,17 +341,34 @@ public class LoginUI : MonoBehaviour
 			yield return new WaitUntil(() => uploadDone);
 			Debug.Log("CSV 업로드 완료, 씬 이동");
 
-			SceneManager.LoadScene("SampleScene");
+            StartCoroutine(LoadSceneAsync("SampleScene"));
+
+            //SceneManager.LoadScene("SampleScene");
 		}
 		else
 		{
 			// 일반 유저 -> 닉네임 검사 후 씬 이동
 			yield return StartCoroutine(CheckNicknameAndProceed());
 		}
-		
-	}
 
-	[SerializeField] private GameObject signUpPanel;
+        //
+    }
+
+
+    public IEnumerator LoadSceneAsync(string sceneName)
+    {
+        AsyncOperation op = SceneManager.LoadSceneAsync(sceneName);
+        while (!op.isDone)
+        {
+            yield return null;
+        }
+
+        loadingImage.gameObject.SetActive(false);
+    }
+
+
+
+    [SerializeField] private GameObject signUpPanel;
 	[SerializeField] private GameObject loginPanel;
 	[SerializeField] private GameObject nicknamePanel;
 
@@ -351,5 +383,7 @@ public class LoginUI : MonoBehaviour
 	[SerializeField] private GameObject csvUploader;
 
 	[SerializeField] private GameObject staticDataInitializer;
+
+    [SerializeField] private Image loadingImage;
 
 }
