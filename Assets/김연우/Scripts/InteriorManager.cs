@@ -27,13 +27,15 @@ public class InteriorManager : MonoBehaviour
             slots.Add(new InteriorSlot(allInteriors[i], allRunTimeInteriors[i]));
         }
 
+        // **저장된 상태 불러오기**
+        LoadInteriorStates();
+
         // 이미 사용 중인 인테리어 자동 생성
         foreach (var slot in slots)
         {
             if (slot.runtimeData.isUsed && slot.runtimeData.instance == null)
             {
                 Vector3 pos = slot.data.placementPosition;
-                // 회전 정보가 필요하면 Quaternion.identity 대신 slot.data.placementRotation 사용
                 var go = Instantiate(slot.data.prefab, pos, Quaternion.identity);
                 slot.runtimeData.instance = go;
             }
@@ -42,12 +44,36 @@ public class InteriorManager : MonoBehaviour
         OnInteriorChanged?.Invoke();
     }
 
+    // **상태 저장**
+    public void SaveInteriorStates()
+    {
+        foreach (var slot in slots)
+        {
+            string key = slot.data.interiorName;
+            PlayerPrefs.SetInt(key + "_isOwned", slot.runtimeData.isOwned ? 1 : 0);
+            PlayerPrefs.SetInt(key + "_isUsed", slot.runtimeData.isUsed ? 1 : 0);
+        }
+        PlayerPrefs.Save();
+    }
+
+    // **상태 불러오기**
+    public void LoadInteriorStates()
+    {
+        foreach (var slot in slots)
+        {
+            string key = slot.data.interiorName;
+            slot.runtimeData.isOwned = PlayerPrefs.GetInt(key + "_isOwned", slot.runtimeData.isOwned ? 1 : 0) == 1;
+            slot.runtimeData.isUsed = PlayerPrefs.GetInt(key + "_isUsed", slot.runtimeData.isUsed ? 1 : 0) == 1;
+        }
+    }
+
     /// <summary>인테리어 획득(구매) 처리</summary>
     public void AcquireInterior(string name)
     {
         var slot = slots.Find(s => s.data.interiorName == name);
         if (slot == null) return;
         slot.runtimeData.isOwned = true;
+        SaveInteriorStates(); // **저장**
         OnInteriorChanged?.Invoke();
     }
 
@@ -59,7 +85,6 @@ public class InteriorManager : MonoBehaviour
 
         if (!slot.runtimeData.isUsed)
         {
-            // SO에 저장된 위치·회전으로 인스턴스 생성
             Vector3 pos = slot.data.placementPosition;
             var go = Instantiate(slot.data.prefab, pos, Quaternion.identity);
             slot.runtimeData.instance = go;
@@ -67,13 +92,12 @@ public class InteriorManager : MonoBehaviour
         }
         else
         {
-            // 기존 인스턴스 제거
             if (slot.runtimeData.instance != null)
                 Destroy(slot.runtimeData.instance);
             slot.runtimeData.instance = null;
             slot.runtimeData.isUsed = false;
         }
-
+        SaveInteriorStates(); // **저장**
         OnInteriorChanged?.Invoke();
     }
 }

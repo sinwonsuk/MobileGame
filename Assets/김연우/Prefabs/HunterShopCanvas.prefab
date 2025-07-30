@@ -2967,7 +2967,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buyButton: {fileID: 3320330882720505028}
   timeText: {fileID: 6665900550549959870}
-  durationHours: 0.01
+  durationHours: 1
   rewards:
   - ingredientData: {fileID: 11400000, guid: 93949912012d1e645beb0af0a2e72ce9, type: 2}
     amount: 3
@@ -2975,6 +2975,7 @@ MonoBehaviour:
     amount: 3
   - ingredientData: {fileID: 11400000, guid: 9e0ddcb4fca5b484abecbcf2f4ac968c, type: 2}
     amount: 3
+  itemKey: Forest2
 --- !u!1 &2144654630434674467
 GameObject:
   m_ObjectHideFlags: 0
@@ -9713,12 +9714,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buyButton: {fileID: 7657994930832941346}
   timeText: {fileID: 8789386630734783328}
-  durationHours: 0.01
+  durationHours: 1
   rewards:
   - ingredientData: {fileID: 11400000, guid: 72f2d6b10f6048a4da71ffea5ab0604c, type: 2}
     amount: 3
   - ingredientData: {fileID: 11400000, guid: 80394b64ea168af49ac7204a81cd1346, type: 2}
     amount: 3
+  itemKey: Forest3
 --- !u!1 &7190081301347564618
 GameObject:
   m_ObjectHideFlags: 0
@@ -12239,7 +12241,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buyButton: {fileID: 1324657359391212697}
   timeText: {fileID: 1528449413028636587}
-  durationHours: 0.01
+  durationHours: 2
   rewards:
   - ingredientData: {fileID: 11400000, guid: a6160647db9b3df46b1d71aed74c7365, type: 2}
     amount: 3
@@ -12247,6 +12249,7 @@ MonoBehaviour:
     amount: 3
   - ingredientData: {fileID: 11400000, guid: 9c0d63a1efe237f43a241b41be05d316, type: 2}
     amount: 3
+  itemKey: Forest1
 --- !u!1 &9134271150443016144
 GameObject:
   m_ObjectHideFlags: 0
