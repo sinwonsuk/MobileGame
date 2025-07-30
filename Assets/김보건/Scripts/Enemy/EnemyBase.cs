@@ -46,6 +46,7 @@ public class EnemyBase : MonoBehaviour
 
     public virtual void Update()
     {
+        if (isDead) return;
         // 내려오는 위치 + 맞을때 흔들림
         //transform.position = basePosition + hitShakeOffset;
 
@@ -189,7 +190,7 @@ public class EnemyBase : MonoBehaviour
 
     public virtual void OnDeathAnimationEnd()
     {
-        Destroy(gameObject);
+       // Destroy(gameObject);
     }
 
 }
