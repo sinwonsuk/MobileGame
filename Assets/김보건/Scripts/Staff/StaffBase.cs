@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class StaffBase : MonoBehaviour
@@ -7,6 +8,12 @@ public class StaffBase : MonoBehaviour
     protected RuntimeStaffStatsSO runtimeData;
     protected double currentAttackPower;
     protected double currentAttackSpeed;
+
+    [SerializeField] private GameObject[] buffIconPrefabs; // 다양한 아이콘 (SpeedUp, DefenseUp 등)
+    [SerializeField] private Transform iconAnchor; // 아이콘이 붙을 기준 위치
+    private List<GameObject> activeBuffIcons = new();
+
+    private Coroutine _speedBuffCR;
 
     public virtual void Init(StaffStatsSO stats, RuntimeStaffStatsSO Runtimestats)
     {
@@ -62,23 +69,20 @@ public class StaffBase : MonoBehaviour
 
     public virtual void ApplySpeedBuff(float multiplier, float duration, GameObject iconPrefab)
     {
-        StopAllCoroutines(); // 중복 방지
-        StartCoroutine(CoSpeedBuff(multiplier, duration, iconPrefab));
+        // 다른 코루틴(아이콘 제거 포함)까지 끊지 않도록 타겟만 정리
+        if (_speedBuffCR != null) StopCoroutine(_speedBuffCR);
+
+        // 아이콘 앵커에 생성
+        if (iconPrefab != null) ShowBuffIcon(iconPrefab, duration);
+
+        // 속도 버프만 처리하는 코루틴
+        _speedBuffCR = StartCoroutine(CoSpeedBuff(multiplier, duration));
     }
 
-    private IEnumerator CoSpeedBuff(float multiplier, float duration, GameObject iconPrefab)
+    private IEnumerator CoSpeedBuff(float multiplier, float duration)
     {
         double originalSpeed = currentAttackSpeed;
         SetAttackSpeed(originalSpeed * multiplier);
-
-        GameObject icon = null;
-        if (iconPrefab != null)
-        {
-            icon = Instantiate(iconPrefab, transform);
-            icon.transform.localPosition = new Vector3(0, 1.5f, 0); // 머리 위
-
-            StartCoroutine(CoBuffMark(icon, duration));
-        }
 
         yield return new WaitForSeconds(duration);
 
@@ -91,15 +95,36 @@ public class StaffBase : MonoBehaviour
         runtimeData.attack_Speed = newSpeed;
     }
 
+    public void ShowBuffIcon(GameObject iconPrefab, float duration)
+    {
+        int index = activeBuffIcons.Count;
+
+        //중심에서 좌우 대칭 배치
+        float offsetX = 0.5f * ((index % 2 == 0 ? 1 : -1) * Mathf.Ceil(index / 2f));
+        Vector3 spawnPos = iconAnchor.position + new Vector3(offsetX, 0f, 0f);
+
+        GameObject icon = Instantiate(iconPrefab, spawnPos, Quaternion.identity, iconAnchor);
+        activeBuffIcons.Add(icon);
+
+        // 자동 제거
+        StartCoroutine(CoBuffMark(icon, duration));
+    }
+
     private IEnumerator CoBuffMark(GameObject icon, float duration)
     {
-        yield return new WaitForSeconds(duration);
+        var disappearAnimTime = 0.5f; // Disappear 애니메이션 길이
+        var waitBeforeDisappear = Mathf.Max(0f, duration - disappearAnimTime);
+
+        yield return new WaitForSeconds(waitBeforeDisappear); // 9.5초 기다림
 
         var anim = icon.GetComponent<Animator>();
         if (anim != null)
             anim.SetTrigger("BuffEnd");
 
-        yield return new WaitForSeconds(0.5f); // 애니메이션 끝날 시간
+        yield return new WaitForSeconds(disappearAnimTime); // 0.5초 애니메이션 재생
+        if (activeBuffIcons.Contains(icon))
+            activeBuffIcons.Remove(icon);
         Destroy(icon);
     }
+
 }
