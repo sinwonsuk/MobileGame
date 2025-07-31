@@ -16,10 +16,10 @@ MonoBehaviour:
   displayName: army_three
   staffType: 0
   explain: "\uC0AC\uB0E5\uD130\uC9C1\uC6D03"
-  itemPrefab: {fileID: 3899654314294530085, guid: 732dd9b7cbd523541bbf804d92b2bb15, type: 3}
+  itemPrefab: {fileID: 3899654314294530085, guid: a9a0efbe9ec95104a8580032857907f9, type: 3}
   portrait: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
   baseSalary: 100
-  basic_attack_Power: 30
-  basic_attack_Speed: 0.3
+  basic_attack_Power: 10
+  basic_attack_Speed: 0.5
   basictimer: 0
   basiccooltime: 0

@@ -114,7 +114,7 @@ public class StaffShopButton : MonoBehaviour
 
         if (RuntimeStaffData.level == 0)
         {
-            EventBus<MoneyChangeMusHandler>.Raise(new MoneyChangeMusHandler(staffData.baseSalary));
+            //EventBus<MoneyChangeMusHandler>.Raise(new MoneyChangeMusHandler(staffData.baseSalary));
             // 첫 구매
             RuntimeStaffData.level++;
             SpawnStaff();
