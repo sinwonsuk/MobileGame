@@ -22,7 +22,7 @@ public class ShopItemTimer : MonoBehaviour
         public RunTimeIngredientData ingredientData;
         public int amount;
     }
-
+    [SerializeField] private string itemKey;
     private bool _isCounting;
     private DateTime _endTime;
 
@@ -34,23 +34,30 @@ public class ShopItemTimer : MonoBehaviour
             timeText = transform.Find("Time/Value").GetComponent<TMP_Text>();
 
         buyButton.onClick.AddListener(OnBuyClicked);
-        SetIdleUI();
-    }
 
-    private void OnBuyClicked()
-    {
-        SellItem();
+        // 파견 타이머 저장 복원 로직
+        string savedEnd = PlayerPrefs.GetString(GetTimerKey(), "");
+        if (!string.IsNullOrEmpty(savedEnd) &&
+            DateTime.TryParse(savedEnd, null, System.Globalization.DateTimeStyles.RoundtripKind, out _endTime))
+        {
+            if (_endTime > DateTime.Now)
+            {
+                _isCounting = true;
+                buyButton.interactable = false;
 
-        buyButton.interactable = false;
-        _isCounting = true;
-        _endTime = DateTime.Now.AddHours(durationHours);
-
-        // 서비스에 타이머 등록 (UI가 꺼져도 계속 돌아감)
-        ShopTimerService.Instance.RegisterTimer(
-            this,
-            _endTime,
-            OnTimerComplete
-        );
+                // 서비스에 타이머 등록 (UI가 꺼져도 계속 돌아감)
+                ShopTimerService.Instance.RegisterTimer(this, _endTime, OnTimerComplete);
+            }
+            else
+            {
+                // 만료 시 바로 처리
+                OnTimerComplete();
+            }
+        }
+        else
+        {
+            SetIdleUI();
+        }
     }
 
     private void Update()
@@ -65,15 +72,33 @@ public class ShopItemTimer : MonoBehaviour
         }
         else
         {
-            // (안전장치) Update 중에도 혹시 남은 시간이 0 이하라면 즉시 처리
+            // 남은 시간이 0 이하라면 즉시 처리
             OnTimerComplete();
         }
+    }
+
+    private void OnBuyClicked()
+    {
+        SellItem();
+
+        buyButton.interactable = false;
+        _isCounting = true;
+        _endTime = DateTime.Now.AddHours(durationHours);
+
+        // 종료시간 저장 (고유키 필요)
+        PlayerPrefs.SetString(GetTimerKey(), _endTime.ToString("O"));
+
+        // 서비스에 타이머 등록 (UI가 꺼져도 계속 돌아감)
+        ShopTimerService.Instance.RegisterTimer(this, _endTime, OnTimerComplete);
     }
 
     private void OnTimerComplete()
     {
         if (!_isCounting) return;
         _isCounting = false;
+
+        // 완료 시 저장값 삭제
+        PlayerPrefs.DeleteKey(GetTimerKey());
 
         timeText.text = "00:00:00";
         buyButton.interactable = true;
@@ -101,5 +126,11 @@ public class ShopItemTimer : MonoBehaviour
     {
         timeText.text = "00:00:00";
         buyButton.interactable = true;
+    }
+
+    private string GetTimerKey()
+    {
+        // 여러 타이머라면 고유키 필수! (여기선 오브젝트 이름으로 만듦)
+        return $"ShopTimer_{itemKey}";
     }
 }
