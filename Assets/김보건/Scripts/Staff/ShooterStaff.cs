@@ -30,6 +30,7 @@ public class ShooterStaff : StaffBase
     private bool _inited = false;
     private float nextFireTime = 0f;
 
+
     Transform boss;
 
     public override void Init(StaffStatsSO stats, RuntimeStaffStatsSO Runtimestats)
@@ -137,7 +138,7 @@ public class ShooterStaff : StaffBase
         if (target != null)
         {
             animator?.SetTrigger("AttackTrigger");
-            nextFireTime = Time.time + (1f / Mathf.Max((float)currentAttackSpeed, 0.01f));
+            //nextFireTime = Time.time + (1f / Mathf.Max((float)currentAttackSpeed, 0.01f));
         }
     }
 
@@ -197,6 +198,8 @@ public class ShooterStaff : StaffBase
 
         FireBullet(left, dir);
         FireBullet(right, dir);
+
+        nextFireTime = Time.time + (1f / Mathf.Max((float)currentAttackSpeed, 0.01f));
     }
 
     private void FireBullet(Vector3 pos, Vector2 dir)

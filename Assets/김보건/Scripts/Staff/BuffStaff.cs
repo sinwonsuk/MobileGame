@@ -17,6 +17,7 @@ public class BuffStaff : StaffBase
     [SerializeField] Transform firePoint;
     [SerializeField] private double detectRange = 20.0;
 
+
     private Transform target;
 
     private ISkill buffSkill;
@@ -105,6 +106,8 @@ public class BuffStaff : StaffBase
         if (buffSkill == null) return;
         if (!buffSkill.CanCast()) return;
 
+        animator?.SetTrigger("Skill");
+
         var origin = skillOrigin != null ? skillOrigin : transform;
         buffSkill.Cast(origin);
     }
@@ -117,7 +120,7 @@ public class BuffStaff : StaffBase
         if (target != null)
         {
             animator?.SetTrigger("AttackTrigger");
-            nextFireTime = Time.time + (1f / Mathf.Max((float)currentAttackSpeed, 0.01f));
+            //nextFireTime = Time.time + (1f / Mathf.Max((float)currentAttackSpeed, 0.01f));
         }
     }
 
@@ -159,18 +162,15 @@ public class BuffStaff : StaffBase
         if (target == null || bulletPrefab == null || firePoint == null) return;
 
         Vector2 dir = (target.position - firePoint.position).normalized;
-        float offset = 0.3f;
-        Vector3 left = firePoint.position + firePoint.right * -offset;
-        Vector3 right = firePoint.position + firePoint.right * offset;
 
-        FireBullet(left, dir);
-        FireBullet(right, dir);
+        FireBullet(firePoint.position, dir);
+        nextFireTime = Time.time + (1f / Mathf.Max((float)currentAttackSpeed, 0.01f));
     }
 
     private void FireBullet(Vector3 pos, Vector2 dir)
     {
         GameObject go = Instantiate(bulletPrefab, pos, Quaternion.identity);
-        go.transform.right = dir;
+        //go.transform.right = dir;
 
         if (go.TryGetComponent<Rigidbody2D>(out var rb))
             rb.AddForce(dir * (float)runtimeData.attack_Power, ForceMode2D.Impulse);
