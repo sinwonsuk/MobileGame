@@ -159,8 +159,6 @@ public class LoginUI : MonoBehaviour
 		}
 	}
 
-
-
 	private IEnumerator CheckNicknameAndProceed()
 	{
 		var bro = Backend.BMember.GetUserInfo();
@@ -172,84 +170,108 @@ public class LoginUI : MonoBehaviour
 		}
 
 		var json = bro.GetReturnValuetoJSON();
-		try
+		Debug.Log("[전체 JSON 구조]\n" + json.ToJson());
+
+		if (!json.ContainsKey("row") || json["row"] == null)
 		{
-			Debug.Log("[전체 JSON 구조]\n" + json.ToJson());
-
-			if (!json.ContainsKey("row") || json["row"] == null)
-			{
-				Debug.LogWarning("'row' 키 없음 또는 null");
-				PopupManager.Show("유저 정보가 올바르지 않습니다. 닉네임 설정으로 이동합니다.", () =>
-				{
-					ShowNicknamePanel();
-				});
-				yield break;
-			}
-
-			var row = json["row"];
-
-			if (!row.ContainsKey("nickname") || row["nickname"] == null)
-			{
-				Debug.LogWarning("'nickname' 키 없음 또는 null");
-				PopupManager.Show("닉네임이 없습니다. 설정 화면으로 이동합니다.", () =>
-				{
-					ShowNicknamePanel();
-				});
-				yield break;
-			}
-
-			string nickname = row["nickname"].ToString();
-
-			if (string.IsNullOrEmpty(nickname) || nickname == "default" || nickname == "null" || string.IsNullOrEmpty(row["nickname"].ToString()))
-			{
-				PopupManager.Show("닉네임이 설정되지 않았습니다.\n닉네임 설정 화면으로 이동합니다.", () =>
-				{
-					ShowNicknamePanel();
-				});
-			}
-			else
-			{
-				Debug.Log("이미 닉네임이 설정되어 있습니다: " + nickname);
-
-                // 
-
-
-                StartCoroutine(LoadSceneAsync("SampleScene"));
-
-                //SceneManager.LoadScene("SampleScene");
-			}
-		}
-		catch (System.Exception e)
-		{
-			Debug.LogError("닉네임 정보 조회 중 오류 발생: " + e.Message);
-			PopupManager.Show("닉네임 확인 중 오류가 발생했습니다.\n설정 화면으로 이동합니다.", () =>
+			Debug.LogWarning("'row' 키 없음 또는 null");
+			PopupManager.Show("유저 정보가 올바르지 않습니다. 닉네임 설정으로 이동합니다.", () =>
 			{
 				ShowNicknamePanel();
 			});
+			yield break;
+		}
+
+		string email = null;
+		if (json["row"].ContainsKey("emailForFindPassword"))
+		{
+			email = json["row"]["emailForFindPassword"]?.ToString();
+		}
+
+		if (string.IsNullOrEmpty(email) || email == "null")
+		{
+			Debug.Log("[이메일 미등록] 이메일 등록 팝업 호출");
+			yield return PopupManager.ShowEmailRegisterPopup();
+		}
+		else
+		{
+			Debug.Log("[이메일 등록됨]");
+		}
+
+		//닉네임 체크
+		string nickname = json["row"]["nickname"]?.ToString();
+		bool needsNickname = string.IsNullOrEmpty(nickname) || nickname == "default" || nickname == "null";
+
+		if (needsNickname)
+		{
+			PopupManager.Show("닉네임이 설정되지 않았습니다.\n닉네임 설정 화면으로 이동합니다.", () =>
+			{
+				ShowNicknamePanel();
+			});
+		}
+		else
+		{
+			Debug.Log("이미 닉네임이 설정되어 있습니다: " + nickname);
+			StartCoroutine(LoadSceneAsync("SampleScene"));
 		}
 	}
 
 
 	public void OnClickConfirmNickname()
 	{
-		string nickname = nicknameInput.text;
+
+		string nickname = nicknameInput.text.Trim();
+
+		if (string.IsNullOrEmpty(nickname))
+		{
+			PopupManager.Show("닉네임을 입력하세요.", () => {
+				nicknameInput.text = ""; // 초기화
+			});
+			return;
+		}
+
+		if (nickname.Length > 20)
+		{
+			PopupManager.Show("닉네임은 20자 이하로 입력해주세요.", () => {
+				nicknameInput.text = "";
+			});
+			return;
+		}
 
 		BackendLogin.Instance.UpdateNickname(nickname,
-	    onSuccess: () =>
-		{
-			Debug.Log("닉네임 설정 성공: " + nickname);
-			BackendGameData.Instance.userData.nickname = nickname; // 닉네임 업데이트
-			BackendGameData.Instance.GameDataUpdate(); // 게임 데이터 업데이트
+			onSuccess: () =>
+			{
+				PopupManager.Show("닉네임 변경 완료!", () => {
+
+					BackendGameData.Instance.userData.nickname = nickname; // 닉네임 업데이트
+					BackendGameData.Instance.GameDataUpdate(); // 게임 데이터 업데이트
 
 
-            StartCoroutine(LoadSceneAsync("SampleScene"));
-
-            //SceneManager.LoadScene("SampleScene");
-		},
-		onFailure: (error) =>
-		{
-			PopupManager.Show("닉네임 설정에 실패하였습니다.");
-		});
+					StartCoroutine(LoadSceneAsync("SampleScene"));
+				});
+			},
+			onFailure: (error) =>
+			{
+				if (error.Contains("DuplicatedParameterException"))
+				{
+					PopupManager.Show("이미 사용 중인 닉네임입니다.", () => {
+						nicknameInput.text = "";
+					});
+				}
+				else if (error.Contains("bad beginning or end of"))
+				{
+					PopupManager.Show("닉네임 앞뒤 공백은 제거해주세요.", () => {
+						nicknameInput.text = "";
+					});
+				}
+				else
+				{
+					PopupManager.Show("알 수 없는 오류가 발생했습니다.", () => {
+						nicknameInput.text = "";
+					});
+				}
+			}
+		);
 
 	}
 
@@ -279,11 +301,6 @@ public class LoginUI : MonoBehaviour
 
 	private IEnumerator LoginFlowCoroutine()
 	{
-        // 이미지 뛰우기 
-        loadingImage.gameObject.SetActive(true);
-
-
-
         while (string.IsNullOrEmpty(Backend.UserInDate))
 		{
 			yield return null; // 한 프레임 기다림
@@ -357,7 +374,9 @@ public class LoginUI : MonoBehaviour
 
     public IEnumerator LoadSceneAsync(string sceneName)
     {
-        AsyncOperation op = SceneManager.LoadSceneAsync(sceneName);
+		// 이미지 뛰우기 
+		loadingImage.gameObject.SetActive(true);
+		AsyncOperation op = SceneManager.LoadSceneAsync(sceneName);
         while (!op.isDone)
         {
             yield return null;

@@ -2,17 +2,10 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using System;
+using System.Collections;
 
 public class PopupManager : MonoBehaviour
 {
-	public static PopupManager Instance;
-
-	[SerializeField] private GameObject popupPanel;
-	[SerializeField] private TMP_Text messageText;
-	[SerializeField] private Button confirmButton;
-
-	private Action onConfirmCallback;
-
 	private void Awake()
 	{
 		if (Instance == null)
@@ -55,4 +48,24 @@ public class PopupManager : MonoBehaviour
 		Instance.messageText.text = message;
 		Instance.onConfirmCallback = onConfirm;
 	}
+
+	public static IEnumerator ShowEmailRegisterPopup()
+	{
+	    bool done = false;
+	
+	    EmailRegisterPopup popup = Instantiate(Instance.emailPopupPrefab);
+	    popup.SetOnCompleteCallback(() => done = true);
+	
+	    yield return new WaitUntil(() => done);
+	}
+	
+
+	public static PopupManager Instance;
+
+	[SerializeField] private GameObject popupPanel;
+	[SerializeField] private TMP_Text messageText;
+	[SerializeField] private Button confirmButton;
+	[SerializeField] private EmailRegisterPopup emailPopupPrefab;
+
+	private Action onConfirmCallback;
 }
