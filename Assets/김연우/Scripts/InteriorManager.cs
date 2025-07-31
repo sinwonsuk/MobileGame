@@ -16,6 +16,8 @@ public class InteriorManager : MonoBehaviour
 
     private void Awake()
     {
+         /*PlayerPrefs.DeleteAll();
+        PlayerPrefs.Save();*/
         if (Instance == null) Instance = this;
         else { Destroy(gameObject); return; }
 
@@ -27,24 +29,10 @@ public class InteriorManager : MonoBehaviour
             slots.Add(new InteriorSlot(allInteriors[i], allRunTimeInteriors[i]));
         }
 
-        // **저장된 상태 불러오기**
         LoadInteriorStates();
-
-        // 이미 사용 중인 인테리어 자동 생성
-        foreach (var slot in slots)
-        {
-            if (slot.runtimeData.isUsed && slot.runtimeData.instance == null)
-            {
-                Vector3 pos = slot.data.placementPosition;
-                var go = Instantiate(slot.data.prefab, pos, Quaternion.identity);
-                slot.runtimeData.instance = go;
-            }
-        }
-
-        OnInteriorChanged?.Invoke();
     }
 
-    // **상태 저장**
+    // 상태 저장
     public void SaveInteriorStates()
     {
         foreach (var slot in slots)
@@ -56,7 +44,7 @@ public class InteriorManager : MonoBehaviour
         PlayerPrefs.Save();
     }
 
-    // **상태 불러오기**
+    // 상태 불러오기
     public void LoadInteriorStates()
     {
         foreach (var slot in slots)
@@ -67,37 +55,86 @@ public class InteriorManager : MonoBehaviour
         }
     }
 
-    /// <summary>인테리어 획득(구매) 처리</summary>
+    // 인테리어 획득(구매)
     public void AcquireInterior(string name)
     {
         var slot = slots.Find(s => s.data.interiorName == name);
         if (slot == null) return;
         slot.runtimeData.isOwned = true;
-        SaveInteriorStates(); // **저장**
+        SaveInteriorStates();
         OnInteriorChanged?.Invoke();
     }
 
-    /// <summary>설치/해제 토글</summary>
+    // 설치/해제 토글 (instance==null 기준!)
     public void UseInterior(string name)
     {
         var slot = slots.Find(s => s.data.interiorName == name);
         if (slot == null || !slot.runtimeData.isOwned) return;
 
-        if (!slot.runtimeData.isUsed)
+        // 인스턴스가 없으면 설치, 있으면 해제
+        if (slot.runtimeData.instance == null)
         {
             Vector3 pos = slot.data.placementPosition;
             var go = Instantiate(slot.data.prefab, pos, Quaternion.identity);
+
+            // PiggyBank 등 SO 연결 및 누적금 복원!
+            var piggyBank = go.GetComponent<PiggyBank>();
+            if (piggyBank != null)
+            {
+                piggyBank.runtimeData = slot.runtimeData;
+                piggyBank.RestoreAccumulated();
+            }
+
             slot.runtimeData.instance = go;
             slot.runtimeData.isUsed = true;
         }
         else
         {
             if (slot.runtimeData.instance != null)
+            {
+                // PiggyBank면 누적금도 리셋
+                var piggyBank = slot.runtimeData.instance.GetComponent<PiggyBank>();
+                if (piggyBank != null)
+                    piggyBank.ResetPiggyBank();
+
                 Destroy(slot.runtimeData.instance);
+            }
             slot.runtimeData.instance = null;
             slot.runtimeData.isUsed = false;
         }
-        SaveInteriorStates(); // **저장**
+
+        SaveInteriorStates();
+        OnInteriorChanged?.Invoke();
+    }
+
+    /// <summary>
+    /// 로그인/서버 동기화 후 호출! isUsed==true인 인테리어 자동 설치
+    /// </summary>
+    public void RefreshInstalledInteriors()
+    {
+        foreach (var slot in slots)
+        {
+            // 기존 인스턴스 있으면 제거 (중복 방지)
+            if (slot.runtimeData.instance != null)
+            {
+                Destroy(slot.runtimeData.instance);
+                slot.runtimeData.instance = null;
+            }
+
+            // isUsed==true면 설치
+            if (slot.runtimeData.isUsed)
+            {
+                Vector3 pos = slot.data.placementPosition;
+                var go = Instantiate(slot.data.prefab, pos, Quaternion.identity);
+                var piggyBank = go.GetComponent<PiggyBank>();
+                if (piggyBank != null)
+                {
+                    piggyBank.runtimeData = slot.runtimeData;
+                    piggyBank.RestoreAccumulated();
+                }
+                slot.runtimeData.instance = go;
+            }
+        }
         OnInteriorChanged?.Invoke();
     }
 }
