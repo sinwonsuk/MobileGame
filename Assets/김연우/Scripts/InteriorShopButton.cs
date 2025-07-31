@@ -21,8 +21,9 @@ public class InteriorShopButton : MonoBehaviour
         if (RuntimeInteriorData.isOwned == false)
         {
             EventBus<MoneyChangeMusHandler>.Raise(new MoneyChangeMusHandler(money));
-            RuntimeInteriorData.isOwned = true;
-            Debug.Log("하이");
+            // 이 줄로 변경!
+            InteriorManager.Instance.AcquireInterior(interiorData.interiorName);
+            Debug.Log("구매");
         }
         hideButton();
     }

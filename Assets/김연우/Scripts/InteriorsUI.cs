@@ -12,6 +12,7 @@ public class InteriorsUI : MonoBehaviour
             InteriorManager.Instance.OnInteriorChanged += RefreshUI;
             RefreshUI();
         }
+        
     }
 
     private void OnDestroy()
@@ -36,4 +37,5 @@ public class InteriorsUI : MonoBehaviour
             slotUI.SetSlot(slot);
         }
     }
+
 }
