@@ -105,6 +105,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07274e0f037d68b44bdcf73e1e7a9e1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  buffIconPrefabs: []
   iconAnchor: {fileID: 8948186830589474876}
   buffSkillPrefab: {fileID: 6125267959336616829, guid: a743550babf599b4596b6b3691475794, type: 3}
   skillOrigin: {fileID: 0}
@@ -230,7 +231,7 @@ Transform:
   m_GameObject: {fileID: 7696002815065166835}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.2, z: 0}
+  m_LocalPosition: {x: 0, y: 1.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -254,7 +255,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2113362932022544872, guid: 6313b103f054f3d48b0744069b1d52ca, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.351
       objectReference: {fileID: 0}
     - target: {fileID: 2113362932022544872, guid: 6313b103f054f3d48b0744069b1d52ca, type: 3}
       propertyPath: m_LocalPosition.z
