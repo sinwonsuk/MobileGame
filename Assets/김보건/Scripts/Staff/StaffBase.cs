@@ -97,14 +97,11 @@ public class StaffBase : MonoBehaviour
 
     public void ShowBuffIcon(GameObject iconPrefab, float duration)
     {
-        int index = activeBuffIcons.Count;
-
-        //중심에서 좌우 대칭 배치
-        float offsetX = 0.5f * ((index % 2 == 0 ? 1 : -1) * Mathf.Ceil(index / 2f));
-        Vector3 spawnPos = iconAnchor.position + new Vector3(offsetX, 0f, 0f);
-
-        GameObject icon = Instantiate(iconPrefab, spawnPos, Quaternion.identity, iconAnchor);
+        GameObject icon = Instantiate(iconPrefab, iconAnchor.position, Quaternion.identity, iconAnchor);
         activeBuffIcons.Add(icon);
+
+        // 위치 정렬
+        UpdateBuffIconPositions();
 
         // 자동 제거
         StartCoroutine(CoBuffMark(icon, duration));
@@ -123,8 +120,20 @@ public class StaffBase : MonoBehaviour
 
         yield return new WaitForSeconds(disappearAnimTime); // 0.5초 애니메이션 재생
         if (activeBuffIcons.Contains(icon))
+        {
             activeBuffIcons.Remove(icon);
-        Destroy(icon);
+            Destroy(icon);
+            UpdateBuffIconPositions(); // 위치 다시 정렬
+        }
     }
 
+    private void UpdateBuffIconPositions()
+    {
+        float iconSpacing = 0.6f; // 간격
+        for (int i = 0; i < activeBuffIcons.Count; i++)
+        {
+            Vector3 newPos = iconAnchor.position + new Vector3(i * iconSpacing, 0f, 0f);
+            activeBuffIcons[i].transform.position = newPos;
+        }
+    }
 }
