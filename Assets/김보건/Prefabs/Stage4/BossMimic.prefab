@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: -834149640596197522}
   - component: {fileID: 7276516825472429545}
   - component: {fileID: 3605676949114751575}
+  - component: {fileID: 5397175897464087551}
   m_Layer: 0
   m_Name: BossMimic
   m_TagString: Enemy
@@ -203,6 +204,18 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &5397175897464087551
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1457074600345846684}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76060f6c961810648bea1a7638f7ff1e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &3386879280206181692
 PrefabInstance:
   m_ObjectHideFlags: 0

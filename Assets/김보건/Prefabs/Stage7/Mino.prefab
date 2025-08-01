@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: -2192610280662978004}
   - component: {fileID: -1505929933981106746}
   - component: {fileID: 4243206837856774734}
+  - component: {fileID: -667730113343044612}
   m_Layer: 7
   m_Name: Mino
   m_TagString: Enemy
@@ -173,7 +174,7 @@ PolygonCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
+    oldSize: {x: 1.7777778, y: 1.7777778}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -207,6 +208,18 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &-667730113343044612
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 519866972757067807}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76060f6c961810648bea1a7638f7ff1e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &646083871970966044
 GameObject:
   m_ObjectHideFlags: 0

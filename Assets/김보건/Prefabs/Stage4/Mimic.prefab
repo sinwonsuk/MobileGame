@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 2435877353918208005}
   - component: {fileID: 3906951479053916469}
   - component: {fileID: -8988819297765345006}
+  - component: {fileID: 5408648790866253551}
   m_Layer: 0
   m_Name: Mimic
   m_TagString: Enemy
@@ -195,7 +196,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
+    oldSize: {x: 1.7777778, y: 1.7777778}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -203,6 +204,18 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.7961247, y: 0.832531}
   m_EdgeRadius: 0
+--- !u!114 &5408648790866253551
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5809553472876944551}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76060f6c961810648bea1a7638f7ff1e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &8717151062651828354
 PrefabInstance:
   m_ObjectHideFlags: 0
