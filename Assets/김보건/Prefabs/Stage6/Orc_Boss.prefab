@@ -100,6 +100,7 @@ GameObject:
   - component: {fileID: 8162588789069266161}
   - component: {fileID: 4252573035492409051}
   - component: {fileID: 711857340709045013}
+  - component: {fileID: -6992231734959984716}
   - component: {fileID: 2945569797542015896}
   m_Layer: 7
   m_Name: Orc_Boss
@@ -268,6 +269,18 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &-6992231734959984716
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1253324787291029023}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76060f6c961810648bea1a7638f7ff1e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!95 &2945569797542015896
 Animator:
   serializedVersion: 7
