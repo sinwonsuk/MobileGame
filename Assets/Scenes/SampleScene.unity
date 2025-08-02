@@ -886,7 +886,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dungeonSelectUI: {fileID: 412073482}
-  dungeonInGameUI: {fileID: 2722910528324840720}
 --- !u!1 &483778461
 GameObject:
   m_ObjectHideFlags: 0
@@ -5264,7 +5263,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dungeonSelectUI: {fileID: 0}
-  dungeonInGameUI: {fileID: 2722910528324840720}
 --- !u!114 &5546040099686551466
 MonoBehaviour:
   m_ObjectHideFlags: 0
