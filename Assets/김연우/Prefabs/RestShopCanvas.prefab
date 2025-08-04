@@ -2535,7 +2535,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5528645273617092722, guid: f5ab6d78e6e0d034aaca794ee74a4dee, type: 3}
       propertyPath: num1
-      value: sixth
+      value: second
       objectReference: {fileID: 0}
     - target: {fileID: 5528645273617092722, guid: f5ab6d78e6e0d034aaca794ee74a4dee, type: 3}
       propertyPath: stafType
@@ -2713,7 +2713,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5528645273617092722, guid: f5ab6d78e6e0d034aaca794ee74a4dee, type: 3}
       propertyPath: num1
-      value: fifth
+      value: first
       objectReference: {fileID: 0}
     - target: {fileID: 5528645273617092722, guid: f5ab6d78e6e0d034aaca794ee74a4dee, type: 3}
       propertyPath: stafType

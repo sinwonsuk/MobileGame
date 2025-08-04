@@ -638,20 +638,22 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: -5.69
       objectReference: {fileID: 0}
+    - target: {fileID: 4291275392184428637, guid: 412e1c141534b5b4e85829077eca47f5, type: 3}
+      propertyPath: m_Name
+      value: 13
+      objectReference: {fileID: 0}
     - target: {fileID: 4413968363965504333, guid: 412e1c141534b5b4e85829077eca47f5, type: 3}
       propertyPath: m_Name
       value: MapPoint
       objectReference: {fileID: 0}
-    - target: {fileID: 4888063659735268195, guid: 412e1c141534b5b4e85829077eca47f5, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 12.7
-      objectReference: {fileID: 0}
-    - target: {fileID: 4888063659735268195, guid: 412e1c141534b5b4e85829077eca47f5, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -5.8
+    - target: {fileID: 4512807244872038177, guid: 412e1c141534b5b4e85829077eca47f5, type: 3}
+      propertyPath: m_Name
+      value: 123
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 4256019082040062677, guid: 412e1c141534b5b4e85829077eca47f5, type: 3}
+    - {fileID: 8168068377906340355, guid: 412e1c141534b5b4e85829077eca47f5, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 412e1c141534b5b4e85829077eca47f5, type: 3}
@@ -886,7 +888,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dungeonSelectUI: {fileID: 412073482}
-  dungeonInGameUI: {fileID: 2722910528324840720}
 --- !u!1 &483778461
 GameObject:
   m_ObjectHideFlags: 0
@@ -1761,6 +1762,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &883874053 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8414596930051660754, guid: 412e1c141534b5b4e85829077eca47f5, type: 3}
+  m_PrefabInstance: {fileID: 320635215}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &923174549
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2208,6 +2214,11 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 0.84000003, z: 0}
   m_TimeToStationary: 0.5
+--- !u!4 &1303860773 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8609505073050602415, guid: 412e1c141534b5b4e85829077eca47f5, type: 3}
+  m_PrefabInstance: {fileID: 320635215}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1348553646
 GameObject:
   m_ObjectHideFlags: 0
@@ -3444,6 +3455,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: -5.73
       objectReference: {fileID: 0}
+    - target: {fileID: 6404920855904587736, guid: be5d8abb99a2ce945b42a34436e209c6, type: 3}
+      propertyPath: m_Name
+      value: 14
+      objectReference: {fileID: 0}
     - target: {fileID: 7203396167099407742, guid: be5d8abb99a2ce945b42a34436e209c6, type: 3}
       propertyPath: m_LocalPosition.x
       value: -10
@@ -4628,6 +4643,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: EmployeeManager
       objectReference: {fileID: 0}
+    - target: {fileID: 9114405803266290822, guid: b533451e3656b1d419fe77ebdfaf0eb5, type: 3}
+      propertyPath: arrowPrefab
+      value: 
+      objectReference: {fileID: 7449215283555567610, guid: 15d093ccdd33c60458a020f8f1c68713, type: 3}
+    - target: {fileID: 9114405803266290822, guid: b533451e3656b1d419fe77ebdfaf0eb5, type: 3}
+      propertyPath: placementPoints.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 9114405803266290822, guid: b533451e3656b1d419fe77ebdfaf0eb5, type: 3}
+      propertyPath: 'placementPoints.Array.data[0]'
+      value: 
+      objectReference: {fileID: 1303860773}
+    - target: {fileID: 9114405803266290822, guid: b533451e3656b1d419fe77ebdfaf0eb5, type: 3}
+      propertyPath: 'placementPoints.Array.data[1]'
+      value: 
+      objectReference: {fileID: 883874053}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -5264,7 +5295,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dungeonSelectUI: {fileID: 0}
-  dungeonInGameUI: {fileID: 2722910528324840720}
 --- !u!114 &5546040099686551466
 MonoBehaviour:
   m_ObjectHideFlags: 0

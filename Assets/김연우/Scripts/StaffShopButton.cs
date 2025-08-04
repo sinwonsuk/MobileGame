@@ -16,16 +16,15 @@ public class StaffShopButton : MonoBehaviour
     public TextMeshProUGUI _buttonText;
     public TextMeshProUGUI level_num;
 
-    public StaffType stafType;
+    public StaffType stafType; // 타입 구분 (Restaurant, Hunter 등)
     public string num1;
     public int money;
 
     void Awake()
     {
         money = staffData.baseSalary;
-        // --- 디버깅 로그 추가 ---
-       
-        // 스폰 포인트가 지정되지 않았다면
+
+        // 스폰 포인트가 지정되지 않았다면 MapPoint에서 찾아서 할당
         if (spawnPoint == null)
         {
             var parent = GameObject.Find("MapPoint");
@@ -33,68 +32,45 @@ public class StaffShopButton : MonoBehaviour
             switch (num1)
             {
                 case "first":
-                    if (parent != null && parent.transform.childCount > 0)
-                        spawnPoint = parent.transform.GetChild(0);
-                    else
-                        Debug.LogWarning("MapPoint가 없거나 자식이 없습니다.");
-                    break;
-
-                case "second":
-                    if (parent != null && parent.transform.childCount > 1)
-                        spawnPoint = parent.transform.GetChild(1);
-                    else
-                        Debug.LogWarning("MapPoint가 없거나 자식이 없습니다.");
-                    break;
-
-                case "third":
                     if (parent != null && parent.transform.childCount > 2)
                         spawnPoint = parent.transform.GetChild(2);
-                    else
-                        Debug.LogWarning("MapPoint가 없거나 자식이 없습니다.");
                     break;
-
-                case "forth":
+                case "second":
                     if (parent != null && parent.transform.childCount > 3)
                         spawnPoint = parent.transform.GetChild(3);
-                    else
-                        Debug.LogWarning("MapPoint가 없거나 자식이 없습니다.");
-                    break;
-                case "fifth":
-                    if (parent != null && parent.transform.childCount > 4)
-                        spawnPoint = parent.transform.GetChild(4);
-                    else
-                        Debug.LogWarning("MapPoint가 없거나 자식이 없습니다.");
-                    break;
-                case "sixth":
-                    if (parent != null && parent.transform.childCount > 5)
-                        spawnPoint = parent.transform.GetChild(5);
-                    else
-                        Debug.LogWarning("MapPoint가 없거나 자식이 없습니다.");
                     break;
             }
         }
+
         Debug.Log($"[{staffData.displayName}] num1 = {num1}, initial spawnPoint = {spawnPoint}", this);
-        // 여전히 null 이면 경고
         if (spawnPoint == null)
             Debug.LogWarning($"[{staffData.displayName}] SpawnStaff 불가 – spawnPoint가 null입니다.", this);
-        if (RuntimeStaffData.level > 0)
+
+        if (RuntimeStaffData.level > 0 && stafType == StaffType.restaurant)
             SpawnStaff();
     }
 
     void Start()
     {
-        //RuntimeStaffData.level = 0;
-        // 2) 버튼 리스너 등록 & UI 초기화
         purchaseButton.onClick.AddListener(OnButtonClicked);
         RefreshUI();
     }
+
     private void SpawnStaff()
     {
+        // 오직 Restaurant 타입만 스폰
+        if (stafType != StaffType.restaurant)
+        {
+            Debug.Log($"[{staffData.displayName}]은 Restaurant 타입이 아니어서 배치/스폰하지 않음.", this);
+            return;
+        }
+
         if (spawnPoint == null) return;
         var go = Instantiate(staffData.itemPrefab, spawnPoint.position, spawnPoint.rotation);
         _spawnedStaff = go.GetComponent<StaffBase>();
         _spawnedStaff.Init(staffData, RuntimeStaffData);
     }
+
     private void RefreshUI()
     {
         // 레벨 텍스트
@@ -107,25 +83,29 @@ public class StaffShopButton : MonoBehaviour
         // 버튼 텍스트
         _buttonText.text = (RuntimeStaffData.level == 0) ? "Buy" : "Upgrade";
     }
+
     private void OnButtonClicked()
     {
-        // 돈 차감
-        //EventBus<MoneyChangeMusHandler>.Raise(new MoneyChangeMusHandler(money));
-
         if (RuntimeStaffData.level == 0)
         {
-            //EventBus<MoneyChangeMusHandler>.Raise(new MoneyChangeMusHandler(staffData.baseSalary));
             // 첫 구매
             RuntimeStaffData.level++;
-            SpawnStaff();
+            if (stafType == StaffType.restaurant)
+            {
+                SpawnStaff();
+            }
+            else
+            {
+                Debug.Log($"[{staffData.displayName}]은 Restaurant 타입이 아니어서 SpawnStaff를 실행하지 않음.", this);
+            }
         }
         else
         {
             EventBus<MoneyChangeMusHandler>.Raise(new MoneyChangeMusHandler(money));
-            _spawnedStaff.LevelUp();
+            if (_spawnedStaff != null)
+                _spawnedStaff.LevelUp();
         }
 
         RefreshUI();
     }
 }
-
