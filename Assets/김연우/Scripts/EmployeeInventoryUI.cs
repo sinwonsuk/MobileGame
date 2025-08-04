@@ -44,7 +44,7 @@ public class EmployeeInventoryUI : MonoBehaviour
 
         foreach (var slot in EmployeeManager.Instance.slots)
         {
-            if (slot.IsOwned)
+            if (slot.IsOwned && slot.staffData.staffType == StaffType.hunter)
             {
                 var go = Instantiate(slotPrefab, contentParent);
                 go.GetComponent<EmployeeSlotUI>().SetSlot(slot);
