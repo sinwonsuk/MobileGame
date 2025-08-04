@@ -31,7 +31,12 @@ public class EmployeeManager : MonoBehaviour, IAutoSavable
     private List<GameObject> activeArrows = new List<GameObject>();
 
     private bool employeeDataLoaded = false;
-
+    public event Action OnStaffChanged;
+    public void NotifyStaffChanged()
+    {
+        Debug.Log("NotifyStaffChanged() 호출됨, 구독자 수: " + (OnStaffChanged?.GetInvocationList().Length ?? 0));
+        OnStaffChanged?.Invoke();
+    }
     private void Awake()
     {
         if (Instance == null)
@@ -139,6 +144,11 @@ public class EmployeeManager : MonoBehaviour, IAutoSavable
         GameObject staffObj = Instantiate(staffPrefab, point.position, Quaternion.identity, point);
         staffObj.name = staffPrefab.name;
 
+        // 반드시 Init 호출!
+        var staffBase = staffObj.GetComponent<StaffBase>();
+        if (staffBase != null)
+            staffBase.Init(currentPlacingSlot.staffData, currentPlacingSlot.runtimeData);
+
         //  4. 새로운 직원의 데이터 업데이트
         currentPlacingSlot.runtimeData.isAssigned = true;
         currentPlacingSlot.runtimeData.assignedIndex = index;
@@ -148,6 +158,7 @@ public class EmployeeManager : MonoBehaviour, IAutoSavable
         ClearArrows();
         FindAnyObjectByType<EmployeeInventoryUI>()?.RefreshUI();
     }
+
 
 
 
@@ -184,7 +195,13 @@ public class EmployeeManager : MonoBehaviour, IAutoSavable
 
                 GameObject staffObj = Instantiate(staffPrefab, point.position, Quaternion.identity, point);
                 staffObj.name = staffPrefab.name;
+
+                // init 호출!
+                var staffBase = staffObj.GetComponent<StaffBase>();
+                if (staffBase != null)
+                    staffBase.Init(slot.staffData, slot.runtimeData);
             }
+
         }
     }
 
