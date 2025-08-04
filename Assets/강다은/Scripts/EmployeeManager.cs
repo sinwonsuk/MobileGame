@@ -32,11 +32,7 @@ public class EmployeeManager : MonoBehaviour, IAutoSavable
 
     private bool employeeDataLoaded = false;
     public event Action OnStaffChanged;
-    public void NotifyStaffChanged()
-    {
-        Debug.Log("NotifyStaffChanged() 호출됨, 구독자 수: " + (OnStaffChanged?.GetInvocationList().Length ?? 0));
-        OnStaffChanged?.Invoke();
-    }
+    public void NotifyStaffChanged() => OnStaffChanged?.Invoke();
     private void Awake()
     {
         if (Instance == null)
@@ -54,10 +50,7 @@ public class EmployeeManager : MonoBehaviour, IAutoSavable
             slots.Add(new EmployeeSlot(allEmployees[i], allRunTimeEmployees[i]));
         }
     }
-    private void Start()
-    {
-        LoadPlacementState();
-    }
+
 
     public void RegisterPlacementPoint(Transform point)
     {
@@ -108,9 +101,6 @@ public class EmployeeManager : MonoBehaviour, IAutoSavable
         FindAnyObjectByType<EmployeeInventoryUI>()?.RefreshUI();
     }
 
-
-
-
     // 직원 실제 배치
     public void PlaceEmployee(int index)
     {
@@ -159,9 +149,6 @@ public class EmployeeManager : MonoBehaviour, IAutoSavable
         FindAnyObjectByType<EmployeeInventoryUI>()?.RefreshUI();
     }
 
-
-
-
     public void SavePlacementState()
     {
         foreach (var slot in slots)
@@ -204,7 +191,6 @@ public class EmployeeManager : MonoBehaviour, IAutoSavable
 
         }
     }
-
     // 화살표 오브젝트 제거
     private void ClearArrows()
     {
@@ -212,7 +198,11 @@ public class EmployeeManager : MonoBehaviour, IAutoSavable
         activeArrows.Clear();
         currentPlacingSlot = null;
     }
-
+    private IEnumerator DelayedPlacementRestore()
+    {
+        yield return null; // 배치 포인트 오브젝트가 다 등록될 때까지 한 프레임 대기
+        LoadPlacementState();
+    }
     // 씬 변경 시 포인트 초기화
     private void OnEnable()
     {
@@ -225,6 +215,10 @@ public class EmployeeManager : MonoBehaviour, IAutoSavable
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         ClearPlacementPoints(); // 씬 바뀌면 초기화(중복 방지)
+        if (scene.name == "SampleScene")
+        {
+            StartCoroutine(DelayedPlacementRestore());
+        }
     }
     public IEnumerator InsertEmployeesIfNotExists(string ownerIndate)
     {

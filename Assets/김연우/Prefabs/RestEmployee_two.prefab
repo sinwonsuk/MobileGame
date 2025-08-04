@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4719838529286196414}
   - component: {fileID: 40411481803526305}
-  - component: {fileID: 1269548458875863721}
+  - component: {fileID: -6780585685549082799}
   m_Layer: 0
-  m_Name: Circle
+  m_Name: RestEmployee_two
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -88,7 +88,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &1269548458875863721
+--- !u!114 &-6780585685549082799
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -97,8 +97,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 2127192634085561284}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 88b8e1aca2a230b4cb9ea17c82d8d7c2, type: 3}
+  m_Script: {fileID: 11500000, guid: 6e605e1d56d24ee4e809bbad62e34688, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stats: {fileID: 11400000, guid: 9613c8cec24b4324e8ef553e65d33481, type: 2}
-  Runtimestats: {fileID: 11400000, guid: 0710c59b58182954381060ff210ec24b, type: 2}
+  stats: {fileID: 11400000, guid: 8c3ff79dac025524fa452360cc208c31, type: 2}
+  runtimeStats: {fileID: 11400000, guid: 985713f90385d1c4cbca06202f073361, type: 2}
+  cookTimeReduction: 0.2
