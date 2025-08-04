@@ -4,16 +4,42 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using static BackEnd.Quobject.SocketIoClientDotNet.Parser.Parser.Encoder;
 
 public class SettingsUI : MonoBehaviour
 {
 	private void Start()
 	{
+		Backend.BMember.GetUserInfo(callback =>
+		{
+			if (callback.IsSuccess())
+			{
+				var json = callback.GetReturnValuetoJSON();
+
+				var row = json["row"];
+				if (row.ContainsKey("emailForFindPassword") && row["emailForFindPassword"] != null)
+				{
+					emailText.text = row["emailForFindPassword"].ToString();
+				}
+				else
+				{
+					emailText.text = "(이메일 미등록)";
+				}
+
+			}
+		});
+		nicknameText.text = BackendGameData.Instance.userData.nickname;
+
 		changeNicknameButton.onClick.AddListener(OpenNicknamePopup);
 		confirmNicknameButton.onClick.AddListener(SubmitNicknameChange);
 		cancelNicknameButton.onClick.AddListener(CloseNicknamePopup);
 		cancelSettingsButton.onClick.AddListener(CloseSettingsPanel);
 		logoutButton.onClick.AddListener(OnClickLogout);
+		emailRegister.onClick.AddListener(ShowEmailRegisterPopup);
+
+		pwChange.onClick.AddListener(ShowPasswordSettingPanel);
+		CancleButton.onClick.AddListener(HidePasswordSettingPanel);
+		changePwButton.onClick.AddListener(OnClickChangePassword);
 
 		privacyPolicyButton.onClick.AddListener(() => Application.OpenURL(privacyPolicyUrl));
 		deleteAccountButton.onClick.AddListener(() => Application.OpenURL(deleteAccountUrl));
@@ -65,6 +91,78 @@ public class SettingsUI : MonoBehaviour
 	{
 		settingsPanel.SetActive(false);
 	}
+
+	void ShowEmailRegisterPopup()
+	{
+		StartCoroutine(PopupManager.ShowEmailRegisterPopup());
+	}
+
+	void ShowPasswordSettingPanel()
+	{
+		pwSettingPopup.SetActive(true);
+		currentPwInput.text = "";
+		newPwInput.text = "";
+		confirmPwInput.text = "";
+	}
+
+	void HidePasswordSettingPanel()
+	{
+		pwSettingPopup.SetActive(false);
+	}
+
+	public void OnClickChangePassword()
+	{
+
+		string currentPw = currentPwInput.text;
+		string newPw = newPwInput.text;
+		string confirmPw = confirmPwInput.text;
+
+		if (newPw != confirmPw)
+		{
+			PopupManager.Show("새 비밀번호가 일치하지 않습니다.");
+			return;
+		}
+
+		Backend.BMember.ConfirmCustomPassword(currentPw, confirmCallback =>
+		{
+			if (confirmCallback.IsSuccess())
+			{
+				Backend.BMember.UpdatePassword(currentPw, newPw, updateCallback =>
+				{
+					if (updateCallback.IsSuccess())
+					{
+						PopupManager.Show("비밀번호가 성공적으로 변경되었습니다.", ()=>
+						{
+							HidePasswordSettingPanel();
+						});
+						
+					}
+					else
+					{
+						string errorCode = confirmCallback.GetErrorCode();
+						string message = confirmCallback.GetMessage();
+						int.TryParse(confirmCallback.GetStatusCode(), out int statusCode);
+
+						if (statusCode == 400 && errorCode == "BadParameterException" && message.Contains("bad password is not match"))
+						{
+							PopupManager.Show("기존 비밀번호가 일치하지 않습니다. 다시 확인해 주세요.", () =>
+							{
+								currentPwInput.text = "";
+								newPwInput.text = "";
+								confirmPwInput.text = "";
+							});
+						}
+
+					}
+				});
+			}
+			else
+			{
+				PopupManager.Show("현재 비밀번호가 올바르지 않습니다.");
+			}
+		});
+	}
+
 
 	void SubmitNicknameChange()
 	{
@@ -150,6 +248,22 @@ public class SettingsUI : MonoBehaviour
 
 	[Header("Logout")]
 	[SerializeField] private Button logoutButton;
+
+	[Header("Texts")]
+	[SerializeField] private TextMeshProUGUI emailText;
+	[SerializeField] private TextMeshProUGUI nicknameText;
+
+	[Header("Buttons")]
+	[SerializeField] private Button emailRegister;
+	[SerializeField] private Button pwChange;
+
+	[Header("PWSetting")]
+	[SerializeField] private GameObject pwSettingPopup;
+	[SerializeField] private TMP_InputField currentPwInput;
+	[SerializeField] private TMP_InputField newPwInput;
+	[SerializeField] private TMP_InputField confirmPwInput;
+	[SerializeField] private Button changePwButton;
+	[SerializeField] private Button CancleButton;
 
 	private string deleteAccountUrl = "https://storage.thebackend.io/1ea3f14d34e89530ea88b3245bc82dc17d5f52ce1554049f19fce9219a847cfce18bb88949ceff97e661eeb9a3bb828c69c5513c1e8700aec55b0fa6edd7a5ea14603f7a7268841be4987142de/withdraw/ko/index.html#/customLogin";
 	private string privacyPolicyUrl = "https://storage.thebackend.io/1585238bf7ffe74a960bde13f7e1258f4a8836d27df3b152aef67fd7839b1fc6/privacy.html"; 
