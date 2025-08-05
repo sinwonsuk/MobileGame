@@ -2,15 +2,15 @@ using UnityEngine;
 
 public struct GetCusomersEvent : IEvent
 {
-    public GetCusomersEvent(RestaurantStaff_Two Slot)
+    public GetCusomersEvent(RestaurantStaff_One Slot)
     {
         this.employee = Slot;
     }
-    public RestaurantStaff_Two employee { get; set; }
+    public RestaurantStaff_One employee { get; set; }
 }
 public struct GetFirstCookEvent : IEvent
 {
-    public GetFirstCookEvent(RestaurantStaff_Two Slot)
+    public GetFirstCookEvent(RestaurantStaff_One Slot)
     {
         this.employee = Slot;
         this.cooker = null; 
@@ -22,6 +22,6 @@ public struct GetFirstCookEvent : IEvent
         this.employee = null;
     }
 
-    public RestaurantStaff_Two employee { get; set; }
+    public RestaurantStaff_One employee { get; set; }
     public Cooker cooker { get; set; }
 }

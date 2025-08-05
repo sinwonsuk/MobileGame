@@ -22,4 +22,4 @@ MonoBehaviour:
   basic_attack_Power: 0
   basic_attack_Speed: 0
   basictimer: 5
-  basiccooltime: 120
+  basiccooltime: 5
