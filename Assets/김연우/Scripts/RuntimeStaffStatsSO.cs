@@ -15,7 +15,10 @@ public class RuntimeStaffStatsSO : ScriptableObject
     [Header("경영직원")]
     public double timer;//현재 실행시간
     public double cooltime;// 현재 쉬는시간
-
+    [Header("배치 상태")]
+    public bool isOwned = false;    // 구매 여부
+    public bool isAssigned = false; // 배치 여부
+    public int assignedIndex = -1;  // 배치 위치(-1: 미배치, 0/1: 위치)
     [NonSerialized]
     public bool isDirty = false;
 }

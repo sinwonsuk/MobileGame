@@ -1,4 +1,3 @@
-
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,17 +7,22 @@ public class InventoryTabUI : MonoBehaviour
     public GameObject materialsPanel;
     public Button interiorsTabButton;
     public GameObject interiorsPanel;
+    public Button huntersTabButton;
+    public GameObject huntersPanel;
 
     private void Start()
     {
-        materialsTabButton.onClick.AddListener(() => ShowPanel(true));
-        interiorsTabButton.onClick.AddListener(() => ShowPanel(false));
-        ShowPanel(true);
+        materialsTabButton.onClick.AddListener(() => ShowPanel(0));
+        interiorsTabButton.onClick.AddListener(() => ShowPanel(1));
+        huntersTabButton.onClick.AddListener(() => ShowPanel(2));
+        ShowPanel(0); // 시작은 materials 패널
     }
 
-    private void ShowPanel(bool showMaterials)
+    // 0: 재료, 1: 인테리어, 2: 헌터(직원)
+    private void ShowPanel(int index)
     {
-        materialsPanel.SetActive(showMaterials);
-        interiorsPanel.SetActive(!showMaterials);
+        materialsPanel.SetActive(index == 0);
+        interiorsPanel.SetActive(index == 1);
+        huntersPanel.SetActive(index == 2);
     }
 }

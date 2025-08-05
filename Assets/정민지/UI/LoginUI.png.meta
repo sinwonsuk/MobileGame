@@ -5,6 +5,9 @@ TextureImporter:
   - first:
       213: -2343248182180869615
     second: LoginUI_0
+  - first:
+      213: -7831160265662137303
+    second: LoginUI_1
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -142,10 +145,10 @@ TextureImporter:
       name: LoginUI_0
       rect:
         serializedVersion: 2
-        x: 284
-        y: 1032
-        width: 864
-        height: 969
+        x: 286
+        y: 930
+        width: 857
+        height: 1066
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -156,6 +159,28 @@ TextureImporter:
       bones: []
       spriteID: 11a8780813c1b7fd0800000000000000
       internalID: -2343248182180869615
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LoginUI_1
+      rect:
+        serializedVersion: 2
+        x: 1157
+        y: 1978
+        width: 6
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 92cfd0aca31225390800000000000000
+      internalID: -7831160265662137303
       vertices: []
       indices: 
       edges: []
@@ -175,6 +200,7 @@ TextureImporter:
       entries: []
     nameFileIdTable:
       LoginUI_0: -2343248182180869615
+      LoginUI_1: -7831160265662137303
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
