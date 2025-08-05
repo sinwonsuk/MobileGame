@@ -191,7 +191,7 @@ public class LoginUI : MonoBehaviour
 		if (string.IsNullOrEmpty(email) || email == "null")
 		{
 			Debug.Log("[이메일 미등록] 이메일 등록 팝업 호출");
-			yield return PopupManager.ShowEmailRegisterPopup();
+			yield return PopupManager.ShowEmailRegisterPopup((email) => Debug.Log(email));
 		}
 		else
 		{
