@@ -63,7 +63,7 @@ Transform:
   - {fileID: 6015759550678240686}
   - {fileID: 6644993641147582707}
   - {fileID: 8658091602575802144}
-  - {fileID: 4157097648118659755}
+  - {fileID: 3531542229714490438}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2524441678279473738
@@ -194,7 +194,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: -5000
-  m_Sprite: {fileID: 2234994062426063576, guid: f7c24fe764f65814295e7d7ce07effc2, type: 3}
+  m_Sprite: {fileID: -2330115950040026009, guid: b449d430cda9da3478061a238c524659, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -205,7 +205,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!1001 &2742316114721711323
+--- !u!1001 &3367809894152669750
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -213,14 +213,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 5332971992470372971}
     m_Modifications:
-    - target: {fileID: 37920712195094869, guid: 82b58aefc5285dd409fef9a8b68af9f4, type: 3}
-      propertyPath: m_fontSize
-      value: 36
-      objectReference: {fileID: 0}
-    - target: {fileID: 37920712195094869, guid: 82b58aefc5285dd409fef9a8b68af9f4, type: 3}
-      propertyPath: m_fontSizeBase
-      value: 36
-      objectReference: {fileID: 0}
     - target: {fileID: 2287357689877519984, guid: 82b58aefc5285dd409fef9a8b68af9f4, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -310,8 +302,8 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 82b58aefc5285dd409fef9a8b68af9f4, type: 3}
---- !u!224 &4157097648118659755 stripped
+--- !u!224 &3531542229714490438 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2287357689877519984, guid: 82b58aefc5285dd409fef9a8b68af9f4, type: 3}
-  m_PrefabInstance: {fileID: 2742316114721711323}
+  m_PrefabInstance: {fileID: 3367809894152669750}
   m_PrefabAsset: {fileID: 0}
