@@ -355,13 +355,13 @@ public class InventoryManager : MonoBehaviour, IAutoSavable
 		Debug.Log("변경된 인벤토리만 자동 저장 완료");
 	}
 
-	private void OnApplicationQuit()
-	{
-		if (inventoryLoaded)
-			SaveImmediately();
-		else
-			Debug.LogWarning("인벤토리 로딩 안 됨 -> 종료 시 저장 생략");
-	}
+	//private void OnApplicationQuit()
+	//{
+	//	if (inventoryLoaded)
+	//		SaveImmediately();
+	//	else
+	//		Debug.LogWarning("인벤토리 로딩 안 됨 -> 종료 시 저장 생략");
+	//}
 
 	private void OnApplicationPause(bool pause)
 	{

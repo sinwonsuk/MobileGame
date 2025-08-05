@@ -253,7 +253,7 @@ public class BackendGameData : MonoBehaviour, IAutoSavable
 		}
 
 		Param param = new Param();
-        param.Add("nickname", userData.nickname);
+        param.Add("nickname", Backend.UserNickName);
 		param.Add("reputation", userData.reputation);
         param.Add("basicAtk", userData.basicAtk);
         param.Add("bio", userData.bio);
