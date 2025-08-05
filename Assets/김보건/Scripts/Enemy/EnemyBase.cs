@@ -18,6 +18,7 @@ public class EnemyBase : MonoBehaviour
     protected float invincibleTime = 6f;   // 무적 지속시간 (1초)
     private float spawnTime;               // 스폰된 시간
 
+
     private Vector3 logicalPosition;  // 이동 좌표 기준
     private Vector3 hitShakeOffset = Vector3.zero;
     private Coroutine shakeCoroutine;
@@ -78,10 +79,14 @@ public class EnemyBase : MonoBehaviour
 
         shakeCoroutine = StartCoroutine(HitShake());
 
+        Vector3 headPos = transform.position + new Vector3(1.8f, 0, 0);
+        DamageTextManager.Instance.ShowDamage(headPos, (float)damage, false);
+
         if (currentHp <= 0)
         {
             Die();
         }
+
     }
 
     protected virtual void Die()

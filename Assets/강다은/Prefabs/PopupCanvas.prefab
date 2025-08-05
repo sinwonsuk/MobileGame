@@ -196,7 +196,7 @@ MonoBehaviour:
   popupPanel: {fileID: 155716737746312594}
   messageText: {fileID: 3434956407367249379}
   confirmButton: {fileID: 9087014247712773009}
-  emailPopupPrefab: {fileID: 2227444453006748613, guid: 3abc92615dda93e4fa938d4a89f72465, type: 3}
+  emailPopupPrefab: {fileID: 8658980658813879660, guid: 3abc92615dda93e4fa938d4a89f72465, type: 3}
 --- !u!1 &3442356027198313106
 GameObject:
   m_ObjectHideFlags: 0
