@@ -9,6 +9,9 @@ public class LoginUI : MonoBehaviour
 {
 	private IEnumerator Start()
 	{
+		mainImage.gameObject.SetActive(true);
+		loadingImage.gameObject.SetActive(false);
+
 		// Backend 초기화될 때까지 기다림
 		while (!Backend.IsInitialized)
 		{
@@ -28,6 +31,7 @@ public class LoginUI : MonoBehaviour
 			else
 			{
 				Debug.Log("자동 로그인 실패, 수동 로그인 화면으로");
+				mainImage.gameObject.SetActive(false);
 				ShowLogin();
 			}
 		});
@@ -191,7 +195,7 @@ public class LoginUI : MonoBehaviour
 		if (string.IsNullOrEmpty(email) || email == "null")
 		{
 			Debug.Log("[이메일 미등록] 이메일 등록 팝업 호출");
-			yield return PopupManager.ShowEmailRegisterPopup();
+			yield return PopupManager.ShowEmailRegisterPopup((email) => Debug.Log(email));
 		}
 		else
 		{
@@ -374,6 +378,8 @@ public class LoginUI : MonoBehaviour
 
     public IEnumerator LoadSceneAsync(string sceneName)
     {
+		if(mainImage.gameObject.activeSelf)
+			mainImage.gameObject.SetActive(false);
 		// 이미지 뛰우기 
 		loadingImage.gameObject.SetActive(true);
 		AsyncOperation op = SceneManager.LoadSceneAsync(sceneName);
@@ -404,5 +410,6 @@ public class LoginUI : MonoBehaviour
 	[SerializeField] private GameObject staticDataInitializer;
 
     [SerializeField] private Image loadingImage;
+	[SerializeField] private Image mainImage;
 
 }

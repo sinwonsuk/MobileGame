@@ -219,7 +219,7 @@ public class BackendGameData : MonoBehaviour, IAutoSavable
 	{
         userData = new UserData
         {
-            nickname = gameDataJson["nickname"].ToString(),
+            nickname = Backend.UserNickName,
 			reputation = int.Parse(gameDataJson["reputation"].ToString()),
             basicAtk = float.Parse(gameDataJson["basicAtk"].ToString()),
             bio = gameDataJson["bio"].ToString(),
@@ -246,8 +246,13 @@ public class BackendGameData : MonoBehaviour, IAutoSavable
     // 게임 정보 수정하기
     public void GameDataUpdate()
     {
+		if (userData == null)
+		{
+			Debug.LogWarning("[GameDataUpdate] userData가 null입니다. 업데이트 생략");
+			return;
+		}
 
-        Param param = new Param();
+		Param param = new Param();
         param.Add("nickname", userData.nickname);
 		param.Add("reputation", userData.reputation);
         param.Add("basicAtk", userData.basicAtk);

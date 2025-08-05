@@ -49,16 +49,24 @@ public class PopupManager : MonoBehaviour
 		Instance.onConfirmCallback = onConfirm;
 	}
 
-	public static IEnumerator ShowEmailRegisterPopup()
+	public static IEnumerator ShowEmailRegisterPopup(Action<string> onComplete)
 	{
-	    bool done = false;
-	
-	    EmailRegisterPopup popup = Instantiate(Instance.emailPopupPrefab);
-	    popup.SetOnCompleteCallback(() => done = true);
-	
-	    yield return new WaitUntil(() => done);
+		bool done = false;
+		string enteredEmail = null;
+
+		EmailRegisterPopup popup = Instantiate(Instance.emailPopupPrefab);
+		popup.SetOnCompleteCallback((email) =>
+		{
+			enteredEmail = email;
+			done = true;
+		});
+
+		yield return new WaitUntil(() => done);
+
+		onComplete?.Invoke(enteredEmail);
 	}
-	
+
+
 
 	public static PopupManager Instance;
 

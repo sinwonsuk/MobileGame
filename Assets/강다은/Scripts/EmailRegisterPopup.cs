@@ -1,7 +1,8 @@
-using UnityEngine;
-using TMPro;
-using UnityEngine.UI;
 using BackEnd;
+using System;
+using TMPro;
+using UnityEngine;
+using UnityEngine.UI;
 
 public class EmailRegisterPopup : MonoBehaviour
 {
@@ -28,7 +29,7 @@ public class EmailRegisterPopup : MonoBehaviour
 			{
 				PopupManager.Show("이메일이 성공적으로 등록되었습니다.", ()=>
 				{
-					onCompleteCallback?.Invoke();
+					onCompleteCallback?.Invoke(email);
 					Destroy(this.gameObject);
 				});
 				
@@ -40,12 +41,12 @@ public class EmailRegisterPopup : MonoBehaviour
 		});
 	}
 
-	public void SetOnCompleteCallback(System.Action callback)
+	public void SetOnCompleteCallback(Action<string> callback)
 	{
 		this.onCompleteCallback = callback;
 	}
 
-	private System.Action onCompleteCallback;
+	private Action<string> onCompleteCallback;
 
 	[SerializeField] TMP_InputField emailInputField;
 	[SerializeField] Button confirmButton;
