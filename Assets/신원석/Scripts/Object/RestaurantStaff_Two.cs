@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 
-public class tetetetetetetetet : StaffBase
+public class RestaurantStaff_Two : StaffBase
 {
     [Header("할당할 StaffStatsSO")]
     public StaffStatsSO stats;              // Inspector 에 할당

@@ -7,20 +7,22 @@ using static UnityEngine.GraphicsBuffer;
 
 public class Cook : MonoBehaviour
 {
-    
 
+    private float reductionRate = 0f;
 
     private void OnEnable()
     {
         EventBus<CookMoveHandler>.OnEvent += MoveFood;
         EventBus<CookFillamountHandler>.OnEvent += FillAmount;
         EventBus<CookDeleteHandler>.OnEvent += DeleteFood;
+        EventBus<CookTimeReductionEvent>.OnEvent += OnCookTimeReductionEvent;
     }
     private void OnDisable()
     {
         EventBus<CookMoveHandler>.OnEvent -= MoveFood;
         EventBus<CookFillamountHandler>.OnEvent -= FillAmount;
         EventBus<CookDeleteHandler>.OnEvent -= DeleteFood;
+        EventBus<CookTimeReductionEvent>.OnEvent -= OnCookTimeReductionEvent;
     }
 
     void Start()
@@ -39,8 +41,7 @@ public class Cook : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        elapsed += Time.deltaTime;
-
+        elapsed += Time.deltaTime * (1f + reductionRate);
         foodImage.fillAmount = Mathf.Clamp01(elapsed / WaitingTime);
     }
     public void FillAmount(CookFillamountHandler cookFillamountHandler)
@@ -93,7 +94,10 @@ public class Cook : MonoBehaviour
         if(customer == cookDeleteHandler.customer)
         Destroy(gameObject);
     }
-
+    private void OnCookTimeReductionEvent(CookTimeReductionEvent evt)
+    {
+        reductionRate = evt.reductionRate;
+    }
 
     private float speed = 30.0f;
     public string foodName { get; set; } // 음식 이름
