@@ -2108,6 +2108,10 @@ PrefabInstance:
       value: EmployeeManager
       objectReference: {fileID: 0}
     - target: {fileID: 9114405803266290822, guid: b533451e3656b1d419fe77ebdfaf0eb5, type: 3}
+      propertyPath: arrowPrefab
+      value: 
+      objectReference: {fileID: 7449215283555567610, guid: 15d093ccdd33c60458a020f8f1c68713, type: 3}
+    - target: {fileID: 9114405803266290822, guid: b533451e3656b1d419fe77ebdfaf0eb5, type: 3}
       propertyPath: allEmployees.Array.size
       value: 6
       objectReference: {fileID: 0}
