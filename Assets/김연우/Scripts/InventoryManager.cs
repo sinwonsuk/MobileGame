@@ -322,23 +322,29 @@ public class InventoryManager : MonoBehaviour, IAutoSavable
 	}
 
 
-	public void SaveInventory()
+	public void SaveInventory(System.Action onComplete = null)
 	{
 		if (!inventoryLoaded)
 		{
 			Debug.LogWarning("[저장 차단] 인벤토리 로딩 안 끝났음");
+			onComplete?.Invoke();
 			return;
 		}
 
 		string ownerIndate = Backend.UserInDate;
+
+		int dirtyCount = 0;
+		int finishedCount = 0;
 
 		for (int i = 0; i < allRunTimeIngredients.Length; i++)
 		{
 			var runtimeData = allRunTimeIngredients[i];
 			if (!runtimeData.isDirty) continue;
 
+			dirtyCount++;
+
 			string itemIndate = allIngredients[i].indate;
-			int qty = allRunTimeIngredients[i].ingredientQty;
+			int qty = runtimeData.ingredientQty;
 
 			Where where = new Where();
 			where.Equal("owner_inDate", ownerIndate);
@@ -347,12 +353,35 @@ public class InventoryManager : MonoBehaviour, IAutoSavable
 			Param param = new Param();
 			param.Add("inventoryQuantity", qty);
 
-			Backend.GameData.Update("INVENTORY", where, param);
+			// 비동기 저장 처리
+			Backend.GameData.Update("INVENTORY", where, param, bro =>
+			{
+				if (bro.IsSuccess())
+				{
+					Debug.Log($"[인벤토리 저장 성공] {itemIndate} : {qty}");
+				}
+				else
+				{
+					Debug.LogError($"[인벤토리 저장 실패] {itemIndate} : {qty} / {bro}");
+				}
 
-			runtimeData.isDirty = false;
+				runtimeData.isDirty = false;
+				finishedCount++;
+
+				if (finishedCount >= dirtyCount)
+				{
+					Debug.Log("모든 변경된 인벤토리 저장 완료");
+					onComplete?.Invoke();
+				}
+			});
 		}
 
-		Debug.Log("변경된 인벤토리만 자동 저장 완료");
+		// 변경 사항 없을 경우 바로 콜백 호출
+		if (dirtyCount == 0)
+		{
+			Debug.Log("변경된 인벤토리 없음 -> 저장 생략");
+			onComplete?.Invoke();
+		}
 	}
 
 	//private void OnApplicationQuit()

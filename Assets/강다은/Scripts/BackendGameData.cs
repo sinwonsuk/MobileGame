@@ -244,7 +244,7 @@ public class BackendGameData : MonoBehaviour, IAutoSavable
     }
 
     // 게임 정보 수정하기
-    public void GameDataUpdate()
+    public void GameDataUpdate(System.Action onComplete = null)
     {
 		if (userData == null)
 		{
@@ -266,23 +266,30 @@ public class BackendGameData : MonoBehaviour, IAutoSavable
         {
             Debug.Log("제일 최신 게임 정보 데이터 수정을 요청합니다.");
 
-            bro = Backend.GameData.Update("USER_DATA", new Where(), param);
-        }
-        else
-        {
-            Debug.Log($"{gameDataRowInDate}의 게임 정보 데이터 수정을 요청합니다.");
+			Backend.GameData.Update("USER_DATA", new Where(), param, bro =>
+			{
+				if (bro.IsSuccess())
+					Debug.Log("자동 저장 완료 / 게임 정보 수정 완료 : " + bro);
+				else
+					Debug.LogError("게임 정보 수정 실패 : " + bro);
 
-            bro = Backend.GameData.UpdateV2("USER_DATA", gameDataRowInDate, Backend.UserInDate, param);
-        }
+				onComplete?.Invoke();
+			});
+		}
+		else
+		{
+			Debug.Log($"{gameDataRowInDate}의 게임 정보 데이터 수정을 요청합니다.");
 
-        if (bro.IsSuccess())
-        {
-            Debug.Log("자동 저장 완료 / 게임 정보 수정 완료 : " + bro);
-        }
-        else
-        {
-            Debug.LogError("게임 정보 수정 실패 : " + bro);
-        }
+			Backend.GameData.UpdateV2("USER_DATA", gameDataRowInDate, Backend.UserInDate, param, bro =>
+			{
+				if (bro.IsSuccess())
+					Debug.Log("자동 저장 완료 / 게임 정보 수정 완료 : " + bro);
+				else
+					Debug.LogError("게임 정보 수정 실패 : " + bro);
+
+				onComplete?.Invoke();
+			});
+		}
     }
 	public void AutoSave()
 	{
