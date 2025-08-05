@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: d4ad5b6ec263c7e47bfd8d393b33b2ce
+guid: b8389050cf6865740b081955f77d69e7
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 1464732359907582556
-    second: buttonUI_0
+      213: -5649080963800040106
+    second: fightUI_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -37,7 +37,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -75,7 +75,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -139,13 +139,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: buttonUI_0
+      name: fightUI_0
       rect:
         serializedVersion: 2
         x: 9
         y: 1
         width: 251
-        height: 157
+        height: 198
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -154,8 +154,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: c52af432256c35410800000000000000
-      internalID: 1464732359907582556
+      spriteID: 65df6452bce6a91b0800000000000000
+      internalID: -5649080963800040106
       vertices: []
       indices: 
       edges: []
@@ -174,7 +174,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      buttonUI_0: 1464732359907582556
+      fightUI_0: -5649080963800040106
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
