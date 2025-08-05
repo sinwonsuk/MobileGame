@@ -63,7 +63,7 @@ Transform:
   - {fileID: 6015759550678240686}
   - {fileID: 6644993641147582707}
   - {fileID: 8658091602575802144}
-  - {fileID: 4100551701575495406}
+  - {fileID: 7817042740917581484}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2524441678279473738
@@ -194,7 +194,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: -5000
-  m_Sprite: {fileID: 2428870778264881466, guid: ec4788c81d6c14548acc770692d5c457, type: 3}
+  m_Sprite: {fileID: -2320682554751046859, guid: 36af489af34cf0e4ba87869291e98fce, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -205,7 +205,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!1001 &2834529702938390686
+--- !u!1001 &8342325981722732764
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -301,10 +301,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2914061745908242991, guid: 82b58aefc5285dd409fef9a8b68af9f4, type: 3}
-      propertyPath: m_SortingOrder
-      value: 100
-      objectReference: {fileID: 0}
     - target: {fileID: 5374365292748851858, guid: 82b58aefc5285dd409fef9a8b68af9f4, type: 3}
       propertyPath: m_Name
       value: DungeonUI
@@ -314,8 +310,8 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 82b58aefc5285dd409fef9a8b68af9f4, type: 3}
---- !u!224 &4100551701575495406 stripped
+--- !u!224 &7817042740917581484 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2287357689877519984, guid: 82b58aefc5285dd409fef9a8b68af9f4, type: 3}
-  m_PrefabInstance: {fileID: 2834529702938390686}
+  m_PrefabInstance: {fileID: 8342325981722732764}
   m_PrefabAsset: {fileID: 0}
