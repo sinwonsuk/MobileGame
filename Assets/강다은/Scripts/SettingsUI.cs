@@ -28,6 +28,7 @@ public class SettingsUI : MonoBehaviour
 
 			}
 		});
+
 		nicknameText.text = BackendGameData.Instance.userData.nickname;
 
 		changeNicknameButton.onClick.AddListener(OpenNicknamePopup);
@@ -94,7 +95,8 @@ public class SettingsUI : MonoBehaviour
 
 	void ShowEmailRegisterPopup()
 	{
-		StartCoroutine(PopupManager.ShowEmailRegisterPopup());
+		StartCoroutine(PopupManager.ShowEmailRegisterPopup((email) => { emailText.text = email; }));
+
 	}
 
 	void ShowPasswordSettingPanel()
@@ -188,7 +190,10 @@ public class SettingsUI : MonoBehaviour
 			onSuccess: () =>
 			{
 				PopupManager.Show("닉네임 변경 완료!", () => {
+					BackendGameData.Instance.userData.nickname = newNickname;
+
 					CloseNicknamePopup();
+					nicknameText.text = newNickname;
 				});
 			},
 			onFailure: (error) =>
