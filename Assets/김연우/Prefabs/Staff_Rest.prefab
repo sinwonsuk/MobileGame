@@ -213,13 +213,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fce3b78eb62e10d4082dafe25aad8e47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  staffData: {fileID: 0}
-  RuntimeStaffData: {fileID: 0}
+  staffData: {fileID: 11400000, guid: 9613c8cec24b4324e8ef553e65d33481, type: 2}
+  RuntimeStaffData: {fileID: 11400000, guid: 0710c59b58182954381060ff210ec24b, type: 2}
   spawnPoint: {fileID: 0}
   purchaseButton: {fileID: 1776585771872047366}
   _buttonText: {fileID: 8947995980593457882}
   level_num: {fileID: 3621275727725052636}
-  stafType: 0
+  stafType: 1
   num1: 
   money: 0
 --- !u!1 &7160610616623073874
