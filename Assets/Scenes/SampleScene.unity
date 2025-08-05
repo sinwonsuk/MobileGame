@@ -4921,7 +4921,7 @@ PrefabInstance:
     - target: {fileID: 9114405803266290822, guid: b533451e3656b1d419fe77ebdfaf0eb5, type: 3}
       propertyPath: 'placementPoints.Array.data[1]'
       value: 
-      objectReference: {fileID: 883874053}
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
