@@ -34,7 +34,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 3.1999512}
   m_SizeDelta: {x: 32, y: 25}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7864132906893250964
@@ -102,14 +102,14 @@ RectTransform:
   m_GameObject: {fileID: 4927035113975194564}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.13, y: 0.13, z: 0.13}
-  m_ConstrainProportionsScale: 1
+  m_LocalScale: {x: 0.13, y: 0.08, z: 0.13}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8830236554017938636}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 3.2}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!222 &3285879544099933309
@@ -142,15 +142,15 @@ MonoBehaviour:
       m_Calls: []
   m_text: ddadasdada
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 26330d6bbbc503a4abb1a8b86ac184f3, type: 2}
-  m_sharedMaterial: {fileID: 1081384509520222485, guid: 26330d6bbbc503a4abb1a8b86ac184f3, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: e52aeed27d2fd7f44b00a53a6d080704, type: 2}
+  m_sharedMaterial: {fileID: 3341422161197807304, guid: e52aeed27d2fd7f44b00a53a6d080704, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4284371780
-  m_fontColor: {r: 0.26553044, g: 0.3261703, b: 0.3679245, a: 1}
+    rgba: 4281877846
+  m_fontColor: {r: 0.3372549, g: 0.27058825, b: 0.21960786, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -167,7 +167,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
+  m_fontSize: 50
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -280,7 +280,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -2342311787382455651, guid: 9518be2669e29074a952fa7ce80b166a, type: 3}
+  m_Sprite: {fileID: 21300000, guid: a7e802d2daa98284e8039aada81b174f, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
