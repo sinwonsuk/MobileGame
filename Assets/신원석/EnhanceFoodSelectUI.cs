@@ -37,8 +37,8 @@ public class EnhanceFoodSelectUI : MonoBehaviour
     {
         GameObject obj = Instantiate(slotSpawnHandler.Slot, slotTransform);
         Sprite foodSprite = Resources.Load<Sprite>(slotSpawnHandler.Image);
-        obj.GetComponent<Image>().sprite = foodSprite;
         obj.transform.GetChild((int)SlotInfo.Name).GetComponent<TextMeshProUGUI>().text = slotSpawnHandler.SlotName;
+        obj.transform.GetChild((int)SlotInfo.Image).GetComponent<Image>().sprite = foodSprite;
         obj.GetComponent<EnhanceFoodSlot>().foodData = slotSpawnHandler.foodData;
 
         slot.Add(obj);
