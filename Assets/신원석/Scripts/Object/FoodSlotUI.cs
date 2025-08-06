@@ -9,6 +9,7 @@ using UnityEngine.UI;
 public enum SlotInfo
 {
     Name,
+    Image,
 }
 public enum MenuInfo
 {
@@ -46,8 +47,9 @@ public class FoodSlotUI : MonoBehaviour
     {
         GameObject obj = Instantiate(slotSpawnHandler.Slot, slotTransform);
         Sprite foodSprite = Resources.Load<Sprite>(slotSpawnHandler.Image);
-        obj.GetComponent<Image>().sprite = foodSprite;
+
         obj.transform.GetChild((int)SlotInfo.Name).GetComponent<TextMeshProUGUI>().text = slotSpawnHandler.SlotName;
+        obj.transform.GetChild((int)SlotInfo.Image).GetComponent<Image>().sprite = foodSprite;
         obj.GetComponent<FoodSlot>().foodData = slotSpawnHandler.foodData;
     }
 
