@@ -7,7 +7,18 @@ using UnityEngine.UI;
 
 public class LoginUI : MonoBehaviour
 {
-	private IEnumerator Start()
+    private void OnDisable()
+    {
+        EventBus<ChangeLoadImageEvent>.OnEvent -= LoadSencmImage;
+    }
+    private void OnEnable()
+    {
+        EventBus<ChangeLoadImageEvent>.OnEvent += LoadSencmImage;
+    }
+
+
+
+    private IEnumerator Start()
 	{
 		mainImage.gameObject.SetActive(true);
 		loadingImage.gameObject.SetActive(false);
@@ -216,7 +227,10 @@ public class LoginUI : MonoBehaviour
 		else
 		{
 			Debug.Log("이미 닉네임이 설정되어 있습니다: " + nickname);
-			StartCoroutine(LoadSceneAsync("SampleScene"));
+
+            SceneChange.Instance.LoadSceneAsync(SceneName.SampleScene);
+
+            //StartCoroutine(LoadSceneAsync("SampleScene"));
 		}
 	}
 
@@ -250,8 +264,8 @@ public class LoginUI : MonoBehaviour
 					BackendGameData.Instance.userData.nickname = nickname; // 닉네임 업데이트
 					BackendGameData.Instance.GameDataUpdate(); // 게임 데이터 업데이트
 
-
-					StartCoroutine(LoadSceneAsync("SampleScene"));
+                    SceneChange.Instance.LoadSceneAsync(SceneName.SampleScene);
+                    //StartCoroutine(LoadSceneAsync("SampleScene"));
 				});
 			},
 			onFailure: (error) =>
@@ -362,7 +376,10 @@ public class LoginUI : MonoBehaviour
 			yield return new WaitUntil(() => uploadDone);
 			Debug.Log("CSV 업로드 완료, 씬 이동");
 
-            StartCoroutine(LoadSceneAsync("SampleScene"));
+
+            SceneChange.Instance.LoadSceneAsync(SceneName.SampleScene);
+
+            //StartCoroutine(LoadSceneAsync("SampleScene"));
 
             //SceneManager.LoadScene("SampleScene");
 		}
@@ -378,18 +395,34 @@ public class LoginUI : MonoBehaviour
 
     public IEnumerator LoadSceneAsync(string sceneName)
     {
-		if(mainImage.gameObject.activeSelf)
-			mainImage.gameObject.SetActive(false);
-		// 이미지 뛰우기 
-		loadingImage.gameObject.SetActive(true);
-		AsyncOperation op = SceneManager.LoadSceneAsync(sceneName);
-        while (!op.isDone)
+		
+		//AsyncOperation op = SceneManager.LoadSceneAsync(sceneName);
+        //while (!op.isDone)
+        //{
+        //    yield return null;
+        //}
+        yield return null;
+        //loadingImage.gameObject.SetActive(false);
+    }
+
+	public void LoadSencmImage(ChangeLoadImageEvent changeLoadImageEvent)
+	{
+		bool isLoading = changeLoadImageEvent.isLoading;
+
+
+        Sprite loadedSprite = Resources.Load<Sprite>("MainImage");
+        if (loadedSprite == null)
         {
-            yield return null;
+            Debug.LogError("MainImage 스프라이트를 찾을 수 없습니다.");
+            return;
         }
 
-        loadingImage.gameObject.SetActive(false);
+        mainImage.sprite = loadedSprite;
+
+
+        mainImage.gameObject.SetActive(isLoading);
     }
+
 
 
 
@@ -412,4 +445,5 @@ public class LoginUI : MonoBehaviour
     [SerializeField] private Image loadingImage;
 	[SerializeField] private Image mainImage;
 
+    [SerializeField] private Transform mainImageTransform;
 }
