@@ -1,3 +1,4 @@
+using BackEnd;
 using NUnit.Framework.Interfaces;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,6 +25,7 @@ public class FoodSlotUI : MonoBehaviour
     void OnEnable()
     {
         EventBus<SlotSpawnHandler>.OnEvent += CreateSlot;
+        EventBus<FoodSlotDeleteHandler>.OnEvent += DeleteSlot;
 
     }
 
@@ -45,12 +47,26 @@ public class FoodSlotUI : MonoBehaviour
 
     public void CreateSlot(SlotSpawnHandler slotSpawnHandler)
     {
+        if(slotSpawnHandler.foodData.reputation > BackendGameData.Instance.userData.reputation)
+            return;
+
+
         GameObject obj = Instantiate(slotSpawnHandler.Slot, slotTransform);
         Sprite foodSprite = Resources.Load<Sprite>(slotSpawnHandler.Image);
-
         obj.transform.GetChild((int)SlotInfo.Name).GetComponent<TextMeshProUGUI>().text = slotSpawnHandler.SlotName;
         obj.transform.GetChild((int)SlotInfo.Image).GetComponent<Image>().sprite = foodSprite;
         obj.GetComponent<FoodSlot>().foodData = slotSpawnHandler.foodData;
+
+        slot.Add(obj);
+    }
+
+    public void DeleteSlot(FoodSlotDeleteHandler slotSpawnHandler)
+    {
+        for (int i = 0; i < slot.Count; i++)
+        {
+            Destroy(slot[i]);
+        }
+        slot.Clear();
     }
 
 
@@ -62,5 +78,5 @@ public class FoodSlotUI : MonoBehaviour
     {
         get => menuTransform;
     }
-
+    List<GameObject> slot = new List<GameObject>();
 }

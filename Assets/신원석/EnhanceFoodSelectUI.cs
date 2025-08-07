@@ -35,6 +35,10 @@ public class EnhanceFoodSelectUI : MonoBehaviour
 
     public void CreateSlot(EnhanceFoodSlotSpawnHandler slotSpawnHandler)
     {
+        if (slotSpawnHandler.foodData.reputation > BackendGameData.Instance.userData.reputation)
+            return;
+
+
         GameObject obj = Instantiate(slotSpawnHandler.Slot, slotTransform);
         Sprite foodSprite = Resources.Load<Sprite>(slotSpawnHandler.Image);
         obj.transform.GetChild((int)SlotInfo.Name).GetComponent<TextMeshProUGUI>().text = slotSpawnHandler.SlotName;

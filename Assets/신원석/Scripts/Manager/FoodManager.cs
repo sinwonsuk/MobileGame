@@ -15,16 +15,22 @@ public class FoodManager : baseManager, IGameManager
         EventBus<FoodDecreaseHandler>.OnEvent += DecreaseFood;
         EventBus<FoodIncreaseHandler>.OnEvent += IncreaseFood;
         EventBus<EnhanceFoodSlotsSpawnHandler>.OnEvent += CreateEnhanceFoodSlot;
+        EventBus<FoodSlotsSpawnHandler>.OnEvent += CreateFoodSlot;
         EventBus<EnhanceFoodSlotsDeleteHandler>.OnEvent += DeleteEnhanceFoodSlot;
+        EventBus<FoodSlotsDeleteHandler>.OnEvent += DeleteFoodSlot;
+
         EventBus<EnhanceFoodDecreaseHandler>.OnEvent += DecreaseEnhanceFood;
     }
     ~FoodManager()
     {
         EventBus<FoodDecreaseHandler>.OnEvent -= DecreaseFood;
         EventBus<FoodIncreaseHandler>.OnEvent -= IncreaseFood;
+
+        EventBus<FoodSlotsSpawnHandler>.OnEvent -= CreateFoodSlot;
         EventBus<EnhanceFoodSlotsSpawnHandler>.OnEvent -= CreateEnhanceFoodSlot;
         EventBus<EnhanceFoodSlotsDeleteHandler>.OnEvent -= DeleteEnhanceFoodSlot;
         EventBus<EnhanceFoodDecreaseHandler>.OnEvent -= DecreaseEnhanceFood;
+        EventBus<FoodSlotsDeleteHandler>.OnEvent -= DeleteFoodSlot;
     }
 
 
@@ -41,12 +47,26 @@ public class FoodManager : baseManager, IGameManager
             foodDic.Add(conFig.GetFoods()[i].displayName, conFig.GetFoods()[i]);
         }
 
-        for (int i = 0; i < conFig.GetFoods().Count; i++)
-        {
-            EventBus<SlotSpawnHandler>.Raise(new SlotSpawnHandler(conFig.GetSlotUI(),conFig.GetFoods()[i]));
-        }
+        //for (int i = 0; i < conFig.GetFoods().Count; i++)
+        //{
+        //    EventBus<SlotSpawnHandler>.Raise(new SlotSpawnHandler(conFig.GetSlotUI(),conFig.GetFoods()[i]));
+        //}
 
     }
+
+    public void CreateFoodSlot(FoodSlotsSpawnHandler slotSpawnsHandler)
+    {
+        for (int i = 0; i < conFig.GetFoods().Count; i++)
+        {
+            EventBus<SlotSpawnHandler>.Raise(new SlotSpawnHandler(conFig.GetSlotUI(), conFig.GetFoods()[i]));
+        }
+    }
+
+    public void DeleteFoodSlot(FoodSlotDeleteHandler enhanceFoodData)
+    {
+        EventBus<FoodSlotDeleteHandler>.Raise(new FoodSlotDeleteHandler());
+    }
+
 
     public void CreateEnhanceFoodSlot(EnhanceFoodSlotsSpawnHandler enhanceFoodData)
     {
@@ -60,7 +80,10 @@ public class FoodManager : baseManager, IGameManager
     {
          EventBus<EnhanceFoodSlotDeleteHandler>.Raise(new EnhanceFoodSlotDeleteHandler());
     }
-
+    public void DeleteFoodSlot(FoodSlotsDeleteHandler enhanceFoodData)
+    {
+        EventBus<FoodSlotDeleteHandler>.Raise(new FoodSlotDeleteHandler());
+    }
 
     public void SetFoodData(FoodData foodData)
     {

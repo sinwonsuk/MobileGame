@@ -81,7 +81,8 @@ public class Cook : MonoBehaviour
             {
                 EventBus<CustomerStateChangeHandler>.Raise(new CustomerStateChangeHandler(CustomerState.Eat, cookMoveHandler.customer));
                 cookMoveHandler.customer.foodPrice = foodPrice;
-                yield break;
+                cookMoveHandler.customer.foodName = foodName;
+               yield break;
             }
 
             transform.position = Vector3.MoveTowards(transform.position, move, Time.deltaTime * speed);
