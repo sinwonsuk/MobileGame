@@ -25,7 +25,7 @@ public class EnemyBase : MonoBehaviour
     public Vector3 basePosition;
     private Transform playerTarget;
 
-    protected float moveSpeed = 1f;
+    protected float moveSpeed = 0.5f;
 
     protected bool isDead = false;
 
