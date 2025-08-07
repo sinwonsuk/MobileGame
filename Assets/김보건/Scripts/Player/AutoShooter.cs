@@ -25,6 +25,7 @@ public class AutoShooter : MonoBehaviour
     private bool isShopOpen = false; // UI Shop 열림 여부
 
     private InputAction attackAction;
+    public bool IsAttackPressed => attackAction != null && attackAction.ReadValue<float>() > 0;
 
     void OnEnable()
     {
