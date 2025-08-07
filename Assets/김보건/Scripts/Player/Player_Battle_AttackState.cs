@@ -36,7 +36,7 @@ public class Player_Battle_AttackState : IShooterState
         }
 
         // 사용자가 터치 중이라면 유지 시간 연장
-        if (Input.GetMouseButton(0))
+        if (shooter.IsAttackPressed && !UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject())
         {
             remainTime = shooter.manualAttackHoldTime;
         }

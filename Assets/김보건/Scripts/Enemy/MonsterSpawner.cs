@@ -184,4 +184,24 @@ public class MonsterSpawner : MonoBehaviour
         SpawnNextStage();   // 내부에서 IsLastStage()에 의해 bossMonsterPrefab 1마리만 스폰
         return true;
     }
+
+    public void ForceResetWave()
+    {
+        StopAllCoroutines();        // 진행 중인 코루틴 중단
+        isSpawningWave = false;
+        hasSpawned = false;
+        bossReady = false;
+        bossSpawned = false;
+
+        currentSpawned = 0;
+        monsterKillCount = 0;
+    }
+
+    public void KillAllMonsters()
+    {
+        foreach (var enemy in Object.FindObjectsByType<EnemyBase>(FindObjectsSortMode.None))
+        {
+            Destroy(enemy.gameObject);
+        }
+    }
 }

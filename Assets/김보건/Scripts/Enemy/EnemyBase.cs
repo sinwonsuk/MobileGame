@@ -25,7 +25,7 @@ public class EnemyBase : MonoBehaviour
     public Vector3 basePosition;
     private Transform playerTarget;
 
-    protected float moveSpeed = 0.5f;
+    protected float moveSpeed = 1f;
 
     protected bool isDead = false;
 
@@ -159,11 +159,19 @@ public class EnemyBase : MonoBehaviour
             var dungeonManager = FindAnyObjectByType<GameController>().GetManager<DungeonManager>();
             var floorData = dungeonManager.Config.selectedFloorData;
 
-            Object.FindFirstObjectByType<MonsterSpawner>()?.ResetSpawnFlag();//스폰상태초기화
+            var spawner = FindFirstObjectByType<MonsterSpawner>();
+            if (spawner == null) return;
 
-            floorData.ResetStage();               // 스테이지 초기화
-            Destroy(gameObject);
-            Object.FindFirstObjectByType<MonsterSpawner>().SpawnNextStage();
+
+            spawner.KillAllMonsters(); //남아 있는 몬스터 전부 제거
+            spawner.ForceResetWave(); // 전체 상태 초기화
+            floorData.ResetStage();   
+
+            ////몬스터 삭제
+            //Destroy(gameObject);
+
+            //스폰다시 시작
+            spawner.StartMonsterWave();
         }
     }
 

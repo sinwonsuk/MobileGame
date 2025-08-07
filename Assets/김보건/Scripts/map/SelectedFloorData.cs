@@ -11,6 +11,8 @@ public class SelectedFloorData : ScriptableObject
 
     public bool autoNextFloor = false;
 
+    public bool isBossStage = false; // 보스 스테이지 여부
+
     public void NextStage()
     {
         currentStage++;
@@ -19,6 +21,12 @@ public class SelectedFloorData : ScriptableObject
     public void ResetStage()
     {
         currentStage = 1;
+        isBossStage = false;        
+
+        // UI 갱신용 이벤트 발송
+        EventBus<StageChangedEvent>.Raise(
+            new StageChangedEvent(currentStage, isBossStage)
+        );
     }
 
     public bool IsLastStage()
