@@ -16,6 +16,8 @@ MonoBehaviour:
   displayName: "\uBBF8\uBBF9 \uBC14\uBE44\uD050 \uD50C\uB808\uC774\uD2B8"
   foodSprite: 
   price: 461
+  reputation: 10
+  Getreputation: 0
   isUnlock: 0
   cookingTime: 1
   Level: 0

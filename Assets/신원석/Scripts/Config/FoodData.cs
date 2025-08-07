@@ -10,7 +10,9 @@ public class FoodData : BaseScriptableObject
     public string displayName;      // 화면에 보일 이름
     public string foodSprite;       // 사진
     public int price;            // 가격
-    public bool isUnlock;          // 해금 여부 
+    public int reputation;       // 명성도
+    public int Getreputation;       // 명성도
+    public bool isUnlock;          // 해금 여부     
     public float cookingTime; // 대기 시간 
     public int Level;
 

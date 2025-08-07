@@ -187,6 +187,17 @@ public class Customer : MonoBehaviour
                         customerManager.DequeueCustomer();
                         ChangeState(CustomerState.Back);
                         EventBus<MoneyChangePusHandler>.Raise(new MoneyChangePusHandler(foodPrice));
+
+
+                        for (int i = 0; i < foodDatas.Count; i++)
+                        {
+                            if (foodDatas[i].displayName == foodName)
+                            {
+                                BackendGameData.Instance.userData.reputation += foodDatas[i].Getreputation;
+                                break;
+                            }
+                        }
+
                         SoundManager.GetInstance().SfxPlay(SoundManager.sfx.money, false);
                         return;
                     } 
@@ -252,7 +263,10 @@ public class Customer : MonoBehaviour
 
     public CustomerManager customerManager { get; set; }
 
+    public string foodName { get; set; }
+
     public Vector3 CalculatePosition;
+
 
     private Vector2 storeEntrancePosition = new Vector2(2.04f, 3.24f);
 

@@ -23,7 +23,7 @@ public class ManagementUIOnOff : MonoBehaviour
 
             EventBus<ManagementActiveHandler>.Raise(new ManagementActiveHandler(isActive,ClickType.FoodSlot));
             isActive = false;
-
+            EventBus<FoodSlotsSpawnHandler>.Raise(new FoodSlotsSpawnHandler());
             // °­È­µµ off
             EventBus<EnhanceFoodUIActiveHandler>.Raise(new EnhanceFoodUIActiveHandler(isActive));
     //        EventBus<ButtonHandler>.Raise(new ButtonHandler(isActive));
@@ -31,7 +31,7 @@ public class ManagementUIOnOff : MonoBehaviour
         else
         {
             SoundManager.GetInstance().SfxPlay(SoundManager.sfx.Click, false);
-
+            EventBus<FoodSlotsDeleteHandler>.Raise(new FoodSlotsDeleteHandler());
             EventBus<ManagementActiveHandler>.Raise(new ManagementActiveHandler(isActive, ClickType.FoodSlot));
             EventBus<ManagementActiveHandler>.Raise(new ManagementActiveHandler(isActive, ClickType.FoodAmount));
 
