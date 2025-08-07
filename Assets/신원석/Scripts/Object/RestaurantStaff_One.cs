@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 
-public class tetetetetetetetet : StaffBase
+public class RestaurantStaff_One : StaffBase
 {
     [Header("할당할 StaffStatsSO")]
     public StaffStatsSO stats;              // Inspector 에 할당
@@ -11,14 +11,17 @@ public class tetetetetetetetet : StaffBase
 
     public Queue<Cook> Cooks { get; set; } = new Queue<Cook>();
 
+    private Animator animator;
     private bool isWorking = true;        // 현재 일하는 중인가?
     private double timeCounter;              // 남은 시간 카운터
     private void Start()
     {
+        animator = GetComponent<Animator>(); // Animator 연결
         EventBus<GetCusomersEvent>.Raise(new GetCusomersEvent(this));
         EventBus<GetFirstCookEvent>.Raise(new GetFirstCookEvent(this));
 
         timeCounter = Runtimestats.timer;
+        animator.SetBool("Work", isWorking);
     }
 
 
@@ -41,6 +44,7 @@ public class tetetetetetetetet : StaffBase
                 isWorking = true;
                 timeCounter = Runtimestats.timer;
             }
+            animator.SetBool("Work", isWorking);
         }
 
         // 2) 휴식 중일 때는 Auto-Serving 로직을 건너뛴다
