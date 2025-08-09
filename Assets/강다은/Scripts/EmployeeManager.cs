@@ -148,6 +148,23 @@ public class EmployeeManager : MonoBehaviour, IAutoSavable
         ClearArrows();
         FindAnyObjectByType<EmployeeInventoryUI>()?.RefreshUI();
     }
+    public void SyncEmployeeStatesByLevel()
+    {
+        foreach (var slot in slots)
+        {
+            if (slot.runtimeData.level <= 0)
+            {
+                slot.runtimeData.isOwned = false;
+                slot.runtimeData.isAssigned = false;
+                slot.runtimeData.assignedIndex = -1;
+            }
+            if (!slot.runtimeData.isOwned)
+            {
+                slot.runtimeData.isAssigned = false;
+                slot.runtimeData.assignedIndex = -1;
+            }
+        }
+    }
 
     public void SavePlacementState()
     {
@@ -169,28 +186,36 @@ public class EmployeeManager : MonoBehaviour, IAutoSavable
             slot.runtimeData.isAssigned = isAssigned;
             slot.runtimeData.assignedIndex = idx;
 
-            if (isAssigned && idx >= 0 && idx < dynamicPlacementPoints.Count)
+            // 프리팹 삭제
+            if (idx >= 0 && idx < dynamicPlacementPoints.Count)
             {
                 Transform point = dynamicPlacementPoints[idx];
-                // 기존 프리팹 모두 삭제(중복방지)
                 foreach (Transform child in point)
                     Destroy(child.gameObject);
+            }
 
-                // 새로 생성
+            // 조건 만족시만 스폰 (level>0 필수!)
+            if (isAssigned && idx >= 0 && idx < dynamicPlacementPoints.Count && slot.runtimeData.level > 0)
+            {
                 var staffPrefab = slot.staffData.itemPrefab;
                 if (staffPrefab == null) continue;
 
+                Transform point = dynamicPlacementPoints[idx];
                 GameObject staffObj = Instantiate(staffPrefab, point.position, Quaternion.identity, point);
                 staffObj.name = staffPrefab.name;
 
-                // init 호출!
                 var staffBase = staffObj.GetComponent<StaffBase>();
                 if (staffBase != null)
                     staffBase.Init(slot.staffData, slot.runtimeData);
             }
-
+            else
+            {
+                slot.runtimeData.isAssigned = false;
+                slot.runtimeData.assignedIndex = -1;
+            }
         }
     }
+
     // 화살표 오브젝트 제거
     private void ClearArrows()
     {
@@ -201,6 +226,8 @@ public class EmployeeManager : MonoBehaviour, IAutoSavable
     private IEnumerator DelayedPlacementRestore()
     {
         yield return null; // 배치 포인트 오브젝트가 다 등록될 때까지 한 프레임 대기
+        SyncEmployeeStatesByLevel();
+
         LoadPlacementState();
     }
     // 씬 변경 시 포인트 초기화
