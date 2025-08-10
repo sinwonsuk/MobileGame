@@ -173,7 +173,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      PiggyBank_0: -2229383389180679000
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
