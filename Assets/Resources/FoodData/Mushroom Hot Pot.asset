@@ -16,7 +16,7 @@ MonoBehaviour:
   displayName: "\uBC84\uC12F \uC804\uACE8"
   foodSprite: hotPot
   price: 392
-  reputation: 10
+  reputation: 0
   Getreputation: 0
   isUnlock: 0
   cookingTime: 1

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class ManagementUIOnOff : MonoBehaviour
+public class ManagementUIOnOff : BaseButton
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -8,6 +8,12 @@ public class ManagementUIOnOff : MonoBehaviour
         EventBus<ButtonHandler>.OnEvent += ManagementOnOff;
         EventBus<ButtonisActiveHandler>.OnEvent += ManagementButtonisActive;
     }
+
+    private void OnDisable()
+    {
+        
+    }
+
 
     // Update is called once per frame
     void Update()
@@ -17,29 +23,11 @@ public class ManagementUIOnOff : MonoBehaviour
 
     public void ManagementUIActive()
     {
-        if( isActive)
-        {
-            SoundManager.GetInstance().SfxPlay(SoundManager.sfx.Click, false);
 
-            EventBus<ManagementActiveHandler>.Raise(new ManagementActiveHandler(isActive,ClickType.FoodSlot));
-            isActive = false;
-            EventBus<FoodSlotsSpawnHandler>.Raise(new FoodSlotsSpawnHandler());
-            // 강화도 off
-            EventBus<EnhanceFoodUIActiveHandler>.Raise(new EnhanceFoodUIActiveHandler(isActive));
-    //        EventBus<ButtonHandler>.Raise(new ButtonHandler(isActive));
-        }
-        else
-        {
-            SoundManager.GetInstance().SfxPlay(SoundManager.sfx.Click, false);
-            EventBus<FoodSlotsDeleteHandler>.Raise(new FoodSlotsDeleteHandler());
-            EventBus<ManagementActiveHandler>.Raise(new ManagementActiveHandler(isActive, ClickType.FoodSlot));
-            EventBus<ManagementActiveHandler>.Raise(new ManagementActiveHandler(isActive, ClickType.FoodAmount));
+           
 
-            
-            isActive = true;
-
-   //         EventBus<ButtonHandler>.Raise(new ButtonHandler(isActive));
-        }
+       //// 강화 끄기 
+       // EventBus<EnhanceFoodUIActiveHandler>.Raise(new EnhanceFoodUIActiveHandler(false));        
     }
 
     public void ManagementOnOff(ButtonHandler buttonHandler)
@@ -52,6 +40,19 @@ public class ManagementUIOnOff : MonoBehaviour
         gameObject.SetActive(buttonHandler.isActive);
     }
 
+    public override void OnClick()
+    {
+        SoundManager.GetInstance().SfxPlay(SoundManager.sfx.Click, false);
+        EventBus<ManagementActiveHandler>.Raise(new ManagementActiveHandler(isActive, ClickType.FoodSlot));
+        EventBus<FoodSlotsSpawnHandler>.Raise(new FoodSlotsSpawnHandler());
+    }
+
+    public override void OnExit()
+    {
+        EventBus<FoodSlotsDeleteHandler>.Raise(new FoodSlotsDeleteHandler());
+        EventBus<ManagementActiveHandler>.Raise(new ManagementActiveHandler(false, ClickType.FoodSlot));
+        EventBus<ManagementActiveHandler>.Raise(new ManagementActiveHandler(false, ClickType.FoodAmount));
+    }
 
     public bool isActive { get; set; } = true;
 
