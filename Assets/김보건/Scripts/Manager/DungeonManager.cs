@@ -98,8 +98,10 @@ public class DungeonManager : baseManager
         }
 
         // 기존 맵 제거
-        var map = Object.Instantiate(floorData.mapPrefab, config.mapParent);
+        foreach (Transform child in config.mapParent)
+            Object.Destroy(child.gameObject);
 
+        var map = Object.Instantiate(floorData.mapPrefab, config.mapParent);
 
         // 이전 참조 초기화 후, 다시 연결
         config.floorTextUI = null;
@@ -111,6 +113,12 @@ public class DungeonManager : baseManager
         //map.GetComponentInChildren<MonsterSpawner>()?.SpawnNextStage();
 
         var spawner = map.GetComponentInChildren<MonsterSpawner>();
+
+        if (spawner == null)
+        {
+            Debug.LogError("MonsterSpawner를 새 맵에서 찾을 수 없음");
+        return;
+        }
 
         if (config.selectedFloorData.IsLastStage())
         {
@@ -274,6 +282,35 @@ public class DungeonManager : baseManager
 
         // 3) 최후의 보루: 첫 TMP를 사용(이름 불문)
         return root.GetComponentInChildren<TextMeshProUGUI>(true);
+    }
+
+    public void ResetDungeonEnvironment()
+    {
+        CommitLootToInventory();
+
+        // 맵 제거
+        if (config.mapParent != null)
+        {
+            foreach (Transform child in config.mapParent)
+                Object.Destroy(child.gameObject);
+        }
+
+        // 미사일 제거
+        foreach (var bullet in Object.FindObjectsByType<BaseBullet>(FindObjectsSortMode.None))
+            GameObject.Destroy(bullet.gameObject);
+
+        // 플레이어 제거
+        var player = GameObject.FindGameObjectWithTag("Player");
+        if (player != null)
+            GameObject.Destroy(player);
+
+        // 몬스터 제거
+        foreach (var monster in Object.FindObjectsByType<EnemyBase>(FindObjectsSortMode.None))
+            GameObject.Destroy(monster.gameObject);
+
+        // 드랍 아이템 제거
+        foreach (var drop in Object.FindObjectsByType<DroppableItem>(FindObjectsSortMode.None))
+            GameObject.Destroy(drop.gameObject);
     }
 
     public override void ActiveOff() { }

@@ -51,6 +51,19 @@ public class EnemyBase : MonoBehaviour
         // 내려오는 위치 + 맞을때 흔들림
         //transform.position = basePosition + hitShakeOffset;
 
+        if (playerTarget == null)
+        {
+            var playerObj = GameObject.FindGameObjectWithTag("Player");
+            if (playerObj != null)
+            {
+                playerTarget = playerObj.transform;
+            }
+            else
+            {
+                return; // 플레이어 없으면 이동 로직 중단
+            }
+        }
+
         Vector3 direction = (playerTarget.position - logicalPosition).normalized;
         logicalPosition += direction * moveSpeed * Time.deltaTime;
 
