@@ -19,7 +19,7 @@ public class EnhanceFoodSelectUI : MonoBehaviour
     void OnDisable()
     {
         EventBus<EnhanceFoodSlotSpawnHandler>.OnEvent -= CreateSlot;
-        EventBus<EnhanceFoodSlotDeleteHandler>.OnEvent += DeleteSlot;
+        EventBus<EnhanceFoodSlotDeleteHandler>.OnEvent -= DeleteSlot;
 
     }
     void Start()
