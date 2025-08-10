@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: RuntimeCustomerTable1
   m_EditorClassIdentifier: 
   interiorName: CustomerTable1
-  isOwned: 1
+  isOwned: 0
   isUsed: 0
   instance: {fileID: 0}

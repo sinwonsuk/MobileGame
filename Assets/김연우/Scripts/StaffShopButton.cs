@@ -1,102 +1,170 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Collections.Generic;
 
 public class StaffShopButton : MonoBehaviour
 {
     [Header("연결된 직원 데이터 (SO)")]
     public StaffStatsSO staffData;
-    public RuntimeStaffStatsSO RuntimeStaffData;
-    public Transform spawnPoint;           // 스폰 위치(레스토랑 직원만 사용)
+    public RuntimeStaffStatsSO runtimeData;
+
+    [Header("UI & 버튼")]
     public Button purchaseButton;
+    public TextMeshProUGUI buttonText;
+    public TextMeshProUGUI levelText;
 
-    public TextMeshProUGUI _buttonText;
-    public TextMeshProUGUI level_num;
+    [Header("스폰(레스토랑만 사용)")]
+    public StaffType staffType;          // Restaurant / Hunter ...
+    public Transform spawnPoint;         // MapPoint 하위(옵션)
+    public string num1;                  // "first" / "second"
 
-    public StaffType stafType;  // 이 직원의 타입
-    public int money;
-    public string num1;
-    private StaffBase _spawnedStaff;
+    // 내부 상태
+    private StaffBase _spawned;
+    private int _price;
+    private bool _listenerBound;
 
-    void Awake()
+    // --- 중복 업그레이드 가드 ---
+    private static readonly HashSet<RuntimeStaffStatsSO> UpgradeLock = new();
+    private int _lastUpgradeFrame = -1;
+
+    private void Awake()
     {
-        money = staffData.baseSalary;
-        // 스폰 포인트가 지정되지 않았다면 MapPoint에서 찾아서 할당
-        if (spawnPoint == null)
+        // 선택: MapPoint 자동 바인딩
+        if (spawnPoint == null && staffType == StaffType.restaurant)
         {
             var parent = GameObject.Find("MapPoint");
-
-            switch (num1)
+            if (parent != null)
             {
-                case "first":
-                    if (parent != null && parent.transform.childCount > 2)
-                        spawnPoint = parent.transform.GetChild(2);
-                    break;
-                case "second":
-                    if (parent != null && parent.transform.childCount > 3)
-                        spawnPoint = parent.transform.GetChild(3);
-                    break;
-                default:
-                    break;
+                var t = parent.transform;
+                if (num1 == "first" && t.childCount > 2) spawnPoint = t.GetChild(2);
+                if (num1 == "second" && t.childCount > 3) spawnPoint = t.GetChild(3);
             }
         }
     }
 
-    void Start()
+    private void OnEnable()
     {
-        purchaseButton.onClick.AddListener(OnButtonClicked);
+        if (purchaseButton != null && !_listenerBound)
+        {
+            purchaseButton.onClick.RemoveListener(OnClick); // 안전차단
+            purchaseButton.onClick.AddListener(OnClick);
+            _listenerBound = true;
+            Debug.Log($"[Bind] {name} -> BtnID {purchaseButton.GetInstanceID()}");
+        }
         RefreshUI();
+    }
+
+    private void OnDisable()
+    {
+        if (purchaseButton != null)
+            purchaseButton.onClick.RemoveListener(OnClick);
+        _listenerBound = false;
     }
 
     private void RefreshUI()
     {
-        level_num.text = $"Lv. {RuntimeStaffData.level}";
-        int effectiveLevel = Mathf.Max(1, RuntimeStaffData.level);
-        money = staffData.baseSalary * effectiveLevel;
-        _buttonText.text = (RuntimeStaffData.level == 0) ? "Buy" : "Upgrade";
+        int current = runtimeData != null ? runtimeData.level : 0;
+        int nextLevel = (current == 0) ? 1 : current + 1;
+        _price = (staffData != null) ? staffData.baseSalary * nextLevel : 0;
+
+        if (levelText != null) levelText.text = $"Lv. {current}";
+        if (buttonText != null) buttonText.text = (current == 0) ? "Buy" : "Upgrade";
     }
 
-    private void OnButtonClicked()
+    private void OnClick()
     {
-        // 돈 차감 이벤트 (공통)
-        EventBus<MoneyChangeMusHandler>.Raise(new MoneyChangeMusHandler(money));
+        // 같은 프레임 중복 클릭 차단
+        if (_lastUpgradeFrame == Time.frameCount) return;
+        _lastUpgradeFrame = Time.frameCount;
 
-        if (RuntimeStaffData.level == 0)
+        if (staffData == null || runtimeData == null)
         {
-            // 첫 구매
-            RuntimeStaffData.level = 1;
-            RuntimeStaffData.isOwned = true;
+            Debug.LogError("[StaffShopButton] 데이터가 비어있습니다.", this);
+            return;
+        }
 
-            // 레스토랑 직원만 스폰!
-            if (stafType == StaffType.restaurant)
+        // 같은 Runtime SO에 대한 동시 업그레이드 차단
+        if (UpgradeLock.Contains(runtimeData)) return;
+        UpgradeLock.Add(runtimeData);
+
+        try
+        {
+            // 돈 선확인
+            if (!CanAfford(_price))
             {
-                SpawnStaff();
+                Debug.Log("돈 부족");
+                return;
             }
+
+            // 실제 차감
+            Spend(_price);
+
+            // 레벨 갱신(항상 +1)
+            int prev = runtimeData.level;
+            if (prev == 0)
+            {
+                runtimeData.level = 1;
+                runtimeData.isOwned = true;
+
+                if (staffType == StaffType.restaurant)
+                    SafeSpawn();
+            }
+            else
+            {
+                runtimeData.isOwned = true;
+
+                if (_spawned != null && staffType == StaffType.restaurant)
+                    _spawned.LevelUp();
+            }
+
+            // 외부 UI 갱신 통지(있으면)
+            if (EmployeeManager.Instance != null)
+                EmployeeManager.Instance.NotifyStaffChanged();
+
+            RefreshUI();
         }
-        else
+        finally
         {
-            RuntimeStaffData.level += 1;
-            RuntimeStaffData.isOwned = true;
-
-            // 업그레이드 시 스폰된 직원이 있으면 레벨업 처리 (레스토랑 직원만)
-            if (_spawnedStaff != null && stafType == StaffType.restaurant)
-                _spawnedStaff.LevelUp();
+            UpgradeLock.Remove(runtimeData);
         }
-
-        EmployeeManager.Instance.NotifyStaffChanged(); // 인벤토리 갱신
-        RefreshUI();
     }
 
-    // 오직 레스토랑 직원만 이 함수 사용!
-    private void SpawnStaff()
+    private bool CanAfford(int amount)
+    {
+        // 프로젝트 기준으로 소지금 확인
+        int current = BackendGameData.Instance.userData.gold;
+        return current >= amount;
+    }
+
+    private void Spend(int amount)
+    {
+        // 실제 차감 (MoneyManager.UseMoney를 이벤트로 호출)
+        EventBus<MoneyChangeMusHandler>.Raise(new MoneyChangeMusHandler(amount));
+    }
+
+    private void SafeSpawn()
     {
         if (spawnPoint == null)
         {
-            Debug.LogWarning($"{staffData.displayName}: spawnPoint가 지정되지 않음", this);
+            Debug.LogWarning("[StaffShopButton] spawnPoint가 설정되지 않았습니다.", this);
             return;
         }
+        if (staffData == null || staffData.itemPrefab == null)
+        {
+            Debug.LogError("[StaffShopButton] itemPrefab이 비어있습니다.", this);
+            return;
+        }
+
         var go = Instantiate(staffData.itemPrefab, spawnPoint.position, spawnPoint.rotation);
-        _spawnedStaff = go.GetComponent<StaffBase>();
-        _spawnedStaff.Init(staffData, RuntimeStaffData);
+
+        _spawned = go.GetComponent<StaffBase>();
+        if (_spawned == null)
+        {
+            Debug.LogError("[StaffShopButton] itemPrefab에 StaffBase가 없습니다.", go);
+            return;
+        }
+
+        _spawned.Init(staffData, runtimeData);
     }
 }

@@ -3,7 +3,7 @@ using UnityEngine;
 /// <summary>
 /// Restaurant 직원. 근무/휴식 주기 관리 & 요리 시간 감소 효과 이벤트 발송.
 /// </summary>
-public class RestaurantStaff_Two : MonoBehaviour
+public class RestaurantStaff_Two : StaffBase
 {
     [Header("직원 데이터 (SO)")]
     public StaffStatsSO stats;
@@ -42,9 +42,6 @@ public class RestaurantStaff_Two : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// 요리 시간 감소 이벤트 발송 (근무 중: cookTimeReduction, 휴식: 0)
-    /// </summary>
     private void RaiseCookTimeReductionEvent()
     {
         float reduction = isWorking ? cookTimeReduction : 0f;
@@ -56,7 +53,6 @@ public class RestaurantStaff_Two : MonoBehaviour
         lastReduction = reduction;
 
         EventBus<CookTimeReductionEvent>.Raise(new CookTimeReductionEvent(reduction));
-        // Debug.Log($"{name}: 요리 시간 감소 이벤트 발송 ({reduction * 100f}%)");
     }
 
     public float GetCookTimeReduction()
