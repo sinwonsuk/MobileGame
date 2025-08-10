@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 388f811015666644087876976c3692a1, type: 3}
-  m_Name: New Interior Data
+  m_Name: CustomerTable2
   m_EditorClassIdentifier: 
-  interiorName: 1234
+  interiorName: CustomerTable2
   icon: {fileID: 21300000, guid: 3578b6a502f07be42a6abe7ba4c011e6, type: 3}
-  prefab: {fileID: 5548599777386569634, guid: 9626ad0c8a61417458af5c6c8b526187, type: 3}
+  prefab: {fileID: 3688959143282305226, guid: 231a766495f1243438aa07c98a8ccc9b, type: 3}
   BaseSalary: 600
-  placementPosition: {x: -3, y: 1.7, z: 0}
+  placementPosition: {x: 2.247579, y: -0.3155497, z: 0}
   description: 
