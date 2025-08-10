@@ -46,12 +46,12 @@ public class ShopTimerService : MonoBehaviour
     {
         var t = _timers.FirstOrDefault(x => x.owner == owner && !x.isDone);
         if (t == null) return TimeSpan.Zero;
-        return t.endTime - DateTime.Now;
+        return t.endTime - DateTime.UtcNow; // 변경
     }
 
     private void Update()
     {
-        var now = DateTime.Now;
+        var now = DateTime.UtcNow; // 변경
         foreach (var t in _timers)
         {
             if (!t.isDone && now >= t.endTime)
@@ -60,6 +60,6 @@ public class ShopTimerService : MonoBehaviour
                 t.onComplete?.Invoke();
             }
         }
-        // (선택) 완료된 타이머는 원한다면 리스트에서 제거 가능합니다.
     }
+
 }

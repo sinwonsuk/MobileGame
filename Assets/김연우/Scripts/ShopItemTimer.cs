@@ -38,19 +38,16 @@ public class ShopItemTimer : MonoBehaviour
         // 파견 타이머 저장 복원 로직
         string savedEnd = PlayerPrefs.GetString(GetTimerKey(), "");
         if (!string.IsNullOrEmpty(savedEnd) &&
-            DateTime.TryParse(savedEnd, null, System.Globalization.DateTimeStyles.RoundtripKind, out _endTime))
+    DateTime.TryParse(savedEnd, null, System.Globalization.DateTimeStyles.RoundtripKind, out _endTime))
         {
-            if (_endTime > DateTime.Now)
+            if (_endTime > DateTime.UtcNow) // 변경
             {
                 _isCounting = true;
                 buyButton.interactable = false;
-
-                // 서비스에 타이머 등록 (UI가 꺼져도 계속 돌아감)
                 ShopTimerService.Instance.RegisterTimer(this, _endTime, OnTimerComplete);
             }
             else
             {
-                // 만료 시 바로 처리
                 OnTimerComplete();
             }
         }
@@ -86,7 +83,8 @@ public class ShopItemTimer : MonoBehaviour
         _endTime = DateTime.Now.AddHours(durationHours);
 
         // 종료시간 저장 (고유키 필요)
-        PlayerPrefs.SetString(GetTimerKey(), _endTime.ToString("O"));
+        _endTime = DateTime.UtcNow.AddHours(durationHours);
+        PlayerPrefs.SetString(GetTimerKey(), _endTime.ToString("O")); // UTC 저장
 
         // 서비스에 타이머 등록 (UI가 꺼져도 계속 돌아감)
         ShopTimerService.Instance.RegisterTimer(this, _endTime, OnTimerComplete);
