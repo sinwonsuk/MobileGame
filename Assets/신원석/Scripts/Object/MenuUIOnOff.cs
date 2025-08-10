@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class MenuUIOnOff : MonoBehaviour
+public class MenuUIOnOff : BaseButton
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -16,16 +16,7 @@ public class MenuUIOnOff : MonoBehaviour
 
     public void IsActive()
     {
-        if (Check == false)
-        {
-            EventBus<MenuBoardActiveHandler>.Raise(new MenuBoardActiveHandler(true));
-            Check = true;
-        }         
-        else
-        {
-            EventBus<MenuBoardActiveHandler>.Raise(new MenuBoardActiveHandler(false));
-            Check = false;
-        }
+
     }
 
     public void ManagementButtonisActive(ButtonisActiveHandler buttonHandler)
@@ -33,6 +24,15 @@ public class MenuUIOnOff : MonoBehaviour
         gameObject.SetActive(buttonHandler.isActive);
     }
 
+    public override void OnClick()
+    {
+        EventBus<MenuBoardActiveHandler>.Raise(new MenuBoardActiveHandler(true));
+    }
+
+    public override void OnExit()
+    {
+        EventBus<MenuBoardActiveHandler>.Raise(new MenuBoardActiveHandler(false));
+    }
 
     private bool Check = false;
 

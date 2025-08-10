@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class EnhanceFoodActiveOnOff : MonoBehaviour
+public class EnhanceFoodActiveOnOff : BaseButton
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -17,29 +17,19 @@ public class EnhanceFoodActiveOnOff : MonoBehaviour
 
     public void EnhanceFoodActive()
     {
-        if (isActive)
-        {
-            SoundManager.GetInstance().SfxPlay(SoundManager.sfx.Click, false);
-            EventBus<EnhanceFoodUIActiveHandler>.Raise(new EnhanceFoodUIActiveHandler(isActive));
-            EventBus<EnhanceFoodSlotsSpawnHandler>.Raise(new EnhanceFoodSlotsSpawnHandler());
 
+            //SoundManager.GetInstance().SfxPlay(SoundManager.sfx.Click, false);
+            //EventBus<EnhanceFoodUIActiveHandler>.Raise(new EnhanceFoodUIActiveHandler(isActive));
+            //EventBus<EnhanceFoodSlotsSpawnHandler>.Raise(new EnhanceFoodSlotsSpawnHandler());
 
-            isActive = false;
+        //else
+        //{
+        //    SoundManager.GetInstance().SfxPlay(SoundManager.sfx.Click, false);
+        //    EventBus<EnhanceFoodSlotsDeleteHandler>.Raise(new EnhanceFoodSlotsDeleteHandler());
+        //    EventBus<EnhanceFoodUIActiveHandler>.Raise(new EnhanceFoodUIActiveHandler(isActive));
+        //    isActive = true;
 
-            // ¸Å´ºµµ off 
-            EventBus<ManagementActiveHandler>.Raise(new ManagementActiveHandler(isActive, ClickType.FoodSlot));
-            EventBus<ManagementActiveHandler>.Raise(new ManagementActiveHandler(isActive, ClickType.FoodAmount));
-
-        }
-
-        else
-        {
-            SoundManager.GetInstance().SfxPlay(SoundManager.sfx.Click, false);
-            EventBus<EnhanceFoodSlotsDeleteHandler>.Raise(new EnhanceFoodSlotsDeleteHandler());
-            EventBus<EnhanceFoodUIActiveHandler>.Raise(new EnhanceFoodUIActiveHandler(isActive));
-            isActive = true;
-
-        }
+        //}
     }
 
     public void ManagementButtonisActive(ButtonHandler buttonHandler)
@@ -52,6 +42,18 @@ public class EnhanceFoodActiveOnOff : MonoBehaviour
         gameObject.SetActive(buttonHandler.isActive);
     }
 
+    public override void OnClick()
+    {
+        SoundManager.GetInstance().SfxPlay(SoundManager.sfx.Click, false);
+        EventBus<EnhanceFoodUIActiveHandler>.Raise(new EnhanceFoodUIActiveHandler(true));
+        EventBus<EnhanceFoodSlotsSpawnHandler>.Raise(new EnhanceFoodSlotsSpawnHandler());
+    }
+
+    public override void OnExit()
+    {
+        EventBus<EnhanceFoodSlotsDeleteHandler>.Raise(new EnhanceFoodSlotsDeleteHandler());
+        EventBus<EnhanceFoodUIActiveHandler>.Raise(new EnhanceFoodUIActiveHandler(false));
+    }
 
     bool isActive = true;
 

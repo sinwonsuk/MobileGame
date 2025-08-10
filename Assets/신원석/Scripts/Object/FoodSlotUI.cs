@@ -32,7 +32,7 @@ public class FoodSlotUI : MonoBehaviour
     void OnDisable()
     {
         EventBus<SlotSpawnHandler>.OnEvent -= CreateSlot;
-       
+
     }
     void Start()
     {
