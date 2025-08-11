@@ -50,6 +50,7 @@ public class LoginUI : MonoBehaviour
 
 	public void ShowLogin()
 	{
+		SoundManager.GetInstance().SfxPlay(SoundManager.sfx.Click, false);
 		signUpPanel.SetActive(false);
 		loginPanel.SetActive(true);
 		nicknamePanel.SetActive(false);
@@ -57,6 +58,7 @@ public class LoginUI : MonoBehaviour
 
 	public void ShowSignUp()
 	{
+		SoundManager.GetInstance().SfxPlay(SoundManager.sfx.Click, false);
 		loginPanel.SetActive(false);
 		signUpPanel.SetActive(true);
 		nicknamePanel.SetActive(false);
@@ -64,6 +66,7 @@ public class LoginUI : MonoBehaviour
 
 	public void ShowNicknamePanel()
 	{
+		SoundManager.GetInstance().SfxPlay(SoundManager.sfx.Click, false);
 		signUpPanel.SetActive(false);
 		loginPanel.SetActive(false);
 		nicknamePanel.SetActive(true);
@@ -73,6 +76,8 @@ public class LoginUI : MonoBehaviour
 	// 회원가입
 	public void OnClickSignUp()
 	{
+		SoundManager.GetInstance().SfxPlay(SoundManager.sfx.Click, false);
+
 		string id = signUpIdInput.text;
 		string pw = SignPwInput.text;
 
@@ -113,6 +118,8 @@ public class LoginUI : MonoBehaviour
 	// 로그인
 	public void OnClickLogin()
 	{
+		SoundManager.GetInstance().SfxPlay(SoundManager.sfx.Click, false);
+
 		string id = loginIdInput.text;
 		string pw = loginPwInput.text;
 
@@ -142,6 +149,7 @@ public class LoginUI : MonoBehaviour
 
 	public void OnClickGoogleLoginButton()
 	{
+		SoundManager.GetInstance().SfxPlay(SoundManager.sfx.Click, false);
 		StartGoogleLogin();
 	}
 
@@ -155,7 +163,7 @@ public class LoginUI : MonoBehaviour
 		if (!isSuccess)
 		{
 			Debug.LogError("구글 로그인 실패: " + errorMessage);
-			PopupManager.Show("구글 로그인 실패\n" + errorMessage);
+			PopupManager.Show("[구글 로그인 실패]\n" + "해당 로그인은 Android에서만 지원됩니다.");
 			return;
 		}
 
@@ -237,6 +245,7 @@ public class LoginUI : MonoBehaviour
 
 	public void OnClickConfirmNickname()
 	{
+		SoundManager.GetInstance().SfxPlay(SoundManager.sfx.Click, false);
 
 		string nickname = nicknameInput.text.Trim();
 
