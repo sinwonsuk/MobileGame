@@ -4,6 +4,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
+
+public enum GenderType
+{
+    Girl,
+    Man,
+}
+
 public enum CustomerState
 {
     Idle,
@@ -107,7 +114,7 @@ public class Customer : MonoBehaviour
 
             case CustomerState.Move:
                 {
-                    
+
                     navMeshAgent.SetDestination(Target.position);
 
                     if (Vector2.Distance(transform.position, Target.position) < 0.01f)
@@ -118,6 +125,17 @@ public class Customer : MonoBehaviour
                         foodOrderSpriteRenderer.enabled = true;
 
                         SoundManager.GetInstance().Sfx_Stop(SoundManager.sfx.Foot);
+
+
+                        if (genderType == GenderType.Girl)
+                        {
+                            SoundManager.GetInstance().Sfx_Stop(SoundManager.sfx.GirlSound);
+                        }
+                        else if (genderType == GenderType.Man)
+                        {
+                            SoundManager.GetInstance().Sfx_Stop(SoundManager.sfx.ManSound);
+                        }
+
                         ChangeState(CustomerState.Wait);
                         return;
                     }
@@ -271,6 +289,8 @@ public class Customer : MonoBehaviour
     private Vector2 storeEntrancePosition = new Vector2(2.04f, 3.24f);
 
     [SerializeField] List<FoodData> foodDatas = new List<FoodData>();
+
+    [SerializeField] GenderType genderType;
 
     public List<FoodData> FoodDatas
     {

@@ -44,7 +44,7 @@ public class ButtonManager : MonoBehaviour
             return;
 
 
-        // °°Àº ¹öÆ°À» ´Ù½Ã ´©¸£¸é (´Ý±â)
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ°ï¿½ï¿½ ï¿½Ù½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ (ï¿½Ý±ï¿½)
         if (buttonClick == target)
         {
             next.OnExit();
@@ -52,11 +52,11 @@ public class ButtonManager : MonoBehaviour
             return;
         }
 
-        // ´Ù¸¥ ¹öÆ°ÀÌ ¿­·ÁÀÖÀ»‹š ´Ý´Â´Ù¸é ÀÌÀü²¨ ¹öÆ° exit
+        // ï¿½Ù¸ï¿½ ï¿½ï¿½Æ°ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ý´Â´Ù¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ° exit
         if (buttonClick != ButtonClick.none && buttonDic.TryGetValue(buttonClick, out BaseButton prev) && prev != null)
             prev.OnExit();
 
-        // »õ ¹öÆ° ¿­±â
+        // ï¿½ï¿½ ï¿½ï¿½Æ° ï¿½ï¿½ï¿½ï¿½
         next.OnClick();
         buttonClick = target;
     }
@@ -68,7 +68,7 @@ public class ButtonManager : MonoBehaviour
     public class Buttons
     {
         public ButtonClick type;
-        public BaseButton button; // IUIScreen ±¸ÇöÃ¼
+        public BaseButton button; // IUIScreen ï¿½ï¿½ï¿½ï¿½Ã¼
     }
 
     [SerializeField] private List<Buttons> buttons = new List<Buttons>();

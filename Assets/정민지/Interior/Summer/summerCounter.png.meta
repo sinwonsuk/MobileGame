@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: d8f5a0214289ac34bb7fc64c2e16d616
+guid: b7b52ea828fbe694a9bcf4268ac41536
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -6020237632674321671
-    second: basicTipCan_0
+      213: 8574769675355661472
+    second: summerCounter_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -49,7 +49,7 @@ TextureImporter:
   spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
-  alignment: 0
+  alignment: 7
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 25
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
@@ -139,13 +139,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: basicTipCan_0
+      name: summerCounter_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 0
-        width: 23
-        height: 19
+        y: 1
+        width: 139
+        height: 59
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -154,8 +154,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 9fa220905c1d37ca0800000000000000
-      internalID: -6020237632674321671
+      spriteID: 0a4ad52b693bff670800000000000000
+      internalID: 8574769675355661472
       vertices: []
       indices: 
       edges: []
@@ -174,7 +174,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      basicTipCan_0: -6020237632674321671
+      summerCounter_0: 8574769675355661472
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
