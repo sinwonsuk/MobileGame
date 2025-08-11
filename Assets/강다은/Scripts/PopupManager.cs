@@ -22,6 +22,7 @@ public class PopupManager : MonoBehaviour
 
 		confirmButton.onClick.AddListener(() =>
 		{
+			SoundManager.GetInstance().SfxPlay(SoundManager.sfx.Click, false);
 			popupPanel.SetActive(false);
 			onConfirmCallback?.Invoke();
 			onConfirmCallback = null;
