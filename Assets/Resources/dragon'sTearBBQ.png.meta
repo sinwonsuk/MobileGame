@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 41524e58a53b14749889a88b5a52a558
+guid: 22109b36d25061c47937cfe3b207aa60
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 6039132707347612002
-    second: UntitledArtwork76_0
+      213: 8431598066406132763
+    second: dragon'sTearBBQ_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -135,30 +135,17 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 4
-    buildTarget: iOS
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 0
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: UntitledArtwork76_0
+      name: dragon'sTearBBQ_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 0
-        width: 1984
-        height: 1984
+        y: 3
+        width: 32
+        height: 27
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -167,8 +154,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 261c5ec533f4fc350800000000000000
-      internalID: 6039132707347612002
+      spriteID: b1c0205d4cd030570800000000000000
+      internalID: 8431598066406132763
       vertices: []
       indices: 
       edges: []
@@ -187,7 +174,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      UntitledArtwork76_0: 6039132707347612002
+      dragon'sTearBBQ_0: 8431598066406132763
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
