@@ -14,7 +14,17 @@ public class CustomerTable : MonoBehaviour
     {
         
     }
+    private void OnEnable()
+    {
+        // 테이블이 활성화되면 자동 등록 이벤트 발행
+        EventBus<TableAddedEvent>.Raise(new TableAddedEvent(this));
+    }
 
+    private void OnDisable()
+    {
+        // 비활성/파괴되면 자동 해제 이벤트 발행
+        EventBus<TableRemovedEvent>.Raise(new TableRemovedEvent(this));
+    }
     private void OnCollisionEnter2D(Collision2D collision)
     {
 

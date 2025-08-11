@@ -10,12 +10,17 @@ public class TableManager : baseManager, IGameManager
         conFig = config;
 
         EventBus<SitTableHandler>.OnEvent += CheckSitTable;
+        EventBus<TableAddedEvent>.OnEvent += OnTableAdded;
+        EventBus<TableRemovedEvent>.OnEvent += OnTableRemoved;
     }
 
     public TableManager(BaseScriptableObject baseScriptableObject)
     {
         type = typeof(TableManager);
         conFig = (TableManagerConfig)baseScriptableObject;
+
+        EventBus<TableAddedEvent>.OnEvent += OnTableAdded;
+        EventBus<TableRemovedEvent>.OnEvent += OnTableRemoved;
     }
 
     public override void Init()
@@ -34,6 +39,17 @@ public class TableManager : baseManager, IGameManager
     {
 
     }
+    void OnTableAdded(TableAddedEvent tableaddedEvent)
+    {
+        if (tableaddedEvent.table != null && !tables.Contains(tableaddedEvent.table))
+            tables.Add(tableaddedEvent.table);
+    }
+    void OnTableRemoved(TableRemovedEvent tableaddedEvent)
+    {
+        if (tableaddedEvent.table != null)
+            tables.Remove(tableaddedEvent.table);
+    }
+
 
     TableManagerConfig conFig;
 

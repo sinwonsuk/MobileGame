@@ -9,17 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8bdc616157887594cb79b902ac24492c, type: 3}
-  m_Name: army_four_Runtime
+  m_Script: {fileID: 11500000, guid: 59a0796213c63ab4e9eb6c9ccefbad5b, type: 3}
+  m_Name: RuntimePiggyBank
   m_EditorClassIdentifier: 
-  indate: 2025-07-27T01:21:43.672Z
-  displayName: army_four
-  staffType: 0
-  level: 0
-  attack_Power: 40
-  attack_Speed: 0.4
-  timer: 0
-  cooltime: 0
+  interiorName: PiggyBank
   isOwned: 0
-  isAssigned: 0
-  assignedIndex: -1
+  isUsed: 0
+  instance: {fileID: 0}
