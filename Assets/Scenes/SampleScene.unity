@@ -4313,6 +4313,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SettingsCavas
       objectReference: {fileID: 0}
+    - target: {fileID: 3389012278155372721, guid: f74ab2f911d276040bb9808b5a111d9e, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4926086861876503764, guid: f74ab2f911d276040bb9808b5a111d9e, type: 3}
       propertyPath: m_Sprite
       value: 

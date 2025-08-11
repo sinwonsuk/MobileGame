@@ -8,6 +8,7 @@ public enum ButtonClick
     Menu,
     Enhance,
     MenuBoard,
+        hoiho,
 }
 
 

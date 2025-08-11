@@ -12,6 +12,9 @@ public class SoundManager : MonoBehaviour
         Foot,
         money,
         Cooking,
+        GirlSound,
+        ManSound,
+        Enhance,
     }
     public enum bgm
     {
