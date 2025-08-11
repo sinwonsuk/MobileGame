@@ -9,11 +9,16 @@ public abstract class baseManager
     public abstract void Init();
     public abstract void Update();
 
+    public abstract void Destory();
+
+
     // Provide a default implementation for ActiveOff to fix CS0501  
     virtual public void ActiveOff()
     {
        
     }
+
+
 
     virtual public void GetController(GameController controller)
     {

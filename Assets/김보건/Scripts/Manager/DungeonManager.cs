@@ -316,4 +316,9 @@ public class DungeonManager : baseManager
     public override void ActiveOff() { }
 
     public override void Update() { }
+
+    public override void Destory()
+    {
+
+    }
 }

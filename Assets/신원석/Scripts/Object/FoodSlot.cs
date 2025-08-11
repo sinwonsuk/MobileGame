@@ -22,7 +22,7 @@ public class FoodSlot : MonoBehaviour
 
         EventBus<SetManagementActiveEvent>.Raise(new SetManagementActiveEvent());
 
-        EventBus<FoodSlotHandler>.Raise(new FoodSlotHandler(foodData.foodSprite,foodData.displayName));
+        EventBus<FoodSlotHandler>.Raise(new FoodSlotHandler(foodData.foodSprite,foodData.displayName,foodData.FoodManual));
 
         for (int i = 0; i < foodData.Ingredients.Count; i++)
         {

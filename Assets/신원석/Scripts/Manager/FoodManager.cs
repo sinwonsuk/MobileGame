@@ -18,22 +18,19 @@ public class FoodManager : baseManager, IGameManager
         EventBus<FoodSlotsSpawnHandler>.OnEvent += CreateFoodSlot;
         EventBus<EnhanceFoodSlotsDeleteHandler>.OnEvent += DeleteEnhanceFoodSlot;
         EventBus<FoodSlotsDeleteHandler>.OnEvent += DeleteFoodSlot;
-
         EventBus<EnhanceFoodDecreaseHandler>.OnEvent += DecreaseEnhanceFood;
     }
-    ~FoodManager()
+
+    public override void Destory()
     {
         EventBus<FoodDecreaseHandler>.OnEvent -= DecreaseFood;
         EventBus<FoodIncreaseHandler>.OnEvent -= IncreaseFood;
-
         EventBus<FoodSlotsSpawnHandler>.OnEvent -= CreateFoodSlot;
         EventBus<EnhanceFoodSlotsSpawnHandler>.OnEvent -= CreateEnhanceFoodSlot;
         EventBus<EnhanceFoodSlotsDeleteHandler>.OnEvent -= DeleteEnhanceFoodSlot;
         EventBus<EnhanceFoodDecreaseHandler>.OnEvent -= DecreaseEnhanceFood;
         EventBus<FoodSlotsDeleteHandler>.OnEvent -= DeleteFoodSlot;
     }
-
-
     public FoodManager(BaseScriptableObject baseScriptableObject)
     {
         type = typeof(FoodManager);
@@ -46,11 +43,6 @@ public class FoodManager : baseManager, IGameManager
         {
             foodDic.Add(conFig.GetFoods()[i].displayName, conFig.GetFoods()[i]);
         }
-
-        //for (int i = 0; i < conFig.GetFoods().Count; i++)
-        //{
-        //    EventBus<SlotSpawnHandler>.Raise(new SlotSpawnHandler(conFig.GetSlotUI(),conFig.GetFoods()[i]));
-        //}
 
     }
 
@@ -140,6 +132,8 @@ public class FoodManager : baseManager, IGameManager
     {
         
     }
+
+
 
     Dictionary<string, FoodData> foodDic = new Dictionary<string, FoodData>();
 

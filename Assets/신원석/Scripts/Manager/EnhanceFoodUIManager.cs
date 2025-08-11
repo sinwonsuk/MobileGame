@@ -19,6 +19,14 @@ public class EnhanceFoodUIManager: baseManager,IGameManager
         EventBus<EnhanceFoodUIActiveHandler>.OnEvent += ActiveOn;
         EventBus<SetEnhanceFoodActiveEvent>.OnEvent += ClickFoodImage;
     }
+
+    public override void Destory()
+    {
+        EventBus<EnhanceFoodUIActiveHandler>.OnEvent -= ActiveOn;
+        EventBus<SetEnhanceFoodActiveEvent>.OnEvent -= ClickFoodImage;
+    }
+
+
     public EnhanceFoodUIManager(BaseScriptableObject baseScriptableObject)
     {
         type = typeof(UIManager);
@@ -55,6 +63,8 @@ public class EnhanceFoodUIManager: baseManager,IGameManager
             GameObject obj = GameObject.Instantiate(conFig.EnhanceFoodManagerUi[i]);
 
             EnhanceFoodManagerUi.Add(obj);
+
+            GameObject.DontDestroyOnLoad(obj);
         }     
     }
 

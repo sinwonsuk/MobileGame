@@ -122,7 +122,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 4601647059698544559}
         m_TargetAssemblyTypeName: FoodAmountController, Assembly-CSharp
-        m_MethodName: FoodAmountConfirmButton
+        m_MethodName: test
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -277,7 +277,7 @@ GameObject:
   - component: {fileID: 659496881603620228}
   - component: {fileID: 2206569970952786710}
   m_Layer: 5
-  m_Name: Text (TMP) (1)
+  m_Name: manual
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -850,7 +850,7 @@ GameObject:
   - component: {fileID: 9066710762229059338}
   - component: {fileID: 6756743411152208804}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: Name
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -930,15 +930,15 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 15
+  m_fontSize: 10
   m_fontSizeBase: 15
   m_fontWeight: 400
-  m_enableAutoSizing: 0
-  m_fontSizeMin: 18
-  m_fontSizeMax: 72
+  m_enableAutoSizing: 1
+  m_fontSizeMin: 5
+  m_fontSizeMax: 10
   m_fontStyle: 0
-  m_HorizontalAlignment: 1
-  m_VerticalAlignment: 512
+  m_HorizontalAlignment: 2
+  m_VerticalAlignment: 8192
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -1220,6 +1220,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   foodIcon: {fileID: 2497340596479363437}
+  uGUIFoodName: {fileID: 6756743411152208804}
+  foodManual: {fileID: 2206569970952786710}
   IngredientAmountPanel: {fileID: 6480027008302300883, guid: 1cbaaee0b2c5efa4e93ae3b28372bda8, type: 3}
   transformfoodAmountPanel: {fileID: 6194674658839881425}
 --- !u!1 &5864188025092214891

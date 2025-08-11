@@ -17,6 +17,11 @@ public class UIManager : baseManager,IGameManager
         conFig = (UIManagerConfig)baseScriptableObject;
     }
 
+    public override void Destory()
+    {
+
+    }
+
     public override void Init()
     {
         for (int i = 0; i < conFig.GetUiGameObjects().Count; i++)

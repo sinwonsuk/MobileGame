@@ -67,11 +67,18 @@ public class FoodAmountUI : MonoBehaviour
     {
         Sprite foodSprite = Resources.Load<Sprite>(foodSlotHandler.Image);
         foodIcon.sprite = foodSprite;
-
         foodName = foodSlotHandler.name;
+
+        uGUIFoodName.text = foodSlotHandler.name;
+        foodManual.text = foodSlotHandler.Manual;
+
     }
 
     [SerializeField] Image foodIcon;
+    [SerializeField] TextMeshProUGUI uGUIFoodName;
+    [SerializeField] TextMeshProUGUI foodManual;
+
+
     [SerializeField] GameObject IngredientAmountPanel;
     [SerializeField] Transform transformfoodAmountPanel;
 

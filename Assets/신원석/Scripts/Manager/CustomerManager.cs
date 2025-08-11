@@ -32,12 +32,12 @@ public class CustomerManager : baseManager, IGameManager
         conFig = (CustomerManagerConfig)baseScriptableObject;
     }
 
-    ~CustomerManager()
+    public override void Destory()
     {
         EventBus<CustomerSpawnHandler>.OnEvent -= SpawnCustomer;
         EventBus<GetCusomersEvent>.OnEvent -= GetCustomerEvent;
     }
-    
+
     public override void Init()
     {
         EventBus<MenuLoadedEvent>.Raise(new MenuLoadedEvent(this));

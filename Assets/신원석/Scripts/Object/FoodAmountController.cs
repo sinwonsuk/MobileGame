@@ -108,6 +108,12 @@ public class FoodAmountController : MonoBehaviour
         EventBus<MenuBoardSlotSpawnHandler>.Raise(new MenuBoardSlotSpawnHandler(tempCurrentAmount.ToString(), foodName));
     }
 
+    public void test()
+    {
+        EventBus<SetManagementActiveEvent>.Raise(new SetManagementActiveEvent());
+    }
+
+
     private int currentAmount;
     private string foodName;
     [SerializeField] FoodAmountUI foodAmountUI;

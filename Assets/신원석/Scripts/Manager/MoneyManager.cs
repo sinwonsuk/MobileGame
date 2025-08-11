@@ -15,11 +15,14 @@ public class MoneyManager : baseManager, IGameManager
         EventBus<MoneyChangePusHandler>.OnEvent += GainMoney;
 
     }
-    ~MoneyManager()
+
+    public override void Destory()
     {
         EventBus<MoneyChangeMusHandler>.OnEvent -= UseMoney;
         EventBus<MoneyChangePusHandler>.OnEvent -= GainMoney;
     }
+
+
     public MoneyManager(BaseScriptableObject baseScriptableObject)
     {
         type = typeof(CookManager);
