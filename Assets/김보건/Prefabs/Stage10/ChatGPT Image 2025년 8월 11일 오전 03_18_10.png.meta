@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 1895c988e102b77479e42e5b27ebbf3f
+guid: 1eccc0bec122cd24bbd9994db2e132e7
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 7669797610947051060
-    second: Lv5Map (3)_0
+      213: -4412577581320968165
+    second: "ChatGPT Image 2025\uB144 8\uC6D4 11\uC77C \uC624\uC804 03_18_10_0"
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -109,37 +109,11 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 4
-    buildTarget: WebGL
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 4
-    buildTarget: WindowsStoreApps
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Lv5Map (3)_0
+      name: "ChatGPT Image 2025\uB144 8\uC6D4 11\uC77C \uC624\uC804 03_18_10_0"
       rect:
         serializedVersion: 2
         x: 0
@@ -154,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 43e73a37a48907a60800000000000000
-      internalID: 7669797610947051060
+      spriteID: b18e281911063c2c0800000000000000
+      internalID: -4412577581320968165
       vertices: []
       indices: 
       edges: []
@@ -173,8 +147,7 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable:
-      Lv5Map (3)_0: 7669797610947051060
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
