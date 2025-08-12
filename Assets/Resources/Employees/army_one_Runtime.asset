@@ -20,3 +20,6 @@ MonoBehaviour:
   attack_Speed: 0
   timer: 0
   cooltime: 0
+  isOwned: 0
+  isAssigned: 0
+  assignedIndex: -1

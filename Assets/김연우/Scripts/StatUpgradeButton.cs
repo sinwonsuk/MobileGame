@@ -31,8 +31,8 @@ public class StatUpgradeButton : MonoBehaviour
     {
         money_value = currentLevel * buy_money;
         _button = GetComponent<Button>();
-        //PlayerPrefs.DeleteKey(levelKey);
-        //PlayerPrefs.DeleteKey(valueKey);
+        PlayerPrefs.DeleteKey(levelKey);
+        PlayerPrefs.DeleteKey(valueKey);
     }
 
     void Start()
