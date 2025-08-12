@@ -78,6 +78,7 @@ public class PiggyBank : MonoBehaviour
 
                     if (gain > 0)
                     {
+                        SoundManager.GetInstance().SfxPlay(SoundManager.sfx.PiggyBank, false);
                         // 돈 지급 이벤트 발생
                         EventBus<MoneyChangePusHandler>
                             .Raise(new MoneyChangePusHandler(gain));

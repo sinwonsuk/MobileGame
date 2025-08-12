@@ -18,6 +18,7 @@ public class InteriorSlotUI : MonoBehaviour, IPointerClickHandler
 
     public void OnPointerClick(PointerEventData eventData)
     {
+        SoundManager.GetInstance().SfxPlay(SoundManager.sfx.Click, false);
         OnSlotClicked?.Invoke(slot);
         Debug.Log("Slot clicked: " + slot.data.interiorName);
 

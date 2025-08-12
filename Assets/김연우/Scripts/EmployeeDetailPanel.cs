@@ -39,19 +39,22 @@ public class EmployeeDetailPanel : MonoBehaviour
 
     void OnAssignClicked()
     {
+        SoundManager.GetInstance().SfxPlay(SoundManager.sfx.Click, false); // ← 추가
         EmployeeManager.Instance.StartPlacement(currentSlot);
-        gameObject.SetActive(false); // 디테일 패널 닫기
+        gameObject.SetActive(false);
     }
 
     void OnReleaseClicked()
     {
+        SoundManager.GetInstance().SfxPlay(SoundManager.sfx.Click, false); // ← 추가
         EmployeeManager.Instance.ReleaseEmployee(currentSlot);
-        gameObject.SetActive(false); // 디테일 패널 닫기
+        gameObject.SetActive(false);
     }
-
 
     void OnNumberButton(int idx)
     {
+        SoundManager.GetInstance().SfxPlay(SoundManager.sfx.Click, false); // ← 추가
         Debug.Log($"직원 {currentSlot.staffData.displayName} - {idx + 1}번 기능 (구현 예정)");
     }
+
 }
