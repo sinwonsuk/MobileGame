@@ -9,6 +9,9 @@ public enum ButtonClick
     Enhance,
     MenuBoard,
     Settings,
+    Inven,
+    Restaurant,
+    hunter
 }
 
 
