@@ -234,4 +234,9 @@ public class CameraSlideManager : baseManager
         yield return new WaitForSeconds(delay);
         canSlide = true;
     }
+
+    public override void Destory()
+    {
+
+    }
 }

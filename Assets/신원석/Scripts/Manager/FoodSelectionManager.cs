@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.Tilemaps;
 using static UnityEngine.RuleTile.TilingRuleOutput;
 using Transform = UnityEngine.Transform;
@@ -21,12 +22,14 @@ public class FoodSelectionManager : baseManager, IGameManager
         EventBus<SetManagementActiveEvent>.OnEvent += ClickFoodImage;
         EventBus<SetMenuParentTransformHandler>.OnEvent += GetMenuParentTransform;
     }
-    ~FoodSelectionManager()
+
+    public override void Destory()
     {
         EventBus<ManagementActiveHandler>.OnEvent -= ChangeManagementActive;
         EventBus<SetManagementActiveEvent>.OnEvent -= ClickFoodImage;
         EventBus<SetMenuParentTransformHandler>.OnEvent -= GetMenuParentTransform;
     }
+
 
     public FoodSelectionManager(BaseScriptableObject baseScriptableObject)
     {
@@ -83,6 +86,8 @@ public class FoodSelectionManager : baseManager, IGameManager
         //slotUI[(int)ClickType.FoodSlot].SetActive(false);
         //slotUI[(int)ClickType.FoodAmount].SetActive(true);
     }
+
+
 
     FoodSelectionManagerConfig conFig;
 

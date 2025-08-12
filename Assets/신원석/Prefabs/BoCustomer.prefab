@@ -287,9 +287,10 @@ MonoBehaviour:
   foodOrderSpriteRenderer: {fileID: 4051747760832245466}
   CalculatePosition: {x: 0, y: 0, z: 0}
   foodDatas:
-  - {fileID: 11400000, guid: ccf5132b1c4ada748967a80d739d4a3c, type: 2}
+  - {fileID: 11400000, guid: 752cdc7a023b39248b885e00dbd22893, type: 2}
   - {fileID: 11400000, guid: e641b0846e80d31458d34e9ad4c58e58, type: 2}
   - {fileID: 11400000, guid: a5f6f60fabfefdf4f825a30d4bb8a5f7, type: 2}
+  genderType: 1
 --- !u!195 &8469050025533593545
 NavMeshAgent:
   m_ObjectHideFlags: 0

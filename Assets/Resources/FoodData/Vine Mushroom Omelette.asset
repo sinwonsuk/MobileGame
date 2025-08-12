@@ -19,10 +19,146 @@ MonoBehaviour:
   reputation: 0
   Getreputation: 0
   isUnlock: 0
-  cookingTime: 1
-  Level: 0
+  cookingTime: 28.8
+  Level: 1
+  FoodManual: 
   Ingredients:
   - {fileID: 11400000, guid: 68e3ba4bfae109a41949164730d2ced0, type: 2}
   - {fileID: 11400000, guid: 09ae06f3e91a8824a8957174bf4d2a4e, type: 2}
   - {fileID: 11400000, guid: 1582f5f1d0001524b9f00515388d0ec7, type: 2}
-  enhanceSteps: []
+  enhanceSteps:
+  - indate: 2025-07-27T05:59:28.952Z
+    foodIndate: 2025-07-16T02:27:35.795Z
+    step: 1
+    successRate: 100
+    ingredients:
+    - indate: 2025-07-16T02:27:44.030Z
+      name: "\uBB38\uC5B4 \uC6B0\uC720"
+      quantity: 1
+    - indate: 2025-07-16T02:27:45.379Z
+      name: "\uBC84\uC12F \uAC13"
+      quantity: 1
+    - indate: 2025-07-16T02:27:44.621Z
+      name: "\uB369\uAD74 \uC904\uAE30"
+      quantity: 1
+    cost: 0
+  - indate: 2025-07-27T05:59:29.171Z
+    foodIndate: 2025-07-16T02:27:35.795Z
+    step: 2
+    successRate: 95
+    ingredients:
+    - indate: 2025-07-16T02:27:44.030Z
+      name: "\uBB38\uC5B4 \uC6B0\uC720"
+      quantity: 2
+    - indate: 2025-07-16T02:27:45.379Z
+      name: "\uBC84\uC12F \uAC13"
+      quantity: 2
+    - indate: 2025-07-16T02:27:44.621Z
+      name: "\uB369\uAD74 \uC904\uAE30"
+      quantity: 2
+    cost: 0
+  - indate: 2025-07-27T05:59:29.375Z
+    foodIndate: 2025-07-16T02:27:35.795Z
+    step: 3
+    successRate: 88
+    ingredients:
+    - indate: 2025-07-16T02:27:44.030Z
+      name: "\uBB38\uC5B4 \uC6B0\uC720"
+      quantity: 3
+    - indate: 2025-07-16T02:27:45.379Z
+      name: "\uBC84\uC12F \uAC13"
+      quantity: 4
+    - indate: 2025-07-16T02:27:44.621Z
+      name: "\uB369\uAD74 \uC904\uAE30"
+      quantity: 4
+    cost: 0
+  - indate: 2025-07-27T05:59:29.581Z
+    foodIndate: 2025-07-16T02:27:35.795Z
+    step: 4
+    successRate: 78
+    ingredients:
+    - indate: 2025-07-16T02:27:44.030Z
+      name: "\uBB38\uC5B4 \uC6B0\uC720"
+      quantity: 5
+    - indate: 2025-07-16T02:27:45.379Z
+      name: "\uBC84\uC12F \uAC13"
+      quantity: 7
+    - indate: 2025-07-16T02:27:44.621Z
+      name: "\uB369\uAD74 \uC904\uAE30"
+      quantity: 7
+    cost: 0
+  - indate: 2025-07-27T05:59:29.792Z
+    foodIndate: 2025-07-16T02:27:35.795Z
+    step: 5
+    successRate: 65
+    ingredients:
+    - indate: 2025-07-16T02:27:44.030Z
+      name: "\uBB38\uC5B4 \uC6B0\uC720"
+      quantity: 8
+    - indate: 2025-07-16T02:27:45.379Z
+      name: "\uBC84\uC12F \uAC13"
+      quantity: 11
+    - indate: 2025-07-16T02:27:44.621Z
+      name: "\uB369\uAD74 \uC904\uAE30"
+      quantity: 11
+    cost: 0
+  - indate: 2025-07-27T05:59:29.993Z
+    foodIndate: 2025-07-16T02:27:35.795Z
+    step: 6
+    successRate: 50
+    ingredients:
+    - indate: 2025-07-16T02:27:44.030Z
+      name: "\uBB38\uC5B4 \uC6B0\uC720"
+      quantity: 12
+    - indate: 2025-07-16T02:27:45.379Z
+      name: "\uBC84\uC12F \uAC13"
+      quantity: 16
+    - indate: 2025-07-16T02:27:44.621Z
+      name: "\uB369\uAD74 \uC904\uAE30"
+      quantity: 16
+    cost: 0
+  - indate: 2025-07-27T05:59:30.204Z
+    foodIndate: 2025-07-16T02:27:35.795Z
+    step: 7
+    successRate: 35
+    ingredients:
+    - indate: 2025-07-16T02:27:44.030Z
+      name: "\uBB38\uC5B4 \uC6B0\uC720"
+      quantity: 17
+    - indate: 2025-07-16T02:27:45.379Z
+      name: "\uBC84\uC12F \uAC13"
+      quantity: 22
+    - indate: 2025-07-16T02:27:44.621Z
+      name: "\uB369\uAD74 \uC904\uAE30"
+      quantity: 22
+    cost: 0
+  - indate: 2025-07-27T05:59:30.431Z
+    foodIndate: 2025-07-16T02:27:35.795Z
+    step: 8
+    successRate: 20
+    ingredients:
+    - indate: 2025-07-16T02:27:44.030Z
+      name: "\uBB38\uC5B4 \uC6B0\uC720"
+      quantity: 23
+    - indate: 2025-07-16T02:27:45.379Z
+      name: "\uBC84\uC12F \uAC13"
+      quantity: 29
+    - indate: 2025-07-16T02:27:44.621Z
+      name: "\uB369\uAD74 \uC904\uAE30"
+      quantity: 29
+    cost: 0
+  - indate: 2025-07-27T05:59:30.644Z
+    foodIndate: 2025-07-16T02:27:35.795Z
+    step: 9
+    successRate: 10
+    ingredients:
+    - indate: 2025-07-16T02:27:44.030Z
+      name: "\uBB38\uC5B4 \uC6B0\uC720"
+      quantity: 30
+    - indate: 2025-07-16T02:27:45.379Z
+      name: "\uBC84\uC12F \uAC13"
+      quantity: 37
+    - indate: 2025-07-16T02:27:44.621Z
+      name: "\uB369\uAD74 \uC904\uAE30"
+      quantity: 37
+    cost: 0

@@ -19,9 +19,118 @@ MonoBehaviour:
   reputation: 0
   Getreputation: 3
   isUnlock: 0
-  cookingTime: 1
-  Level: 0
+  cookingTime: 14.6
+  Level: 1
+  FoodManual: 
   Ingredients:
   - {fileID: 11400000, guid: 0161ff6d7875f0d4b8a73fb919d3f286, type: 2}
   - {fileID: 11400000, guid: 1582f5f1d0001524b9f00515388d0ec7, type: 2}
-  enhanceSteps: []
+  enhanceSteps:
+  - indate: 2025-07-27T05:59:22.855Z
+    foodIndate: 2025-07-16T02:27:35.647Z
+    step: 1
+    successRate: 100
+    ingredients:
+    - indate: 2025-07-16T02:27:44.030Z
+      name: "\uBB38\uC5B4 \uC6B0\uC720"
+      quantity: 1
+    - indate: 2025-07-16T02:27:44.299Z
+      name: "\uC2AC\uB77C\uC784 \uB0B4\uC7A5"
+      quantity: 1
+    cost: 0
+  - indate: 2025-07-27T05:59:23.010Z
+    foodIndate: 2025-07-16T02:27:35.647Z
+    step: 2
+    successRate: 95
+    ingredients:
+    - indate: 2025-07-16T02:27:44.030Z
+      name: "\uBB38\uC5B4 \uC6B0\uC720"
+      quantity: 2
+    - indate: 2025-07-16T02:27:44.299Z
+      name: "\uC2AC\uB77C\uC784 \uB0B4\uC7A5"
+      quantity: 2
+    cost: 0
+  - indate: 2025-07-27T05:59:23.258Z
+    foodIndate: 2025-07-16T02:27:35.647Z
+    step: 3
+    successRate: 88
+    ingredients:
+    - indate: 2025-07-16T02:27:44.030Z
+      name: "\uBB38\uC5B4 \uC6B0\uC720"
+      quantity: 3
+    - indate: 2025-07-16T02:27:44.299Z
+      name: "\uC2AC\uB77C\uC784 \uB0B4\uC7A5"
+      quantity: 4
+    cost: 0
+  - indate: 2025-07-27T05:59:23.478Z
+    foodIndate: 2025-07-16T02:27:35.647Z
+    step: 4
+    successRate: 78
+    ingredients:
+    - indate: 2025-07-16T02:27:44.030Z
+      name: "\uBB38\uC5B4 \uC6B0\uC720"
+      quantity: 5
+    - indate: 2025-07-16T02:27:44.299Z
+      name: "\uC2AC\uB77C\uC784 \uB0B4\uC7A5"
+      quantity: 7
+    cost: 0
+  - indate: 2025-07-27T05:59:23.800Z
+    foodIndate: 2025-07-16T02:27:35.647Z
+    step: 5
+    successRate: 65
+    ingredients:
+    - indate: 2025-07-16T02:27:44.030Z
+      name: "\uBB38\uC5B4 \uC6B0\uC720"
+      quantity: 8
+    - indate: 2025-07-16T02:27:44.299Z
+      name: "\uC2AC\uB77C\uC784 \uB0B4\uC7A5"
+      quantity: 11
+    cost: 0
+  - indate: 2025-07-27T05:59:24.019Z
+    foodIndate: 2025-07-16T02:27:35.647Z
+    step: 6
+    successRate: 50
+    ingredients:
+    - indate: 2025-07-16T02:27:44.030Z
+      name: "\uBB38\uC5B4 \uC6B0\uC720"
+      quantity: 12
+    - indate: 2025-07-16T02:27:44.299Z
+      name: "\uC2AC\uB77C\uC784 \uB0B4\uC7A5"
+      quantity: 16
+    cost: 0
+  - indate: 2025-07-27T05:59:24.216Z
+    foodIndate: 2025-07-16T02:27:35.647Z
+    step: 7
+    successRate: 35
+    ingredients:
+    - indate: 2025-07-16T02:27:44.030Z
+      name: "\uBB38\uC5B4 \uC6B0\uC720"
+      quantity: 17
+    - indate: 2025-07-16T02:27:44.299Z
+      name: "\uC2AC\uB77C\uC784 \uB0B4\uC7A5"
+      quantity: 22
+    cost: 0
+  - indate: 2025-07-27T05:59:24.420Z
+    foodIndate: 2025-07-16T02:27:35.647Z
+    step: 8
+    successRate: 20
+    ingredients:
+    - indate: 2025-07-16T02:27:44.030Z
+      name: "\uBB38\uC5B4 \uC6B0\uC720"
+      quantity: 23
+    - indate: 2025-07-16T02:27:44.299Z
+      name: "\uC2AC\uB77C\uC784 \uB0B4\uC7A5"
+      quantity: 29
+    cost: 0
+  - indate: 2025-07-27T05:59:24.620Z
+    foodIndate: 2025-07-16T02:27:35.647Z
+    step: 9
+    successRate: 10
+    ingredients:
+    - indate: 2025-07-16T02:27:44.030Z
+      name: "\uBB38\uC5B4 \uC6B0\uC720"
+      quantity: 30
+    - indate: 2025-07-16T02:27:44.299Z
+      name: "\uC2AC\uB77C\uC784 \uB0B4\uC7A5"
+      quantity: 37
+    cost: 0

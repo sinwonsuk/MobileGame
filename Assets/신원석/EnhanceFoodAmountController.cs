@@ -26,7 +26,7 @@ public class EnhanceFoodAmountController : MonoBehaviour
         SoundManager.GetInstance().SfxPlay(SoundManager.sfx.Click,false);
 
 
-
+        SoundManager.GetInstance().SfxPlay(SoundManager.sfx.Enhance, false);
 
         FoodData data = enhanceFoodUI.foodData;
 

@@ -42,8 +42,8 @@ public class SettingsUI : MonoBehaviour
 		CancleButton.onClick.AddListener(HidePasswordSettingPanel);
 		changePwButton.onClick.AddListener(OnClickChangePassword);
 
-		privacyPolicyButton.onClick.AddListener(() => Application.OpenURL(privacyPolicyUrl));
-		deleteAccountButton.onClick.AddListener(() => Application.OpenURL(deleteAccountUrl));
+		privacyPolicyButton.onClick.AddListener(() => { SoundManager.GetInstance().SfxPlay(SoundManager.sfx.Click, false); Application.OpenURL(privacyPolicyUrl); });
+		deleteAccountButton.onClick.AddListener(() => { SoundManager.GetInstance().SfxPlay(SoundManager.sfx.Click, false); Application.OpenURL(deleteAccountUrl); });
 
 		bgmSlider.value = PlayerPrefs.GetFloat("BGMVolume", 0.2f);
 		sfxSlider.value = PlayerPrefs.GetFloat("SFXVolume", 0.5f);
@@ -79,28 +79,33 @@ public class SettingsUI : MonoBehaviour
 	}
 	void OpenNicknamePopup()
 	{
+		SoundManager.GetInstance().SfxPlay(SoundManager.sfx.Click, false);
 		nicknamePopup.SetActive(true);
 		nicknameInput.text = "";
 	}
 
 	void CloseNicknamePopup()
 	{
+		SoundManager.GetInstance().SfxPlay(SoundManager.sfx.Click, false);
 		nicknamePopup.SetActive(false);
 	}
 
 	void CloseSettingsPanel()
 	{
+		SoundManager.GetInstance().SfxPlay(SoundManager.sfx.Click, false);
 		settingsPanel.SetActive(false);
 	}
 
 	void ShowEmailRegisterPopup()
 	{
+		SoundManager.GetInstance().SfxPlay(SoundManager.sfx.Click, false);
 		StartCoroutine(PopupManager.ShowEmailRegisterPopup((email) => { emailText.text = email; }));
 
 	}
 
 	void ShowPasswordSettingPanel()
 	{
+		SoundManager.GetInstance().SfxPlay(SoundManager.sfx.Click, false);
 		pwSettingPopup.SetActive(true);
 		currentPwInput.text = "";
 		newPwInput.text = "";
@@ -109,12 +114,13 @@ public class SettingsUI : MonoBehaviour
 
 	void HidePasswordSettingPanel()
 	{
+		SoundManager.GetInstance().SfxPlay(SoundManager.sfx.Click, false);
 		pwSettingPopup.SetActive(false);
 	}
 
 	public void OnClickChangePassword()
 	{
-
+		SoundManager.GetInstance().SfxPlay(SoundManager.sfx.Click, false);
 		string currentPw = currentPwInput.text;
 		string newPw = newPwInput.text;
 		string confirmPw = confirmPwInput.text;
@@ -168,6 +174,7 @@ public class SettingsUI : MonoBehaviour
 
 	void SubmitNicknameChange()
 	{
+		SoundManager.GetInstance().SfxPlay(SoundManager.sfx.Click, false);
 		string newNickname = nicknameInput.text.Trim();
 
 		if (string.IsNullOrEmpty(newNickname))
@@ -222,6 +229,7 @@ public class SettingsUI : MonoBehaviour
 
 	public void OnClickLogout()
 	{
+		SoundManager.GetInstance().SfxPlay(SoundManager.sfx.Click, false);
 		PopupManager.Show("정말 로그아웃 하시겠습니까?", () =>
 		{
 			Backend.BMember.Logout();

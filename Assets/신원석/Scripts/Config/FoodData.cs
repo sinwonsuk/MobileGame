@@ -16,6 +16,8 @@ public class FoodData : BaseScriptableObject
     public float cookingTime; // 대기 시간 
     public int Level;
 
+    public string FoodManual;
+
     public List<IngredientData> Ingredients; // 재료 목록
     public List<EnhanceStepData> enhanceSteps; // 강화 단계 목록
 }

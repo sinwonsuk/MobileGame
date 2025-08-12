@@ -1,6 +1,8 @@
+using BackEnd.Quobject.SocketIoClientDotNet.Client;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 
 public class GameController : MonoBehaviour
@@ -33,6 +35,24 @@ public class GameController : MonoBehaviour
         ActiveOffAll();
         GetControllerAll();
     }
+
+
+
+
+    void OnDisable()
+    {
+        foreach (var manager in managerMap.Values)
+        {
+            manager.Destory();
+        }
+    }
+    //private void OnSceneUnloaded(Scene s)
+    //{
+    //    foreach (var manager in managerMap.Values)
+    //    {
+    //        manager.Destory();
+    //    }
+    //}
 
     private void Start()
     {

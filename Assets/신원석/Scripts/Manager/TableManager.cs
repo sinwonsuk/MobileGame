@@ -23,6 +23,18 @@ public class TableManager : baseManager, IGameManager
         EventBus<TableRemovedEvent>.OnEvent += OnTableRemoved;
     }
 
+    public override void Destory()
+    {
+        EventBus<SitTableHandler>.OnEvent -= CheckSitTable;
+        EventBus<TableAddedEvent>.OnEvent -= OnTableAdded;
+        EventBus<TableRemovedEvent>.OnEvent -= OnTableRemoved;
+
+        EventBus<TableAddedEvent>.OnEvent -= OnTableAdded;
+        EventBus<TableRemovedEvent>.OnEvent -= OnTableRemoved;
+    }
+
+
+
     public override void Init()
     {
         for (int i = 0; i < conFig.GetGameObjects().Count; i++)

@@ -26,7 +26,9 @@ public class MenuManager : baseManager, IGameManager
         EventBus<MenuReduceHandler>.OnEvent += ReduceMenu;
         EventBus<MenuLoadedEvent>.OnEvent += CurrentMenu;
     }
-    ~MenuManager()
+
+
+    public override void Destory()
     {
         EventBus<UpMenuSpawnHandler>.OnEvent -= CreateMenu;
         EventBus<FoodMenuDeleteHandler>.OnEvent -= DeleteMenuList;
@@ -38,6 +40,8 @@ public class MenuManager : baseManager, IGameManager
         EventBus<MenuLoadedEvent>.OnEvent -= CurrentMenu;
     }
 
+
+
     public MenuManager(BaseScriptableObject baseScriptableObject)
     {
         type = typeof(MenuManager);
@@ -48,6 +52,8 @@ public class MenuManager : baseManager, IGameManager
     {
        GameObject obj =GameObject.Instantiate(conFig.GetGameObjects()[2]);
         MenuBoard = obj;
+
+        GameObject.DontDestroyOnLoad(obj);
     }
 
     public override void ActiveOff()

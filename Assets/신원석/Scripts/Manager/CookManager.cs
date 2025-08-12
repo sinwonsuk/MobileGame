@@ -25,13 +25,13 @@ public class CookManager : baseManager, IGameManager
         EventBus<GetFirstCookEvent>.OnEvent += GetFirstCookEvent;
     }
 
-
-
-    ~CookManager()
+    public override void Destory()
     {
         EventBus<CookMakeHandler>.OnEvent -= CreateFood;
         EventBus<GetFirstCookEvent>.OnEvent -= GetFirstCookEvent;
     }
+
+
     public CookManager(BaseScriptableObject baseScriptableObject)
     {
         type = typeof(CookManager);
@@ -98,6 +98,8 @@ public class CookManager : baseManager, IGameManager
     {
         TryStartNextCook(); // 새로운 요리가 필요하다면 시작
     }
+
+
 
     CookManagerConfig conFig;
 
