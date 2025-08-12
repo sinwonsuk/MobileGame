@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   indate: 2025-07-16T02:27:35.109Z
   displayName: "\uD06C\uB77C\uCF04 \uBA39\uBB3C \uB9AC\uC870\uB610"
-  foodSprite: 
+  foodSprite: octopusInkRisotto
   price: 100
   reputation: 0
   Getreputation: 1

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   indate: 2025-07-16T02:27:36.268Z
   displayName: "\uBBF8\uBBF9 \uBC14\uBE44\uD050 \uD50C\uB808\uC774\uD2B8"
-  foodSprite: 
+  foodSprite: mimicBBQPlate
   price: 461
   reputation: 0
   Getreputation: 0
