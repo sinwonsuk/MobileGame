@@ -11,10 +11,10 @@ GameObject:
   - component: {fileID: 1703018652325105386}
   - component: {fileID: 5566910007683866649}
   - component: {fileID: 1084434680277589111}
-  - component: {fileID: 8162588789069266161}
   - component: {fileID: 711857340709045013}
   - component: {fileID: 8289259515572837920}
   - component: {fileID: 5654563092063054697}
+  - component: {fileID: 666913704011803546}
   m_Layer: 7
   m_Name: Slime_Boss
   m_TagString: Enemy
@@ -109,52 +109,6 @@ MonoBehaviour:
   hpBarPrefab: {fileID: 7217008430400931557}
   dropItem: {fileID: 11400000, guid: 5f03a6fa824d5f249a0d5a784d15867a, type: 2}
   basePosition: {x: 0, y: 0, z: 0}
---- !u!61 &8162588789069266161
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1253324787291029023}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_CompositeOperation: 0
-  m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 8, y: 8}
-    newSize: {x: 1, y: 1}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Size: {x: 8, y: 7.99}
-  m_EdgeRadius: 0
 --- !u!50 &711857340709045013
 Rigidbody2D:
   serializedVersion: 5
@@ -216,6 +170,42 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76060f6c961810648bea1a7638f7ff1e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!58 &666913704011803546
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1253324787291029023}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: -0.07265281, y: 0}
+  m_Radius: 1.7114278
 --- !u!1001 &4973293048816987513
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -224,6 +214,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1703018652325105386}
     m_Modifications:
+    - target: {fileID: 1863971988948217530, guid: 2fd257caf422bfa4aaa97c9b32dac953, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1863971988948217530, guid: 2fd257caf422bfa4aaa97c9b32dac953, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1863971988948217530, guid: 2fd257caf422bfa4aaa97c9b32dac953, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1863971988948217530, guid: 2fd257caf422bfa4aaa97c9b32dac953, type: 3}
       propertyPath: m_LocalPosition.x
       value: 2.85
@@ -262,6 +264,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1863971988948217530, guid: 2fd257caf422bfa4aaa97c9b32dac953, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1863971988948217530, guid: 2fd257caf422bfa4aaa97c9b32dac953, type: 3}
+      propertyPath: m_ConstrainProportionsScale
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2387850374849227676, guid: 2fd257caf422bfa4aaa97c9b32dac953, type: 3}

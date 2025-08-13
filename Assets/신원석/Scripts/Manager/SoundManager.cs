@@ -12,10 +12,18 @@ public class SoundManager : MonoBehaviour
         Foot,
         money,
         Cooking,
+        ItemPickup,
+        BardBuff,
+        VampireBuff,
+        PlayerAttack,
+        ElfAttack,
+        BardAttack_one,
+        BardAttack_two,
+        BardAttack_three,
         GirlSound,
         ManSound,
         Enhance,
-        PiggyBank
+        PiggyBank,
     }
     public enum bgm
     {

@@ -113,7 +113,7 @@ MonoBehaviour:
   bulletPrefab: {fileID: 7349647033394132940, guid: 7936ce2b8eaf51140b34d7536ca4822e, type: 3}
   firePoint: {fileID: 8419969813994771124}
   detectRange: 10
-  bigBulletSkillPrefab: {fileID: 6769856111372669258, guid: c98f6412a8b120d4ab9703af3061a6e3, type: 3}
+  bigBulletSkillPrefab: {fileID: 1688070428581956861, guid: 7023a15e66568f646830af6d20a2026b, type: 3}
   skillCooldown: 5
   clickMask:
     serializedVersion: 2

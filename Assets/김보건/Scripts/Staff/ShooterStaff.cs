@@ -30,6 +30,7 @@ public class ShooterStaff : StaffBase
     private bool _inited = false;
     private float nextFireTime = 0f;
 
+    private bool _pendingSkillCast = false;
 
     Transform boss;
 
@@ -82,6 +83,22 @@ public class ShooterStaff : StaffBase
                 break;
             }
         }
+
+        TryCastSkillByClick();
+    }
+
+    private void TryCastSkillByClick()
+    {
+        if (bigBulletSkill == null) return;
+        if (!bigBulletSkill.CanCast()) return;
+
+        _pendingSkillCast = true;          // 스킬 발사 예약
+
+        // 평타 애니메이션을 첫 프레임부터 즉시 재생 (평타 중이어도 끊고 시작)
+        animator.Play("Attack", 0, 0f);
+
+        // 평타 자동 사격 템포 잠깐 멈춰 중복 방지
+        nextFireTime = Time.time + 0.15f;
     }
 
     public void TryCastSkill()
@@ -93,8 +110,8 @@ public class ShooterStaff : StaffBase
         }
         if (!bigBulletSkill.CanCast()) return;
 
-        var origin = firePoint != null ? firePoint : transform;
-        bigBulletSkill.Cast(origin);
+        //var origin = firePoint != null ? firePoint : transform;
+        //bigBulletSkill.Cast(origin);
         // Debug.Log("[ShooterStaff] BigBullet Cast!");
     }
 
@@ -139,6 +156,7 @@ public class ShooterStaff : StaffBase
         {
             animator?.SetTrigger("AttackTrigger");
             //nextFireTime = Time.time + (1f / Mathf.Max((float)currentAttackSpeed, 0.01f));
+            nextFireTime = Time.time + (1f / Mathf.Max((float)currentAttackSpeed, 0.01f));
         }
     }
 
@@ -189,6 +207,14 @@ public class ShooterStaff : StaffBase
     // 애니메이션 이벤트에서 호출됨
     public void OnShootFrame()
     {
+        if (_pendingSkillCast)
+        {
+            var origin = firePoint != null ? firePoint : transform;
+            bigBulletSkill.Cast(origin);       // 쿨타임도 여기서 시작
+            _pendingSkillCast = false;
+            return;
+        }
+
         if (target == null || bulletPrefab == null || firePoint == null) return;
 
         Vector2 dir = (target.position - firePoint.position).normalized;
@@ -199,7 +225,7 @@ public class ShooterStaff : StaffBase
         FireBullet(left, dir);
         FireBullet(right, dir);
 
-        nextFireTime = Time.time + (1f / Mathf.Max((float)currentAttackSpeed, 0.01f));
+        //nextFireTime = Time.time + (1f / Mathf.Max((float)currentAttackSpeed, 0.01f));
     }
 
     private void FireBullet(Vector3 pos, Vector2 dir)

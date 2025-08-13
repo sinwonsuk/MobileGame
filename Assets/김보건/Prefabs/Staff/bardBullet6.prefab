@@ -140,6 +140,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lifeTime: 5
   targetTag: a
+  hitEffectPrefab: {fileID: 1230538594523903550, guid: 130d9f4472eac4241bbf44a978d0296c, type: 3}
+  hitEffectLifetime: 0.5
+  effectSortingLayer: Effects
+  effectSortingOrder: 9999
 --- !u!50 &-3927835336187481056
 Rigidbody2D:
   serializedVersion: 5

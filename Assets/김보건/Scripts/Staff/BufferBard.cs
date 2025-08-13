@@ -17,6 +17,12 @@ public class BufferBard : StaffBase
     [SerializeField] Transform firePoint;
     [SerializeField] private double detectRange = 20.0;
 
+    private SoundManager.sfx[] attackSfx = {
+    SoundManager.sfx.BardAttack_one,
+    SoundManager.sfx.BardAttack_two,
+    SoundManager.sfx.BardAttack_three
+    };
+
 
     private Transform target;
 
@@ -106,6 +112,8 @@ public class BufferBard : StaffBase
         if (buffSkill == null) return;
         if (!buffSkill.CanCast()) return;
 
+        SoundManager.GetInstance().SfxPlay(SoundManager.sfx.BardBuff, false);
+
         animator?.SetTrigger("Skill");
 
         var origin = skillOrigin != null ? skillOrigin : transform;
@@ -120,7 +128,7 @@ public class BufferBard : StaffBase
         if (target != null)
         {
             animator?.SetTrigger("AttackTrigger");
-            //nextFireTime = Time.time + (1f / Mathf.Max((float)currentAttackSpeed, 0.01f));
+            nextFireTime = Time.time + (1f / Mathf.Max((float)currentAttackSpeed, 0.01f));
         }
     }
 
@@ -161,10 +169,16 @@ public class BufferBard : StaffBase
     {
         if (target == null || bulletPrefab == null || firePoint == null) return;
 
+        if (attackSfx != null && attackSfx.Length > 0)
+        {
+            var idx = Random.Range(0, attackSfx.Length);
+            SoundManager.GetInstance().SfxPlay(attackSfx[idx], false);
+        }
+
         Vector2 dir = (target.position - firePoint.position).normalized;
 
         FireBullet(firePoint.position, dir);
-        nextFireTime = Time.time + (1f / Mathf.Max((float)currentAttackSpeed, 0.01f));
+        //nextFireTime = Time.time + (1f / Mathf.Max((float)currentAttackSpeed, 0.01f));
     }
 
     private void FireBullet(Vector3 pos, Vector2 dir)

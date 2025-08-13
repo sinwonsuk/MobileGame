@@ -106,6 +106,8 @@ public class BuffStaff : StaffBase
         if (buffSkill == null) return;
         if (!buffSkill.CanCast()) return;
 
+        SoundManager.GetInstance().SfxPlay(SoundManager.sfx.VampireBuff, false);
+
         animator?.SetTrigger("Skill");
 
         var origin = skillOrigin != null ? skillOrigin : transform;
@@ -120,7 +122,7 @@ public class BuffStaff : StaffBase
         if (target != null)
         {
             animator?.SetTrigger("AttackTrigger");
-            //nextFireTime = Time.time + (1f / Mathf.Max((float)currentAttackSpeed, 0.01f));
+            nextFireTime = Time.time + (1f / Mathf.Max((float)currentAttackSpeed, 0.01f));
         }
     }
 
@@ -164,7 +166,7 @@ public class BuffStaff : StaffBase
         Vector2 dir = (target.position - firePoint.position).normalized;
 
         FireBullet(firePoint.position, dir);
-        nextFireTime = Time.time + (1f / Mathf.Max((float)currentAttackSpeed, 0.01f));
+        //nextFireTime = Time.time + (1f / Mathf.Max((float)currentAttackSpeed, 0.01f));
     }
 
     private void FireBullet(Vector3 pos, Vector2 dir)
