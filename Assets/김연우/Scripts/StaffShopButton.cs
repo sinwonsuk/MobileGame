@@ -75,7 +75,7 @@ public class StaffShopButton : MonoBehaviour
     private void OnClick()
     {
         SoundManager.GetInstance().SfxPlay(SoundManager.sfx.Click, false); // ← 추가
-        //BackendGameData.Instance.userData.reputation += 1;
+        BackendGameData.Instance.userData.reputation += 1;
         // 같은 프레임 중복 클릭 차단
         if (_lastUpgradeFrame == Time.frameCount) return;
         _lastUpgradeFrame = Time.frameCount;
