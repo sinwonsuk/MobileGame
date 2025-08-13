@@ -48,3 +48,4 @@ MonoBehaviour:
   duration: 10
   multiplier: 5
   buffIconPrefab: {fileID: 7921036219045918271, guid: 1843ef27eae26a848ae8ff1fabbbb7dd, type: 3}
+  buffEffectPrefab: {fileID: 5365024452130290166, guid: 89377ec88a47b8c44ae87f95bc3d8249, type: 3}

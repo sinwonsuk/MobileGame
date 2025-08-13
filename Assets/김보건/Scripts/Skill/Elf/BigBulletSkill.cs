@@ -49,7 +49,7 @@ public class BigBulletSkill : MonoBehaviour, ISkill, ICooldownReadable
         Vector3 pos = origin.position;
 
         GameObject bullet = Instantiate(bigBulletPrefab, pos, Quaternion.identity);
-        bullet.transform.right = dir;
+        bullet.transform.up = dir;
         bullet.transform.localScale *= 2f;
 
         if (bullet.TryGetComponent<Bullet2D>(out var bulletScript))

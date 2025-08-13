@@ -7,6 +7,7 @@ public class BuffSpeedSkill : MonoBehaviour, ISkill, ICooldownReadable
     [SerializeField] private float duration = 10f;
     [SerializeField] private float multiplier = 2f;
     [SerializeField] private GameObject buffIconPrefab; // 머리 위 아이콘 프리팹
+    [SerializeField] private GameObject buffEffectPrefab;
 
     private float _progress = 999f; // 시작 시 바로 사용 가능
 
@@ -23,6 +24,7 @@ public class BuffSpeedSkill : MonoBehaviour, ISkill, ICooldownReadable
         foreach (var staff in staffs)
         {
             staff.ApplySpeedBuff(multiplier, duration, buffIconPrefab);
+            staff.PlayOneShotBuffEffect(buffEffectPrefab, 1f);
         }
     }
 

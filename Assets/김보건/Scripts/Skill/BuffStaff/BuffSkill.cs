@@ -7,6 +7,7 @@ public class BuffSkill : MonoBehaviour, ISkill, ICooldownReadable
     [SerializeField] private float duration = 30f;
     [SerializeField] private float multiplier = 2f;
     [SerializeField] private GameObject buffIconPrefab;
+    [SerializeField] private GameObject buffEffectPrefab;
 
     private float _progress = 999f; // 시작 즉시 사용 가능
     private float _cooldownSpeed = 1f;
@@ -50,7 +51,8 @@ public class BuffSkill : MonoBehaviour, ISkill, ICooldownReadable
         var staffs = Object.FindObjectsByType<StaffBase>(FindObjectsSortMode.None);
         foreach (var staff in staffs)
         {
-            staff.ShowBuffIcon(buffIconPrefab, duration); // ← 이 줄 추가
+            staff.ShowBuffIcon(buffIconPrefab, duration);
+            staff.PlayOneShotBuffEffect(buffEffectPrefab, 1f);
         }
     }
 

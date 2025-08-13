@@ -13,13 +13,13 @@ MonoBehaviour:
   m_Name: army_two
   m_EditorClassIdentifier: 
   indate: 2025-07-27T01:21:43.404Z
-  displayName: army_two
+  displayName: "\uC804\uD22C\uC9C1\uC6D02"
   staffType: 0
-  explain: "\uC0AC\uB0E5\uD130\uC9C1\uC6D02"
+  explain: "\uC0AC\uB0E5\uD130 \uC9C1\uC6D02"
   itemPrefab: {fileID: 3899654314294530085, guid: d1a82fce191fda648a81a6ce6e8b7119, type: 3}
   portrait: {fileID: 10917, guid: 0000000000000000f000000000000000, type: 0}
-  baseSalary: 60
-  basic_attack_Power: 10
-  basic_attack_Speed: 0.5
+  baseSalary: 400
+  basic_attack_Power: 20
+  basic_attack_Speed: 1
   basictimer: 0
   basiccooltime: 0

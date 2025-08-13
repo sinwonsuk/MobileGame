@@ -2273,6 +2273,7 @@ GameObject:
   - component: {fileID: 4077385769732740825}
   - component: {fileID: 2486970579519886771}
   - component: {fileID: 5900945138854398829}
+  - component: {fileID: 3404157997809043403}
   m_Layer: 5
   m_Name: DungeonSelectUI
   m_TagString: Untagged
@@ -2380,6 +2381,18 @@ MonoBehaviour:
   selectedFloorData: {fileID: 11400000, guid: b55b6af071661c745a2b0009c3caeed2, type: 2}
   dungeonInGameUI: {fileID: 7059710110440084692}
   autoNextToggle: {fileID: 6918999333421074114}
+--- !u!114 &3404157997809043403
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7059710110440084692}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b5a2f5ec9bc1eaa4a925cb258d2533f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7235200021904004194
 GameObject:
   m_ObjectHideFlags: 0
