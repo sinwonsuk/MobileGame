@@ -21,7 +21,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 9fb25bd9864b08145866f13fe57c2cd1, type: 2}
+  m_Motion: {fileID: 7400000, guid: 18b2904a1133fbb44902905ef19bf014, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -58,7 +58,7 @@ AnimatorController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: ChefAniController
+  m_Name: ChefSeaAniController
   serializedVersion: 5
   m_AnimatorParameters:
   - m_Name: Cooking
@@ -101,7 +101,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: e2bbdc05c4d948f4ea4d55a5b928cc87, type: 2}
+  m_Motion: {fileID: 7400000, guid: 7194d24df86186d49a9af7a8a33c08b7, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 

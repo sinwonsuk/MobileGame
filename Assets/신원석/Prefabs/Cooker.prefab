@@ -102,6 +102,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9633273641c0b1b43aa6052e2fcdfce4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  skins:
+  - skin: 0
+    animator: {fileID: 9100000, guid: f63e4883433459949a87c1aa56d69375, type: 2}
+  - skin: 1
+    animator: {fileID: 9100000, guid: 51ca081ac37fc69428024a6ef66a542e, type: 2}
 --- !u!95 &117788530003466172
 Animator:
   serializedVersion: 7
