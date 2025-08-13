@@ -1,13 +1,14 @@
 using UnityEngine;
-using UnityEngine.UI;
 
-[RequireComponent(typeof(Button))]
-public class ToggleRestaurantShop : MonoBehaviour
+public class RestaurantShopUIButton : BaseButton
 {
-    public void ToggleSHop()
+    public override void OnClick()
     {
-        Debug.Log("[Shop22] 버튼 클릭 감지"); // ← 여기를 확인
         EventBus<ToggleRestaurantShopEvent>.Raise(new ToggleRestaurantShopEvent());
-        Debug.Log("[Shop22] 이벤트 Raise 완료");
+        SoundManager.GetInstance().SfxPlay(SoundManager.sfx.Click, false);
+    }
+    public override void OnExit()
+    {
+        EventBus<ToggleRestaurantShopEvent>.Raise(new ToggleRestaurantShopEvent());
     }
 }

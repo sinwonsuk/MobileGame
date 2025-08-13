@@ -67,6 +67,7 @@ public class SellPanelUI : MonoBehaviour
 
     private void OnLeft()
     {
+        SoundManager.GetInstance().SfxPlay(SoundManager.sfx.Click, false);
         if (sellQty > 1)
         {
             sellQty--;
@@ -77,6 +78,7 @@ public class SellPanelUI : MonoBehaviour
 
     private void OnRight()
     {
+        SoundManager.GetInstance().SfxPlay(SoundManager.sfx.Click, false);
         if (currentSlot == null) return;
 
         int max = currentSlot.runTimeIngredientData.ingredientQty;
@@ -121,6 +123,7 @@ public class SellPanelUI : MonoBehaviour
 
     private void OnSell()
     {
+        SoundManager.GetInstance().SfxPlay(SoundManager.sfx.Click, false);
         if (currentSlot == null) return;
 
         // 1) 인벤토리에서 수량 차감

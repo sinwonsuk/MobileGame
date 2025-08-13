@@ -12,9 +12,18 @@ public class InventoryTabUI : MonoBehaviour
 
     private void Start()
     {
-        materialsTabButton.onClick.AddListener(() => ShowPanel(0));
-        interiorsTabButton.onClick.AddListener(() => ShowPanel(1));
-        huntersTabButton.onClick.AddListener(() => ShowPanel(2));
+        materialsTabButton.onClick.AddListener(() => {
+            SoundManager.GetInstance().SfxPlay(SoundManager.sfx.Click, false);
+            ShowPanel(0);
+        });
+        interiorsTabButton.onClick.AddListener(() => {
+            SoundManager.GetInstance().SfxPlay(SoundManager.sfx.Click, false);
+            ShowPanel(1);
+        });
+        huntersTabButton.onClick.AddListener(() => {
+            SoundManager.GetInstance().SfxPlay(SoundManager.sfx.Click, false);
+            ShowPanel(2);
+        });
         ShowPanel(0); // 시작은 materials 패널
     }
 

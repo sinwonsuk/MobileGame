@@ -15,6 +15,7 @@ public class SoundManager : MonoBehaviour
         GirlSound,
         ManSound,
         Enhance,
+        PiggyBank
     }
     public enum bgm
     {

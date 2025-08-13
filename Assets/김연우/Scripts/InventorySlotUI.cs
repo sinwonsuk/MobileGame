@@ -43,6 +43,10 @@ public class InventorySlotUI : MonoBehaviour, IPointerClickHandler
     public void OnPointerClick(PointerEventData eventData)
     {
         if (slot != null)
+        {
+            SoundManager.GetInstance().SfxPlay(SoundManager.sfx.Click, false);
             OnSlotClicked?.Invoke(slot);
+        }
     }
+
 }
