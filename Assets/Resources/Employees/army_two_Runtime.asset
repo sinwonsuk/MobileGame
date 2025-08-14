@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: army_two_Runtime
   m_EditorClassIdentifier: 
   indate: 2025-07-27T01:21:43.404Z
-  displayName: army_two
+  displayName: "\uC804\uD22C\uC9C1\uC6D02"
   staffType: 0
   level: 0
-  attack_Power: 0
-  attack_Speed: 0
+  attack_Power: 20
+  attack_Speed: 0.2
   timer: 0
   cooltime: 0
   isOwned: 0

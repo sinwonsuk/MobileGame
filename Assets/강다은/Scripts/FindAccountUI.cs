@@ -223,6 +223,4 @@ public class FindAccountUI : MonoBehaviour
 	[SerializeField] TMP_InputField idInputForPW;
 	[SerializeField] TMP_InputField emailInputForPW;
 
-	private bool suppressToggleEvent = false;
-
 }

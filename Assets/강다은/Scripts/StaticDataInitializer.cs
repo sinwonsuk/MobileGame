@@ -8,12 +8,22 @@ using UnityEngine;
 
 public class StaticDataInitializer : MonoBehaviour
 {
-	[SerializeField] private List<IngredientData> ingredientDataList;
-	[SerializeField] private List<FoodData> foodDataList;
-	[SerializeField] private List<StaffStatsSO> employeeDataList;
 
 	public IEnumerator InitializeAllStaticData()
 	{
+		yield return StartCoroutine(LoadTableData(
+			"FURNITURES",
+			row =>
+			{
+				string indate = row["inDate"].ToString();
+				var target = interiorDataList.FirstOrDefault(i => i.indate == indate);
+				if (target != null)
+				{
+					//target.interiorName = row["furnitureName"].ToString();
+					target.BaseSalary = int.Parse(row["furniturePrice"].ToString());
+					Debug.Log($"[INGREDIENT] 초기화 완료: {target.interiorName}");
+				}
+			}));
 		yield return StartCoroutine(LoadTableData(
 			"INGREDIENTS",
 			row =>
@@ -186,5 +196,9 @@ public class StaticDataInitializer : MonoBehaviour
 		}
 	}
 
+	[SerializeField] private List<IngredientData> ingredientDataList;
+	[SerializeField] private List<FoodData> foodDataList;
+	[SerializeField] private List<StaffStatsSO> employeeDataList;
+	[SerializeField] private List<InteriorData> interiorDataList;
 
 }

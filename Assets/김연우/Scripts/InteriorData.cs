@@ -3,6 +3,7 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Inventory/Interior Data")]
 public class InteriorData : ScriptableObject
 {
+    public string indate;
     public string interiorName;      // ex) “소파”
     public Sprite icon;              // UI용 아이콘
     public GameObject prefab;        // 설치될 프리팹

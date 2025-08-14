@@ -7,50 +7,35 @@ public class PiggyBank : MonoBehaviour
 {
     [Header("초당 누적량")]
     public float ratePerSecond = 1f;
+
     [Header("화면상 클릭 허용 반경 (픽셀)")]
     public float clickRadiusPixels = 50f;
 
     [Header("런타임 인테리어 데이터")]
     public RunTimeInteriorData runtimeData; // Manager에서 직접 할당!
 
-    // ◆ 누적 상한 / 음수 방지
-    private const int CAP = 1000; // 최대 1000원
+    [SerializeField] private int CAP = 1000; // 최대 1000원
     private float accumulated = 0f;
 
     private TextMeshPro amountText;
-    private const string LastSaveKey = "PiggyBank_LastSave";
-    private const string AccumulatedKey = "PiggyBank_Accumulated";
 
     private void Awake()
     {
         amountText = GetComponentInChildren<TextMeshPro>();
-        // 누적금 복원은 RestoreAccumulated()에서만!
+        InitializeRuntime(); // 실행 중 전용 초기화
     }
 
-    public void RestoreAccumulated()
+    private void OnEnable()
     {
-        if (runtimeData != null && runtimeData.isUsed)
-        {
-            string lastSaveStr = PlayerPrefs.GetString(LastSaveKey, "");
-            accumulated = Mathf.Max(0f, PlayerPrefs.GetFloat(AccumulatedKey, 0f)); // 음수 방지
+        // 씬 재활성화 시에도 런타임 초기화 보장하고 싶다면 주석 해제
+        // InitializeRuntime();
+    }
 
-            if (!string.IsNullOrEmpty(lastSaveStr))
-            {
-                DateTime lastSaveTime = DateTime.Parse(lastSaveStr);
-                TimeSpan elapsed = DateTime.UtcNow - lastSaveTime; // UTC 기준
-                // ratePerSecond가 실수로 음수여도 누적은 +방향만
-                float delta = Mathf.Max(0f, (float)elapsed.TotalSeconds * Mathf.Max(0f, ratePerSecond));
-                accumulated += delta;
-            }
-        }
-        else
-        {
-            accumulated = 0f;
-        }
-
-        // 상한/음수 클램프
-        accumulated = Mathf.Clamp(accumulated, 0f, CAP);
-        amountText.text = Mathf.FloorToInt(accumulated).ToString();
+    public void InitializeRuntime()
+    {
+        accumulated = 0f;
+        if (amountText != null)
+            amountText.text = "0";
     }
 
     void Update()
@@ -61,32 +46,36 @@ public class PiggyBank : MonoBehaviour
             // 프레임 누적 (음수·과누적 방지)
             float perFrame = Mathf.Max(0f, ratePerSecond) * Time.deltaTime;
             accumulated = Mathf.Clamp(accumulated + perFrame, 0f, CAP);
-            amountText.text = Mathf.FloorToInt(accumulated).ToString();
 
+            if (amountText != null)
+                amountText.text = Mathf.FloorToInt(accumulated).ToString();
+
+            // 터치 수령 처리
             if (Touchscreen.current != null
                 && Touchscreen.current.primaryTouch.press.wasPressedThisFrame)
             {
                 Vector2 touchPos = Touchscreen.current.primaryTouch.position.ReadValue();
-                Vector3 objScreenPos = Camera.main.WorldToScreenPoint(transform.position);
-                float distSqr = ((Vector2)objScreenPos - touchPos).sqrMagnitude;
 
-                if (distSqr <= clickRadiusPixels * clickRadiusPixels)
+                Camera cam = Camera.main;
+                if (cam != null)
                 {
-                    int gain = Mathf.FloorToInt(accumulated);
-                    // 어떤 경우에도 음수 지급 불가
-                    gain = Mathf.Max(0, gain);
+                    Vector3 objScreenPos = cam.WorldToScreenPoint(transform.position);
+                    float distSqr = ((Vector2)objScreenPos - touchPos).sqrMagnitude;
 
-                    if (gain > 0)
+                    if (distSqr <= clickRadiusPixels * clickRadiusPixels)
                     {
-                        SoundManager.GetInstance().SfxPlay(SoundManager.sfx.PiggyBank, false);
-                        // 돈 지급 이벤트 발생
-                        EventBus<MoneyChangePusHandler>
-                            .Raise(new MoneyChangePusHandler(gain));
+                        int gain = Mathf.Max(0, Mathf.FloorToInt(accumulated));
+                        if (gain > 0)
+                        {
+                            SoundManager.GetInstance().SfxPlay(SoundManager.sfx.PiggyBank, false);
 
-                        // 지급 후 초기화 (저장 포함)
-                        accumulated = 0f;
-                        SavePiggyBank();
-                        amountText.text = "0";
+                            // 돈 지급 이벤트 발생
+                            EventBus<MoneyChangePusHandler>.Raise(new MoneyChangePusHandler(gain));
+
+                            // 지급 후 런타임 값만 초기화
+                            accumulated = 0f;
+                            if (amountText != null) amountText.text = "0";
+                        }
                     }
                 }
             }
@@ -94,37 +83,12 @@ public class PiggyBank : MonoBehaviour
         else
         {
             accumulated = 0f;
-            amountText.text = "0";
+            if (amountText != null) amountText.text = "0";
         }
     }
-
-    private void OnApplicationPause(bool pause)
-    {
-        if (pause)
-        {
-            SavePiggyBank();
-        }
-    }
-
-    private void OnApplicationQuit()
-    {
-        SavePiggyBank();
-    }
-
-    public void ResetPiggyBank()
+    public void ResetPiggyBankRuntime()
     {
         accumulated = 0f;
-        amountText.text = "0";
-        PlayerPrefs.SetFloat(AccumulatedKey, 0f);
-        PlayerPrefs.Save();
-    }
-
-    private void SavePiggyBank()
-    {
-        // UTC로 저장 (기존 코드 유지)
-        PlayerPrefs.SetString(LastSaveKey, DateTime.UtcNow.ToString());
-        // 저장 시에도 클램프 보장
-        PlayerPrefs.SetFloat(AccumulatedKey, Mathf.Clamp(accumulated, 0f, CAP));
-        PlayerPrefs.Save();
+        if (amountText != null) amountText.text = "0";
     }
 }
