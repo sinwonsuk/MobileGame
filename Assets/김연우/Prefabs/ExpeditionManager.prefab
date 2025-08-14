@@ -1,0 +1,68 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &362117232955865506
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2829776186348986555}
+  - component: {fileID: 7781621431400515330}
+  m_Layer: 0
+  m_Name: ExpeditionManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2829776186348986555
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 362117232955865506}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.48376298, y: 6.653644, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7781621431400515330
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 362117232955865506}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a5f7664934236342b75bf94becd1aa9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  allExpeditions:
+  - {fileID: 11400000, guid: 05dd9b8cd40a66b438f99f64f5df16c3, type: 2}
+  - {fileID: 11400000, guid: fe0a965c0efe5224ea30259ece79184d, type: 2}
+  - {fileID: 11400000, guid: e663d4ed0ca428d4397335405de5fc7e, type: 2}
+  - {fileID: 11400000, guid: 57f7f5911b1be7e4f8ec0297cd514b54, type: 2}
+  - {fileID: 11400000, guid: 60027a08d3e30424a807febb14ed6a4e, type: 2}
+  - {fileID: 11400000, guid: b28a2cf9614f29d488b672c356695927, type: 2}
+  - {fileID: 11400000, guid: 4f30489dd1735f546a9b357633dd28cf, type: 2}
+  - {fileID: 11400000, guid: e827d23b036058a4db6103f1daa8d3ea, type: 2}
+  - {fileID: 11400000, guid: d5a1e1ba453b55545a41b8f0b37f2787, type: 2}
+  - {fileID: 11400000, guid: fa73a5019e875794aa5a115f18f13887, type: 2}
+  allRuntimeExpeditions:
+  - {fileID: 11400000, guid: a4bb8a535ba92d14f8cd88dfb7e082c6, type: 2}
+  - {fileID: 11400000, guid: e504153b0be334046bf356d7c613afcf, type: 2}
+  - {fileID: 11400000, guid: 6b1b73aedb797754dbb334897e3f078b, type: 2}
+  - {fileID: 11400000, guid: f43106bba61700b41bc4eb27bdc8351c, type: 2}
+  - {fileID: 11400000, guid: e8a6f99ed1d8d6542beabb75ffae6b8b, type: 2}
+  - {fileID: 11400000, guid: e41584833ce5a7e4e8b00633410beff7, type: 2}
+  - {fileID: 11400000, guid: 6a55a16f5dfd2c44f8bc46347cb9344b, type: 2}
+  - {fileID: 11400000, guid: 714b5bc0456e81742adc9f5c3a89e21c, type: 2}
+  - {fileID: 11400000, guid: 9cf9508bd6ca0d044bfeb63f41f6440a, type: 2}
+  - {fileID: 11400000, guid: 39a1d59712f8e4541ba54b83921fe65b, type: 2}

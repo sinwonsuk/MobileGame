@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 298b0c7582611ae4d84f8e6790a23262, type: 3}
+  m_Name: Expedition_ 8
+  m_EditorClassIdentifier: 
+  Indate: 8
+  displayName: "\uADF8\uB9AC\uD540\uB358\uC804"
+  durationHours: 0.01
+  rewards:
+  - ingredientData: {fileID: 11400000, guid: 93949912012d1e645beb0af0a2e72ce9, type: 2}
+    amount: 3
+  - ingredientData: {fileID: 11400000, guid: 9b0d58c515b25644eba391b7607401aa, type: 2}
+    amount: 3
+  - ingredientData: {fileID: 11400000, guid: 9e0ddcb4fca5b484abecbcf2f4ac968c, type: 2}
+    amount: 3
