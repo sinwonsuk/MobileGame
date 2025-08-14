@@ -11,7 +11,11 @@ public class EmployeeDetailPanel : MonoBehaviour
     public Button[] numberButtons;
 
     private EmployeeSlot currentSlot;
-
+    void Awake()
+    {
+        // 시작 시 디테일 패널 숨김
+        if (gameObject.activeSelf) gameObject.SetActive(false);
+    }
     public void Open(EmployeeSlot slot)
     {
         currentSlot = slot;

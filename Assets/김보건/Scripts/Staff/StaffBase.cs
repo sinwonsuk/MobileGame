@@ -136,4 +136,16 @@ public class StaffBase : MonoBehaviour
             activeBuffIcons[i].transform.position = newPos;
         }
     }
+
+    public void PlayOneShotBuffEffect(GameObject effectPrefab, float lifeTime = 1f)
+    {
+        if (effectPrefab == null) return;
+
+        var fx = Instantiate(effectPrefab, transform.position, Quaternion.identity, transform);
+
+        foreach (var ps in fx.GetComponentsInChildren<ParticleSystem>(true))
+            ps.Play(true);
+
+        Destroy(fx, lifeTime);
+    }
 }

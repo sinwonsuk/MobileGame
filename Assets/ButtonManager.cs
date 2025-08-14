@@ -11,7 +11,8 @@ public enum ButtonClick
     Settings,
     Inven,
     Restaurant,
-    hunter
+    hunter,
+    Dungeon
 }
 
 

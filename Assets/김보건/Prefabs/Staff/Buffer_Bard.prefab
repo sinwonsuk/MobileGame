@@ -65,6 +65,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4529666617580747932}
+  - {fileID: 3483149243571837178}
   - {fileID: 8419969813994771124}
   - {fileID: 400115231848897444}
   m_Father: {fileID: 0}
@@ -138,6 +139,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buffIconPrefabs: []
   iconAnchor: {fileID: 4529666617580747932}
+  effectAnchor: {fileID: 3483149243571837178}
   buffSkillPrefab: {fileID: 8885708416180907857, guid: cbc048d713025de40aa8a55a0e2cb3a6, type: 3}
   skillOrigin: {fileID: 0}
   clickMask:
@@ -212,6 +214,37 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!1 &4640919071225763761
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3483149243571837178}
+  m_Layer: 0
+  m_Name: BuffAnchor
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3483149243571837178
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4640919071225763761}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6152323489785435712}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5055630824362249188
 GameObject:
   m_ObjectHideFlags: 0

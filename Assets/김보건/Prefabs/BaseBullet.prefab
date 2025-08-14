@@ -102,6 +102,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c98d6aabb7f48004fa73a9f4452ecba1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hitEffectPrefab: {fileID: 4430338407721101540, guid: 9d868b438eb55274fb52218daddbb40f, type: 3}
+  hitEffectLifetime: 2
 --- !u!70 &7854429852230006642
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
