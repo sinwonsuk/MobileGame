@@ -1,2 +1,7 @@
 ﻿furnitureName,furniturePrice,furnitureReputation
-예시가구,800,3
+CustomerTable1,1000,0
+CustomerTable2,3000,0
+CustomerTable3,5000,0
+CustomerTable4,7000,0
+CustomerTable5,9000,0
+PiggyBank,1000,0
