@@ -17,7 +17,7 @@ MonoBehaviour:
   foodSprite: porridge
   price: 154
   reputation: 0
-  Getreputation: 3
+  Getreputation: 1
   isUnlock: 0
   cookingTime: 14.6
   Level: 1

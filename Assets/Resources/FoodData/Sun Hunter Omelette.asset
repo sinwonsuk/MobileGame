@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   indate: 2025-07-16T02:27:36.991Z
   displayName: "\uD0DC\uC591 \uC0AC\uB0E5\uAFBC \uC624\uBBC8\uB81B"
-  foodSprite: 
+  foodSprite: sunHunterOmelette
   price: 909
   reputation: 0
-  Getreputation: 0
+  Getreputation: 1
   isUnlock: 0
   cookingTime: 78.5
   Level: 1

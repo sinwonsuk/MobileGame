@@ -17,7 +17,7 @@ MonoBehaviour:
   foodSprite: fireHeartBBQ
   price: 1400
   reputation: 0
-  Getreputation: 0
+  Getreputation: 1
   isUnlock: 0
   cookingTime: 120
   Level: 1

@@ -17,7 +17,7 @@ MonoBehaviour:
   foodSprite: hangoverSoup
   price: 882
   reputation: 0
-  Getreputation: 0
+  Getreputation: 1
   isUnlock: 0
   cookingTime: 76.2
   Level: 1

@@ -17,7 +17,7 @@ MonoBehaviour:
   foodSprite: beakManSoup
   price: 770
   reputation: 0
-  Getreputation: 0
+  Getreputation: 1
   isUnlock: 0
   cookingTime: 66.7
   Level: 1

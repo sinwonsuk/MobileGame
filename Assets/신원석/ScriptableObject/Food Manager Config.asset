@@ -28,5 +28,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 752cdc7a023b39248b885e00dbd22893, type: 2}
   - {fileID: 11400000, guid: 9ea3ff9731222034f86f8570275f767f, type: 2}
   - {fileID: 11400000, guid: c4d77d0c30e5b8045912f3cc349e41a7, type: 2}
+  - {fileID: 11400000, guid: bbf376bbdd4121a4cb17e6df15f79f99, type: 2}
   <SlotUI>k__BackingField: {fileID: 8396962044289235238, guid: 4f1fd51fa963c80498888529112f6533, type: 3}
   <EnhanceSlotUI>k__BackingField: {fileID: 8396962044289235238, guid: 8cc521fb0bd51d44f9302632e620ddfd, type: 3}

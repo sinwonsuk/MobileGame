@@ -17,7 +17,7 @@ MonoBehaviour:
   foodSprite: hotPot
   price: 392
   reputation: 0
-  Getreputation: 0
+  Getreputation: 1
   isUnlock: 0
   cookingTime: 34.7
   Level: 1

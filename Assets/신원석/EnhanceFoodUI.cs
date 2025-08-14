@@ -53,10 +53,10 @@ public class EnhanceFoodUI : MonoBehaviour
         obg.transform.GetChild((int)IngredientPannelType.IngredientImage).GetComponent<Image>().sprite = foodSprite;
 
         // Set the current ingredient amount to 0
-        obg.transform.GetChild((int)IngredientPannelType.NeedIngredientAmount).GetComponent<TextMeshProUGUI>().text = ingredientsPannelSpawnHandler.NeedIngredientAmount.ToString();
+        obg.transform.GetChild((int)IngredientPannelType.CurrentIngredientAmount).GetComponent<TextMeshProUGUI>().text = ingredientsPannelSpawnHandler.NeedIngredientAmount.ToString();
 
         // Set the need ingredient amount
-        obg.transform.GetChild((int)IngredientPannelType.CurrentIngredientAmount).GetComponent<TextMeshProUGUI>().text = ingredientsPannelSpawnHandler.CurrentIngredientAmount.ToString();
+        obg.transform.GetChild((int)IngredientPannelType.NeedIngredientAmount).GetComponent<TextMeshProUGUI>().text = ingredientsPannelSpawnHandler.CurrentIngredientAmount.ToString();
 
         obg.transform.GetChild((int)IngredientPannelType.IngredientName).GetComponent<TextMeshProUGUI>().text = ingredientsPannelSpawnHandler.IngredientName.ToString();
 

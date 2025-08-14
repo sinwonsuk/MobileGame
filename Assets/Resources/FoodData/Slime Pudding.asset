@@ -17,7 +17,7 @@ MonoBehaviour:
   foodSprite: pudding
   price: 168
   reputation: 0
-  Getreputation: 3
+  Getreputation: 1
   isUnlock: 0
   cookingTime: 15.8
   Level: 1

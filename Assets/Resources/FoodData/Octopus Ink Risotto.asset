@@ -20,7 +20,7 @@ MonoBehaviour:
   Getreputation: 1
   isUnlock: 0
   cookingTime: 10
-  Level: 1
+  Level: 5
   FoodManual: 
   Ingredients:
   - {fileID: 11400000, guid: eb82d363345dc90489082680109b4e2b, type: 2}

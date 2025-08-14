@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   indate: 2025-07-16T02:27:35.795Z
   displayName: "\uB369\uAD74\uBC84\uC12F \uC624\uBBC8\uB81B"
-  foodSprite: 
+  foodSprite: vineMushroomOmelette
   price: 322
   reputation: 0
-  Getreputation: 0
+  Getreputation: 1
   isUnlock: 0
   cookingTime: 28.8
   Level: 1
