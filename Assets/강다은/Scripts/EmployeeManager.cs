@@ -120,64 +120,94 @@ public class EmployeeManager : MonoBehaviour, IAutoSavable
 		FindAnyObjectByType<EmployeeInventoryUI>()?.RefreshUI();
 	}
 
-	//public void SyncEmployeeStatesByLevel()
-	//{
-	//	foreach (var slot in slots)
-	//	{
-	//		if (slot.runtimeData.level <= 0)
-	//		{
-	//			slot.runtimeData.isOwned = false;
-	//			slot.runtimeData.isAssigned = false;
-	//			slot.runtimeData.assignedIndex = -1;
-	//		}
-	//		if (!slot.runtimeData.isOwned)
-	//		{
-	//			slot.runtimeData.isAssigned = false;
-	//			slot.runtimeData.assignedIndex = -1;
-	//		}
-	//	}
-	//}
+    //public void SyncEmployeeStatesByLevel()
+    //{
+    //	foreach (var slot in slots)
+    //	{
+    //		if (slot.runtimeData.level <= 0)
+    //		{
+    //			slot.runtimeData.isOwned = false;
+    //			slot.runtimeData.isAssigned = false;
+    //			slot.runtimeData.assignedIndex = -1;
+    //		}
+    //		if (!slot.runtimeData.isOwned)
+    //		{
+    //			slot.runtimeData.isAssigned = false;
+    //			slot.runtimeData.assignedIndex = -1;
+    //		}
+    //	}
+    //}
 
-	public void LoadPlacementState()
-	{
-		for (int i = 0; i < slots.Count; i++)
-		{
-			var slot = slots[i];
-			bool isAssigned = slot.runtimeData.isAssigned;
-			int idx = slot.runtimeData.assignedIndex;
+    public void LoadPlacementState()
+    {
+        if (dynamicPlacementPoints.Count == 0)
+        {
+            Debug.LogWarning("[LoadPlacementState] points=0 → skip");
+            return;
+        }
 
-			// 먼저 해당 위치의 프리팹 삭제(중복 방지)
-			if (idx >= 0 && idx < dynamicPlacementPoints.Count)
-			{
-				Transform point = dynamicPlacementPoints[idx];
-				foreach (Transform child in point)
-					Destroy(child.gameObject);
-			}
+        // 0) 먼저, 배치 안 된 슬롯의 stale index 정리
+        for (int i = 0; i < slots.Count; i++)
+        {
+            var s = slots[i].runtimeData;
+            if (!s.isAssigned && s.assignedIndex != -1)
+                s.assignedIndex = -1;
+        }
 
-			// 조건 만족 시 스폰 (level > 0 필수!)
-			if (isAssigned && idx >= 0 && idx < dynamicPlacementPoints.Count && slot.runtimeData.level > 0)
-			{
-				var staffPrefab = slot.staffData.itemPrefab;
-				if (staffPrefab == null) continue;
+        for (int i = 0; i < slots.Count; i++)
+        {
+            var slot = slots[i];
+            bool isAssigned = slot.runtimeData.isAssigned;
+            int idx = slot.runtimeData.assignedIndex;
+            bool owned = slot.runtimeData.isOwned;
+            int lvl = slot.runtimeData.level;
 
-				Transform point = dynamicPlacementPoints[idx];
-				GameObject staffObj = Instantiate(staffPrefab, point.position, Quaternion.identity, point);
-				staffObj.name = staffPrefab.name;
+            if (isAssigned && idx >= 0 && idx < dynamicPlacementPoints.Count)
+            {
+                Transform point = dynamicPlacementPoints[idx];
+                for (int c = point.childCount - 1; c >= 0; c--)
+                    Destroy(point.GetChild(c).gameObject);
+            }
 
-				var staffBase = staffObj.GetComponent<StaffBase>();
-				if (staffBase != null)
-					staffBase.Init(slot.staffData, slot.runtimeData);
-			}
-			else
-			{
-				slot.runtimeData.isAssigned = false;
-				slot.runtimeData.assignedIndex = -1;
-			}
-		}
-	}
+            bool canSpawn = isAssigned
+                            && idx >= 0 && idx < dynamicPlacementPoints.Count
+                            && (owned || lvl > 0);
 
-	// 화살표 오브젝트 제거
-	private void ClearArrows()
+            if (canSpawn)
+            {
+                var prefab = slot.staffData.itemPrefab;
+                if (prefab == null)
+                {
+                    Debug.LogWarning($"[LOAD-SKIP] {slot.runtimeData.displayName} idx={idx} → prefab=null");
+                    continue;
+                }
+
+                Transform point = dynamicPlacementPoints[idx];
+                var go = Instantiate(prefab, point.position, Quaternion.identity, point);
+                go.name = prefab.name;
+
+                var baseComp = go.GetComponent<StaffBase>();
+                if (baseComp != null)
+                    baseComp.Init(slot.staffData, slot.runtimeData);
+
+                Debug.Log($"[LOAD-SPAWN] {slot.runtimeData.displayName} idx={idx}");
+            }
+            else
+            {
+                // 정말 무효(미소유 & 레벨0)면만 상태 초기화
+                if (!(owned || lvl > 0))
+                {
+                    slot.runtimeData.isAssigned = false;
+                    slot.runtimeData.assignedIndex = -1;
+                }
+
+            }
+        }
+    }
+
+
+    // 화살표 오브젝트 제거
+    private void ClearArrows()
 	{
 		foreach (var go in activeArrows) Destroy(go);
 		activeArrows.Clear();

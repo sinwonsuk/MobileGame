@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class InteriorManager : MonoBehaviour, IAutoSavable
 {
@@ -26,7 +27,24 @@ public class InteriorManager : MonoBehaviour, IAutoSavable
         // SO의 isUsed 상태를 기준으로 설치 복원
         RefreshInstalledInteriors();
     }
+    private void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;   // ← 추가
+    }
 
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;   // ← 추가
+    }
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        // 특정 씬에서만 동작시키고 싶으면 조건 유지
+        if (string.IsNullOrEmpty(targetSceneName) || scene.name == targetSceneName)
+        {
+
+            RefreshInstalledInteriors(); // 씬 로드 후 즉시 설치 복원
+        }
+    }
     public void AcquireInterior(string name)
     {
         var slot = slots.Find(s => s.data.interiorName == name);
@@ -71,9 +89,10 @@ public class InteriorManager : MonoBehaviour, IAutoSavable
 
     public void RefreshInstalledInteriors()
     {
+        int spawnCount = 0;
+
         foreach (var slot in slots)
         {
-            // 중복 인스턴스 제거
             if (slot.runtimeData.instance != null)
             {
                 Destroy(slot.runtimeData.instance);
@@ -82,20 +101,21 @@ public class InteriorManager : MonoBehaviour, IAutoSavable
 
             if (slot.runtimeData.isOwned && slot.runtimeData.isUsed)
             {
-                Vector3 pos = slot.data.placementPosition;
-                var go = Instantiate(slot.data.prefab, pos, Quaternion.identity);
+                if (slot.data?.prefab == null) { Debug.LogError("[Interior] 프리팹 없음"); continue; }
 
-
-
+                var go = Instantiate(slot.data.prefab, slot.data.placementPosition, Quaternion.identity);
                 slot.runtimeData.instance = go;
+                spawnCount++;
             }
         }
 
+        Debug.Log($"[Interior] 설치 복원 완료 - 스폰 {spawnCount}개");
         OnInteriorChanged?.Invoke();
     }
 
-	//다은
-	public IEnumerator InsertFurnitureIfNotExists(string ownerIndate)
+
+    //다은
+    public IEnumerator InsertFurnitureIfNotExists(string ownerIndate)
 	{
 		string offset = "";
 		bool isEnd = false;
@@ -306,5 +326,5 @@ public class InteriorManager : MonoBehaviour, IAutoSavable
 	public event Action OnInteriorChanged;
 
 	private bool FurnitureDataLoaded = false;
-
+    [SerializeField] private string targetSceneName = "SampleScene";
 }
