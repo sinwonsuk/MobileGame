@@ -13,7 +13,6 @@ public class ExpeditionManager : MonoBehaviour
     [Header("런타임 파견지 SO들 (예: 10개)")]
     public RuntimeExpeditionSO[] allRuntimeExpeditions;
 
-    // id -> (static, runtime)
     private readonly Dictionary<string, (ExpeditionSO stat, RuntimeExpeditionSO run)> pairs = new();
 
     public event Action<string> OnChanged; // 특정 id 변경 알림
@@ -29,7 +28,6 @@ public class ExpeditionManager : MonoBehaviour
 
     private void OnValidate()
     {
-        // 인스펙터에서 배열 교체/드래그 할 때도 자동 동기화
         BuildPairs();
     }
 
@@ -75,14 +73,14 @@ public class ExpeditionManager : MonoBehaviour
         return !p.run.isRunning;
     }
 
-    // 1) 시작: 항상 '미수령'으로 시작
+
     public bool StartExpedition(string id)
     {
-        if (!pairs.TryGetValue(id, out var p)) return false;   // ← FindPair 대신 TryGetValue
+        if (!pairs.TryGetValue(id, out var p)) return false;  
         if (p.run.isRunning) return false;
 
         p.run.StartNowUtc(p.stat.durationHours);
-        p.run.rewardClaimed = false;                            // 시작 시 보상 미수령
+        p.run.rewardClaimed = false; 
         OnChanged?.Invoke(id);
         return true;
     }
@@ -114,7 +112,6 @@ public class ExpeditionManager : MonoBehaviour
 
 
 
-    // 3) 보상 수령: 이때만 지급 + 초기화
     public bool TryClaimReward(string id)
     {
         if (!pairs.TryGetValue(id, out var p)) return false;
@@ -122,7 +119,6 @@ public class ExpeditionManager : MonoBehaviour
         if (p.run.isRunning || DateTime.UtcNow < p.run.ArriveUtc || p.run.rewardClaimed)
             return false;
 
-        // ★ 여기서만 지급 ★
         if (p.stat.rewards != null)
         {
             foreach (var r in p.stat.rewards)
@@ -150,12 +146,10 @@ public class ExpeditionManager : MonoBehaviour
         return (float)(elapsed / total);
     }
 
-    // 유틸: 전부 초기화/중단
     public void ResetAll()
     {
         foreach (var kv in pairs) kv.Value.run.Clear();
     }
 
-    // 유틸: 런타임 SO 열거(외부 조회용)
     public IEnumerable<RuntimeExpeditionSO> EnumerateRuntime() => pairs.Values.Select(v => v.run);
 }

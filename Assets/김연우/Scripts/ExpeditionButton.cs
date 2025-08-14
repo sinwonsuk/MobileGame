@@ -1,4 +1,3 @@
-// ExpeditionButton.cs  (핵심만 교체/추가)
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -56,8 +55,8 @@ public class ExpeditionButton : MonoBehaviour
         }
         else if (ExpeditionManager.Instance.IsDone(id))
         {
-            // 팝업 시스템 있으면 여기서 확인 모달 띄우고 ConfirmClaim만 호출
-            ConfirmClaim(); // ← 사용자가 '보상 받기' 버튼을 눌렀을 때만 호출
+
+            ConfirmClaim();
         }
     }
 public void ConfirmClaim()
@@ -66,7 +65,7 @@ public void ConfirmClaim()
     var id = runtimeSO.Indate;
     if (string.IsNullOrEmpty(id)) return;
 
-    ExpeditionManager.Instance.TryClaimReward(id); // 지급 + 초기화 (자동 호출 금지!)
+        ExpeditionManager.Instance.TryClaimReward(id);
     RefreshUI();
 }
 

@@ -21,19 +21,15 @@ public class RuntimeExpeditionSO : ScriptableObject
     public DateTime DepartUtc => ParseUtc(departUtcIso);
     public DateTime ArriveUtc  => ParseUtc(arriveUtcIso);
 
-    // ---- 에디터에서 값이 바뀔 때/드래그 했을 때 자동 동기화 ----
     private void OnValidate()
     {
         SyncIdFromStatic();
     }
-
-    // 매니저/런타임에서도 호출 가능 (안전)
     public void SyncIdFromStatic()
     {
         if (staticSO == null) return;
         if (string.IsNullOrEmpty(staticSO.Indate)) return;
 
-        // 정적 SO의 ID를 그대로 복사
         Indate = staticSO.Indate;
     }
 

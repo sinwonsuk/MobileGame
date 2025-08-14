@@ -20,7 +20,7 @@ public class ExpeditionSO : ScriptableObject
     [Serializable]
     public class Reward
     {
-        public RunTimeIngredientData ingredientData; // 네 프로젝트 타입 그대로 사용
+        public RunTimeIngredientData ingredientData; 
         public int amount = 1;
     }
 }
