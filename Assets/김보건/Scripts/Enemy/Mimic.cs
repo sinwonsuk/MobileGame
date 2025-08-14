@@ -2,21 +2,21 @@ using UnityEngine;
 
 public class Mimic : EnemyBase
 {
+    private int stage;
+
+    protected override float GetMaxHp() => 27.0f;
+
     protected override void Start()
     {
-        base.Start();
 
         var dungeonManager = FindAnyObjectByType<GameController>().GetManager<DungeonManager>();
         var floorData = dungeonManager.Config.selectedFloorData;
 
         int stage = floorData.currentStage;
 
-        maxHp = 27f;
-        currentHp = maxHp;
+        base.Start();
 
-        GetComponent<SpriteRenderer>().color = Color.Lerp(Color.white, Color.red, stage / 10f);
     }
-
     protected override void Die()
     {
         if (isDead) return;

@@ -2,19 +2,21 @@ using UnityEngine;
 
 public class MushroomBoss : EnemyBase
 {
+    private int stage;
+
+    protected override float GetMaxHp() => 380.0f;
+
     protected override void Start()
     {
-        base.Start();
 
         var dungeonManager = FindAnyObjectByType<GameController>().GetManager<DungeonManager>();
         var floorData = dungeonManager.Config.selectedFloorData;
 
         int stage = floorData.currentStage;
 
-        maxHp = 380f;
-        currentHp = maxHp;
-    }
+        base.Start();
 
+    }
     protected override void Die()
     {
         if (isDead) return;

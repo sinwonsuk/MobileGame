@@ -2,19 +2,21 @@ using UnityEngine;
 
 public class GreenDragonBoss : EnemyBase
 {
+    private int stage;
+
+    protected override float GetMaxHp() => 2000.0f;
+
     protected override void Start()
     {
-        base.Start();
 
         var dungeonManager = FindAnyObjectByType<GameController>().GetManager<DungeonManager>();
         var floorData = dungeonManager.Config.selectedFloorData;
 
         int stage = floorData.currentStage;
 
-        maxHp = 2000f;
-        currentHp = maxHp;
-    }
+        base.Start();
 
+    }
     protected override void Die()
     {
         if (isDead) return;

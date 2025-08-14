@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class EnemyBase : MonoBehaviour
 {
-    public double maxHp;
+    //public double maxHp;
     protected double currentHp;
 
     [Header("HP Bar ")]
@@ -28,9 +28,17 @@ public class EnemyBase : MonoBehaviour
 
     protected bool isDead = false;
 
+    // 각 몬스터에서 원하는 값으로 최대체력재정의
+    protected virtual float GetMaxHp() => 1.0f;
+
+    //HPBar 계산용
+    private float _maxHp;
+
     protected virtual void Start()
     {
-        currentHp = maxHp; 
+        _maxHp = GetMaxHp();
+        currentHp = _maxHp;
+
         spawnTime = Time.time;
 
         playerTarget = GameObject.FindGameObjectWithTag("Player")?.transform;
@@ -38,7 +46,7 @@ public class EnemyBase : MonoBehaviour
         hpBar = GetComponentInChildren<HPBar>();
         if (hpBarPrefab != null)
         {
-            hpBar.SetHP(currentHp, maxHp);
+            hpBar.SetHP(currentHp, _maxHp);
         }
 
         logicalPosition = transform.position;
@@ -83,7 +91,7 @@ public class EnemyBase : MonoBehaviour
         currentHp -= damage;
 
         if (hpBar != null)
-            hpBar.SetHP(currentHp, maxHp);
+            hpBar.SetHP(currentHp, _maxHp);
 
 
         if (shakeCoroutine != null)

@@ -2,17 +2,20 @@ using UnityEngine;
 
 public class OrcBoss : EnemyBase
 {
+    private int stage;
+
+    protected override float GetMaxHp() => 530.0f;
+
     protected override void Start()
     {
-        base.Start();
 
         var dungeonManager = FindAnyObjectByType<GameController>().GetManager<DungeonManager>();
         var floorData = dungeonManager.Config.selectedFloorData;
 
         int stage = floorData.currentStage;
 
-        maxHp = 530f;
-        currentHp = maxHp;
+        base.Start();
+
     }
 
     protected override void Die()

@@ -2,19 +2,20 @@ using UnityEngine;
 
 public class WoodGolem : EnemyBase
 {
+    private int stage;
+
+    protected override float GetMaxHp() => 19.0f;
+
     protected override void Start()
     {
-        base.Start();
 
         var dungeonManager = FindAnyObjectByType<GameController>().GetManager<DungeonManager>();
         var floorData = dungeonManager.Config.selectedFloorData;
 
         int stage = floorData.currentStage;
 
-        maxHp = 19f;
-        currentHp = maxHp;
+        base.Start();
 
-        GetComponent<SpriteRenderer>().color = Color.Lerp(Color.white, Color.red, stage / 10f);
     }
 
     protected override void Die()

@@ -2,19 +2,20 @@ using UnityEngine;
 
 public class Mushroom : EnemyBase
 {
+    private int stage;
+
+    protected override float GetMaxHp() => 38.0f;
+
     protected override void Start()
     {
-        base.Start();
 
         var dungeonManager = FindAnyObjectByType<GameController>().GetManager<DungeonManager>();
         var floorData = dungeonManager.Config.selectedFloorData;
 
         int stage = floorData.currentStage;
 
-        maxHp = 38f;
-        currentHp = maxHp;
+        base.Start();
 
-        GetComponent<SpriteRenderer>().color = Color.Lerp(Color.white, Color.red, stage / 10f);
     }
 
     protected override void Die()

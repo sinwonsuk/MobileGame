@@ -2,17 +2,20 @@ using UnityEngine;
 
 public class MandrakeBoss : EnemyBase
 {
+    private int stage;
+
+    protected override float GetMaxHp() => 1430.0f;
+
     protected override void Start()
     {
-        base.Start();
 
         var dungeonManager = FindAnyObjectByType<GameController>().GetManager<DungeonManager>();
         var floorData = dungeonManager.Config.selectedFloorData;
 
         int stage = floorData.currentStage;
 
-        maxHp = 1430f;
-        currentHp = maxHp;
+        base.Start();
+
     }
 
     protected override void Die()
