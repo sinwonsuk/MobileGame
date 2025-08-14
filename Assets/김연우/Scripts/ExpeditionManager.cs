@@ -82,6 +82,7 @@ public class ExpeditionManager : MonoBehaviour, IAutoSavable
         if (p.run.isRunning) return false;
 
         p.run.StartNowUtc(p.stat.durationHours);
+        p.run.isDirty = true;
         OnChanged?.Invoke(id);
 		return true;
     }

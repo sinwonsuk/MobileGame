@@ -12,7 +12,6 @@ public class RuntimeExpeditionSO : ScriptableObject
 
     [Header("상태")]
     public bool isRunning;
-    public bool rewardClaimed;
 
     [Header("UTC(ISO8601)")]
     public string departUtcIso;   // 출발
@@ -40,17 +39,18 @@ public class RuntimeExpeditionSO : ScriptableObject
     {
         var now = nowOverride ?? DateTime.UtcNow;
         isRunning     = true;
-        rewardClaimed = false;
         departUtcIso  = now.ToString("O");
         arriveUtcIso  = now.AddHours(Mathf.Max(0.01f, durationHours)).ToString("O");
+
+        isDirty = true;
     }
 
     public void Clear()
     {
         isRunning     = false;
-        rewardClaimed = false;
         departUtcIso  = null;
         arriveUtcIso  = null;
+        isDirty = true;
     }
 
     public static DateTime ParseUtc(string iso)

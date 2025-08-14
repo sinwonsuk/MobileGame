@@ -262,7 +262,7 @@ public class EmployeeManager : MonoBehaviour, IAutoSavable
                 param.Add("employeeName", emp.displayName);
                 param.Add("isOwned", false);
                 param.Add("isAssigned", false);
-                param.Add("assignedIndex", 0);
+                param.Add("assignedIndex", -1);
 
                 bool done = false;
                 BackendReturnObject insertBro = null;
