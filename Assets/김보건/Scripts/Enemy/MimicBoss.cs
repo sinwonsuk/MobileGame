@@ -11,7 +11,7 @@ public class MimicBoss : EnemyBase
 
         int stage = floorData.currentStage;
 
-        maxHp = 100f;
+        maxHp = 270f;
         currentHp = maxHp;
     }
 

@@ -11,7 +11,7 @@ public class GreenDragonBoss : EnemyBase
 
         int stage = floorData.currentStage;
 
-        maxHp = 100f;
+        maxHp = 2000f;
         currentHp = maxHp;
     }
 

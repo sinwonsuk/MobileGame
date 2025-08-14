@@ -3,7 +3,6 @@ using UnityEngine;
 
 public class EnemyBase : MonoBehaviour
 {
-    [Header("°øÅë ½ºÅÈ")]
     public double maxHp;
     protected double currentHp;
 

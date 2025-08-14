@@ -11,7 +11,7 @@ public class octopus : EnemyBase
 
         int stage = floorData.currentStage;
 
-        maxHp = 10f + stage * 0f;
+        maxHp = 10f;
         currentHp = maxHp;
 
         GetComponent<SpriteRenderer>().color = Color.Lerp(Color.white, Color.red, stage / 10f);
@@ -23,37 +23,6 @@ public class octopus : EnemyBase
         Debug.Log("문어 사망");
         base.Die();
 
-        //var dungeonManager = FindAnyObjectByType<GameController>().GetManager<DungeonManager>();
-        //var floorData = dungeonManager.Config.selectedFloorData;
-
-        //Debug.Log($"[Slime] autoNextFloor 값 확인: {floorData.autoNextFloor}");
-
-        //if (floorData.currentStage < 3)
-        //{
-        //    floorData.NextStage();
-        //    // 문어 재소환
-        //    Object.FindFirstObjectByType<MonsterSpawner>().SpawnNextStage();
-        //}
-        //else
-        //{
-        //    Debug.Log("스테이지 1-10 클리어!");
-
-        //    if (floorData.autoNextFloor)
-        //    {
-        //        // 다음 층으로 이동
-        //        floorData.selectedFloor++;
-        //        floorData.ResetStage();
-
-        //        dungeonManager.LoadMap();
-        //    }
-        //    else
-        //    {
-        //        // 다시 1-1부터 반복
-        //        floorData.ResetStage();
-        //    }
-
-        //    Object.FindFirstObjectByType<MonsterSpawner>().SpawnNextStage();
-        //}
         var spawner = Object.FindFirstObjectByType<MonsterSpawner>();
         //spawner?.MonsterKilled();
 
@@ -65,13 +34,4 @@ public class octopus : EnemyBase
         base.OnDeathAnimationEnd();
     }
 
-    //private IEnumerator DelayNextFloor(DungeonManager dungeonManager, SelectedFloorData floorData)
-    //{
-    //    yield return new WaitForSeconds(3f);
-
-    //    floorData.selectedFloor++;
-    //    floorData.ResetStage();
-    //    dungeonManager.LoadMap();
-
-    //}
 }
