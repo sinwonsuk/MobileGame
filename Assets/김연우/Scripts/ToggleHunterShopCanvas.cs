@@ -9,6 +9,7 @@ public class ToggleHunterShopCanvas : MonoBehaviour
         // 인벤토리가 열리면 무조건 꺼지도록
         EventBus<ToggleRestaurantShopEvent>.OnEvent += OnToggleRestaurantShop;
         EventBus<ToggleInventoryEvent>.OnEvent += OnInventoryOpened;
+        EventBus<CloseHunterShopEvent>.OnEvent += OnCloseRequested;
     }
 
     private void Start()
@@ -22,6 +23,7 @@ public class ToggleHunterShopCanvas : MonoBehaviour
         EventBus<ToggleRestaurantShopEvent>.OnEvent -= OnToggleRestaurantShop;
         // 인벤토리가 열리면 무조건 꺼지도록
         EventBus<ToggleInventoryEvent>.OnEvent -= OnInventoryOpened;
+        EventBus<CloseHunterShopEvent>.OnEvent -= OnCloseRequested;
     }
 
     private void OnToggleHunterShop(ToggleHunterShopEvent evt)
@@ -34,6 +36,11 @@ public class ToggleHunterShopCanvas : MonoBehaviour
             gameObject.SetActive(false);
     }
     private void OnInventoryOpened(ToggleInventoryEvent evt)
+    {
+        if (gameObject.activeSelf)
+            gameObject.SetActive(false);
+    }
+    private void OnCloseRequested(CloseHunterShopEvent evt)
     {
         if (gameObject.activeSelf)
             gameObject.SetActive(false);

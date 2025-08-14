@@ -15,16 +15,19 @@ public class StaffShopButton : MonoBehaviour
     public TextMeshProUGUI levelText;
 
     [Header("스폰(레스토랑만 사용)")]
-    public StaffType staffType;          // Restaurant / Hunter ...
-    public Transform spawnPoint;         // MapPoint 하위(옵션)
-    public string num1;                  // "first" / "second"
+    public StaffType staffType;         
+    public Transform spawnPoint;        
+    public string num1;             
+
+    [Header("자동 배치(선택)")]
+
+    public int autoAssignIndex = -1;
 
     // 내부 상태
     private StaffBase _spawned;
     private int _price;
     private bool _listenerBound;
 
-    // --- 중복 업그레이드 가드 ---
     private static readonly HashSet<RuntimeStaffStatsSO> UpgradeLock = new();
     private int _lastUpgradeFrame = -1;
 
@@ -74,8 +77,8 @@ public class StaffShopButton : MonoBehaviour
 
     private void OnClick()
     {
-        SoundManager.GetInstance().SfxPlay(SoundManager.sfx.Click, false); // ← 추가
-        BackendGameData.Instance.userData.reputation += 1;
+        SoundManager.GetInstance().SfxPlay(SoundManager.sfx.Click, false);
+
         // 같은 프레임 중복 클릭 차단
         if (_lastUpgradeFrame == Time.frameCount) return;
         _lastUpgradeFrame = Time.frameCount;
@@ -102,28 +105,48 @@ public class StaffShopButton : MonoBehaviour
             // 실제 차감
             Spend(_price);
 
-            // 레벨 갱신(항상 +1)
             int prev = runtimeData.level;
-            if (prev == 0)
+
+            if (prev == 0) // ★ 첫 구매
             {
                 runtimeData.level = 1;
                 runtimeData.isOwned = true;
+                runtimeData.isDirty = true;           
 
+                // 레스토랑(경영) 직원은 구매=배치 동시 처리
                 if (staffType == StaffType.restaurant)
-                    SafeSpawn();
+                {
+                    // 우선 EmployeeManager 통해 확정 인덱스로 배치 시도
+                    int targetIndex = ResolveAssignIndex();
+
+                    if (EmployeeManager.Instance != null && targetIndex >= 0)
+                    {
+                        // 매니저 유틸로 배치(내부에서 isAssigned/assignedIndex/isDirty 처리)
+                        EmployeeManager.Instance.TryPlaceAtIndex(runtimeData, staffData, targetIndex);
+                    }
+                    else
+                    {
+                        // 매니저 없거나 인덱스 계산 실패 → 로컬 스폰 + 데이터표시
+                        SafeSpawn();
+                        // assigned/assignedIndex만 세팅 (DB 저장되도록 더티 유지)
+                        runtimeData.isAssigned = true;
+                        runtimeData.assignedIndex = targetIndex;
+                        runtimeData.isDirty = true;     // ← 배치 더티
+                    }
+                }
             }
-            else
+            else // ★ 업그레이드
             {
+                runtimeData.level += 1;
                 runtimeData.isOwned = true;
+                runtimeData.isDirty = true;   
 
                 if (_spawned != null && staffType == StaffType.restaurant)
                     _spawned.LevelUp();
             }
 
             // 외부 UI 갱신 통지(있으면)
-            if (EmployeeManager.Instance != null)
-                EmployeeManager.Instance.NotifyStaffChanged();
-
+            EmployeeManager.Instance?.NotifyStaffChanged();
             RefreshUI();
         }
         finally
@@ -132,9 +155,20 @@ public class StaffShopButton : MonoBehaviour
         }
     }
 
+    private int ResolveAssignIndex()
+    {
+        // 우선 고정 인덱스가 지정돼 있으면 그대로 사용
+        if (autoAssignIndex >= 0) return autoAssignIndex;
+
+        // spawnPoint가 MapPoint의 자식이면 siblingIndex로 계산
+        if (spawnPoint != null && spawnPoint.parent != null)
+            return spawnPoint.GetSiblingIndex();
+
+        return -1;
+    }
+
     private bool CanAfford(int amount)
     {
-        // 프로젝트 기준으로 소지금 확인
         int current = BackendGameData.Instance.userData.gold;
         return current >= amount;
     }
@@ -143,6 +177,7 @@ public class StaffShopButton : MonoBehaviour
     {
         // 실제 차감 (MoneyManager.UseMoney를 이벤트로 호출)
         EventBus<MoneyChangeMusHandler>.Raise(new MoneyChangeMusHandler(amount));
+        BackendGameData.Instance.userData.reputation += 1;
     }
 
     private void SafeSpawn()
@@ -158,15 +193,17 @@ public class StaffShopButton : MonoBehaviour
             return;
         }
 
-        var go = Instantiate(staffData.itemPrefab, spawnPoint.position, spawnPoint.rotation);
+        // 같은 포인트에 기존 자식 정리(겹침 방지)
+        for (int i = spawnPoint.childCount - 1; i >= 0; i--)
+            Destroy(spawnPoint.GetChild(i).gameObject);
 
+        var go = Instantiate(staffData.itemPrefab, spawnPoint.position, spawnPoint.rotation, spawnPoint);
         _spawned = go.GetComponent<StaffBase>();
         if (_spawned == null)
         {
             Debug.LogError("[StaffShopButton] itemPrefab에 StaffBase가 없습니다.", go);
             return;
         }
-
         _spawned.Init(staffData, runtimeData);
     }
 }
