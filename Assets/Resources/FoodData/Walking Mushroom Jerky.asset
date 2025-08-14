@@ -17,7 +17,7 @@ MonoBehaviour:
   foodSprite: mushroomJerky
   price: 364
   reputation: 0
-  Getreputation: 0
+  Getreputation: 1
   isUnlock: 0
   cookingTime: 32.3
   Level: 1
@@ -37,7 +37,7 @@ MonoBehaviour:
     - indate: 2025-07-16T02:27:45.379Z
       name: "\uBC84\uC12F \uAC13"
       quantity: 1
-    cost: 0
+    cost: 70
   - indate: 2025-07-27T05:59:31.060Z
     foodIndate: 2025-07-16T02:27:35.954Z
     step: 2
@@ -49,7 +49,7 @@ MonoBehaviour:
     - indate: 2025-07-16T02:27:45.379Z
       name: "\uBC84\uC12F \uAC13"
       quantity: 2
-    cost: 0
+    cost: 100
   - indate: 2025-07-27T05:59:31.260Z
     foodIndate: 2025-07-16T02:27:35.954Z
     step: 3
@@ -61,7 +61,7 @@ MonoBehaviour:
     - indate: 2025-07-16T02:27:45.379Z
       name: "\uBC84\uC12F \uAC13"
       quantity: 4
-    cost: 0
+    cost: 140
   - indate: 2025-07-27T05:59:31.463Z
     foodIndate: 2025-07-16T02:27:35.954Z
     step: 4
@@ -73,7 +73,7 @@ MonoBehaviour:
     - indate: 2025-07-16T02:27:45.379Z
       name: "\uBC84\uC12F \uAC13"
       quantity: 7
-    cost: 0
+    cost: 200
   - indate: 2025-07-27T05:59:31.686Z
     foodIndate: 2025-07-16T02:27:35.954Z
     step: 5
@@ -85,7 +85,7 @@ MonoBehaviour:
     - indate: 2025-07-16T02:27:45.379Z
       name: "\uBC84\uC12F \uAC13"
       quantity: 11
-    cost: 0
+    cost: 280
   - indate: 2025-07-27T05:59:31.898Z
     foodIndate: 2025-07-16T02:27:35.954Z
     step: 6
@@ -97,7 +97,7 @@ MonoBehaviour:
     - indate: 2025-07-16T02:27:45.379Z
       name: "\uBC84\uC12F \uAC13"
       quantity: 16
-    cost: 0
+    cost: 390
   - indate: 2025-07-27T05:59:32.105Z
     foodIndate: 2025-07-16T02:27:35.954Z
     step: 7
@@ -109,7 +109,7 @@ MonoBehaviour:
     - indate: 2025-07-16T02:27:45.379Z
       name: "\uBC84\uC12F \uAC13"
       quantity: 22
-    cost: 0
+    cost: 520
   - indate: 2025-07-27T05:59:32.335Z
     foodIndate: 2025-07-16T02:27:35.954Z
     step: 8
@@ -121,7 +121,7 @@ MonoBehaviour:
     - indate: 2025-07-16T02:27:45.379Z
       name: "\uBC84\uC12F \uAC13"
       quantity: 29
-    cost: 0
+    cost: 690
   - indate: 2025-07-27T05:59:32.566Z
     foodIndate: 2025-07-16T02:27:35.954Z
     step: 9
@@ -133,4 +133,4 @@ MonoBehaviour:
     - indate: 2025-07-16T02:27:45.379Z
       name: "\uBC84\uC12F \uAC13"
       quantity: 37
-    cost: 0
+    cost: 900

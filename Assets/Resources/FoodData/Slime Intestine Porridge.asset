@@ -17,7 +17,7 @@ MonoBehaviour:
   foodSprite: porridge
   price: 154
   reputation: 0
-  Getreputation: 3
+  Getreputation: 1
   isUnlock: 0
   cookingTime: 14.6
   Level: 1
@@ -37,7 +37,7 @@ MonoBehaviour:
     - indate: 2025-07-16T02:27:44.299Z
       name: "\uC2AC\uB77C\uC784 \uB0B4\uC7A5"
       quantity: 1
-    cost: 0
+    cost: 35
   - indate: 2025-07-27T05:59:23.010Z
     foodIndate: 2025-07-16T02:27:35.647Z
     step: 2
@@ -49,7 +49,7 @@ MonoBehaviour:
     - indate: 2025-07-16T02:27:44.299Z
       name: "\uC2AC\uB77C\uC784 \uB0B4\uC7A5"
       quantity: 2
-    cost: 0
+    cost: 55
   - indate: 2025-07-27T05:59:23.258Z
     foodIndate: 2025-07-16T02:27:35.647Z
     step: 3
@@ -61,7 +61,7 @@ MonoBehaviour:
     - indate: 2025-07-16T02:27:44.299Z
       name: "\uC2AC\uB77C\uC784 \uB0B4\uC7A5"
       quantity: 4
-    cost: 0
+    cost: 80
   - indate: 2025-07-27T05:59:23.478Z
     foodIndate: 2025-07-16T02:27:35.647Z
     step: 4
@@ -73,7 +73,7 @@ MonoBehaviour:
     - indate: 2025-07-16T02:27:44.299Z
       name: "\uC2AC\uB77C\uC784 \uB0B4\uC7A5"
       quantity: 7
-    cost: 0
+    cost: 120
   - indate: 2025-07-27T05:59:23.800Z
     foodIndate: 2025-07-16T02:27:35.647Z
     step: 5
@@ -85,7 +85,7 @@ MonoBehaviour:
     - indate: 2025-07-16T02:27:44.299Z
       name: "\uC2AC\uB77C\uC784 \uB0B4\uC7A5"
       quantity: 11
-    cost: 0
+    cost: 170
   - indate: 2025-07-27T05:59:24.019Z
     foodIndate: 2025-07-16T02:27:35.647Z
     step: 6
@@ -97,7 +97,7 @@ MonoBehaviour:
     - indate: 2025-07-16T02:27:44.299Z
       name: "\uC2AC\uB77C\uC784 \uB0B4\uC7A5"
       quantity: 16
-    cost: 0
+    cost: 240
   - indate: 2025-07-27T05:59:24.216Z
     foodIndate: 2025-07-16T02:27:35.647Z
     step: 7
@@ -109,7 +109,7 @@ MonoBehaviour:
     - indate: 2025-07-16T02:27:44.299Z
       name: "\uC2AC\uB77C\uC784 \uB0B4\uC7A5"
       quantity: 22
-    cost: 0
+    cost: 320
   - indate: 2025-07-27T05:59:24.420Z
     foodIndate: 2025-07-16T02:27:35.647Z
     step: 8
@@ -121,7 +121,7 @@ MonoBehaviour:
     - indate: 2025-07-16T02:27:44.299Z
       name: "\uC2AC\uB77C\uC784 \uB0B4\uC7A5"
       quantity: 29
-    cost: 0
+    cost: 440
   - indate: 2025-07-27T05:59:24.620Z
     foodIndate: 2025-07-16T02:27:35.647Z
     step: 9
@@ -133,4 +133,4 @@ MonoBehaviour:
     - indate: 2025-07-16T02:27:44.299Z
       name: "\uC2AC\uB77C\uC784 \uB0B4\uC7A5"
       quantity: 37
-    cost: 0
+    cost: 590

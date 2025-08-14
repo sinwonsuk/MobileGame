@@ -107,7 +107,7 @@ public class FoodManager : baseManager, IGameManager
         {
             for (int j = 0; j < foodData.Ingredients.Count; j++)
             {
-                if (foodData.Ingredients[j].ingredientName == foodAmountHandler.ingredientName)
+                if (foodData.Ingredients[j].indate == foodAmountHandler.ingredientName)
                 {
                     InventoryManager.Instance.DecreaseQty(foodData.Ingredients[j].indate, foodAmountHandler.Setquantity);
                     return;

@@ -1,71 +1,43 @@
+using BackEnd;
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
-public class InteriorManager : MonoBehaviour
+public class InteriorManager : MonoBehaviour, IAutoSavable
 {
-    public static InteriorManager Instance { get; private set; }
-
-    [Header("Config: 모든 인테리어 데이터")]
-    public InteriorData[] allInteriors;
-    [Header("Runtime: 인테리어 상태 데이터")]
-    public RunTimeInteriorData[] allRunTimeInteriors;
-
-    public List<InteriorSlot> slots = new List<InteriorSlot>();
-    public event Action OnInteriorChanged;
-
     private void Awake()
     {
-         /*PlayerPrefs.DeleteAll();
-        PlayerPrefs.Save();*/
         if (Instance == null) Instance = this;
         else { Destroy(gameObject); return; }
 
         DontDestroyOnLoad(gameObject);
 
-        // 슬롯 초기화
+        // 슬롯 초기화: SO 쌍을 그대로 연결
+        slots.Clear();
         for (int i = 0; i < allInteriors.Length; i++)
         {
             slots.Add(new InteriorSlot(allInteriors[i], allRunTimeInteriors[i]));
+            // 런타임 인스턴스는 항상 시작 시 null에서 출발
+            allRunTimeInteriors[i].instance = null;
         }
 
-        LoadInteriorStates();
+        // SO의 isUsed 상태를 기준으로 설치 복원
+        RefreshInstalledInteriors();
     }
 
-    // 상태 저장
-    public void SaveInteriorStates()
-    {
-        foreach (var slot in slots)
-        {
-            string key = slot.data.interiorName;
-            PlayerPrefs.SetInt(key + "_isOwned", slot.runtimeData.isOwned ? 1 : 0);
-            PlayerPrefs.SetInt(key + "_isUsed", slot.runtimeData.isUsed ? 1 : 0);
-        }
-        PlayerPrefs.Save();
-    }
-
-    // 상태 불러오기
-    public void LoadInteriorStates()
-    {
-        foreach (var slot in slots)
-        {
-            string key = slot.data.interiorName;
-            slot.runtimeData.isOwned = PlayerPrefs.GetInt(key + "_isOwned", slot.runtimeData.isOwned ? 1 : 0) == 1;
-            slot.runtimeData.isUsed = PlayerPrefs.GetInt(key + "_isUsed", slot.runtimeData.isUsed ? 1 : 0) == 1;
-        }
-    }
-
-    // 인테리어 획득(구매)
     public void AcquireInterior(string name)
     {
         var slot = slots.Find(s => s.data.interiorName == name);
         if (slot == null) return;
+
         slot.runtimeData.isOwned = true;
-        SaveInteriorStates();
-        OnInteriorChanged?.Invoke();
+		slot.runtimeData.isDirty = true;
+		OnInteriorChanged?.Invoke();
     }
 
-    // 설치/해제 토글 (instance==null 기준!)
+
     public void UseInterior(string name)
     {
         var slot = slots.Find(s => s.data.interiorName == name);
@@ -77,64 +49,262 @@ public class InteriorManager : MonoBehaviour
             Vector3 pos = slot.data.placementPosition;
             var go = Instantiate(slot.data.prefab, pos, Quaternion.identity);
 
-            // PiggyBank 등 SO 연결 및 누적금 복원!
-            var piggyBank = go.GetComponent<PiggyBank>();
-            if (piggyBank != null)
-            {
-                piggyBank.runtimeData = slot.runtimeData;
-                piggyBank.RestoreAccumulated();
-            }
 
             slot.runtimeData.instance = go;
             slot.runtimeData.isUsed = true;
-        }
+			slot.runtimeData.isDirty = true;
+		}
         else
         {
+            // 해제
             if (slot.runtimeData.instance != null)
             {
-                // PiggyBank면 누적금도 리셋
-                var piggyBank = slot.runtimeData.instance.GetComponent<PiggyBank>();
-                if (piggyBank != null)
-                    piggyBank.ResetPiggyBank();
-
                 Destroy(slot.runtimeData.instance);
             }
             slot.runtimeData.instance = null;
             slot.runtimeData.isUsed = false;
-        }
+			slot.runtimeData.isDirty = true;
+		}
 
-        SaveInteriorStates();
         OnInteriorChanged?.Invoke();
     }
 
-    /// <summary>
-    /// 로그인/서버 동기화 후 호출! isUsed==true인 인테리어 자동 설치
-    /// </summary>
     public void RefreshInstalledInteriors()
     {
         foreach (var slot in slots)
         {
-            // 기존 인스턴스 있으면 제거 (중복 방지)
+            // 중복 인스턴스 제거
             if (slot.runtimeData.instance != null)
             {
                 Destroy(slot.runtimeData.instance);
                 slot.runtimeData.instance = null;
             }
 
-            // isUsed==true면 설치
-            if (slot.runtimeData.isUsed)
+            if (slot.runtimeData.isOwned && slot.runtimeData.isUsed)
             {
                 Vector3 pos = slot.data.placementPosition;
                 var go = Instantiate(slot.data.prefab, pos, Quaternion.identity);
-                var piggyBank = go.GetComponent<PiggyBank>();
-                if (piggyBank != null)
-                {
-                    piggyBank.runtimeData = slot.runtimeData;
-                    piggyBank.RestoreAccumulated();
-                }
+
+
+
                 slot.runtimeData.instance = go;
             }
         }
+
         OnInteriorChanged?.Invoke();
     }
+
+	//다은
+	public IEnumerator InsertFurnitureIfNotExists(string ownerIndate)
+	{
+		string offset = "";
+		bool isEnd = false;
+		HashSet<string> existingIndates = new HashSet<string>();
+
+		while (!isEnd)
+		{
+			bool isDone = false;
+			BackendReturnObject bro = null;
+
+			var where = new Where();
+			where.Equal("owner_inDate", ownerIndate);
+
+			Backend.GameData.Get("FURNITURE_PLAYER", where, 100, offset, callback =>
+			{
+				bro = callback;
+				isDone = true;
+			});
+
+			yield return new WaitUntil(() => isDone);
+
+			if (!bro.IsSuccess())
+			{
+				Debug.LogError("[InsertFurnitureIfNotExists] 조회 실패: " + bro.GetMessage());
+				yield break;
+			}
+
+			var rows = bro.FlattenRows();
+			foreach (var rowObj in rows)
+			{
+				var row = rowObj as LitJson.JsonData;
+				if (row == null) continue;
+
+				existingIndates.Add(row["furnitureIndate"].ToString());
+			}
+
+
+			var json = LitJson.JsonMapper.ToObject(bro.GetReturnValue());
+			offset = json.ContainsKey("offset") ? json["offset"].ToString() : null;
+			isEnd = string.IsNullOrEmpty(offset);
+		}
+
+		foreach (var emp in allRunTimeInteriors)
+		{
+			if (!existingIndates.Contains(emp.indate))
+			{
+				Param param = new Param();
+				param.Add("furnitureIndate", emp.indate);
+				param.Add("interiorName", emp.interiorName);
+				param.Add("isOwned", false);
+				param.Add("isUsed", false);
+
+				bool done = false;
+				BackendReturnObject insertBro = null;
+
+				Backend.GameData.Insert("FURNITURE_PLAYER", param, callback =>
+				{
+					insertBro = callback;
+					done = true;
+				});
+
+				yield return new WaitUntil(() => done);
+
+				if (insertBro.IsSuccess())
+				{
+					Debug.Log($"[가구 Insert 성공] {emp.indate}");
+					emp.isDirty = true;
+				}
+				else
+				{
+					Debug.LogError($"[가구 Insert 실패] {emp.indate} : {insertBro.GetMessage()}");
+				}
+			}
+		}
+	}
+
+	public IEnumerator LoadFurnitureData(string ownerIndate)
+	{
+		string firstKey = null;
+		bool isEnd = false;
+
+		while (!isEnd)
+		{
+			bool isDone = false;
+			BackendReturnObject bro = null;
+
+			var where = new Where();
+			where.Equal("owner_inDate", ownerIndate);
+
+			if (string.IsNullOrEmpty(firstKey))
+			{
+				Backend.GameData.Get("FURNITURE_PLAYER", where, 100, callback =>
+				{
+					bro = callback;
+					isDone = true;
+				});
+			}
+			else
+			{
+				Backend.GameData.Get("FURNITURE_PLAYER", where, 100, firstKey, callback =>
+				{
+					bro = callback;
+					isDone = true;
+				});
+			}
+
+			yield return new WaitUntil(() => isDone);
+
+			if (!bro.IsSuccess())
+			{
+				Debug.LogError("[LoadFurnitureData] 실패: " + bro.GetMessage());
+				yield break;
+			}
+
+			var rows = bro.FlattenRows();
+			foreach (var rowObj in rows)
+			{
+				var row = rowObj as LitJson.JsonData;
+				if (row == null) continue;
+
+				string empIndate = row["furnitureIndate"].ToString();
+				bool isOwned = bool.Parse(row["isOwned"].ToString());
+				bool isUsed = bool.Parse(row["isUsed"].ToString());
+
+				var emp = allRunTimeInteriors.FirstOrDefault(e => e.indate == empIndate);
+				if (emp != null)
+				{
+					emp.isDirty = false;
+					emp.isOwned = isOwned;
+					emp.isUsed = isUsed;
+				}
+			}
+
+			try
+			{
+				var json = LitJson.JsonMapper.ToObject(bro.GetReturnValue());
+				if (json.ContainsKey("firstKey") && json["firstKey"] != null)
+				{
+					firstKey = json["firstKey"]["inDate"]["S"].ToString();
+				}
+				else
+				{
+					isEnd = true;
+				}
+			}
+			catch (Exception e)
+			{
+				Debug.LogWarning($"[LoadFurnitureData] firstKey 파싱 실패 -> 종료 처리: {e.Message}");
+				isEnd = true;
+			}
+		}
+
+		FurnitureDataLoaded = true;
+		AutoSaveManager.Instance?.RegisterAutoSavable(this);
+	}
+
+
+	public void AutoSave()
+	{
+		if (!FurnitureDataLoaded)
+		{
+			Debug.LogWarning("[AutoSave 차단] 가구 데이터 로딩 안 됨");
+			return;
+		}
+
+		SaveFurnitureData();
+	}
+
+	public void SaveFurnitureData()
+	{
+		string ownerIndate = Backend.UserInDate;
+
+		foreach (var emp in allRunTimeInteriors)
+		{
+			if (!emp.isDirty) continue;
+
+			Where where = new Where();
+			where.Equal("owner_inDate", ownerIndate);
+			where.Equal("furnitureIndate", emp.indate);
+
+			Param param = new Param();
+			param.Add("isOwned", emp.isOwned);
+			param.Add("isUsed", emp.isUsed);
+
+			Backend.GameData.Update("FURNITURE_PLAYER", where, param, bro =>
+			{
+				if (bro.IsSuccess())
+					Debug.Log("가구 저장 완료 : " + bro);
+				else
+					Debug.LogError("게임 정보 수정 실패 : " + bro);
+			});
+			emp.isDirty = false;
+		}
+
+		Debug.Log("[FurnitureManager] 변경된 가구 데이터 저장 완료");
+	}
+
+
+	public static InteriorManager Instance { get; private set; }
+
+	[Header("Config: 모든 인테리어 데이터")]
+	public InteriorData[] allInteriors;
+
+	[Header("Runtime: 인테리어 상태 데이터 (SO가 진실)")]
+	public RunTimeInteriorData[] allRunTimeInteriors;
+
+	public List<InteriorSlot> slots = new List<InteriorSlot>();
+	public event Action OnInteriorChanged;
+
+	private bool FurnitureDataLoaded = false;
+
 }

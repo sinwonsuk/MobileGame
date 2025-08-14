@@ -17,7 +17,7 @@ MonoBehaviour:
   foodSprite: mimicBBQPlate
   price: 461
   reputation: 0
-  Getreputation: 0
+  Getreputation: 1
   isUnlock: 0
   cookingTime: 40.5
   Level: 1
@@ -37,7 +37,7 @@ MonoBehaviour:
     - indate: 2025-07-16T02:27:45.068Z
       name: "\uBBF8\uBBF9 \uC0B4\uC810"
       quantity: 2
-    cost: 0
+    cost: 60
   - indate: 2025-07-27T05:59:16.241Z
     foodIndate: 2025-07-16T02:27:36.268Z
     step: 2
@@ -49,7 +49,7 @@ MonoBehaviour:
     - indate: 2025-07-16T02:27:45.068Z
       name: "\uBBF8\uBBF9 \uC0B4\uC810"
       quantity: 3
-    cost: 0
+    cost: 90
   - indate: 2025-07-27T05:59:16.378Z
     foodIndate: 2025-07-16T02:27:36.268Z
     step: 3
@@ -61,7 +61,7 @@ MonoBehaviour:
     - indate: 2025-07-16T02:27:45.068Z
       name: "\uBBF8\uBBF9 \uC0B4\uC810"
       quantity: 5
-    cost: 0
+    cost: 130
   - indate: 2025-07-27T05:59:16.528Z
     foodIndate: 2025-07-16T02:27:36.268Z
     step: 4
@@ -73,7 +73,7 @@ MonoBehaviour:
     - indate: 2025-07-16T02:27:45.068Z
       name: "\uBBF8\uBBF9 \uC0B4\uC810"
       quantity: 8
-    cost: 0
+    cost: 190
   - indate: 2025-07-27T05:59:16.672Z
     foodIndate: 2025-07-16T02:27:36.268Z
     step: 5
@@ -85,7 +85,7 @@ MonoBehaviour:
     - indate: 2025-07-16T02:27:45.068Z
       name: "\uBBF8\uBBF9 \uC0B4\uC810"
       quantity: 12
-    cost: 0
+    cost: 270
   - indate: 2025-07-27T05:59:16.827Z
     foodIndate: 2025-07-16T02:27:36.268Z
     step: 6
@@ -97,7 +97,7 @@ MonoBehaviour:
     - indate: 2025-07-16T02:27:45.068Z
       name: "\uBBF8\uBBF9 \uC0B4\uC810"
       quantity: 18
-    cost: 0
+    cost: 370
   - indate: 2025-07-27T05:59:17.010Z
     foodIndate: 2025-07-16T02:27:36.268Z
     step: 7
@@ -109,7 +109,7 @@ MonoBehaviour:
     - indate: 2025-07-16T02:27:45.068Z
       name: "\uBBF8\uBBF9 \uC0B4\uC810"
       quantity: 19
-    cost: 0
+    cost: 500
   - indate: 2025-07-27T05:59:17.153Z
     foodIndate: 2025-07-16T02:27:36.268Z
     step: 8
@@ -121,7 +121,7 @@ MonoBehaviour:
     - indate: 2025-07-16T02:27:45.068Z
       name: "\uBBF8\uBBF9 \uC0B4\uC810"
       quantity: 32
-    cost: 0
+    cost: 670
   - indate: 2025-07-27T05:59:17.312Z
     foodIndate: 2025-07-16T02:27:36.268Z
     step: 9
@@ -133,4 +133,4 @@ MonoBehaviour:
     - indate: 2025-07-16T02:27:45.068Z
       name: "\uBBF8\uBBF9 \uC0B4\uC810"
       quantity: 40
-    cost: 0
+    cost: 880

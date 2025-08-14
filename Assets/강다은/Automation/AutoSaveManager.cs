@@ -29,13 +29,17 @@ public class AutoSaveManager : MonoBehaviour
 
 	public void AutoSaveAll()
 	{
+
 		if (SceneManager.GetActiveScene().name != "SampleScene")
 		{
 			Debug.Log($"[자동 저장 중단] 현재 씬에서는 자동 저장 안 함: {SceneManager.GetActiveScene().name}");
+			ClearAll();
 			return;
 		}
 
 		Debug.Log("자동 저장 시도");
+
+
 
 		foreach (var savable in autoSavables)
 		{
@@ -55,6 +59,13 @@ public class AutoSaveManager : MonoBehaviour
 		}
 	}
 
+	public void ClearAll()
+	{
+		lastSaveTimes.Clear();
+		autoSavables.Clear();
+	}
+
+
 	private void Start()
 	{
 		InvokeRepeating(nameof(AutoSaveAll), 10f, 30f);
@@ -66,4 +77,5 @@ public class AutoSaveManager : MonoBehaviour
 	private List<IAutoSavable> autoSavables = new();
 
 	private const float saveInterval = 20f;
+
 }

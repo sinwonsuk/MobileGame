@@ -63,8 +63,6 @@ public class EnhanceFoodUIManager: baseManager,IGameManager
             GameObject obj = GameObject.Instantiate(conFig.EnhanceFoodManagerUi[i]);
 
             EnhanceFoodManagerUi.Add(obj);
-
-            GameObject.DontDestroyOnLoad(obj);
         }     
     }
 

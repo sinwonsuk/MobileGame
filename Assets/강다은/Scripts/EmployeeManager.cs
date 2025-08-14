@@ -8,31 +8,6 @@ using UnityEngine.SceneManagement;
 
 public class EmployeeManager : MonoBehaviour, IAutoSavable
 {
-    public static EmployeeManager Instance { get; private set; }
-
-    [Header("Config: 전체 직원 데이터")]
-    public StaffStatsSO[] allEmployees;
-
-    [Header("Config: 전체 런타임 직원 데이터")]
-    public RuntimeStaffStatsSO[] allRunTimeEmployees;
-
-    [Header("화살표 프리팹")]
-    public GameObject arrowPrefab;
-
-    [Header("슬롯 리스트")]
-    public List<EmployeeSlot> slots = new List<EmployeeSlot>();
-
-    // 위치 포인트를 동적으로 관리
-    public List<Transform> dynamicPlacementPoints = new List<Transform>();
-
-    // 현재 배치 중인 직원
-    private EmployeeSlot currentPlacingSlot = null;
-    // 생성된 화살표 목록
-    private List<GameObject> activeArrows = new List<GameObject>();
-
-    private bool employeeDataLoaded = false;
-    public event Action OnStaffChanged;
-    public void NotifyStaffChanged() => OnStaffChanged?.Invoke();
     private void Awake()
     {
         if (Instance == null)
@@ -52,186 +27,171 @@ public class EmployeeManager : MonoBehaviour, IAutoSavable
     }
 
 
-    public void RegisterPlacementPoint(Transform point)
-    {
-        if (!dynamicPlacementPoints.Contains(point))
-            dynamicPlacementPoints.Add(point);
-        Debug.Log($"{point.name} 등록됨, 현재 개수: {dynamicPlacementPoints.Count}");
-    }
+	public void RegisterPlacementPoint(Transform point)
+	{
+		if (!dynamicPlacementPoints.Contains(point))
+			dynamicPlacementPoints.Add(point);
+		Debug.Log($"{point.name} 등록됨, 현재 개수: {dynamicPlacementPoints.Count}");
+	}
 
-    // 위치 전체 초기화 (씬 전환 등)
-    public void ClearPlacementPoints()
-    {
-        dynamicPlacementPoints.Clear();
-    }
+	// 위치 전체 초기화
+	public void ClearPlacementPoints()
+	{
+		dynamicPlacementPoints.Clear();
+	}
 
-    // 직원 배치 시작
-    public void StartPlacement(EmployeeSlot slot)
-    {
-        ClearArrows();
-        currentPlacingSlot = slot;
+	// 직원 배치 시작
+	public void StartPlacement(EmployeeSlot slot)
+	{
+		ClearArrows();
+		currentPlacingSlot = slot;
 
-        for (int i = 0; i < dynamicPlacementPoints.Count; i++)
-        {
-            var arrow = Instantiate(arrowPrefab, dynamicPlacementPoints[i].position, Quaternion.identity, dynamicPlacementPoints[i]);
-            var arrowClicker = arrow.GetComponent<ArrowClicker>();
-            if (arrowClicker != null)
-                arrowClicker.SetIndex(i);
-            activeArrows.Add(arrow);
-        }
-    }
-    public void ReleaseEmployee(EmployeeSlot slot)
-    {
-        if (!slot.IsAssigned) return;
-        int idx = slot.runtimeData.assignedIndex;
-        if (idx >= 0 && idx < dynamicPlacementPoints.Count)
-        {
-            Transform point = dynamicPlacementPoints[idx];
-            foreach (Transform child in point)
-            {
-                Destroy(child.gameObject);
-            }
-        }
-        // 반드시 배치정보 리셋!
-        slot.runtimeData.isAssigned = false;
-        slot.runtimeData.assignedIndex = -1;
-        slot.runtimeData.isDirty = true;
+		for (int i = 0; i < dynamicPlacementPoints.Count; i++)
+		{
+			var arrow = Instantiate(arrowPrefab, dynamicPlacementPoints[i].position, Quaternion.identity, dynamicPlacementPoints[i]);
+			var arrowClicker = arrow.GetComponent<ArrowClicker>();
+			if (arrowClicker != null)
+				arrowClicker.SetIndex(i);
+			activeArrows.Add(arrow);
+		}
+	}
 
-        SavePlacementState();
-        FindAnyObjectByType<EmployeeInventoryUI>()?.RefreshUI();
-    }
+	public void ReleaseEmployee(EmployeeSlot slot)
+	{
+		if (!slot.IsAssigned) return;
+		int idx = slot.runtimeData.assignedIndex;
+		if (idx >= 0 && idx < dynamicPlacementPoints.Count)
+		{
+			Transform point = dynamicPlacementPoints[idx];
+			foreach (Transform child in point)
+				Destroy(child.gameObject);
+		}
 
-    // 직원 실제 배치
-    public void PlaceEmployee(int index)
-    {
-        if (currentPlacingSlot == null) return;
+		// 반드시 배치정보 리셋
+		slot.runtimeData.isAssigned = false;
+		slot.runtimeData.assignedIndex = -1;
+		slot.runtimeData.isDirty = true;
 
-        // 1. 기존에 이 위치에 배치된 직원 해제 (데이터만)
-        foreach (var slot in slots)
-        {
-            if (slot.runtimeData.isAssigned && slot.runtimeData.assignedIndex == index)
-            {
-                slot.runtimeData.isAssigned = false;
-                slot.runtimeData.assignedIndex = -1;
-                slot.runtimeData.isDirty = true;
-            }
-        }
+		FindAnyObjectByType<EmployeeInventoryUI>()?.RefreshUI();
+	}
 
-        //  2. 해당 위치에 있는 프리팹 모두 삭제
-        Transform point = dynamicPlacementPoints[index];
-        foreach (Transform child in point)
-        {
-            Destroy(child.gameObject);
-        }
+	// 직원 실제 배치
+	public void PlaceEmployee(int index)
+	{
+		if (currentPlacingSlot == null) return;
 
-        //  3. 새로운 직원 프리팹 배치
-        var staffPrefab = currentPlacingSlot.staffData.itemPrefab;
-        if (staffPrefab == null)
-        {
-            Debug.LogError("직원 프리팹이 연결되지 않았음!");
-            return;
-        }
-        GameObject staffObj = Instantiate(staffPrefab, point.position, Quaternion.identity, point);
-        staffObj.name = staffPrefab.name;
+		//기존에 이 위치에 배치된 직원 해제 (데이터만)
+		foreach (var slot in slots)
+		{
+			if (slot.runtimeData.isAssigned && slot.runtimeData.assignedIndex == index)
+			{
+				slot.runtimeData.isAssigned = false;
+				slot.runtimeData.assignedIndex = -1;
+				slot.runtimeData.isDirty = true;
+			}
+		}
 
-        // 반드시 Init 호출!
-        var staffBase = staffObj.GetComponent<StaffBase>();
-        if (staffBase != null)
-            staffBase.Init(currentPlacingSlot.staffData, currentPlacingSlot.runtimeData);
+		// 해당 위치에 있는 프리팹 모두 삭제
+		Transform point = dynamicPlacementPoints[index];
+		foreach (Transform child in point)
+			Destroy(child.gameObject);
 
-        //  4. 새로운 직원의 데이터 업데이트
-        currentPlacingSlot.runtimeData.isAssigned = true;
-        currentPlacingSlot.runtimeData.assignedIndex = index;
-        currentPlacingSlot.runtimeData.isDirty = true;
+		// 새로운 직원 프리팹 배치
+		var staffPrefab = currentPlacingSlot.staffData.itemPrefab;
+		if (staffPrefab == null)
+		{
+			Debug.LogError("직원 프리팹이 연결되지 않았음!");
+			return;
+		}
+		GameObject staffObj = Instantiate(staffPrefab, point.position, Quaternion.identity, point);
+		staffObj.name = staffPrefab.name;
 
-        SavePlacementState();
-        ClearArrows();
-        FindAnyObjectByType<EmployeeInventoryUI>()?.RefreshUI();
-    }
-    public void SyncEmployeeStatesByLevel()
-    {
-        foreach (var slot in slots)
-        {
-            if (slot.runtimeData.level <= 0)
-            {
-                slot.runtimeData.isOwned = false;
-                slot.runtimeData.isAssigned = false;
-                slot.runtimeData.assignedIndex = -1;
-            }
-            if (!slot.runtimeData.isOwned)
-            {
-                slot.runtimeData.isAssigned = false;
-                slot.runtimeData.assignedIndex = -1;
-            }
-        }
-    }
+		// 반드시 Init 호출
+		var staffBase = staffObj.GetComponent<StaffBase>();
+		if (staffBase != null)
+			staffBase.Init(currentPlacingSlot.staffData, currentPlacingSlot.runtimeData);
 
-    public void SavePlacementState()
-    {
-        foreach (var slot in slots)
-        {
-            PlayerPrefs.SetInt($"emp_{slot.staffData.indate}_assigned", slot.runtimeData.isAssigned ? 1 : 0);
-            PlayerPrefs.SetInt($"emp_{slot.staffData.indate}_idx", slot.runtimeData.assignedIndex);
-        }
-        PlayerPrefs.Save();
-    }
-    public void LoadPlacementState()
-    {
-        for (int i = 0; i < slots.Count; i++)
-        {
-            var slot = slots[i];
-            bool isAssigned = PlayerPrefs.GetInt($"emp_{slot.staffData.indate}_assigned", 0) == 1;
-            int idx = PlayerPrefs.GetInt($"emp_{slot.staffData.indate}_idx", -1);
+		// 새로운 직원의 데이터 업데이트
+		currentPlacingSlot.runtimeData.isAssigned = true;
+		currentPlacingSlot.runtimeData.assignedIndex = index;
+		currentPlacingSlot.runtimeData.isDirty = true;
 
-            slot.runtimeData.isAssigned = isAssigned;
-            slot.runtimeData.assignedIndex = idx;
+		ClearArrows();
+		FindAnyObjectByType<EmployeeInventoryUI>()?.RefreshUI();
+	}
 
-            // 프리팹 삭제
-            if (idx >= 0 && idx < dynamicPlacementPoints.Count)
-            {
-                Transform point = dynamicPlacementPoints[idx];
-                foreach (Transform child in point)
-                    Destroy(child.gameObject);
-            }
+	//public void SyncEmployeeStatesByLevel()
+	//{
+	//	foreach (var slot in slots)
+	//	{
+	//		if (slot.runtimeData.level <= 0)
+	//		{
+	//			slot.runtimeData.isOwned = false;
+	//			slot.runtimeData.isAssigned = false;
+	//			slot.runtimeData.assignedIndex = -1;
+	//		}
+	//		if (!slot.runtimeData.isOwned)
+	//		{
+	//			slot.runtimeData.isAssigned = false;
+	//			slot.runtimeData.assignedIndex = -1;
+	//		}
+	//	}
+	//}
 
-            // 조건 만족시만 스폰 (level>0 필수!)
-            if (isAssigned && idx >= 0 && idx < dynamicPlacementPoints.Count && slot.runtimeData.level > 0)
-            {
-                var staffPrefab = slot.staffData.itemPrefab;
-                if (staffPrefab == null) continue;
+	public void LoadPlacementState()
+	{
+		for (int i = 0; i < slots.Count; i++)
+		{
+			var slot = slots[i];
+			bool isAssigned = slot.runtimeData.isAssigned;
+			int idx = slot.runtimeData.assignedIndex;
 
-                Transform point = dynamicPlacementPoints[idx];
-                GameObject staffObj = Instantiate(staffPrefab, point.position, Quaternion.identity, point);
-                staffObj.name = staffPrefab.name;
+			// 먼저 해당 위치의 프리팹 삭제(중복 방지)
+			if (idx >= 0 && idx < dynamicPlacementPoints.Count)
+			{
+				Transform point = dynamicPlacementPoints[idx];
+				foreach (Transform child in point)
+					Destroy(child.gameObject);
+			}
 
-                var staffBase = staffObj.GetComponent<StaffBase>();
-                if (staffBase != null)
-                    staffBase.Init(slot.staffData, slot.runtimeData);
-            }
-            else
-            {
-                slot.runtimeData.isAssigned = false;
-                slot.runtimeData.assignedIndex = -1;
-            }
-        }
-    }
+			// 조건 만족 시 스폰 (level > 0 필수!)
+			if (isAssigned && idx >= 0 && idx < dynamicPlacementPoints.Count && slot.runtimeData.level > 0)
+			{
+				var staffPrefab = slot.staffData.itemPrefab;
+				if (staffPrefab == null) continue;
 
-    // 화살표 오브젝트 제거
-    private void ClearArrows()
-    {
-        foreach (var go in activeArrows) Destroy(go);
-        activeArrows.Clear();
-        currentPlacingSlot = null;
-    }
-    private IEnumerator DelayedPlacementRestore()
-    {
-        yield return null; // 배치 포인트 오브젝트가 다 등록될 때까지 한 프레임 대기
-        SyncEmployeeStatesByLevel();
+				Transform point = dynamicPlacementPoints[idx];
+				GameObject staffObj = Instantiate(staffPrefab, point.position, Quaternion.identity, point);
+				staffObj.name = staffPrefab.name;
 
-        LoadPlacementState();
-    }
-    // 씬 변경 시 포인트 초기화
-    private void OnEnable()
+				var staffBase = staffObj.GetComponent<StaffBase>();
+				if (staffBase != null)
+					staffBase.Init(slot.staffData, slot.runtimeData);
+			}
+			else
+			{
+				slot.runtimeData.isAssigned = false;
+				slot.runtimeData.assignedIndex = -1;
+			}
+		}
+	}
+
+	// 화살표 오브젝트 제거
+	private void ClearArrows()
+	{
+		foreach (var go in activeArrows) Destroy(go);
+		activeArrows.Clear();
+		currentPlacingSlot = null;
+	}
+
+	private IEnumerator DelayedPlacementRestore()
+	{
+		yield return null;
+		//SyncEmployeeStatesByLevel();
+		LoadPlacementState();
+	}
+	// 씬 변경 시 포인트 초기화
+	private void OnEnable()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
@@ -247,6 +207,8 @@ public class EmployeeManager : MonoBehaviour, IAutoSavable
             StartCoroutine(DelayedPlacementRestore());
         }
     }
+
+    //다은
     public IEnumerator InsertEmployeesIfNotExists(string ownerIndate)
     {
         string offset = "";
@@ -296,8 +258,11 @@ public class EmployeeManager : MonoBehaviour, IAutoSavable
             {
                 Param param = new Param();
                 param.Add("employeeIndate", emp.indate);
-                param.Add("employeeCustomLevel", "0");
+                param.Add("employeeCustomLevel", 0);
                 param.Add("employeeName", emp.displayName);
+                param.Add("isOwned", false);
+                param.Add("isAssigned", false);
+                param.Add("assignedIndex", 0);
 
                 bool done = false;
                 BackendReturnObject insertBro = null;
@@ -370,13 +335,21 @@ public class EmployeeManager : MonoBehaviour, IAutoSavable
 
                 string empIndate = row["employeeIndate"].ToString();
                 int level = int.Parse(row["employeeCustomLevel"].ToString());
+                string displayName = row["employeeName"].ToString();
+                bool isOwned = bool.Parse(row["isOwned"].ToString());
+                bool isAssigned = bool.Parse(row["isAssigned"].ToString());
+                int assignedIndex = int.Parse(row["assignedIndex"].ToString());
 
-                var emp = allRunTimeEmployees.FirstOrDefault(e => e.indate == empIndate);
+				var emp = allRunTimeEmployees.FirstOrDefault(e => e.indate == empIndate);
                 if (emp != null)
                 {
                     emp.level = level;
                     emp.isDirty = false;
-                }
+                    emp.displayName = displayName;
+                    emp.isOwned = isOwned;
+                    emp.isAssigned = isAssigned;
+                    emp.assignedIndex = assignedIndex;
+				}
             }
 
             try
@@ -429,8 +402,17 @@ public class EmployeeManager : MonoBehaviour, IAutoSavable
             Param param = new Param();
             param.Add("employeeCustomLevel", emp.level);
             param.Add("employeeName", emp.displayName);
+            param.Add("isOwned", emp.isOwned);
+            param.Add("isAssigned", emp.isAssigned);
+            param.Add("assignedIndex", emp.assignedIndex);
 
-            Backend.GameData.Update("EMPLOYEE_PLAYER", where, param);
+			Backend.GameData.Update("EMPLOYEE_PLAYER", where, param, bro =>
+            {
+				if (bro.IsSuccess())
+					Debug.Log("직원 저장 완료 : " + bro);
+				else
+					Debug.LogError("게임 정보 수정 실패 : " + bro);
+			});
             emp.isDirty = false;
         }
 
@@ -453,5 +435,31 @@ public class EmployeeManager : MonoBehaviour, IAutoSavable
         }
     }
 
+
+	public static EmployeeManager Instance { get; private set; }
+
+	[Header("Config: 전체 직원 데이터")]
+	public StaffStatsSO[] allEmployees;
+
+	[Header("Config: 전체 런타임 직원 데이터")]
+	public RuntimeStaffStatsSO[] allRunTimeEmployees;
+
+	[Header("화살표 프리팹")]
+	public GameObject arrowPrefab;
+
+	[Header("슬롯 리스트")]
+	public List<EmployeeSlot> slots = new List<EmployeeSlot>();
+
+	// 위치 포인트를 동적으로 관리
+	public List<Transform> dynamicPlacementPoints = new List<Transform>();
+
+	// 현재 배치 중인 직원
+	private EmployeeSlot currentPlacingSlot = null;
+	// 생성된 화살표 목록
+	private List<GameObject> activeArrows = new List<GameObject>();
+
+	private bool employeeDataLoaded = false;
+	public event Action OnStaffChanged;
+	public void NotifyStaffChanged() => OnStaffChanged?.Invoke();
 }
 

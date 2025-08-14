@@ -342,6 +342,10 @@ public class LoginUI : MonoBehaviour
 		yield return StartCoroutine(EmployeeManager.Instance.InsertEmployeesIfNotExists(ownerIndate));
 		yield return StartCoroutine(EmployeeManager.Instance.LoadEmployeeData(ownerIndate));
 
+		// 가구 데이터 삽입
+		yield return StartCoroutine(InteriorManager.Instance.InsertFurnitureIfNotExists(ownerIndate));
+		yield return StartCoroutine(InteriorManager.Instance.LoadFurnitureData(ownerIndate));
+
 		bool isDone = false;
 		BackendGameData.Instance.GameDataGetOrInsert(() =>
 		{

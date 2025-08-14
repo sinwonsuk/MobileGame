@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77fc1938deeabc04499ae6f193965fad, type: 3}
   m_Name: PlayerStatData
   m_EditorClassIdentifier: 
-  attackPower: 10
-  critChance: 0
+  attackPower: 44
+  critChance: 18.200027
   autoAttackInterval: 1
-  autoAttackDamage: 5
+  autoAttackDamage: 13
   critDamageMultiplier: 1.5

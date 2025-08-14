@@ -17,7 +17,7 @@ MonoBehaviour:
   foodSprite: beakManSoup
   price: 770
   reputation: 0
-  Getreputation: 0
+  Getreputation: 1
   isUnlock: 0
   cookingTime: 66.7
   Level: 1
@@ -37,7 +37,7 @@ MonoBehaviour:
     - indate: 2025-07-16T02:27:46.483Z
       name: "\uADF8\uB9AC\uD540 \uBD80\uB9AC"
       quantity: 2
-    cost: 0
+    cost: 150
   - indate: 2025-07-27T05:59:14.942Z
     foodIndate: 2025-07-16T02:27:37.129Z
     step: 2
@@ -49,7 +49,7 @@ MonoBehaviour:
     - indate: 2025-07-16T02:27:46.483Z
       name: "\uADF8\uB9AC\uD540 \uBD80\uB9AC"
       quantity: 3
-    cost: 0
+    cost: 220
   - indate: 2025-07-27T05:59:15.102Z
     foodIndate: 2025-07-16T02:27:37.129Z
     step: 3
@@ -61,7 +61,7 @@ MonoBehaviour:
     - indate: 2025-07-16T02:27:46.483Z
       name: "\uADF8\uB9AC\uD540 \uBD80\uB9AC"
       quantity: 5
-    cost: 0
+    cost: 310
   - indate: 2025-07-27T05:59:15.225Z
     foodIndate: 2025-07-16T02:27:37.129Z
     step: 4
@@ -73,7 +73,7 @@ MonoBehaviour:
     - indate: 2025-07-16T02:27:46.483Z
       name: "\uADF8\uB9AC\uD540 \uBD80\uB9AC"
       quantity: 8
-    cost: 0
+    cost: 430
   - indate: 2025-07-27T05:59:15.359Z
     foodIndate: 2025-07-16T02:27:37.129Z
     step: 5
@@ -85,7 +85,7 @@ MonoBehaviour:
     - indate: 2025-07-16T02:27:46.483Z
       name: "\uADF8\uB9AC\uD540 \uBD80\uB9AC"
       quantity: 12
-    cost: 0
+    cost: 590
   - indate: 2025-07-27T05:59:15.506Z
     foodIndate: 2025-07-16T02:27:37.129Z
     step: 6
@@ -97,7 +97,7 @@ MonoBehaviour:
     - indate: 2025-07-16T02:27:46.483Z
       name: "\uADF8\uB9AC\uD540 \uBD80\uB9AC"
       quantity: 18
-    cost: 0
+    cost: 780
   - indate: 2025-07-27T05:59:15.650Z
     foodIndate: 2025-07-16T02:27:37.129Z
     step: 7
@@ -109,7 +109,7 @@ MonoBehaviour:
     - indate: 2025-07-16T02:27:46.483Z
       name: "\uADF8\uB9AC\uD540 \uBD80\uB9AC"
       quantity: 19
-    cost: 0
+    cost: 1030
   - indate: 2025-07-27T05:59:15.802Z
     foodIndate: 2025-07-16T02:27:37.129Z
     step: 8
@@ -121,7 +121,7 @@ MonoBehaviour:
     - indate: 2025-07-16T02:27:46.483Z
       name: "\uADF8\uB9AC\uD540 \uBD80\uB9AC"
       quantity: 32
-    cost: 0
+    cost: 1330
   - indate: 2025-07-27T05:59:15.947Z
     foodIndate: 2025-07-16T02:27:37.129Z
     step: 9
@@ -133,4 +133,4 @@ MonoBehaviour:
     - indate: 2025-07-16T02:27:46.483Z
       name: "\uADF8\uB9AC\uD540 \uBD80\uB9AC"
       quantity: 40
-    cost: 0
+    cost: 1720

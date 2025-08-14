@@ -20,7 +20,7 @@ MonoBehaviour:
   Getreputation: 1
   isUnlock: 0
   cookingTime: 10
-  Level: 1
+  Level: 5
   FoodManual: 
   Ingredients:
   - {fileID: 11400000, guid: eb82d363345dc90489082680109b4e2b, type: 2}
@@ -37,7 +37,7 @@ MonoBehaviour:
     - indate: 2025-07-16T02:27:43.737Z
       name: "\uBB38\uC5B4 \uBA39\uBB3C"
       quantity: 2
-    cost: 0
+    cost: 35
   - indate: 2025-07-27T05:59:18.878Z
     foodIndate: 2025-07-16T02:27:35.109Z
     step: 2
@@ -49,7 +49,7 @@ MonoBehaviour:
     - indate: 2025-07-16T02:27:43.737Z
       name: "\uBB38\uC5B4 \uBA39\uBB3C"
       quantity: 3
-    cost: 0
+    cost: 50
   - indate: 2025-07-27T05:59:19.021Z
     foodIndate: 2025-07-16T02:27:35.109Z
     step: 3
@@ -61,7 +61,7 @@ MonoBehaviour:
     - indate: 2025-07-16T02:27:43.737Z
       name: "\uBB38\uC5B4 \uBA39\uBB3C"
       quantity: 5
-    cost: 0
+    cost: 75
   - indate: 2025-07-27T05:59:19.162Z
     foodIndate: 2025-07-16T02:27:35.109Z
     step: 4
@@ -73,7 +73,7 @@ MonoBehaviour:
     - indate: 2025-07-16T02:27:43.737Z
       name: "\uBB38\uC5B4 \uBA39\uBB3C"
       quantity: 7
-    cost: 0
+    cost: 110
   - indate: 2025-07-27T05:59:19.291Z
     foodIndate: 2025-07-16T02:27:35.109Z
     step: 5
@@ -85,7 +85,7 @@ MonoBehaviour:
     - indate: 2025-07-16T02:27:43.737Z
       name: "\uBB38\uC5B4 \uBA39\uBB3C"
       quantity: 10
-    cost: 0
+    cost: 160
   - indate: 2025-07-27T05:59:19.440Z
     foodIndate: 2025-07-16T02:27:35.109Z
     step: 6
@@ -97,7 +97,7 @@ MonoBehaviour:
     - indate: 2025-07-16T02:27:43.737Z
       name: "\uBB38\uC5B4 \uBA39\uBB3C"
       quantity: 14
-    cost: 0
+    cost: 220
   - indate: 2025-07-27T05:59:19.584Z
     foodIndate: 2025-07-16T02:27:35.109Z
     step: 7
@@ -109,7 +109,7 @@ MonoBehaviour:
     - indate: 2025-07-16T02:27:43.737Z
       name: "\uBB38\uC5B4 \uBA39\uBB3C"
       quantity: 19
-    cost: 0
+    cost: 300
   - indate: 2025-07-27T05:59:19.745Z
     foodIndate: 2025-07-16T02:27:35.109Z
     step: 8
@@ -121,7 +121,7 @@ MonoBehaviour:
     - indate: 2025-07-16T02:27:43.737Z
       name: "\uBB38\uC5B4 \uBA39\uBB3C"
       quantity: 25
-    cost: 0
+    cost: 410
   - indate: 2025-07-27T05:59:19.879Z
     foodIndate: 2025-07-16T02:27:35.109Z
     step: 9
@@ -133,4 +133,4 @@ MonoBehaviour:
     - indate: 2025-07-16T02:27:43.737Z
       name: "\uBB38\uC5B4 \uBA39\uBB3C"
       quantity: 32
-    cost: 0
+    cost: 550

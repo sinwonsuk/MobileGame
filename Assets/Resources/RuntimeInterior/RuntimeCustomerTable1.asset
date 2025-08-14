@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59a0796213c63ab4e9eb6c9ccefbad5b, type: 3}
   m_Name: RuntimeCustomerTable1
   m_EditorClassIdentifier: 
+  indate: 2025-08-14T10:56:29.368Z
   interiorName: CustomerTable1
   isOwned: 0
   isUsed: 0

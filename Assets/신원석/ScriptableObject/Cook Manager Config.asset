@@ -28,6 +28,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 752cdc7a023b39248b885e00dbd22893, type: 2}
   - {fileID: 11400000, guid: bbf376bbdd4121a4cb17e6df15f79f99, type: 2}
   - {fileID: 11400000, guid: 9ea3ff9731222034f86f8570275f767f, type: 2}
+  - {fileID: 11400000, guid: c4d77d0c30e5b8045912f3cc349e41a7, type: 2}
   <gameObjects>k__BackingField:
   - {fileID: 3528039801818962556, guid: ccee58d7e4e8c0d41b46b2fb263170bb, type: 3}
   - {fileID: 1441955359893212408, guid: 2afcbfda3f376ac4cac39beea5fc8e36, type: 3}
