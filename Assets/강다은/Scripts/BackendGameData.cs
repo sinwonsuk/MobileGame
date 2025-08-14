@@ -282,8 +282,6 @@ public class BackendGameData : MonoBehaviour, IAutoSavable
         param.Add("gold", userData.gold);
         param.Add("friends", userData.friends);
 
-		BackendReturnObject bro = null;
-
         if (string.IsNullOrEmpty(gameDataRowInDate))
         {
             Debug.Log("제일 최신 게임 정보 데이터 수정을 요청합니다.");

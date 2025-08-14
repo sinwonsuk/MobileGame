@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 388f811015666644087876976c3692a1, type: 3}
   m_Name: PiggyBank
   m_EditorClassIdentifier: 
+  indate: 2025-08-14T10:56:30.160Z
   interiorName: PiggyBank
   icon: {fileID: 21300000, guid: 3578b6a502f07be42a6abe7ba4c011e6, type: 3}
   prefab: {fileID: 5548599777386569634, guid: 9626ad0c8a61417458af5c6c8b526187, type: 3}
