@@ -103,7 +103,7 @@ public class Customer : MonoBehaviour
 
                     if (Vector2.Distance(transform.position, storeEntrancePosition) < 0.01f)
                     {
-                        SoundManager.GetInstance().SfxPlay(SoundManager.sfx.Foot, true, 1.0f);
+                        SoundManager.GetInstance().SfxPlay(SoundManager.sfx.Foot, true);
                         ChangeState(CustomerState.Move);
                         
                         return;

@@ -31,6 +31,7 @@ public class DungeonSelectUI : MonoBehaviour
 
         selectedFloorData.autoNextFloor = autoNextToggle.GetIsOn();
         EventBus<ButtonisActiveHandler>.Raise(new ButtonisActiveHandler(false));
+        SoundManager.GetInstance().All_Sfx_Stop();
 
         dungeonManager.Init();
 

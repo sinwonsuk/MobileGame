@@ -5,8 +5,8 @@ public class SettingCanvasOnOff : BaseButton
 	// Start is called once before the first execution of Update after the MonoBehaviour is created
 	void Start()
 	{
-		EventBus<ButtonHandler>.OnEvent += ManagementButtonisActive;
-		EventBus<ButtonisActiveHandler>.OnEvent += ManagementButtonisActive;
+		//EventBus<ButtonHandler>.OnEvent += ManagementButtonisActive;
+		//EventBus<ButtonisActiveHandler>.OnEvent += ManagementButtonisActive;
 	}
 
 	// Update is called once per frame
@@ -32,15 +32,15 @@ public class SettingCanvasOnOff : BaseButton
 		//}
 	}
 
-	public void ManagementButtonisActive(ButtonHandler buttonHandler)
-	{
-		isActive = buttonHandler.isActive;
-	}
+	//public void ManagementButtonisActive(ButtonHandler buttonHandler)
+	//{
+	//	isActive = buttonHandler.isActive;
+	//}
 
-	public void ManagementButtonisActive(ButtonisActiveHandler buttonHandler)
-	{
-		gameObject.SetActive(buttonHandler.isActive);
-	}
+	//public void ManagementButtonisActive(ButtonisActiveHandler buttonHandler)
+	//{
+	//	gameObject.SetActive(buttonHandler.isActive);
+	//}
 
 	public override void OnClick()
 	{
