@@ -16,8 +16,14 @@ public class InteriorManager : MonoBehaviour
 
     private void Awake()
     {
-         /*PlayerPrefs.DeleteAll();
-        PlayerPrefs.Save();*/
+        PlayerPrefs.DeleteAll();
+        foreach (var runtime in allRunTimeInteriors)
+        {
+            runtime.isOwned = false;
+            runtime.isUsed = false;
+        }
+        
+       PlayerPrefs.Save();
         if (Instance == null) Instance = this;
         else { Destroy(gameObject); return; }
 
