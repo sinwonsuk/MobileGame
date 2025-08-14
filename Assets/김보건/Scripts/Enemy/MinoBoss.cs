@@ -11,7 +11,7 @@ public class MinoBoss : EnemyBase
 
         int stage = floorData.currentStage;
 
-        maxHp = 100f;
+        maxHp = 740f;
         currentHp = maxHp;
     }
 

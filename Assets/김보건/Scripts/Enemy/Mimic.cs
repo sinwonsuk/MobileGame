@@ -11,7 +11,7 @@ public class Mimic : EnemyBase
 
         int stage = floorData.currentStage;
 
-        maxHp = 10f + stage * 0f;
+        maxHp = 27f;
         currentHp = maxHp;
 
         GetComponent<SpriteRenderer>().color = Color.Lerp(Color.white, Color.red, stage / 10f);

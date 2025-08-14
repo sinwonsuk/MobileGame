@@ -11,7 +11,7 @@ public class OrcBoss : EnemyBase
 
         int stage = floorData.currentStage;
 
-        maxHp = 100f;
+        maxHp = 530f;
         currentHp = maxHp;
     }
 

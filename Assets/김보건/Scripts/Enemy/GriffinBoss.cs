@@ -11,7 +11,7 @@ public class GriffinBoss : EnemyBase
 
         int stage = floorData.currentStage;
 
-        maxHp = 100f;
+        maxHp = 1030f;
         currentHp = maxHp;
     }
 

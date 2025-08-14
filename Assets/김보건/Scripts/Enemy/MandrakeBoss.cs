@@ -11,7 +11,7 @@ public class MandrakeBoss : EnemyBase
 
         int stage = floorData.currentStage;
 
-        maxHp = 100f;
+        maxHp = 1430f;
         currentHp = maxHp;
     }
 

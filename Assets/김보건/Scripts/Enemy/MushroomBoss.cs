@@ -11,7 +11,7 @@ public class MushroomBoss : EnemyBase
 
         int stage = floorData.currentStage;
 
-        maxHp = 100f;
+        maxHp = 380f;
         currentHp = maxHp;
     }
 

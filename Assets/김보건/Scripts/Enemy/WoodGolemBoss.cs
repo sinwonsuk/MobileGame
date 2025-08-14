@@ -11,7 +11,7 @@ public class WoodGolemBoss : EnemyBase
 
         int stage = floorData.currentStage;
 
-        maxHp = 100f;
+        maxHp = 190f;
         currentHp = maxHp;
     }
 

@@ -11,7 +11,7 @@ public class SlimeBoss : EnemyBase
 
         int stage = floorData.currentStage;
 
-        maxHp = 100f;
+        maxHp = 140f;
         currentHp = maxHp;
     }
 
