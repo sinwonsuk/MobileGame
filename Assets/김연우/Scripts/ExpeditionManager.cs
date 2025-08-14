@@ -80,7 +80,6 @@ public class ExpeditionManager : MonoBehaviour
         if (p.run.isRunning) return false;
 
         p.run.StartNowUtc(p.stat.durationHours);
-        p.run.rewardClaimed = false; 
         OnChanged?.Invoke(id);
         return true;
     }
@@ -107,7 +106,7 @@ public class ExpeditionManager : MonoBehaviour
 
             return true; 
         }
-        return !p.run.isRunning && !p.run.rewardClaimed && !string.IsNullOrEmpty(p.run.arriveUtcIso);
+        return !p.run.isRunning && !string.IsNullOrEmpty(p.run.arriveUtcIso);
     }
 
 
@@ -116,7 +115,7 @@ public class ExpeditionManager : MonoBehaviour
     {
         if (!pairs.TryGetValue(id, out var p)) return false;
 
-        if (p.run.isRunning || DateTime.UtcNow < p.run.ArriveUtc || p.run.rewardClaimed)
+        if (p.run.isRunning || DateTime.UtcNow < p.run.ArriveUtc)
             return false;
 
         if (p.stat.rewards != null)
@@ -128,7 +127,6 @@ public class ExpeditionManager : MonoBehaviour
             }
         }
 
-        p.run.rewardClaimed = true;
         p.run.Clear();
 
         OnChanged?.Invoke(id);
