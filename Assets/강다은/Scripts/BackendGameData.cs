@@ -121,7 +121,29 @@ public class BackendGameData : MonoBehaviour, IAutoSavable
 	
 	}
 
-    private void GameDataInsert(System.Action onSuccess = null)
+	public void Initialized()
+	{
+		if(userData != null)
+		{
+			userData = new UserData
+			{
+				nickname = Backend.UserNickName,
+				reputation = 1,
+				basicAtk = 3.5f,
+				bio = "친추는 언제나 환영입니다.",
+				gold = 0,
+				friends = new List<string>()
+			};
+
+			userData.TakeSnapshot();
+		}
+		else
+		{
+			Debug.LogWarning("userData가 null입니다. 초기화되지 않았습니다.");
+		}
+	}
+
+	private void GameDataInsert(System.Action onSuccess = null)
     {
         if (userData == null)
         {
