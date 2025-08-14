@@ -1,9 +1,11 @@
-using UnityEngine;
+using BackEnd;
 using System;
-using System.Linq;
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
 
-public class ExpeditionManager : MonoBehaviour
+public class ExpeditionManager : MonoBehaviour, IAutoSavable
 {
     public static ExpeditionManager Instance { get; private set; }
 
@@ -46,8 +48,8 @@ public class ExpeditionManager : MonoBehaviour
             .GroupBy(s => s.Indate).ToDictionary(g => g.Key, g => g.First());
 
         var runById = allRuntimeExpeditions
-            ?.Where(r => r != null && !string.IsNullOrEmpty(r.Indate))
-            .GroupBy(r => r.Indate).ToDictionary(g => g.Key, g => g.First());
+            ?.Where(r => r != null && !string.IsNullOrEmpty(r.indate))
+            .GroupBy(r => r.indate).ToDictionary(g => g.Key, g => g.First());
 
         if (statById == null || runById == null) return;
 
@@ -81,7 +83,7 @@ public class ExpeditionManager : MonoBehaviour
 
         p.run.StartNowUtc(p.stat.durationHours);
         OnChanged?.Invoke(id);
-        return true;
+		return true;
     }
 
 
@@ -149,5 +151,208 @@ public class ExpeditionManager : MonoBehaviour
         foreach (var kv in pairs) kv.Value.run.Clear();
     }
 
-    public IEnumerable<RuntimeExpeditionSO> EnumerateRuntime() => pairs.Values.Select(v => v.run);
+	public IEnumerator InsertExpeditionIfNotExists(string ownerIndate)
+	{
+		string offset = "";
+		bool isEnd = false;
+		HashSet<string> existingIndates = new HashSet<string>();
+
+		while (!isEnd)
+		{
+			bool isDone = false;
+			BackendReturnObject bro = null;
+
+			var where = new Where();
+			where.Equal("owner_inDate", ownerIndate);
+
+			Backend.GameData.Get("EXPEDITIONS_PLAYER", where, 100, offset, callback =>
+			{
+				bro = callback;
+				isDone = true;
+			});
+
+			yield return new WaitUntil(() => isDone);
+
+			if (!bro.IsSuccess())
+			{
+				Debug.LogError("[InsertExpeditionIfNotExists] 조회 실패: " + bro.GetMessage());
+				yield break;
+			}
+
+			var rows = bro.FlattenRows();
+			foreach (var rowObj in rows)
+			{
+				var row = rowObj as LitJson.JsonData;
+				if (row == null) continue;
+
+				existingIndates.Add(row["expenditionIndate"].ToString());
+			}
+
+
+			var json = LitJson.JsonMapper.ToObject(bro.GetReturnValue());
+			offset = json.ContainsKey("offset") ? json["offset"].ToString() : null;
+			isEnd = string.IsNullOrEmpty(offset);
+		}
+
+		foreach (var emp in allRuntimeExpeditions)
+		{
+			if (!existingIndates.Contains(emp.indate))
+			{
+				Param param = new Param();
+				param.Add("expenditionIndate", emp.indate);
+				param.Add("isRunning", false);
+				param.Add("departUtcIso", "default");
+				param.Add("arriveUtcIso", "default");
+
+				bool done = false;
+				BackendReturnObject insertBro = null;
+
+				Backend.GameData.Insert("EXPEDITIONS_PLAYER", param, callback =>
+				{
+					insertBro = callback;
+					done = true;
+				});
+
+				yield return new WaitUntil(() => done);
+
+				if (insertBro.IsSuccess())
+				{
+					Debug.Log($"[파견 Insert 성공] {emp.indate}");
+				}
+				else
+				{
+					Debug.LogError($"[파견 Insert 실패] {emp.indate} : {insertBro.GetMessage()}");
+				}
+			}
+		}
+	}
+
+
+	//다은
+	public IEnumerator LoadExpeditionData(string ownerIndate)
+	{
+		string firstKey = null;
+		bool isEnd = false;
+
+		while (!isEnd)
+		{
+			bool isDone = false;
+			BackendReturnObject bro = null;
+
+			var where = new Where();
+			where.Equal("owner_inDate", ownerIndate);
+
+			if (string.IsNullOrEmpty(firstKey))
+			{
+				Backend.GameData.Get("EXPEDITIONS_PLAYER", where, 100, callback =>
+				{
+					bro = callback;
+					isDone = true;
+				});
+			}
+			else
+			{
+				Backend.GameData.Get("EXPEDITIONS_PLAYER", where, 100, firstKey, callback =>
+				{
+					bro = callback;
+					isDone = true;
+				});
+			}
+
+			yield return new WaitUntil(() => isDone);
+
+			if (!bro.IsSuccess())
+			{
+				Debug.LogError("[LoadExeditionsData] 실패: " + bro.GetMessage());
+				yield break;
+			}
+
+			var rows = bro.FlattenRows();
+			foreach (var rowObj in rows)
+			{
+				var row = rowObj as LitJson.JsonData;
+				if (row == null) continue;
+
+				string empIndate = row["expenditionIndate"].ToString();
+				bool isRunning = row["isRunning"].ToString() == "True";
+				string departUtcIso = row["departUtcIso"].ToString();
+				string arriveUtcIso = row["arriveUtcIso"].ToString();
+
+				var emp = allRuntimeExpeditions.FirstOrDefault(e => e.indate == empIndate);
+				if (emp != null)
+				{
+					emp.indate = empIndate;
+					emp.isRunning = isRunning;
+					emp.departUtcIso = departUtcIso;
+					emp.arriveUtcIso = arriveUtcIso;
+				}
+			}
+
+			try
+			{
+				var json = LitJson.JsonMapper.ToObject(bro.GetReturnValue());
+				if (json.ContainsKey("firstKey") && json["firstKey"] != null)
+				{
+					firstKey = json["firstKey"]["inDate"]["S"].ToString();
+				}
+				else
+				{
+					isEnd = true;
+				}
+			}
+			catch (Exception e)
+			{
+				Debug.LogWarning($"[LoadEmployeeData] firstKey 파싱 실패 -> 종료 처리: {e.Message}");
+				isEnd = true;
+			}
+		}
+
+		employeeDataLoaded = true;
+		AutoSaveManager.Instance?.RegisterAutoSavable(this);
+	}
+
+
+	public void AutoSave()
+	{
+		if (!employeeDataLoaded)
+		{
+			Debug.LogWarning("[AutoSave 차단] 파견 데이터 로딩 안 됨");
+			return;
+		}
+
+		SaveExeditionData();
+	}
+
+	public void SaveExeditionData()
+	{
+		string ownerIndate = Backend.UserInDate;
+
+		foreach (var emp in allRuntimeExpeditions)
+		{
+			if (!emp.isDirty) continue;
+
+			Where where = new Where();
+			where.Equal("owner_inDate", ownerIndate);
+			where.Equal("expenditionIndate", emp.indate);
+
+			Param param = new Param();
+			param.Add("isRunning", emp.isRunning);
+			param.Add("departUtcIso", emp.departUtcIso);
+			param.Add("arriveUtcIso", emp.arriveUtcIso);
+
+			Backend.GameData.Update("EMPLOYEE_PLAYER", where, param, bro =>
+			{
+				if (bro.IsSuccess())
+					Debug.Log("직원 저장 완료 : " + bro);
+				else
+					Debug.LogError("게임 정보 수정 실패 : " + bro);
+			});
+			emp.isDirty = false;
+		}
+
+		Debug.Log("[ExpeditionManager] 변경된 파견 데이터 저장 완료");
+	}
+
+	private bool employeeDataLoaded = false;
+	public IEnumerable<RuntimeExpeditionSO> EnumerateRuntime() => pairs.Values.Select(v => v.run);
 }

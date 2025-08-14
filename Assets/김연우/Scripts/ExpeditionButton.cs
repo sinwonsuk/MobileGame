@@ -46,7 +46,7 @@ public class ExpeditionButton : MonoBehaviour
     private void OnMainBtnClicked()
     {
         if (ExpeditionManager.Instance == null || runtimeSO == null) return;
-        var id = runtimeSO.Indate;
+        var id = runtimeSO.indate;
         if (string.IsNullOrEmpty(id)) return;
 
         if (ExpeditionManager.Instance.CanStart(id))
@@ -62,7 +62,7 @@ public class ExpeditionButton : MonoBehaviour
 public void ConfirmClaim()
 {
     if (ExpeditionManager.Instance == null || runtimeSO == null) return;
-    var id = runtimeSO.Indate;
+    var id = runtimeSO.indate;
     if (string.IsNullOrEmpty(id)) return;
 
         ExpeditionManager.Instance.TryClaimReward(id);
@@ -72,7 +72,7 @@ public void ConfirmClaim()
     private void OnExpeditionChanged(string changedId)
     {
         if (runtimeSO == null) return;
-        if (changedId != runtimeSO.Indate) return;
+        if (changedId != runtimeSO.indate) return;
         RefreshUI();
     }
 
@@ -80,7 +80,7 @@ public void ConfirmClaim()
     {
         if (ExpeditionManager.Instance == null || runtimeSO == null) return;
 
-        var id = runtimeSO.Indate;
+        var id = runtimeSO.indate;
         if (string.IsNullOrEmpty(id))
         {
             if (mainBtn) mainBtn.interactable = false;
@@ -118,7 +118,7 @@ public void ConfirmClaim()
     private void RefreshTimer()
     {
         if (ExpeditionManager.Instance == null || runtimeSO == null) return;
-        var id = runtimeSO.Indate;
+        var id = runtimeSO.indate;
         if (string.IsNullOrEmpty(id)) return;
 
         var rem = ExpeditionManager.Instance.GetRemaining(id);  

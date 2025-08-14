@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 298b0c7582611ae4d84f8e6790a23262, type: 3}
   m_Name: Expedition_10
   m_EditorClassIdentifier: 
-  Indate: 10
+  Indate: 2025-08-14T19:30:01.898Z
   displayName: "\uADF8\uB9B0\uB4DC\uB798\uACE4\uD30C\uACAC"
   durationHours: 0.01
   rewards:

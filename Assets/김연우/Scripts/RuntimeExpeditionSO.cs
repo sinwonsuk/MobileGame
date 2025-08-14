@@ -8,7 +8,7 @@ public class RuntimeExpeditionSO : ScriptableObject
     public ExpeditionSO staticSO;
 
     [Header("매칭 키 (Static SO의 expeditionId와 동일)")]
-    public string Indate;
+    public string indate;
 
     [Header("상태")]
     public bool isRunning;
@@ -18,7 +18,10 @@ public class RuntimeExpeditionSO : ScriptableObject
     public string departUtcIso;   // 출발
     public string arriveUtcIso;   // 도착
 
-    public DateTime DepartUtc => ParseUtc(departUtcIso);
+	[NonSerialized]
+	public bool isDirty = false;
+
+	public DateTime DepartUtc => ParseUtc(departUtcIso);
     public DateTime ArriveUtc  => ParseUtc(arriveUtcIso);
 
     private void OnValidate()
@@ -30,7 +33,7 @@ public class RuntimeExpeditionSO : ScriptableObject
         if (staticSO == null) return;
         if (string.IsNullOrEmpty(staticSO.Indate)) return;
 
-        Indate = staticSO.Indate;
+        indate = staticSO.Indate;
     }
 
     public void StartNowUtc(float durationHours, DateTime? nowOverride = null)
