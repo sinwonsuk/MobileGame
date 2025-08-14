@@ -129,11 +129,11 @@ public class Customer : MonoBehaviour
 
                         if (genderType == GenderType.Girl)
                         {
-                            SoundManager.GetInstance().Sfx_Stop(SoundManager.sfx.GirlSound);
+                            SoundManager.GetInstance().SfxPlay(SoundManager.sfx.GirlSound,false);
                         }
                         else if (genderType == GenderType.Man)
                         {
-                            SoundManager.GetInstance().Sfx_Stop(SoundManager.sfx.ManSound);
+                            SoundManager.GetInstance().SfxPlay(SoundManager.sfx.ManSound,false);
                         }
 
                         ChangeState(CustomerState.Wait);

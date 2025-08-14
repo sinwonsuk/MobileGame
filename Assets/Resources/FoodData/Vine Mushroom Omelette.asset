@@ -41,7 +41,7 @@ MonoBehaviour:
     - indate: 2025-07-16T02:27:44.621Z
       name: "\uB369\uAD74 \uC904\uAE30"
       quantity: 1
-    cost: 0
+    cost: 70
   - indate: 2025-07-27T05:59:29.171Z
     foodIndate: 2025-07-16T02:27:35.795Z
     step: 2
@@ -56,7 +56,7 @@ MonoBehaviour:
     - indate: 2025-07-16T02:27:44.621Z
       name: "\uB369\uAD74 \uC904\uAE30"
       quantity: 2
-    cost: 0
+    cost: 100
   - indate: 2025-07-27T05:59:29.375Z
     foodIndate: 2025-07-16T02:27:35.795Z
     step: 3
@@ -71,7 +71,7 @@ MonoBehaviour:
     - indate: 2025-07-16T02:27:44.621Z
       name: "\uB369\uAD74 \uC904\uAE30"
       quantity: 4
-    cost: 0
+    cost: 140
   - indate: 2025-07-27T05:59:29.581Z
     foodIndate: 2025-07-16T02:27:35.795Z
     step: 4
@@ -86,7 +86,7 @@ MonoBehaviour:
     - indate: 2025-07-16T02:27:44.621Z
       name: "\uB369\uAD74 \uC904\uAE30"
       quantity: 7
-    cost: 0
+    cost: 200
   - indate: 2025-07-27T05:59:29.792Z
     foodIndate: 2025-07-16T02:27:35.795Z
     step: 5
@@ -101,7 +101,7 @@ MonoBehaviour:
     - indate: 2025-07-16T02:27:44.621Z
       name: "\uB369\uAD74 \uC904\uAE30"
       quantity: 11
-    cost: 0
+    cost: 280
   - indate: 2025-07-27T05:59:29.993Z
     foodIndate: 2025-07-16T02:27:35.795Z
     step: 6
@@ -116,7 +116,7 @@ MonoBehaviour:
     - indate: 2025-07-16T02:27:44.621Z
       name: "\uB369\uAD74 \uC904\uAE30"
       quantity: 16
-    cost: 0
+    cost: 390
   - indate: 2025-07-27T05:59:30.204Z
     foodIndate: 2025-07-16T02:27:35.795Z
     step: 7
@@ -131,7 +131,7 @@ MonoBehaviour:
     - indate: 2025-07-16T02:27:44.621Z
       name: "\uB369\uAD74 \uC904\uAE30"
       quantity: 22
-    cost: 0
+    cost: 520
   - indate: 2025-07-27T05:59:30.431Z
     foodIndate: 2025-07-16T02:27:35.795Z
     step: 8
@@ -146,7 +146,7 @@ MonoBehaviour:
     - indate: 2025-07-16T02:27:44.621Z
       name: "\uB369\uAD74 \uC904\uAE30"
       quantity: 29
-    cost: 0
+    cost: 690
   - indate: 2025-07-27T05:59:30.644Z
     foodIndate: 2025-07-16T02:27:35.795Z
     step: 9
@@ -161,4 +161,4 @@ MonoBehaviour:
     - indate: 2025-07-16T02:27:44.621Z
       name: "\uB369\uAD74 \uC904\uAE30"
       quantity: 37
-    cost: 0
+    cost: 900

@@ -16,14 +16,8 @@ public class InteriorManager : MonoBehaviour
 
     private void Awake()
     {
-        PlayerPrefs.DeleteAll();
-        foreach (var runtime in allRunTimeInteriors)
-        {
-            runtime.isOwned = false;
-            runtime.isUsed = false;
-        }
-        
-       PlayerPrefs.Save();
+         /*PlayerPrefs.DeleteAll();
+        PlayerPrefs.Save();*/
         if (Instance == null) Instance = this;
         else { Destroy(gameObject); return; }
 
@@ -65,6 +59,7 @@ public class InteriorManager : MonoBehaviour
     public void AcquireInterior(string name)
     {
         var slot = slots.Find(s => s.data.interiorName == name);
+
         if (slot == null) return;
         slot.runtimeData.isOwned = true;
         SaveInteriorStates();

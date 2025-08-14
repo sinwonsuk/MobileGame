@@ -41,7 +41,7 @@ MonoBehaviour:
     - indate: 2025-07-16T02:27:46.869Z
       name: "\uADF8\uB9AC\uD540 \uAC00\uC2B4\uC0B4"
       quantity: 2
-    cost: 0
+    cost: 130
   - indate: 2025-07-27T05:59:20.276Z
     foodIndate: 2025-07-16T02:27:37.318Z
     step: 2
@@ -56,7 +56,7 @@ MonoBehaviour:
     - indate: 2025-07-16T02:27:46.869Z
       name: "\uADF8\uB9AC\uD540 \uAC00\uC2B4\uC0B4"
       quantity: 4
-    cost: 0
+    cost: 190
   - indate: 2025-07-27T05:59:20.423Z
     foodIndate: 2025-07-16T02:27:37.318Z
     step: 3
@@ -71,7 +71,7 @@ MonoBehaviour:
     - indate: 2025-07-16T02:27:46.869Z
       name: "\uADF8\uB9AC\uD540 \uAC00\uC2B4\uC0B4"
       quantity: 7
-    cost: 0
+    cost: 260
   - indate: 2025-07-27T05:59:20.574Z
     foodIndate: 2025-07-16T02:27:37.318Z
     step: 4
@@ -86,7 +86,7 @@ MonoBehaviour:
     - indate: 2025-07-16T02:27:46.869Z
       name: "\uADF8\uB9AC\uD540 \uAC00\uC2B4\uC0B4"
       quantity: 9
-    cost: 0
+    cost: 360
   - indate: 2025-07-27T05:59:20.711Z
     foodIndate: 2025-07-16T02:27:37.318Z
     step: 5
@@ -101,7 +101,7 @@ MonoBehaviour:
     - indate: 2025-07-16T02:27:46.869Z
       name: "\uADF8\uB9AC\uD540 \uAC00\uC2B4\uC0B4"
       quantity: 15
-    cost: 0
+    cost: 500
   - indate: 2025-07-27T05:59:20.856Z
     foodIndate: 2025-07-16T02:27:37.318Z
     step: 6
@@ -116,7 +116,7 @@ MonoBehaviour:
     - indate: 2025-07-16T02:27:46.869Z
       name: "\uADF8\uB9AC\uD540 \uAC00\uC2B4\uC0B4"
       quantity: 22
-    cost: 0
+    cost: 670
   - indate: 2025-07-27T05:59:21.007Z
     foodIndate: 2025-07-16T02:27:37.318Z
     step: 7
@@ -131,7 +131,7 @@ MonoBehaviour:
     - indate: 2025-07-16T02:27:46.869Z
       name: "\uADF8\uB9AC\uD540 \uAC00\uC2B4\uC0B4"
       quantity: 27
-    cost: 0
+    cost: 890
   - indate: 2025-07-27T05:59:21.156Z
     foodIndate: 2025-07-16T02:27:37.318Z
     step: 8
@@ -146,7 +146,7 @@ MonoBehaviour:
     - indate: 2025-07-16T02:27:46.869Z
       name: "\uADF8\uB9AC\uD540 \uAC00\uC2B4\uC0B4"
       quantity: 35
-    cost: 0
+    cost: 1150
   - indate: 2025-07-27T05:59:21.317Z
     foodIndate: 2025-07-16T02:27:37.318Z
     step: 9
@@ -161,4 +161,4 @@ MonoBehaviour:
     - indate: 2025-07-16T02:27:46.869Z
       name: "\uADF8\uB9AC\uD540 \uAC00\uC2B4\uC0B4"
       quantity: 44
-    cost: 0
+    cost: 1500

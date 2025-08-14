@@ -59,10 +59,10 @@ public class CameraSlideManager : baseManager
 
 
     }
-    ~CameraSlideManager()
+
+    public override void Destory()
     {
         EventBus<DungeonSlideToggleEvent>.OnEvent -= OnDungeonToggle;
-
         pointerPress.performed -= ctx => OnPointerDown();
         pointerPress.canceled -= ctx => OnPointerUp();
         pointerPress.Disable();
@@ -235,8 +235,5 @@ public class CameraSlideManager : baseManager
         canSlide = true;
     }
 
-    public override void Destory()
-    {
 
-    }
 }

@@ -37,7 +37,7 @@ MonoBehaviour:
     - indate: 2025-07-16T02:27:47.312Z
       name: "\uADF8\uB9B0 \uB4DC\uB798\uACE4 \uB208\uBB3C"
       quantity: 3
-    cost: 0
+    cost: 160
   - indate: 2025-07-27T05:59:09.970Z
     foodIndate: 2025-07-16T02:27:37.481Z
     step: 2
@@ -49,7 +49,7 @@ MonoBehaviour:
     - indate: 2025-07-16T02:27:47.312Z
       name: "\uADF8\uB9B0 \uB4DC\uB798\uACE4 \uB208\uBB3C"
       quantity: 6
-    cost: 0
+    cost: 240
   - indate: 2025-07-27T05:59:10.131Z
     foodIndate: 2025-07-16T02:27:37.481Z
     step: 3
@@ -61,7 +61,7 @@ MonoBehaviour:
     - indate: 2025-07-16T02:27:47.312Z
       name: "\uADF8\uB9B0 \uB4DC\uB798\uACE4 \uB208\uBB3C"
       quantity: 10
-    cost: 0
+    cost: 340
   - indate: 2025-07-27T05:59:10.251Z
     foodIndate: 2025-07-16T02:27:37.481Z
     step: 4
@@ -73,7 +73,7 @@ MonoBehaviour:
     - indate: 2025-07-16T02:27:47.312Z
       name: "\uADF8\uB9B0 \uB4DC\uB798\uACE4 \uB208\uBB3C"
       quantity: 15
-    cost: 0
+    cost: 480
   - indate: 2025-07-27T05:59:10.404Z
     foodIndate: 2025-07-16T02:27:37.481Z
     step: 5
@@ -85,7 +85,7 @@ MonoBehaviour:
     - indate: 2025-07-16T02:27:47.312Z
       name: "\uADF8\uB9B0 \uB4DC\uB798\uACE4 \uB208\uBB3C"
       quantity: 30
-    cost: 0
+    cost: 650
   - indate: 2025-07-27T05:59:10.532Z
     foodIndate: 2025-07-16T02:27:37.481Z
     step: 6
@@ -97,7 +97,7 @@ MonoBehaviour:
     - indate: 2025-07-16T02:27:47.312Z
       name: "\uADF8\uB9B0 \uB4DC\uB798\uACE4 \uB208\uBB3C"
       quantity: 38
-    cost: 0
+    cost: 860
   - indate: 2025-07-27T05:59:10.663Z
     foodIndate: 2025-07-16T02:27:37.481Z
     step: 7
@@ -109,7 +109,7 @@ MonoBehaviour:
     - indate: 2025-07-16T02:27:47.312Z
       name: "\uADF8\uB9B0 \uB4DC\uB798\uACE4 \uB208\uBB3C"
       quantity: 49
-    cost: 0
+    cost: 1130
   - indate: 2025-07-27T05:59:10.782Z
     foodIndate: 2025-07-16T02:27:37.481Z
     step: 8
@@ -121,7 +121,7 @@ MonoBehaviour:
     - indate: 2025-07-16T02:27:47.312Z
       name: "\uADF8\uB9B0 \uB4DC\uB798\uACE4 \uB208\uBB3C"
       quantity: 60
-    cost: 0
+    cost: 1450
   - indate: 2025-07-27T05:59:10.915Z
     foodIndate: 2025-07-16T02:27:37.481Z
     step: 9
@@ -133,4 +133,4 @@ MonoBehaviour:
     - indate: 2025-07-16T02:27:47.312Z
       name: "\uADF8\uB9B0 \uB4DC\uB798\uACE4 \uB208\uBB3C"
       quantity: 80
-    cost: 0
+    cost: 1850

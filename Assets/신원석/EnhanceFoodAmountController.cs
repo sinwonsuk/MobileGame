@@ -47,7 +47,7 @@ public class EnhanceFoodAmountController : MonoBehaviour
 
         for (int i = 0; i < materials.Count; i++)
         {
-            EventBus<EnhanceFoodDecreaseHandler>.Raise(new EnhanceFoodDecreaseHandler(data.displayName, materials[i].name, materials[i].quantity));
+            EventBus<EnhanceFoodDecreaseHandler>.Raise(new EnhanceFoodDecreaseHandler(data.displayName, materials[i].indate, materials[i].quantity));
         }
 
         enhanceResult.gameObject.SetActive(true);
