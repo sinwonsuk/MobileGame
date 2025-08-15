@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   indate: 2025-08-14T10:56:29.539Z
   interiorName: CustomerTable2
-  icon: {fileID: 21300000, guid: 3578b6a502f07be42a6abe7ba4c011e6, type: 3}
+  icon: {fileID: 21300000, guid: bf2d4debe9f223a4aba7c82b620efc7b, type: 3}
   prefab: {fileID: 3688959143282305226, guid: 231a766495f1243438aa07c98a8ccc9b, type: 3}
-  BaseSalary: 600
+  BaseSalary: 3000
   placementPosition: {x: 2.247579, y: -0.3155497, z: 0}
   description: 

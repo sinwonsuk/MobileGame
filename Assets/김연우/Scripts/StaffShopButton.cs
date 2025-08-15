@@ -33,7 +33,7 @@ public class StaffShopButton : MonoBehaviour
 
     private void Awake()
     {
-/*        // 선택: MapPoint 자동 바인딩
+       // 선택: MapPoint 자동 바인딩
         if (spawnPoint == null && staffType == StaffType.restaurant)
         {
             var parent = GameObject.Find("MapPoint");
@@ -43,7 +43,7 @@ public class StaffShopButton : MonoBehaviour
                 if (num1 == "first" && t.childCount > 2) spawnPoint = t.GetChild(2);
                 if (num1 == "second" && t.childCount > 3) spawnPoint = t.GetChild(3);
             }
-        }*/
+        }
     }
 
     private void OnEnable()

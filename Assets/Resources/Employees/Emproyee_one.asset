@@ -17,9 +17,9 @@ MonoBehaviour:
   staffType: 1
   explain: "\uACBD\uC601 \uC9C1\uC6D01"
   itemPrefab: {fileID: 2127192634085561284, guid: 51d09969f1b80f749ac2cf955655017e, type: 3}
-  portrait: {fileID: 0}
-  baseSalary: 100
+  portrait: {fileID: 21300000, guid: 972bf3f76514f9544943e1f7e97d153f, type: 3}
+  baseSalary: 0
   basic_attack_Power: 0
   basic_attack_Speed: 0
   basictimer: 5
-  basiccooltime: 5
+  basiccooltime: 120
