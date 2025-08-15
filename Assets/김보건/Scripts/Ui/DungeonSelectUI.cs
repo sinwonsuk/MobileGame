@@ -1,4 +1,5 @@
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 public class DungeonSelectUI : MonoBehaviour
 {
@@ -12,6 +13,12 @@ public class DungeonSelectUI : MonoBehaviour
         ButtonManager.buttonClick = ButtonClick.none;
         var controller = FindAnyObjectByType<GameController>();
         var dungeonManager = controller.GetManager<DungeonManager>();
+
+        var sm = SoundManager.GetInstance();
+        if (sm != null)
+        {
+            sm.SetLocation(location.Dungeon);
+        }
 
         // 던전이 이미 진행 중이라면 (중간 이동)
         if (selectedFloorData.isDungeonMode)
