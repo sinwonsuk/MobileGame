@@ -329,6 +329,10 @@ PrefabInstance:
       propertyPath: m_PresetInfoIsWorld
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7226540604387511623, guid: 82b58aefc5285dd409fef9a8b68af9f4, type: 3}
+      propertyPath: m_PresetInfoIsWorld
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7246434966388961391, guid: 82b58aefc5285dd409fef9a8b68af9f4, type: 3}
       propertyPath: m_text
       value: "\uAC15\uD654/\uD30C\uACAC"

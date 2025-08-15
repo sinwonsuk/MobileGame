@@ -223,13 +223,21 @@ public class CameraSlideManager : baseManager
     public void MoveToDungeon()
     {
         if (controller != null)
+        {
+
+
             controller.StartCoroutine(SlideCamera(dungeonPosition));
+            EventBus<ButtonisActiveHandler>.Raise(new ButtonisActiveHandler(false));
+        }
     }
 
     public void MoveToRestaurant()
     {
         if (controller != null)
+        {
             controller.StartCoroutine(SlideCamera(restaurantPosition));
+            EventBus<ButtonisActiveHandler>.Raise(new ButtonisActiveHandler(true));
+        }
     }
 
 
