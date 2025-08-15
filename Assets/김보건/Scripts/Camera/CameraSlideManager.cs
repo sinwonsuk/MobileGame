@@ -203,6 +203,21 @@ public class CameraSlideManager : baseManager
         Camera.position = target;
 
         isSliding = false;
+
+        var sm = SoundManager.GetInstance();
+        if (sm != null)
+        {
+            if (target == dungeonPosition)
+            {
+                sm.SetLocation(location.Dungeon); 
+                sm.ChangeLoation();               
+            }
+            else if (target == restaurantPosition)
+            {
+                sm.SetLocation(location.restaurant);
+                sm.ChangeLoation();
+            }
+        }
     }
 
     public void MoveToDungeon()
