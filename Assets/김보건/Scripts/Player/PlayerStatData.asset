@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackPower: 44
   critChance: 18.200027
-  autoAttackInterval: 1
-  autoAttackDamage: 13
+  autoAttackInterval: 5
+  autoAttackDamage: 1
   critDamageMultiplier: 1.5
