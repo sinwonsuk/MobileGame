@@ -251,7 +251,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1949312015825069483, guid: 82b58aefc5285dd409fef9a8b68af9f4, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 698
+      value: 665
       objectReference: {fileID: 0}
     - target: {fileID: 1949312015825069483, guid: 82b58aefc5285dd409fef9a8b68af9f4, type: 3}
       propertyPath: m_ConstrainProportionsScale
@@ -391,6 +391,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7091358477733277771, guid: 82b58aefc5285dd409fef9a8b68af9f4, type: 3}
       propertyPath: m_UiScaleMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7091358477733277771, guid: 82b58aefc5285dd409fef9a8b68af9f4, type: 3}
+      propertyPath: m_ScreenMatchMode
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7091358477733277771, guid: 82b58aefc5285dd409fef9a8b68af9f4, type: 3}
