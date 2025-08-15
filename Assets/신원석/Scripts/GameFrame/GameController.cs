@@ -10,12 +10,15 @@ public class GameController : MonoBehaviour
     private Dictionary<Type, baseManager> managerMap = new Dictionary<Type, baseManager>();
     private Dictionary<Type, BaseScriptableObject> dicBaseScriptableObject = new Dictionary<Type, BaseScriptableObject>();
 
+    public static GameController instance;
 
     [SerializeField]
     private List<BaseScriptableObject> baseScriptableObjects = new List<BaseScriptableObject>();
 
     void Awake()
     {
+        instance = this;
+
         ConnectBaseScriptableObject();
 
         Register<UIManager, UIManagerConfig>(Config => new UIManager(Config));
