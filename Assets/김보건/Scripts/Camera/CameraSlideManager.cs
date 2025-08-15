@@ -210,12 +210,11 @@ public class CameraSlideManager : baseManager
             if (target == dungeonPosition)
             {
                 sm.SetLocation(location.Dungeon); 
-                sm.ChangeLoation();               
+                            
             }
             else if (target == restaurantPosition)
             {
                 sm.SetLocation(location.restaurant);
-                sm.ChangeLoation();
             }
         }
     }
