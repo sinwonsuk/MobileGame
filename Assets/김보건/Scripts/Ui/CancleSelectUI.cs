@@ -18,6 +18,7 @@ public class CancleSelectUI : MonoBehaviour
 
     public void OnClickCancle()
     {
+        SoundManager.GetInstance().SfxPlay(SoundManager.sfx.Click, false);
         selectUI.SetActive(false);
         ButtonManager.buttonClick = ButtonClick.none;
     }

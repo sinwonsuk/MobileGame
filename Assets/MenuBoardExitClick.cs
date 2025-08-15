@@ -16,6 +16,7 @@ public class MenuBoardExitClick : MonoBehaviour
 
     public void OnClick()
     {
+        SoundManager.GetInstance().SfxPlay(SoundManager.sfx.Click, false);
         EventBus<MenuBoardActiveHandler>.Raise(new MenuBoardActiveHandler(false));
         ButtonManager.buttonClick = ButtonClick.none;
     }
