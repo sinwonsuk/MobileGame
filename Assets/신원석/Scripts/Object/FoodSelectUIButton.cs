@@ -21,6 +21,7 @@ public class FoodSelectUIButton : MonoBehaviour
         EventBus<ManagementActiveHandler>.Raise(new ManagementActiveHandler(false, ClickType.FoodAmount));
         EventBus<FoodSlotsDeleteHandler>.Raise(new FoodSlotsDeleteHandler());
         EventBus<ButtonHandler>.Raise(new ButtonHandler(true));
+        ButtonManager.buttonClick = ButtonClick.none;
     }
 
 }

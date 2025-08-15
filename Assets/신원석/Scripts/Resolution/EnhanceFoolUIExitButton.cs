@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class EnhanceFoodSelectUIExitButton : MonoBehaviour
@@ -19,7 +20,7 @@ public class EnhanceFoodSelectUIExitButton : MonoBehaviour
         SoundManager.GetInstance().SfxPlay(SoundManager.sfx.Click, false);
         EventBus<EnhanceFoodSlotsDeleteHandler>.Raise(new EnhanceFoodSlotsDeleteHandler());
         EventBus<EnhanceFoodUIActiveHandler>.Raise(new EnhanceFoodUIActiveHandler(false));
-
+        ButtonManager.buttonClick = ButtonClick.none;
     }
     public void Back()
     {
