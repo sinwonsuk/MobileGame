@@ -16,10 +16,9 @@ public class DamageTextManager : MonoBehaviour
         else
         {
             Destroy(gameObject);
-            return;
+            Instance = this;
         }
 
-        DontDestroyOnLoad(gameObject); // 원한다면
     }
 
     public void ShowDamage(Vector3 worldPos, float damage, bool isCrit = false)

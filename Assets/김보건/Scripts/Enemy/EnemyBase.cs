@@ -99,7 +99,7 @@ public class EnemyBase : MonoBehaviour
 
         shakeCoroutine = StartCoroutine(HitShake());
 
-        Vector3 headPos = transform.position + new Vector3(1.8f, 0, 0);
+        Vector3 headPos = transform.position + new Vector3(0.1f, 0, 0);
         DamageTextManager.Instance.ShowDamage(headPos, (float)damage, false);
 
         if (currentHp <= 0)
