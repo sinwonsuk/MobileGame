@@ -7,9 +7,13 @@ public class EatItem : MonoBehaviour
 
     private Transform targetPlayer;
 
+    private DroppableItem droppableItem;
+    private DungeonManager dungeonManager;
     void Start()
     {
+        droppableItem = GetComponent<DroppableItem>();
         targetPlayer = GameController.instance?.playerTransform;
+        dungeonManager = GameController.instance?.GetManager<DungeonManager>();
     }
 
     // Update is called once per frame
@@ -31,14 +35,17 @@ public class EatItem : MonoBehaviour
 
     void OnCollected()
     {
-        var drop = GetComponent<DroppableItem>();
-        if (drop != null)
+       
+        if (droppableItem != null)
         {
-            var dungeonMgr = GameController.instance?.GetManager<DungeonManager>();
-            dungeonMgr?.AddTempItem(drop.IngredientIndate, drop.amount);
 
+            dungeonManager?.AddTempItem(droppableItem.IngredientIndate, droppableItem.amount);
+            
         }
         SoundManager.GetInstance().SfxPlay(SoundManager.sfx.ItemPickup, false);
-        Destroy(gameObject);
+
+        //gameObject.SetActive(false);
+
+       Destroy(gameObject);
     }
 }
