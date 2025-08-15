@@ -19,5 +19,6 @@ public class CancleSelectUI : MonoBehaviour
     public void OnClickCancle()
     {
         selectUI.SetActive(false);
+        ButtonManager.buttonClick = ButtonClick.none;
     }
 }
