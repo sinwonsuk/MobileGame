@@ -1,10 +1,18 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class EnhanceResult : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI text;
+    [SerializeField] private Image image;
 
+
+    public Image Image
+    {
+        get => image;
+        set => image = value;
+    }
 
     public TextMeshProUGUI Text
     {
