@@ -2,47 +2,45 @@ using UnityEngine;
 
 public class ToggleHunterShopCanvas : MonoBehaviour
 {
-    private void Awake()
+    void Awake()
     {
-        // 샵 토글은 기존대로
-        EventBus<ToggleHunterShopEvent>.OnEvent += OnToggleHunterShop;
-        // 인벤토리가 열리면 무조건 꺼지도록
-        EventBus<ToggleRestaurantShopEvent>.OnEvent += OnToggleRestaurantShop;
-        EventBus<ToggleInventoryEvent>.OnEvent += OnInventoryOpened;
+        EventBus<ToggleHunterShopEvent>.OnEvent += OnToggle;
         EventBus<CloseHunterShopEvent>.OnEvent += OnCloseRequested;
+
+        // 레스토랑 샵이 열리면 닫기 (중복 방지)
+        EventBus<ToggleRestaurantShopEvent>.OnEvent += OnRestaurantOpened;
     }
 
-    private void Start()
+    void OnDestroy()
     {
-        gameObject.SetActive(false);
-    }
-
-    private void OnDestroy()
-    {
-        EventBus<ToggleHunterShopEvent>.OnEvent -= OnToggleHunterShop;
-        EventBus<ToggleRestaurantShopEvent>.OnEvent -= OnToggleRestaurantShop;
-        // 인벤토리가 열리면 무조건 꺼지도록
-        EventBus<ToggleInventoryEvent>.OnEvent -= OnInventoryOpened;
+        EventBus<ToggleHunterShopEvent>.OnEvent -= OnToggle;
         EventBus<CloseHunterShopEvent>.OnEvent -= OnCloseRequested;
+
+        EventBus<ToggleRestaurantShopEvent>.OnEvent -= OnRestaurantOpened;
     }
 
-    private void OnToggleHunterShop(ToggleHunterShopEvent evt)
+    void Start() => gameObject.SetActive(false);
+
+    void OnToggle(ToggleHunterShopEvent _)
     {
         gameObject.SetActive(!gameObject.activeSelf);
     }
-    private void OnToggleRestaurantShop(ToggleRestaurantShopEvent evt)
+
+    void OnCloseRequested(CloseHunterShopEvent _)
     {
-        if (gameObject.activeSelf)
-            gameObject.SetActive(false);
+        if (!gameObject.activeSelf) return;
+
+        gameObject.SetActive(false);
+        // Hunter 값이 없으므로 조건 체크 없이 무조건 리셋
+        ButtonManager.buttonClick = ButtonClick.none;
     }
-    private void OnInventoryOpened(ToggleInventoryEvent evt)
+
+    void OnRestaurantOpened(ToggleRestaurantShopEvent _)
     {
-        if (gameObject.activeSelf)
-            gameObject.SetActive(false);
-    }
-    private void OnCloseRequested(CloseHunterShopEvent evt)
-    {
-        if (gameObject.activeSelf)
-            gameObject.SetActive(false);
+        if (!gameObject.activeSelf) return;
+
+        gameObject.SetActive(false);
+        // Hunter 값이 없으므로 조건 체크 없이 무조건 리셋
+        ButtonManager.buttonClick = ButtonClick.none;
     }
 }
