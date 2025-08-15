@@ -130,7 +130,13 @@ public class DungeonManager : baseManager
         }
 
         var spawn = map.transform.Find("PlayerSpawnPoint");
-        Object.Instantiate(config.playerPrefab, spawn != null ? spawn.position : Vector3.zero, Quaternion.identity);
+        var playerObj = Object.Instantiate(
+            config.playerPrefab,
+            spawn != null ? spawn.position : Vector3.zero,
+            Quaternion.identity
+        );
+
+        GameController.instance.playerTransform = playerObj.transform;
 
         var camera = Camera.main;
         if (camera != null)

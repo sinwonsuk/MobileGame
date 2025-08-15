@@ -9,11 +9,14 @@ public class ManagementUIOnOff : BaseButton
         EventBus<ButtonisActiveHandler>.OnEvent += ManagementButtonisActive;
     }
 
-    private void OnDisable()
+
+    private void OnDestroy()
     {
-        //EventBus<ButtonHandler>.OnEvent -= ManagementOnOff;
-        //EventBus<ButtonisActiveHandler>.OnEvent -= ManagementButtonisActive;
+        EventBus<ButtonHandler>.OnEvent -= ManagementOnOff;
+        EventBus<ButtonisActiveHandler>.OnEvent -= ManagementButtonisActive;
     }
+
+
 
 
     // Update is called once per frame
@@ -33,6 +36,11 @@ public class ManagementUIOnOff : BaseButton
 
     public void ManagementOnOff(ButtonHandler buttonHandler)
     {
+        if (gameObject == null)
+        {
+            return;
+        }
+
         isActive = buttonHandler.isActive;
     }
 

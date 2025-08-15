@@ -9,6 +9,14 @@ public class EnhanceFoodActiveOnOff : BaseButton
         EventBus<ButtonisActiveHandler>.OnEvent += ManagementButtonisActive;
     }
 
+
+    private void OnDestroy()
+    {
+        EventBus<ButtonHandler>.OnEvent -= ManagementButtonisActive;
+        EventBus<ButtonisActiveHandler>.OnEvent -= ManagementButtonisActive;
+    }
+
+
     // Update is called once per frame
     void Update()
     {
@@ -39,6 +47,10 @@ public class EnhanceFoodActiveOnOff : BaseButton
 
     public void ManagementButtonisActive(ButtonisActiveHandler buttonHandler)
     {
+        if (gameObject == null)
+        {
+            return;
+        }
         gameObject.SetActive(buttonHandler.isActive);
     }
 

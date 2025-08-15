@@ -9,37 +9,23 @@ public class EatItem : MonoBehaviour
 
     void Start()
     {
-        
+        targetPlayer = GameController.instance?.playerTransform;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (targetPlayer == null)
+        float distance = Vector2.Distance(transform.position, targetPlayer.position);
+        if (distance <= pickupRange)
         {
-            FindPlayer();
-        }
-        else
-        {
-            float distance = Vector2.Distance(transform.position, targetPlayer.position);
-            if (distance <= pickupRange)
-            {
-                transform.position = Vector2.MoveTowards(transform.position, targetPlayer.position, moveSpeed * Time.deltaTime);
+            transform.position = Vector2.MoveTowards(
+                transform.position,
+                targetPlayer.position,
+                moveSpeed * Time.deltaTime
+            );
 
-                if (distance <= 0.2f)
-                {
-                    OnCollected();
-                }
-            }
-        }
-    }
-
-    void FindPlayer()
-    {
-        GameObject player = GameObject.FindWithTag("Player"); 
-        if (player != null)
-        {
-            targetPlayer = player.transform;
+            if (distance <= 0.2f)
+                OnCollected();
         }
     }
 
@@ -48,12 +34,11 @@ public class EatItem : MonoBehaviour
         var drop = GetComponent<DroppableItem>();
         if (drop != null)
         {
-            var gc = FindAnyObjectByType<GameController>();
-            var dungeonMgr = gc?.GetManager<DungeonManager>();
+            var dungeonMgr = GameController.instance?.GetManager<DungeonManager>();
             dungeonMgr?.AddTempItem(drop.IngredientIndate, drop.amount);
+
         }
         SoundManager.GetInstance().SfxPlay(SoundManager.sfx.ItemPickup, false);
-        //Debug.Log($"{gameObject.name} È¹µæ");
         Destroy(gameObject);
     }
 }
