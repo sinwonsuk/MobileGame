@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: "Assets/\uAC15\uB2E4\uC740/TitleScene.unity"
+    guid: 4b784cb0e3e71da499211f4d8b53f64b
+  - enabled: 1
     path: "Assets/\uAC15\uB2E4\uC740/Prefabs/Scenes/DaniTest.unity"
     guid: 4a54983ffcce0d64fb3716bbba29469d
   - enabled: 1
