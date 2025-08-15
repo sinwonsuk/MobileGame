@@ -7,6 +7,7 @@ public class ExitDungeon : MonoBehaviour
     public void OnClickMainMenu()
     {
         dungeonInGameUI.SetActive(false);
+        EventBus<ButtonisActiveHandler>.Raise(new ButtonisActiveHandler(true));
 
         EventBus<DungeonSlideToggleEvent>.Raise(new DungeonSlideToggleEvent(false));
         var hunters = Object.FindObjectsByType<ToggleHunterShopCanvas>(
@@ -25,8 +26,5 @@ public class ExitDungeon : MonoBehaviour
             if (dungeonManager != null)
                 dungeonManager.ExitDungeon();
         }
-
-
-        EventBus<ButtonisActiveHandler>.Raise(new ButtonisActiveHandler(true));
     }
 }

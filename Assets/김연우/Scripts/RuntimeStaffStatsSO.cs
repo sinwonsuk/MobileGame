@@ -21,4 +21,25 @@ public class RuntimeStaffStatsSO : ScriptableObject
     public int assignedIndex = -1;  // 배치 위치(-1: 미배치, 0/1: 위치)
     [NonSerialized]
     public bool isDirty = false;
+    public void RecalcWith(StaffStatsSO baseData)
+    {
+        if (baseData == null) return;
+
+        int lv = Mathf.Max(1, level);
+        switch (baseData.staffType)
+        {
+            case StaffType.hunter:
+                attack_Power = baseData.basic_attack_Power + (lv * 0.1);
+                attack_Speed = baseData.basic_attack_Speed + (lv * 0.1);
+                break;
+
+            case StaffType.restaurant:
+                timer = baseData.basictimer + (lv - 1) * 0.1f;
+                cooltime = baseData.basiccooltime - (lv - 1) * 0.1f;
+                break;
+        }
+
+        isDirty = true;
+
+    }
 }

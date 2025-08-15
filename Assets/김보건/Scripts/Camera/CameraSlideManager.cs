@@ -203,18 +203,40 @@ public class CameraSlideManager : baseManager
         Camera.position = target;
 
         isSliding = false;
+
+        var sm = SoundManager.GetInstance();
+        if (sm != null)
+        {
+            if (target == dungeonPosition)
+            {
+                sm.SetLocation(location.Dungeon); 
+                            
+            }
+            else if (target == restaurantPosition)
+            {
+                sm.SetLocation(location.restaurant);
+            }
+        }
     }
 
     public void MoveToDungeon()
     {
         if (controller != null)
+        {
+
+
             controller.StartCoroutine(SlideCamera(dungeonPosition));
+            EventBus<ButtonisActiveHandler>.Raise(new ButtonisActiveHandler(false));
+        }
     }
 
     public void MoveToRestaurant()
     {
         if (controller != null)
+        {
             controller.StartCoroutine(SlideCamera(restaurantPosition));
+            EventBus<ButtonisActiveHandler>.Raise(new ButtonisActiveHandler(true));
+        }
     }
 
 
