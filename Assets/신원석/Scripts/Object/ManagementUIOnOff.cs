@@ -11,7 +11,8 @@ public class ManagementUIOnOff : BaseButton
 
     private void OnDisable()
     {
-        
+        EventBus<ButtonHandler>.OnEvent -= ManagementOnOff;
+        EventBus<ButtonisActiveHandler>.OnEvent -= ManagementButtonisActive;
     }
 
 

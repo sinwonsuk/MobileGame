@@ -17,5 +17,6 @@ public class MenuBoardExitClick : MonoBehaviour
     public void OnClick()
     {
         EventBus<MenuBoardActiveHandler>.Raise(new MenuBoardActiveHandler(false));
+        ButtonManager.buttonClick = ButtonClick.none;
     }
 }

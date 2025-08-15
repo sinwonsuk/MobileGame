@@ -66,7 +66,10 @@ public class ButtonManager : MonoBehaviour
     }
 
 
-    ButtonClick buttonClick = ButtonClick.none;
+    public static ButtonClick buttonClick = ButtonClick.none;
+
+
+
 
     [System.Serializable]
     public class Buttons
@@ -77,6 +80,5 @@ public class ButtonManager : MonoBehaviour
 
     [SerializeField] private List<Buttons> buttons = new List<Buttons>();
     private Dictionary<ButtonClick, BaseButton> buttonDic = new();
-
 
 }
