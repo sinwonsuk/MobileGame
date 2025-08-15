@@ -53,7 +53,7 @@ public class EatItem : MonoBehaviour
             dungeonMgr?.AddTempItem(drop.IngredientIndate, drop.amount);
         }
         SoundManager.GetInstance().SfxPlay(SoundManager.sfx.ItemPickup, false);
-        Debug.Log($"{gameObject.name} È¹µæ");
+        //Debug.Log($"{gameObject.name} È¹µæ");
         Destroy(gameObject);
     }
 }

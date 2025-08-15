@@ -21,7 +21,7 @@ public class octopus : EnemyBase
     protected override void Die()
     {
         if (isDead) return;
-        Debug.Log("¹®¾î »ç¸Á");
+        //Debug.Log("¹®¾î »ç¸Á");
         base.Die();
 
         var spawner = Object.FindFirstObjectByType<MonsterSpawner>();

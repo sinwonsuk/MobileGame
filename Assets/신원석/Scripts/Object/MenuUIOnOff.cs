@@ -32,7 +32,6 @@ public class MenuUIOnOff : BaseButton
 
     public override void OnExit()
     {
-        SoundManager.GetInstance().SfxPlay(SoundManager.sfx.Click, false);
         EventBus<MenuBoardActiveHandler>.Raise(new MenuBoardActiveHandler(false));
     }
 

@@ -243,7 +243,7 @@ public class DungeonManager : baseManager
         if (string.IsNullOrEmpty(name)) return;
 
         InventoryManager.Instance?.AddItem(name, qty);
-        Debug.Log($"드랍템 {name} +{qty} 얻음");
+        //Debug.Log($"드랍템 {name} +{qty} 얻음");
     }
 
     // 인벤토리에 한번에 반영

@@ -113,7 +113,7 @@ public class EnemyBase : MonoBehaviour
     {
         if (isDead) return; // 중복 방지
         isDead = true;
-        Debug.Log($"{gameObject.name} 죽음");
+       // Debug.Log($"{gameObject.name} 죽음");
 
         //충돌삭제
         Collider2D col = GetComponent<Collider2D>();

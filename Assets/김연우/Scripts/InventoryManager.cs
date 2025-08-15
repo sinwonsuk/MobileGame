@@ -18,6 +18,10 @@ public class InventoryManager : MonoBehaviour, IAutoSavable
     [Header("Runtime: 인벤토리 슬롯")]
     public List<InventorySlot> slots = new List<InventorySlot>();
 
+	public Dictionary<string, RunTimeIngredientData> RunTimeIngredientDataDic = new();
+
+
+
     public event Action OnInventoryChanged;
 
 	public void AutoSave()
@@ -47,20 +51,29 @@ public class InventoryManager : MonoBehaviour, IAutoSavable
         {
             slots.Add(new InventorySlot(allIngredients[i], allRunTimeIngredients[i]));
         }
+
+		for (int i = 0; i < allRunTimeIngredients.Length; i++)
+		{
+			RunTimeIngredientDataDic.Add(allRunTimeIngredients[i].indate, allRunTimeIngredients[i]);
+        }
 	}
 
     public void AddItem(string indate, int amount = 1)
     {
-        foreach (var data in allRunTimeIngredients)
-        {
-            if (data.indate == indate)
-            {
-                data.ingredientQty += amount;
-				data.isDirty = true;
-				OnInventoryChanged?.Invoke();
-                return;
-            }
-        }
+		RunTimeIngredientDataDic[indate].ingredientQty += amount;
+        RunTimeIngredientDataDic[indate].isDirty = true;
+        OnInventoryChanged?.Invoke();
+
+    //    foreach (var data in allRunTimeIngredients)
+    //    {
+    //        if (data.indate == indate)
+    //        {
+    //            data.ingredientQty += amount;
+				//data.isDirty = true;
+				//OnInventoryChanged?.Invoke();
+    //            return;
+    //        }
+    //    }
     }
 
     public int GetItemQty(string indate)
