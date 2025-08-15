@@ -341,10 +341,10 @@ public class ExpeditionManager : MonoBehaviour, IAutoSavable
 			param.Add("departUtcIso", emp.departUtcIso);
 			param.Add("arriveUtcIso", emp.arriveUtcIso);
 
-			Backend.GameData.Update("EMPLOYEE_PLAYER", where, param, bro =>
+			Backend.GameData.Update("EXPEDITIONS_PLAYER", where, param, bro =>
 			{
 				if (bro.IsSuccess())
-					Debug.Log("직원 저장 완료 : " + bro);
+					Debug.Log("파견 저장 완료 : " + bro);
 				else
 					Debug.LogError("게임 정보 수정 실패 : " + bro);
 			});
