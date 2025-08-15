@@ -8,6 +8,11 @@ public class HunterShopUIButton : BaseButton
         EventBus<ButtonisActiveHandler>.OnEvent += ManagementButtonisActive;
     }
 
+    private void OnDestroy()
+    {
+        EventBus<ButtonisActiveHandler>.OnEvent -= ManagementButtonisActive;
+    }
+
     public override void OnClick()
     {
         ButtonManager.buttonClick = ButtonClick.none;
@@ -17,6 +22,11 @@ public class HunterShopUIButton : BaseButton
 
     public void ManagementButtonisActive(ButtonisActiveHandler buttonHandler)
     {
+        if(gameObject == null)
+        {
+            return;
+        }
+
         gameObject.SetActive(!buttonHandler.isActive);
     }
 

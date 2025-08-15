@@ -6,6 +6,12 @@ public class RestaurantShopUIButton : BaseButton
     {
         EventBus<ButtonisActiveHandler>.OnEvent += ManagementButtonisActive;
     }
+
+    private void OnDestroy()
+    {
+        EventBus<ButtonisActiveHandler>.OnEvent -= ManagementButtonisActive;
+    }
+
     public override void OnClick()
     {
         ButtonManager.buttonClick = ButtonClick.none;
@@ -14,6 +20,10 @@ public class RestaurantShopUIButton : BaseButton
     }
     public void ManagementButtonisActive(ButtonisActiveHandler buttonHandler)
     {
+                if(gameObject == null)
+        {
+            return;
+        }
         gameObject.SetActive(buttonHandler.isActive);
     }
     public override void OnExit()
