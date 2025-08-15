@@ -9,6 +9,7 @@ public class DungeonSelectUI : MonoBehaviour
 
     public void OnClickFloorButton(int floor)
     {
+        ButtonManager.buttonClick = ButtonClick.none;
         var controller = FindAnyObjectByType<GameController>();
         var dungeonManager = controller.GetManager<DungeonManager>();
 

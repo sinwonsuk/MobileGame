@@ -2,48 +2,46 @@ using UnityEngine;
 
 public class ToggleRestaurantShopCanvas : MonoBehaviour
 {
-    private void Awake()
+    void Awake()
     {
-        EventBus<ToggleRestaurantShopEvent>.OnEvent += OnToggleRestaurantShop;
-        // 샵 토글은 기존대로
-        EventBus<ToggleHunterShopEvent>.OnEvent += OnToggleHunterShop;
-        // 인벤토리가 열리면 무조건 꺼지도록
-        EventBus<ToggleInventoryEvent>.OnEvent += OnInventoryOpened;
+        EventBus<ToggleRestaurantShopEvent>.OnEvent += OnToggle;
         EventBus<CloseRestaurantShopEvent>.OnEvent += OnCloseRequested;
+
+        // ★ 헌터 샵이 켜지면 나는 닫기 (헌터와의 중복 방지)
+        EventBus<ToggleHunterShopEvent>.OnEvent += OnHunterOpened;
     }
 
-    private void Start()
+    void OnDestroy()
     {
-        gameObject.SetActive(false);
-    }
-
-    private void OnDestroy()
-    {
-        EventBus<ToggleHunterShopEvent>.OnEvent -= OnToggleHunterShop;
-        EventBus<ToggleRestaurantShopEvent>.OnEvent -= OnToggleRestaurantShop;
-        // 인벤토리가 열리면 무조건 꺼지도록
-        EventBus<ToggleInventoryEvent>.OnEvent -= OnInventoryOpened;
+        EventBus<ToggleRestaurantShopEvent>.OnEvent -= OnToggle;
         EventBus<CloseRestaurantShopEvent>.OnEvent -= OnCloseRequested;
+
+        EventBus<ToggleHunterShopEvent>.OnEvent -= OnHunterOpened;
     }
-    private void OnToggleRestaurantShop(ToggleRestaurantShopEvent evt)
+
+    void Start() => gameObject.SetActive(false);
+
+    void OnToggle(ToggleRestaurantShopEvent _)
     {
         gameObject.SetActive(!gameObject.activeSelf);
+    }
 
-    }
-    private void OnToggleHunterShop(ToggleHunterShopEvent evt)
+    void OnCloseRequested(CloseRestaurantShopEvent _)
     {
-        if (gameObject.activeSelf)
-            gameObject.SetActive(false);
+        if (!gameObject.activeSelf) return;
+
+        gameObject.SetActive(false);
+        if (ButtonManager.buttonClick == ButtonClick.Restaurant)
+            ButtonManager.buttonClick = ButtonClick.none;
     }
-    
-    private void OnInventoryOpened(ToggleInventoryEvent evt)
+
+    // ★ 헌터 샵 열림 → 레스토 닫기
+    void OnHunterOpened(ToggleHunterShopEvent _)
     {
-        if (gameObject.activeSelf)
-            gameObject.SetActive(false);
-    }
-    private void OnCloseRequested(CloseRestaurantShopEvent _)
-    {
-        if (gameObject.activeSelf)
-            gameObject.SetActive(false);
+        if (!gameObject.activeSelf) return;
+
+        gameObject.SetActive(false);
+        if (ButtonManager.buttonClick == ButtonClick.Restaurant)
+            ButtonManager.buttonClick = ButtonClick.none;
     }
 }

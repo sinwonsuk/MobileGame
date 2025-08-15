@@ -20,31 +20,19 @@ public class StatUpgradeButton : MonoBehaviour
     private float currentValue;
     private int currentLevel;
     private int buy_money = 100;
-    private int money_value =0;
+    private int money_value = 0;
     public PlayerStatData playerStats;
-
-    // ★ 저장 키
-    private string levelKey => $"{statToUpgrade}_level";
-    private string valueKey => $"{statToUpgrade}_value";
 
     void Awake()
     {
-        money_value = currentLevel * buy_money;
         _button = GetComponent<Button>();
-        PlayerPrefs.DeleteKey(levelKey);
-        PlayerPrefs.DeleteKey(valueKey);
+        currentLevel = 1; // 기본 레벨
+        currentValue = initialValue + upgradeAmount * currentLevel;
+        money_value = currentLevel * buy_money;
     }
 
     void Start()
     {
-        // 불러오기
-        currentLevel = PlayerPrefs.GetInt(levelKey, 1);
-
-        if (PlayerPrefs.HasKey(valueKey))
-            currentValue = PlayerPrefs.GetFloat(valueKey);
-        else
-            currentValue = initialValue + upgradeAmount * currentLevel;
-
         _button.onClick.AddListener(OnClick);
         RefreshUI();
     }
@@ -53,10 +41,11 @@ public class StatUpgradeButton : MonoBehaviour
     {
         money_value = currentLevel * buy_money;
         EventBus<MoneyChangeMusHandler>.Raise(new MoneyChangeMusHandler(money_value));
+
         currentLevel++;
         UpgradeStat();
-        Save();
         RefreshUI();
+
         Debug.Log($"[StatUpgrade] {GetStatDisplayName(statToUpgrade)} leveled up to {currentLevel}. New value: {GetStatValue():F2}");
     }
 
@@ -65,7 +54,7 @@ public class StatUpgradeButton : MonoBehaviour
         nameText.text = GetStatDisplayName(statToUpgrade);
         levelText.text = $"Lv.{currentLevel}";
         valueText.text = FormatStatValue(GetStatValue());
-        buttonText.text="Upgrade";
+        buttonText.text = "Upgrade";
         moneyText.text = $"Money : {money_value}";
     }
 
@@ -95,14 +84,6 @@ public class StatUpgradeButton : MonoBehaviour
                 break;
         }
         EventBus<StatChangedEvent>.Raise(new StatChangedEvent { changedStatType = statToUpgrade });
-    }
-
-    // ★ 저장 메서드
-    void Save()
-    {
-        PlayerPrefs.SetInt(levelKey, currentLevel);
-        PlayerPrefs.SetFloat(valueKey, currentValue);
-        PlayerPrefs.Save();
     }
 
     float GetStatValue() => currentValue;
