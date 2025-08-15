@@ -44,25 +44,51 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b621d88000f0a8342afb7da84c868572, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentLocation: 2
   bgmClips:
   - {fileID: 8300000, guid: 5152a2d2a091f4a4ba50c8bf519e0bd9, type: 3}
   bgmVolume: 0.1
   reduceSoundSpeed: 0
-  sfxClips:
-  - {fileID: 8300000, guid: 5fdb13d3756c84fecac96f5a2d124370, type: 3}
-  - {fileID: 8300000, guid: ffb159a21c8a04135a5616979c828fab, type: 3}
-  - {fileID: 8300000, guid: fe0b1f9aeb45b41b089175aeeabd5d95, type: 3}
-  - {fileID: 8300000, guid: 79180f511d89441b9aa23ccae1992fe0, type: 3}
-  - {fileID: 8300000, guid: 7a6d83a01916ac547abb3dc1ee68c5e8, type: 3}
-  - {fileID: 8300000, guid: 5934dabdd89ba4042b2ca3faf67eaec6, type: 3}
-  - {fileID: 8300000, guid: fa78fd8667af03e47881f84e88d1745c, type: 3}
-  - {fileID: 8300000, guid: 08d7fbfcf73795144800d06d49614ebb, type: 3}
-  - {fileID: 8300000, guid: 2fff965c943d994439ee167942967fe9, type: 3}
-  - {fileID: 8300000, guid: 9afa70bb6bcda954dba94a58948b6c92, type: 3}
-  - {fileID: 8300000, guid: a2207811051cf81429c96a88eeccdf4d, type: 3}
-  - {fileID: 8300000, guid: 9ddcd8d9d7fac0840b797091631d1c21, type: 3}
-  - {fileID: 8300000, guid: 7ffe368394ee45b49a2cbb6899fb23e7, type: 3}
-  - {fileID: 8300000, guid: f5d7921df689e7c4a8e90c5a4a1ba6dc, type: 3}
-  - {fileID: 8300000, guid: 931c0bded29af024ba282e4238f3c4fe, type: 3}
+  sfxDungeonEntries:
+  - key: 7
+    clip: {fileID: 8300000, guid: 08d7fbfcf73795144800d06d49614ebb, type: 3}
+  - key: 8
+    clip: {fileID: 8300000, guid: 2fff965c943d994439ee167942967fe9, type: 3}
+  - key: 9
+    clip: {fileID: 8300000, guid: 9afa70bb6bcda954dba94a58948b6c92, type: 3}
+  - key: 10
+    clip: {fileID: 8300000, guid: a2207811051cf81429c96a88eeccdf4d, type: 3}
+  - key: 11
+    clip: {fileID: 8300000, guid: 9ddcd8d9d7fac0840b797091631d1c21, type: 3}
+  - key: 12
+    clip: {fileID: 8300000, guid: 7ffe368394ee45b49a2cbb6899fb23e7, type: 3}
+  - key: 13
+    clip: {fileID: 8300000, guid: f5d7921df689e7c4a8e90c5a4a1ba6dc, type: 3}
+  - key: 14
+    clip: {fileID: 8300000, guid: 931c0bded29af024ba282e4238f3c4fe, type: 3}
+  sfxRestaurantEntries:
+  - key: 2
+    clip: {fileID: 8300000, guid: fe0b1f9aeb45b41b089175aeeabd5d95, type: 3}
+  - key: 3
+    clip: {fileID: 8300000, guid: 79180f511d89441b9aa23ccae1992fe0, type: 3}
+  - key: 4
+    clip: {fileID: 8300000, guid: 7a6d83a01916ac547abb3dc1ee68c5e8, type: 3}
+  - key: 5
+    clip: {fileID: 8300000, guid: 5934dabdd89ba4042b2ca3faf67eaec6, type: 3}
+  - key: 6
+    clip: {fileID: 8300000, guid: fa78fd8667af03e47881f84e88d1745c, type: 3}
+  - key: 15
+    clip: {fileID: 8300000, guid: 312f55a5b1fd1c5459b7a658cabe0244, type: 3}
+  - key: 16
+    clip: {fileID: 8300000, guid: a7792987081750945884b8b328a60605, type: 3}
+  - key: 17
+    clip: {fileID: 8300000, guid: 39dcb3d44d3b54743a80085937fa8393, type: 3}
+  - key: 18
+    clip: {fileID: 8300000, guid: d88ed6c6e74bb64409e5db429cf63608, type: 3}
+  sfxCommonEntries:
+  - key: 0
+    clip: {fileID: 8300000, guid: 5fdb13d3756c84fecac96f5a2d124370, type: 3}
+  - key: 1
+    clip: {fileID: 8300000, guid: ffb159a21c8a04135a5616979c828fab, type: 3}
   sfxVolume: 1
   channels: 20
