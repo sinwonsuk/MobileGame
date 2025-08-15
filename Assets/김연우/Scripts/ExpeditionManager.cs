@@ -343,15 +343,15 @@ public class ExpeditionManager : MonoBehaviour, IAutoSavable
 
 			Backend.GameData.Update("EXPEDITIONS_PLAYER", where, param, bro =>
 			{
-				if (bro.IsSuccess())
-					Debug.Log("파견 저장 완료 : " + bro);
+				if (bro.IsSuccess()) ;
+				//Debug.Log("파견 저장 완료 : " + bro);
 				else
 					Debug.LogError("게임 정보 수정 실패 : " + bro);
 			});
 			emp.isDirty = false;
 		}
 
-		Debug.Log("[ExpeditionManager] 변경된 파견 데이터 저장 완료");
+		//Debug.Log("[ExpeditionManager] 변경된 파견 데이터 저장 완료");
 	}
 
 	private bool employeeDataLoaded = false;
