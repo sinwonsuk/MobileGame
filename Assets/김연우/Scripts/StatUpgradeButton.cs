@@ -77,6 +77,10 @@ public class StatUpgradeButton : MonoBehaviour
             case StatType.AutoAttackDamage:
                 currentValue += upgradeAmount;
                 playerStats.autoAttackDamage = currentValue;
+                playerStats.autoAttackInterval = Mathf.Max(
+                    0.2f, // ÇÏÇÑ¼±
+                    playerStats.autoAttackInterval - 0.1f * currentLevel
+                );
                 break;
             case StatType.CritDamageMultiplier:
                 currentValue += upgradeAmount * 0.1f;
