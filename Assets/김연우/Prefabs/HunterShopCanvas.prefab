@@ -1038,8 +1038,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -228.5, y: -2.1}
-  m_SizeDelta: {x: 200, y: 50}
+  m_AnchoredPosition: {x: -139.55786, y: -2.1}
+  m_SizeDelta: {x: 377.8843, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4866767038960147736
 CanvasRenderer:
@@ -2853,6 +2853,7 @@ MonoBehaviour:
   purchaseButton: {fileID: 3696801344866018536}
   buttonText: {fileID: 6325222714021502772}
   levelText: {fileID: 1849648431523788594}
+  nameText: {fileID: 2995331406496474870}
   staffType: 0
   spawnPoint: {fileID: 0}
   num1: first
@@ -3890,8 +3891,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -234, y: 23}
-  m_SizeDelta: {x: 200, y: 50}
+  m_AnchoredPosition: {x: -139.4989, y: 23}
+  m_SizeDelta: {x: 389.0021, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &651241892857039054
 CanvasRenderer:
@@ -4162,8 +4163,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -228.5, y: -2.1}
-  m_SizeDelta: {x: 200, y: 50}
+  m_AnchoredPosition: {x: -139.55786, y: -2.1}
+  m_SizeDelta: {x: 377.8843, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6446599186809821290
 CanvasRenderer:
@@ -4298,8 +4299,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -228.5, y: -2.1}
-  m_SizeDelta: {x: 200, y: 50}
+  m_AnchoredPosition: {x: -139.55786, y: -2.1}
+  m_SizeDelta: {x: 377.8843, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7276142764227298683
 CanvasRenderer:
@@ -5171,8 +5172,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -234, y: 23}
-  m_SizeDelta: {x: 200, y: 50}
+  m_AnchoredPosition: {x: -139.4989, y: 23}
+  m_SizeDelta: {x: 389.0021, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3711480005393448517
 CanvasRenderer:
@@ -8726,8 +8727,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -234, y: 23}
-  m_SizeDelta: {x: 200, y: 50}
+  m_AnchoredPosition: {x: -139.4989, y: 23}
+  m_SizeDelta: {x: 389.0021, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6097869359851697637
 CanvasRenderer:
@@ -8998,8 +8999,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -228.5, y: -2.1}
-  m_SizeDelta: {x: 200, y: 50}
+  m_AnchoredPosition: {x: -139.55786, y: -2.1}
+  m_SizeDelta: {x: 377.8843, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &539086168750014891
 CanvasRenderer:
@@ -10352,8 +10353,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -234, y: 23}
-  m_SizeDelta: {x: 200, y: 50}
+  m_AnchoredPosition: {x: -139.4989, y: 23}
+  m_SizeDelta: {x: 389.0021, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6908825680667458121
 CanvasRenderer:
@@ -10672,6 +10673,7 @@ MonoBehaviour:
   purchaseButton: {fileID: 7872431723157929257}
   buttonText: {fileID: 705489843841337077}
   levelText: {fileID: 5162979771870719731}
+  nameText: {fileID: 8618866896034332471}
   staffType: 0
   spawnPoint: {fileID: 0}
   num1: second
@@ -11993,6 +11995,7 @@ MonoBehaviour:
   purchaseButton: {fileID: 8627964401456756827}
   buttonText: {fileID: 1384494451717342087}
   levelText: {fileID: 6726767777328278401}
+  nameText: {fileID: 7881454236275079749}
   staffType: 0
   spawnPoint: {fileID: 0}
   num1: forth
@@ -16043,6 +16046,7 @@ MonoBehaviour:
   purchaseButton: {fileID: 5822196043047706680}
   buttonText: {fileID: 3766840814892489700}
   levelText: {fileID: 8802971817723737058}
+  nameText: {fileID: 5336971458892325414}
   staffType: 0
   spawnPoint: {fileID: 0}
   num1: third
@@ -16590,8 +16594,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -234, y: 23}
-  m_SizeDelta: {x: 200, y: 50}
+  m_AnchoredPosition: {x: -139.4989, y: 23}
+  m_SizeDelta: {x: 389.0021, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7845712093039262785
 CanvasRenderer:
