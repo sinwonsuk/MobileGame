@@ -61,8 +61,9 @@ public class EnhanceFoodAmountController : MonoBehaviour
         {
             enhanceResult.Image.sprite = Resources.Load<Sprite>("mimicMeat");
             enhanceResult.Text.text = "강화성공";
-            data.Level += 1;
-        }
+			data.Level += 1;
+            data.isDirty = true;
+		}
 
 
 

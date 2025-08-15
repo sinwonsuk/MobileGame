@@ -1,14 +1,28 @@
-
 using UnityEngine;
-using UnityEngine.UI;
 
-[RequireComponent(typeof(Button))]
-public class ToggleHunterShopButton : MonoBehaviour
+public class HunterShopUIButton : BaseButton
 {
-    public void ToggleSHop()
+    void Start()
     {
-        Debug.Log("[Shop11] 버튼 클릭 감지"); // ← 여기를 확인
+        gameObject.SetActive(false);
+        EventBus<ButtonisActiveHandler>.OnEvent += ManagementButtonisActive;
+    }
+
+    public override void OnClick()
+    {
+        ButtonManager.buttonClick = ButtonClick.none;
         EventBus<ToggleHunterShopEvent>.Raise(new ToggleHunterShopEvent());
-        Debug.Log("[Shop11] 이벤트 Raise 완료");
+        SoundManager.GetInstance().SfxPlay(SoundManager.sfx.Click, false);
+    }
+
+    public void ManagementButtonisActive(ButtonisActiveHandler buttonHandler)
+    {
+        gameObject.SetActive(!buttonHandler.isActive);
+    }
+
+    public override void OnExit()
+    {
+        ButtonManager.buttonClick = ButtonClick.none;
+        EventBus<ToggleHunterShopEvent>.Raise(new ToggleHunterShopEvent());
     }
 }

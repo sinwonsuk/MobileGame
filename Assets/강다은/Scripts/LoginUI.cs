@@ -350,6 +350,9 @@ public class LoginUI : MonoBehaviour
 		yield return StartCoroutine(ExpeditionManager.Instance.InsertExpeditionIfNotExists(ownerIndate));
 		yield return StartCoroutine(ExpeditionManager.Instance.LoadExpeditionData(ownerIndate));
 
+		yield return StartCoroutine(FoodLevelAutoSave.Instance.InsertLevelIfNotExists(ownerIndate));
+		yield return StartCoroutine(FoodLevelAutoSave.Instance.LoadLevelData(ownerIndate));
+
 		bool isDone = false;
 		BackendGameData.Instance.GameDataGetOrInsert(() =>
 		{
