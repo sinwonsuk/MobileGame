@@ -11,7 +11,7 @@ public class InteriorShopButton : MonoBehaviour
     public Button purchaseButton;
     public TMP_Text nameText;
     public TMP_Text ownedText;
-
+    public TMP_Text priceText;
     private int money;
 
     void Start()
@@ -22,6 +22,8 @@ public class InteriorShopButton : MonoBehaviour
         if (nameText != null && interiorData != null)
             nameText.text = interiorData.interiorName;
 
+        if (priceText != null && interiorData != null)
+            priceText.text = $"{interiorData.BaseSalary:N0} G";
 
         if (ownedText != null)
             ownedText.gameObject.SetActive(false);
