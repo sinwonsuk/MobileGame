@@ -13,7 +13,7 @@ public class DungeonManager : baseManager
     private bool hasSavedCameraPos = false;
 
     // 드랍아이템 저장용 딕셔너리
-    private readonly Dictionary<string, int> tempLoot = new();
+    //private readonly Dictionary<string, int> tempLoot = new();
 
     public DungeonManager(DungeonManagerConfig config)
     {
@@ -196,7 +196,7 @@ public class DungeonManager : baseManager
     public void ExitDungeon()
     {
         Debug.Log("던전 종료 처리");
-        CommitLootToInventory();
+        //CommitLootToInventory();
         // 맵 제거
         if (config.mapParent != null)
         {
@@ -242,22 +242,18 @@ public class DungeonManager : baseManager
     {
         if (string.IsNullOrEmpty(name)) return;
 
-        if (tempLoot.ContainsKey(name))
-            tempLoot[name] += qty;
-        else
-            tempLoot[name] = qty;
-
-        Debug.Log($"[DungeonLoot] {name} +{qty} (누적 {tempLoot[name]})");
+        InventoryManager.Instance?.AddItem(name, qty);
+        Debug.Log($"드랍템 {name} +{qty} 얻음");
     }
 
     // 인벤토리에 한번에 반영
-    private void CommitLootToInventory()
-    {
-        foreach (var kvp in tempLoot)
-            InventoryManager.Instance.AddItem(kvp.Key, kvp.Value);
+    //private void CommitLootToInventory()
+    //{
+    //    foreach (var kvp in tempLoot)
+    //        InventoryManager.Instance.AddItem(kvp.Key, kvp.Value);
 
-        tempLoot.Clear();   // 반영이 끝났으니 비워 두기
-    }
+    //    tempLoot.Clear();   // 반영이 끝났으니 비워 두기
+    //}
 
     private void RefreshFloorStageText()
     {
@@ -286,7 +282,7 @@ public class DungeonManager : baseManager
 
     public void ResetDungeonEnvironment()
     {
-        CommitLootToInventory();
+        //CommitLootToInventory();
 
         // 맵 제거
         if (config.mapParent != null)
