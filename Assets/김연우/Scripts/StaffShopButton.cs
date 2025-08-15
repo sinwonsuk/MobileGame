@@ -5,6 +5,8 @@ using System.Collections.Generic;
 
 public class StaffShopButton : MonoBehaviour
 {
+    private const int MAX_LEVEL = 50;
+
     [Header("연결된 직원 데이터 (SO)")]
     public StaffStatsSO staffData;
     public RuntimeStaffStatsSO staffruntimeData;
@@ -65,16 +67,46 @@ public class StaffShopButton : MonoBehaviour
         _listenerBound = false;
     }
 
+    private bool IsMaxLevel()
+    {
+        int lv = staffruntimeData != null ? staffruntimeData.level : 0;
+        return lv >= MAX_LEVEL;
+    }
+
     private void RefreshUI()
     {
         int current = staffruntimeData != null ? staffruntimeData.level : 0;
+
+        // 다음 레벨(구매 시 1레벨, 업그레이드 시 +1)을 계산하되 MAX_LEVEL을 넘지 않게 클램프
         int nextLevel = (current == 0) ? 1 : current + 1;
-        _price = (staffData != null) ? staffData.baseSalary * nextLevel : 0;
+        int nextLevelClamped = Mathf.Clamp(nextLevel, 1, MAX_LEVEL);
 
-        if (levelText != null) levelText.text = $"Lv. {current}";
-        if (buttonText != null) buttonText.text = (current == 0) ? "Buy" : "Upgrade";
+        // 가격은 "아직 만렙이 아닐 때만" 계산
+        _price = (staffData != null && current < MAX_LEVEL)
+            ? staffData.baseSalary * nextLevelClamped
+            : 0;
 
-        // ★ 이름 표시
+        // 레벨 표기
+        if (levelText != null)
+        {
+            levelText.text = IsMaxLevel() ? $"Lv. {MAX_LEVEL} (MAX)" : $"Lv. {current}";
+        }
+
+        // 버튼 상태/문구
+        if (buttonText != null)
+        {
+            if (IsMaxLevel())
+                buttonText.text = "최대";
+            else
+                buttonText.text = (current == 0) ? "Buy" : "Upgrade";
+        }
+
+        if (purchaseButton != null)
+        {
+            purchaseButton.interactable = !IsMaxLevel();
+        }
+
+        // 이름 표시
         if (nameText != null && staffData != null)
             nameText.text = staffData.displayName;
     }
@@ -89,6 +121,13 @@ public class StaffShopButton : MonoBehaviour
         if (staffData == null || staffruntimeData == null)
         {
             Debug.LogError("[StaffShopButton] 데이터가 비어있습니다.", this);
+            return;
+        }
+
+        // 이미 만렙이면 아무 것도 하지 않음
+        if (IsMaxLevel())
+        {
+            Debug.Log("[StaffShopButton] 이미 최대 레벨입니다.");
             return;
         }
 
@@ -107,7 +146,7 @@ public class StaffShopButton : MonoBehaviour
 
             int prev = staffruntimeData.level;
 
-            if (prev == 0) // 첫 구매
+            if (prev == 0) // 첫 구매 -> 1레벨
             {
                 staffruntimeData.level = 1;
                 staffruntimeData.isOwned = true;
@@ -131,9 +170,9 @@ public class StaffShopButton : MonoBehaviour
                     }
                 }
             }
-            else // 업그레이드
+            else // 업그레이드 -> +1, 단 MAX_LEVEL 넘지 않게
             {
-                staffruntimeData.level += 1;
+                staffruntimeData.level = Mathf.Min(prev + 1, MAX_LEVEL);
                 staffruntimeData.isOwned = true;
                 staffruntimeData.isDirty = true;
                 staffruntimeData.RecalcWith(staffData);
