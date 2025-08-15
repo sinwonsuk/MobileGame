@@ -25,37 +25,39 @@ public class StaffBase : MonoBehaviour
         {
             case StaffType.hunter:
                 // 첫 구매: 기본 공격 스탯 할당
-                currentAttackPower = data.basic_attack_Power;
-                currentAttackSpeed = data.basic_attack_Speed;
-                runtimeData.attack_Power = currentAttackPower;
-                runtimeData.attack_Speed = currentAttackSpeed;
+                if (runtimeData.attack_Power <= 0) runtimeData.attack_Power = data.basic_attack_Power;
+                if (runtimeData.attack_Speed <= 0) runtimeData.attack_Speed = data.basic_attack_Speed;
+                currentAttackPower = runtimeData.attack_Power;
+                currentAttackSpeed = runtimeData.attack_Speed;
                 break;
 
             case StaffType.restaurant:
                 // 첫 구매: 기본 타이머/쿨타임 할당
-                runtimeData.timer = data.basictimer;     
-                runtimeData.cooltime = data.basiccooltime;  
+                if (runtimeData.timer <= 0) runtimeData.timer = data.basictimer;
+                if (runtimeData.cooltime <= 0) runtimeData.cooltime = data.basiccooltime;
                 break;
         }
+        SyncFromRuntime();
     }
 
     public virtual void LevelUp()
     {
-        runtimeData.level++;
+        SyncFromRuntime();
+    }
 
+    public void SyncFromRuntime()
+    {
         switch (data.staffType)
         {
             case StaffType.hunter:
-                // 레벨업 시 공격력/속도 재계산
                 RecalculateStats();
                 runtimeData.attack_Power = currentAttackPower;
                 runtimeData.attack_Speed = currentAttackSpeed;
                 break;
 
             case StaffType.restaurant:
-                // 레벨업 시 타이머/쿨타임 +0.1
-                runtimeData.timer += 0.1;
-                runtimeData.cooltime -= 0.1;
+                 runtimeData.timer    = data.basictimer   + (runtimeData.level - 1) * 0.1;
+                 runtimeData.cooltime = data.basiccooltime - (runtimeData.level - 1) * 0.1;
                 break;
         }
     }
