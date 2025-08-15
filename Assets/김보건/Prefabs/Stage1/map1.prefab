@@ -213,6 +213,46 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 5332971992470372971}
     m_Modifications:
+    - target: {fileID: 37920712195094869, guid: 82b58aefc5285dd409fef9a8b68af9f4, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: e52aeed27d2fd7f44b00a53a6d080704, type: 2}
+    - target: {fileID: 37920712195094869, guid: 82b58aefc5285dd409fef9a8b68af9f4, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 3341422161197807304, guid: e52aeed27d2fd7f44b00a53a6d080704, type: 2}
+    - target: {fileID: 1616726128817799599, guid: 82b58aefc5285dd409fef9a8b68af9f4, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1616726128817799599, guid: 82b58aefc5285dd409fef9a8b68af9f4, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1616726128817799599, guid: 82b58aefc5285dd409fef9a8b68af9f4, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1616726128817799599, guid: 82b58aefc5285dd409fef9a8b68af9f4, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1616726128817799599, guid: 82b58aefc5285dd409fef9a8b68af9f4, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 277
+      objectReference: {fileID: 0}
+    - target: {fileID: 1616726128817799599, guid: 82b58aefc5285dd409fef9a8b68af9f4, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -830
+      objectReference: {fileID: 0}
+    - target: {fileID: 1949312015825069483, guid: 82b58aefc5285dd409fef9a8b68af9f4, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 191
+      objectReference: {fileID: 0}
+    - target: {fileID: 1949312015825069483, guid: 82b58aefc5285dd409fef9a8b68af9f4, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 780
+      objectReference: {fileID: 0}
     - target: {fileID: 2287357689877519984, guid: 82b58aefc5285dd409fef9a8b68af9f4, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -297,9 +337,20 @@ PrefabInstance:
       propertyPath: m_Name
       value: DungeonUI
       objectReference: {fileID: 0}
+    - target: {fileID: 7091358477733277771, guid: 82b58aefc5285dd409fef9a8b68af9f4, type: 3}
+      propertyPath: m_ScreenMatchMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7091358477733277771, guid: 82b58aefc5285dd409fef9a8b68af9f4, type: 3}
+      propertyPath: m_ReferenceResolution.x
+      value: 1500
+      objectReference: {fileID: 0}
+    - target: {fileID: 7091358477733277771, guid: 82b58aefc5285dd409fef9a8b68af9f4, type: 3}
+      propertyPath: m_ReferenceResolution.y
+      value: 600
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects:
-    - {fileID: 7447415678907930221, guid: 82b58aefc5285dd409fef9a8b68af9f4, type: 3}
+    m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 82b58aefc5285dd409fef9a8b68af9f4, type: 3}
