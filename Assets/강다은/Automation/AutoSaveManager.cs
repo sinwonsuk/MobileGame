@@ -54,7 +54,7 @@ public class AutoSaveManager : MonoBehaviour
 			}
 			else
 			{
-				Debug.Log($"[{savable}] 저장 건너뜀 (경과 {timeSinceLastSave:F1}s)");
+				//Debug.Log($"[{savable}] 저장 건너뜀 (경과 {timeSinceLastSave:F1}s)");
 			}
 		}
 	}

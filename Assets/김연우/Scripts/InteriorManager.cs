@@ -237,7 +237,7 @@ public class InteriorManager : MonoBehaviour, IAutoSavable
 
                 if (insertBro.IsSuccess())
                 {
-                    Debug.Log($"[가구 Insert 성공] {emp.indate}");
+                    //Debug.Log($"[가구 Insert 성공] {emp.indate}");
                     emp.isDirty = true;
                 }
                 else
@@ -362,14 +362,14 @@ public class InteriorManager : MonoBehaviour, IAutoSavable
 
             Backend.GameData.Update("FURNITURE_PLAYER", where, param, bro =>
             {
-                if (bro.IsSuccess())
-                    Debug.Log("가구 저장 완료 : " + bro);
+                if (bro.IsSuccess()) ;
+                //Debug.Log("가구 저장 완료 : " + bro);
                 else
                     Debug.LogError("게임 정보 수정 실패 : " + bro);
             });
             emp.isDirty = false;
         }
 
-        Debug.Log("[FurnitureManager] 변경된 가구 데이터 저장 완료");
+        //Debug.Log("[FurnitureManager] 변경된 가구 데이터 저장 완료");
     }
 }
