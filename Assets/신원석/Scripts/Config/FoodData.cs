@@ -20,6 +20,9 @@ public class FoodData : BaseScriptableObject
 
     public List<IngredientData> Ingredients; // 재료 목록
     public List<EnhanceStepData> enhanceSteps; // 강화 단계 목록
+
+	[NonSerialized]
+	public bool isDirty = false;
 }
 
 [System.Serializable]
@@ -40,3 +43,4 @@ public class EnhanceMaterialData
     public string name;
     public int quantity;
 }
+

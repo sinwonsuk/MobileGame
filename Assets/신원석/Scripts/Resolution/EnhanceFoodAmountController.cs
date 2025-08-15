@@ -59,8 +59,9 @@ public class EnhanceFoodAmountController : MonoBehaviour
         else // 애는 성공 
         {
             enhanceResult.Text.text = "강화성공";
-            data.Level += 1;
-        }
+			data.Level += 1;
+            data.isDirty = true;
+		}
 
 
 
