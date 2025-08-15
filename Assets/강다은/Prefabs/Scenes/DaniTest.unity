@@ -835,7 +835,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5843361226861257867, guid: 41948418e7bc8b74fa008ee679cd7ae6, type: 3}
       propertyPath: currentLocation
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5843361226861257867, guid: 41948418e7bc8b74fa008ee679cd7ae6, type: 3}
       propertyPath: sfxClips.Array.size
