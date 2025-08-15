@@ -7,7 +7,7 @@ public class StaffShopButton : MonoBehaviour
 {
     [Header("연결된 직원 데이터 (SO)")]
     public StaffStatsSO staffData;
-    public RuntimeStaffStatsSO runtimeData;
+    public RuntimeStaffStatsSO staffruntimeData;
 
     [Header("UI & 버튼")]
     public Button purchaseButton;
@@ -33,7 +33,7 @@ public class StaffShopButton : MonoBehaviour
 
     private void Awake()
     {
-        // 선택: MapPoint 자동 바인딩
+/*        // 선택: MapPoint 자동 바인딩
         if (spawnPoint == null && staffType == StaffType.restaurant)
         {
             var parent = GameObject.Find("MapPoint");
@@ -43,7 +43,7 @@ public class StaffShopButton : MonoBehaviour
                 if (num1 == "first" && t.childCount > 2) spawnPoint = t.GetChild(2);
                 if (num1 == "second" && t.childCount > 3) spawnPoint = t.GetChild(3);
             }
-        }
+        }*/
     }
 
     private void OnEnable()
@@ -67,7 +67,7 @@ public class StaffShopButton : MonoBehaviour
 
     private void RefreshUI()
     {
-        int current = runtimeData != null ? runtimeData.level : 0;
+        int current = staffruntimeData != null ? staffruntimeData.level : 0;
         int nextLevel = (current == 0) ? 1 : current + 1;
         _price = (staffData != null) ? staffData.baseSalary * nextLevel : 0;
 
@@ -83,15 +83,15 @@ public class StaffShopButton : MonoBehaviour
         if (_lastUpgradeFrame == Time.frameCount) return;
         _lastUpgradeFrame = Time.frameCount;
 
-        if (staffData == null || runtimeData == null)
+        if (staffData == null || staffruntimeData == null)
         {
             Debug.LogError("[StaffShopButton] 데이터가 비어있습니다.", this);
             return;
         }
 
         // 같은 Runtime SO에 대한 동시 업그레이드 차단
-        if (UpgradeLock.Contains(runtimeData)) return;
-        UpgradeLock.Add(runtimeData);
+        if (UpgradeLock.Contains(staffruntimeData)) return;
+        UpgradeLock.Add(staffruntimeData);
 
         try
         {
@@ -105,13 +105,13 @@ public class StaffShopButton : MonoBehaviour
             // 실제 차감
             Spend(_price);
 
-            int prev = runtimeData.level;
+            int prev = staffruntimeData.level;
 
             if (prev == 0) // ★ 첫 구매
             {
-                runtimeData.level = 1;
-                runtimeData.isOwned = true;
-                runtimeData.isDirty = true;           
+                staffruntimeData.level = 1;
+                staffruntimeData.isOwned = true;
+                staffruntimeData.isDirty = true;           
 
                 // 레스토랑(경영) 직원은 구매=배치 동시 처리
                 if (staffType == StaffType.restaurant)
@@ -122,27 +122,28 @@ public class StaffShopButton : MonoBehaviour
                     if (EmployeeManager.Instance != null && targetIndex >= 0)
                     {
                         // 매니저 유틸로 배치(내부에서 isAssigned/assignedIndex/isDirty 처리)
-                        EmployeeManager.Instance.TryPlaceAtIndex(runtimeData, staffData, targetIndex);
+                        EmployeeManager.Instance.TryPlaceAtIndex(staffruntimeData, staffData, targetIndex);
                     }
                     else
                     {
                         // 매니저 없거나 인덱스 계산 실패 → 로컬 스폰 + 데이터표시
                         SafeSpawn();
                         // assigned/assignedIndex만 세팅 (DB 저장되도록 더티 유지)
-                        runtimeData.isAssigned = true;
-                        runtimeData.assignedIndex = targetIndex;
-                        runtimeData.isDirty = true;     // ← 배치 더티
+                        staffruntimeData.isAssigned = true;
+                        staffruntimeData.assignedIndex = targetIndex;
+                        staffruntimeData.isDirty = true;     // ← 배치 더티
                     }
                 }
             }
             else // ★ 업그레이드
             {
-                runtimeData.level += 1;
-                runtimeData.isOwned = true;
-                runtimeData.isDirty = true;   
+                staffruntimeData.level += 1;
+                staffruntimeData.isOwned = true;
+                staffruntimeData.isDirty = true;
 
-                if (_spawned != null && staffType == StaffType.restaurant)
+                if (_spawned != null)
                     _spawned.LevelUp();
+
             }
 
             // 외부 UI 갱신 통지(있으면)
@@ -151,7 +152,7 @@ public class StaffShopButton : MonoBehaviour
         }
         finally
         {
-            UpgradeLock.Remove(runtimeData);
+            UpgradeLock.Remove(staffruntimeData);
         }
     }
 
@@ -204,6 +205,6 @@ public class StaffShopButton : MonoBehaviour
             Debug.LogError("[StaffShopButton] itemPrefab에 StaffBase가 없습니다.", go);
             return;
         }
-        _spawned.Init(staffData, runtimeData);
+        _spawned.Init(staffData, staffruntimeData);
     }
 }
