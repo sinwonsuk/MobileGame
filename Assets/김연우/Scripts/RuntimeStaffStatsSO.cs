@@ -40,5 +40,6 @@ public class RuntimeStaffStatsSO : ScriptableObject
         }
 
         isDirty = true;
+
     }
 }

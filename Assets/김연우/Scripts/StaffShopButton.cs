@@ -111,8 +111,8 @@ public class StaffShopButton : MonoBehaviour
             {
                 staffruntimeData.level = 1;
                 staffruntimeData.isOwned = true;
-                staffruntimeData.isDirty = true;           
-
+                staffruntimeData.isDirty = true;
+                staffruntimeData.RecalcWith(staffData);
                 // 레스토랑(경영) 직원은 구매=배치 동시 처리
                 if (staffType == StaffType.restaurant)
                 {
@@ -141,9 +141,9 @@ public class StaffShopButton : MonoBehaviour
                 staffruntimeData.isOwned = true;
                 staffruntimeData.isDirty = true;
 
-                if (_spawned != null)
-                    _spawned.LevelUp();
-
+                /*if (_spawned != null)
+                    _spawned.LevelUp();*/
+                staffruntimeData.RecalcWith(staffData);
             }
 
             // 외부 UI 갱신 통지(있으면)
