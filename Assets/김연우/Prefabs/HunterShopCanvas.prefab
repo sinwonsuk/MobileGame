@@ -1038,8 +1038,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -228.5, y: -2.1}
-  m_SizeDelta: {x: 200, y: 50}
+  m_AnchoredPosition: {x: -139.55786, y: -2.1}
+  m_SizeDelta: {x: 377.8843, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4866767038960147736
 CanvasRenderer:
@@ -1232,7 +1232,6 @@ GameObject:
   - component: {fileID: 6657703191300162662}
   - component: {fileID: 4833125984539068183}
   - component: {fileID: 3204494635591174777}
-  - component: {fileID: 4717880836579762520}
   - component: {fileID: 3878570853757975077}
   m_Layer: 5
   m_Name: Buy/Soldout
@@ -1343,29 +1342,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &4717880836579762520
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 429008767860021652}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: af0156fee48559441ae680ef47d606f2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  buyButton: {fileID: 3204494635591174777}
-  timeText: {fileID: 2311067046956782660}
-  durationHours: 0.01
-  rewards:
-  - ingredientData: {fileID: 11400000, guid: a6160647db9b3df46b1d71aed74c7365, type: 2}
-    amount: 3
-  - ingredientData: {fileID: 11400000, guid: c733201a5443e9842a10938ad3f29e63, type: 2}
-    amount: 3
-  - ingredientData: {fileID: 11400000, guid: 9c0d63a1efe237f43a241b41be05d316, type: 2}
-    amount: 3
-  itemKey: Forest1
 --- !u!114 &3878570853757975077
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1384,6 +1360,7 @@ MonoBehaviour:
   timerText: {fileID: 2311067046956782660}
   stateText: {fileID: 4956303942348726347}
   nameText: {fileID: 8664053556983366460}
+  requiredReputation: 180
 --- !u!1 &454263612983849056
 GameObject:
   m_ObjectHideFlags: 0
@@ -1396,7 +1373,6 @@ GameObject:
   - component: {fileID: 8795320436275426503}
   - component: {fileID: 8623226073803699232}
   - component: {fileID: 2517869365518992460}
-  - component: {fileID: 3118970066731416125}
   - component: {fileID: 352799176336386895}
   m_Layer: 5
   m_Name: Buy/Soldout
@@ -1507,29 +1483,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &3118970066731416125
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 454263612983849056}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: af0156fee48559441ae680ef47d606f2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  buyButton: {fileID: 2517869365518992460}
-  timeText: {fileID: 1172002715185540161}
-  durationHours: 0.01
-  rewards:
-  - ingredientData: {fileID: 11400000, guid: a6160647db9b3df46b1d71aed74c7365, type: 2}
-    amount: 3
-  - ingredientData: {fileID: 11400000, guid: c733201a5443e9842a10938ad3f29e63, type: 2}
-    amount: 3
-  - ingredientData: {fileID: 11400000, guid: 9c0d63a1efe237f43a241b41be05d316, type: 2}
-    amount: 3
-  itemKey: Forest1
 --- !u!114 &352799176336386895
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1548,6 +1501,7 @@ MonoBehaviour:
   timerText: {fileID: 1172002715185540161}
   stateText: {fileID: 5200364115413102072}
   nameText: {fileID: 1762674374516796005}
+  requiredReputation: 80
 --- !u!1 &497001482334652980
 GameObject:
   m_ObjectHideFlags: 0
@@ -2899,6 +2853,7 @@ MonoBehaviour:
   purchaseButton: {fileID: 3696801344866018536}
   buttonText: {fileID: 6325222714021502772}
   levelText: {fileID: 1849648431523788594}
+  nameText: {fileID: 2995331406496474870}
   staffType: 0
   spawnPoint: {fileID: 0}
   num1: first
@@ -3936,8 +3891,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -234, y: 23}
-  m_SizeDelta: {x: 200, y: 50}
+  m_AnchoredPosition: {x: -139.4989, y: 23}
+  m_SizeDelta: {x: 389.0021, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &651241892857039054
 CanvasRenderer:
@@ -4208,8 +4163,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -228.5, y: -2.1}
-  m_SizeDelta: {x: 200, y: 50}
+  m_AnchoredPosition: {x: -139.55786, y: -2.1}
+  m_SizeDelta: {x: 377.8843, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6446599186809821290
 CanvasRenderer:
@@ -4344,8 +4299,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -228.5, y: -2.1}
-  m_SizeDelta: {x: 200, y: 50}
+  m_AnchoredPosition: {x: -139.55786, y: -2.1}
+  m_SizeDelta: {x: 377.8843, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7276142764227298683
 CanvasRenderer:
@@ -4897,7 +4852,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -392, y: 649.99976}
+  m_AnchoredPosition: {x: -392, y: 650}
   m_SizeDelta: {x: 784, y: 1300}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &4339454783367206091
@@ -5217,8 +5172,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -234, y: 23}
-  m_SizeDelta: {x: 200, y: 50}
+  m_AnchoredPosition: {x: -139.4989, y: 23}
+  m_SizeDelta: {x: 389.0021, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3711480005393448517
 CanvasRenderer:
@@ -5452,7 +5407,6 @@ GameObject:
   - component: {fileID: 7988368378514771794}
   - component: {fileID: 4898042040094313884}
   - component: {fileID: 6594470700403719316}
-  - component: {fileID: 3603653356074739923}
   - component: {fileID: 2280524803598646789}
   m_Layer: 5
   m_Name: Buy/Soldout
@@ -5563,29 +5517,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &3603653356074739923
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2842758248003765482}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: af0156fee48559441ae680ef47d606f2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  buyButton: {fileID: 6594470700403719316}
-  timeText: {fileID: 5806509859491646513}
-  durationHours: 0.01
-  rewards:
-  - ingredientData: {fileID: 11400000, guid: a6160647db9b3df46b1d71aed74c7365, type: 2}
-    amount: 3
-  - ingredientData: {fileID: 11400000, guid: c733201a5443e9842a10938ad3f29e63, type: 2}
-    amount: 3
-  - ingredientData: {fileID: 11400000, guid: 9c0d63a1efe237f43a241b41be05d316, type: 2}
-    amount: 3
-  itemKey: Forest1
 --- !u!114 &2280524803598646789
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5604,6 +5535,7 @@ MonoBehaviour:
   timerText: {fileID: 5806509859491646513}
   stateText: {fileID: 7270594470960431765}
   nameText: {fileID: 1011346188155248634}
+  requiredReputation: 40
 --- !u!1 &2944669097809507708
 GameObject:
   m_ObjectHideFlags: 0
@@ -6655,7 +6587,6 @@ GameObject:
   - component: {fileID: 6534051233778499053}
   - component: {fileID: 5355632461957456719}
   - component: {fileID: 9005629880643520590}
-  - component: {fileID: 5502621478874031051}
   - component: {fileID: 1911794473021919510}
   m_Layer: 5
   m_Name: Buy/Soldout
@@ -6766,29 +6697,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &5502621478874031051
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3615158820738857251}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: af0156fee48559441ae680ef47d606f2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  buyButton: {fileID: 9005629880643520590}
-  timeText: {fileID: 932113157411401073}
-  durationHours: 0.01
-  rewards:
-  - ingredientData: {fileID: 11400000, guid: a6160647db9b3df46b1d71aed74c7365, type: 2}
-    amount: 3
-  - ingredientData: {fileID: 11400000, guid: c733201a5443e9842a10938ad3f29e63, type: 2}
-    amount: 3
-  - ingredientData: {fileID: 11400000, guid: 9c0d63a1efe237f43a241b41be05d316, type: 2}
-    amount: 3
-  itemKey: Forest1
 --- !u!114 &1911794473021919510
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6807,6 +6715,7 @@ MonoBehaviour:
   timerText: {fileID: 932113157411401073}
   stateText: {fileID: 2819525341910747393}
   nameText: {fileID: 2262454967247950660}
+  requiredReputation: 140
 --- !u!1 &3689833913857857940
 GameObject:
   m_ObjectHideFlags: 0
@@ -8818,8 +8727,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -234, y: 23}
-  m_SizeDelta: {x: 200, y: 50}
+  m_AnchoredPosition: {x: -139.4989, y: 23}
+  m_SizeDelta: {x: 389.0021, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6097869359851697637
 CanvasRenderer:
@@ -9090,8 +8999,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -228.5, y: -2.1}
-  m_SizeDelta: {x: 200, y: 50}
+  m_AnchoredPosition: {x: -139.55786, y: -2.1}
+  m_SizeDelta: {x: 377.8843, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &539086168750014891
 CanvasRenderer:
@@ -10444,8 +10353,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -234, y: 23}
-  m_SizeDelta: {x: 200, y: 50}
+  m_AnchoredPosition: {x: -139.4989, y: 23}
+  m_SizeDelta: {x: 389.0021, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6908825680667458121
 CanvasRenderer:
@@ -10764,6 +10673,7 @@ MonoBehaviour:
   purchaseButton: {fileID: 7872431723157929257}
   buttonText: {fileID: 705489843841337077}
   levelText: {fileID: 5162979771870719731}
+  nameText: {fileID: 8618866896034332471}
   staffType: 0
   spawnPoint: {fileID: 0}
   num1: second
@@ -12085,6 +11995,7 @@ MonoBehaviour:
   purchaseButton: {fileID: 8627964401456756827}
   buttonText: {fileID: 1384494451717342087}
   levelText: {fileID: 6726767777328278401}
+  nameText: {fileID: 7881454236275079749}
   staffType: 0
   spawnPoint: {fileID: 0}
   num1: forth
@@ -12381,7 +12292,6 @@ GameObject:
   - component: {fileID: 1346430307007591756}
   - component: {fileID: 4668841852775274836}
   - component: {fileID: 6501608693180301110}
-  - component: {fileID: 5277866431379042500}
   - component: {fileID: 6821141162687473811}
   m_Layer: 5
   m_Name: Buy/Soldout
@@ -12492,29 +12402,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &5277866431379042500
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6488549849428427798}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: af0156fee48559441ae680ef47d606f2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  buyButton: {fileID: 6501608693180301110}
-  timeText: {fileID: 3821341217631507358}
-  durationHours: 0.01
-  rewards:
-  - ingredientData: {fileID: 11400000, guid: a6160647db9b3df46b1d71aed74c7365, type: 2}
-    amount: 3
-  - ingredientData: {fileID: 11400000, guid: c733201a5443e9842a10938ad3f29e63, type: 2}
-    amount: 3
-  - ingredientData: {fileID: 11400000, guid: 9c0d63a1efe237f43a241b41be05d316, type: 2}
-    amount: 3
-  itemKey: Forest1
 --- !u!114 &6821141162687473811
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12533,6 +12420,7 @@ MonoBehaviour:
   timerText: {fileID: 3821341217631507358}
   stateText: {fileID: 7236194337120632143}
   nameText: {fileID: 2471965117900023114}
+  requiredReputation: 160
 --- !u!1 &6550954781967248408
 GameObject:
   m_ObjectHideFlags: 0
@@ -13217,7 +13105,6 @@ GameObject:
   - component: {fileID: 5766335835464280842}
   - component: {fileID: 5799688519051340880}
   - component: {fileID: 40368059270704617}
-  - component: {fileID: 890631087402995830}
   - component: {fileID: 3293155038518486581}
   m_Layer: 5
   m_Name: Buy/Soldout
@@ -13328,29 +13215,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &890631087402995830
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6801506605066914006}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: af0156fee48559441ae680ef47d606f2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  buyButton: {fileID: 40368059270704617}
-  timeText: {fileID: 9007115934585710953}
-  durationHours: 0.01
-  rewards:
-  - ingredientData: {fileID: 11400000, guid: a6160647db9b3df46b1d71aed74c7365, type: 2}
-    amount: 3
-  - ingredientData: {fileID: 11400000, guid: c733201a5443e9842a10938ad3f29e63, type: 2}
-    amount: 3
-  - ingredientData: {fileID: 11400000, guid: 9c0d63a1efe237f43a241b41be05d316, type: 2}
-    amount: 3
-  itemKey: Forest1
 --- !u!114 &3293155038518486581
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13369,6 +13233,7 @@ MonoBehaviour:
   timerText: {fileID: 9007115934585710953}
   stateText: {fileID: 4914368109558521707}
   nameText: {fileID: 8080618164258789730}
+  requiredReputation: 100
 --- !u!1 &6876832956593668419
 GameObject:
   m_ObjectHideFlags: 0
@@ -13912,7 +13777,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0.00019454896}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 1300}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &6487301604865889665
@@ -14520,7 +14385,6 @@ GameObject:
   - component: {fileID: 1273265065776198977}
   - component: {fileID: 6974421682947527098}
   - component: {fileID: 4640500911193084046}
-  - component: {fileID: 3966810877258560867}
   - component: {fileID: 4343110475242732241}
   m_Layer: 5
   m_Name: Buy/Soldout
@@ -14631,29 +14495,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &3966810877258560867
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7373654460255044073}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: af0156fee48559441ae680ef47d606f2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  buyButton: {fileID: 4640500911193084046}
-  timeText: {fileID: 4206370316665571089}
-  durationHours: 0.01
-  rewards:
-  - ingredientData: {fileID: 11400000, guid: a6160647db9b3df46b1d71aed74c7365, type: 2}
-    amount: 3
-  - ingredientData: {fileID: 11400000, guid: c733201a5443e9842a10938ad3f29e63, type: 2}
-    amount: 3
-  - ingredientData: {fileID: 11400000, guid: 9c0d63a1efe237f43a241b41be05d316, type: 2}
-    amount: 3
-  itemKey: Forest1
 --- !u!114 &4343110475242732241
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14672,6 +14513,7 @@ MonoBehaviour:
   timerText: {fileID: 4206370316665571089}
   stateText: {fileID: 7399812313116743229}
   nameText: {fileID: 4163614748591644882}
+  requiredReputation: 60
 --- !u!1 &7486185901686108728
 GameObject:
   m_ObjectHideFlags: 0
@@ -16204,6 +16046,7 @@ MonoBehaviour:
   purchaseButton: {fileID: 5822196043047706680}
   buttonText: {fileID: 3766840814892489700}
   levelText: {fileID: 8802971817723737058}
+  nameText: {fileID: 5336971458892325414}
   staffType: 0
   spawnPoint: {fileID: 0}
   num1: third
@@ -16751,8 +16594,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -234, y: 23}
-  m_SizeDelta: {x: 200, y: 50}
+  m_AnchoredPosition: {x: -139.4989, y: 23}
+  m_SizeDelta: {x: 389.0021, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7845712093039262785
 CanvasRenderer:
@@ -17048,7 +16891,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 3346950924653825071}
   m_HandleRect: {fileID: 208771403562835836}
   m_Direction: 2
-  m_Value: 1
+  m_Value: 0
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -17281,7 +17124,6 @@ GameObject:
   - component: {fileID: 6350437796996017055}
   - component: {fileID: 6613588209817166900}
   - component: {fileID: 1324657359391212697}
-  - component: {fileID: 3136126475088060812}
   - component: {fileID: 603522035031448715}
   m_Layer: 5
   m_Name: Buy/Soldout
@@ -17392,29 +17234,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &3136126475088060812
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8956535259060212535}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: af0156fee48559441ae680ef47d606f2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  buyButton: {fileID: 1324657359391212697}
-  timeText: {fileID: 1528449413028636587}
-  durationHours: 0.01
-  rewards:
-  - ingredientData: {fileID: 11400000, guid: a6160647db9b3df46b1d71aed74c7365, type: 2}
-    amount: 3
-  - ingredientData: {fileID: 11400000, guid: c733201a5443e9842a10938ad3f29e63, type: 2}
-    amount: 3
-  - ingredientData: {fileID: 11400000, guid: 9c0d63a1efe237f43a241b41be05d316, type: 2}
-    amount: 3
-  itemKey: Forest1
 --- !u!114 &603522035031448715
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17433,6 +17252,7 @@ MonoBehaviour:
   timerText: {fileID: 1528449413028636587}
   stateText: {fileID: 3564635544946728870}
   nameText: {fileID: 8445546651386432987}
+  requiredReputation: 20
 --- !u!1 &8986529424849702212
 GameObject:
   m_ObjectHideFlags: 0
@@ -17660,7 +17480,6 @@ GameObject:
   - component: {fileID: 2889153021408418852}
   - component: {fileID: 8444941588900055843}
   - component: {fileID: 2997036332665478912}
-  - component: {fileID: 364494367654110371}
   - component: {fileID: 3440993734254413942}
   m_Layer: 5
   m_Name: Buy/Soldout
@@ -17771,29 +17590,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &364494367654110371
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9119745814810814795}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: af0156fee48559441ae680ef47d606f2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  buyButton: {fileID: 2997036332665478912}
-  timeText: {fileID: 554549394349452340}
-  durationHours: 0.01
-  rewards:
-  - ingredientData: {fileID: 11400000, guid: a6160647db9b3df46b1d71aed74c7365, type: 2}
-    amount: 3
-  - ingredientData: {fileID: 11400000, guid: c733201a5443e9842a10938ad3f29e63, type: 2}
-    amount: 3
-  - ingredientData: {fileID: 11400000, guid: 9c0d63a1efe237f43a241b41be05d316, type: 2}
-    amount: 3
-  itemKey: Forest1
 --- !u!114 &3440993734254413942
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17812,6 +17608,7 @@ MonoBehaviour:
   timerText: {fileID: 554549394349452340}
   stateText: {fileID: 1367138427546433415}
   nameText: {fileID: 242304244705871803}
+  requiredReputation: 200
 --- !u!1 &9123462661160964305
 GameObject:
   m_ObjectHideFlags: 0
@@ -17903,7 +17700,6 @@ GameObject:
   - component: {fileID: 2574095942842611920}
   - component: {fileID: 140240488476723797}
   - component: {fileID: 6426143456366813792}
-  - component: {fileID: 4056662952355714760}
   - component: {fileID: 6943387233783009647}
   m_Layer: 5
   m_Name: Buy/Soldout
@@ -18014,29 +17810,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &4056662952355714760
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9131031469158054546}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: af0156fee48559441ae680ef47d606f2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  buyButton: {fileID: 6426143456366813792}
-  timeText: {fileID: 3501022237356204427}
-  durationHours: 0.01
-  rewards:
-  - ingredientData: {fileID: 11400000, guid: a6160647db9b3df46b1d71aed74c7365, type: 2}
-    amount: 3
-  - ingredientData: {fileID: 11400000, guid: c733201a5443e9842a10938ad3f29e63, type: 2}
-    amount: 3
-  - ingredientData: {fileID: 11400000, guid: 9c0d63a1efe237f43a241b41be05d316, type: 2}
-    amount: 3
-  itemKey: Forest1
 --- !u!114 &6943387233783009647
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18055,6 +17828,7 @@ MonoBehaviour:
   timerText: {fileID: 3501022237356204427}
   stateText: {fileID: 4590624495707327744}
   nameText: {fileID: 3674667977006372750}
+  requiredReputation: 120
 --- !u!1 &9134271150443016144
 GameObject:
   m_ObjectHideFlags: 0

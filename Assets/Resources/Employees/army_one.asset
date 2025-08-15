@@ -17,8 +17,8 @@ MonoBehaviour:
   staffType: 0
   explain: "\uC0AC\uB0E5\uD130 \uC9C1\uC6D01"
   itemPrefab: {fileID: 3899654314294530085, guid: 732dd9b7cbd523541bbf804d92b2bb15, type: 3}
-  portrait: {fileID: 10911, guid: 0000000000000000f000000000000000, type: 0}
-  baseSalary: 200
+  portrait: {fileID: 21300000, guid: 93c33c840c708854589618dca963232d, type: 3}
+  baseSalary: 0
   basic_attack_Power: 10
   basic_attack_Speed: 0.1
   basictimer: 0

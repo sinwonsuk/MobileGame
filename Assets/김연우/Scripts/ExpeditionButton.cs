@@ -15,7 +15,7 @@ public class ExpeditionButton : MonoBehaviour
     public TMP_Text stateText;
     public TMP_Text nameText;
 
-
+    public int requiredReputation = 0;
     public Action<string, Action> OnRequestClaim;
 
     private void Awake()
@@ -90,6 +90,15 @@ public void ConfirmClaim()
             return;
         }
 
+        int currentReputation = BackendGameData.Instance.userData.reputation;
+        if (currentReputation < requiredReputation)
+        {
+            if (mainBtn) mainBtn.interactable = false;
+            if (btnText) btnText.text = $"명성도 {requiredReputation} 필요";
+            if (stateText) stateText.text = "조건 미달";
+            if (timerText) timerText.text = "";
+            return;
+        }
         bool canStart = ExpeditionManager.Instance.CanStart(id);
         bool isDone = ExpeditionManager.Instance.IsDone(id);  
 

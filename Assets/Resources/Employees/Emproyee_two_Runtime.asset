@@ -15,11 +15,11 @@ MonoBehaviour:
   indate: 2025-07-27T01:21:44.015Z
   displayName: "\uACBD\uC601\uC9C1\uC6D02"
   staffType: 1
-  level: 24
+  level: 13
   attack_Power: 0
   attack_Speed: 0
-  timer: 7.300000000000001
-  cooltime: 117.7
+  timer: 6.2
+  cooltime: 118.8
   isOwned: 1
   isAssigned: 1
   assignedIndex: 3

@@ -5,6 +5,8 @@ using System.Collections.Generic;
 
 public class StaffShopButton : MonoBehaviour
 {
+    private const int MAX_LEVEL = 50;
+
     [Header("연결된 직원 데이터 (SO)")]
     public StaffStatsSO staffData;
     public RuntimeStaffStatsSO staffruntimeData;
@@ -13,14 +15,14 @@ public class StaffShopButton : MonoBehaviour
     public Button purchaseButton;
     public TextMeshProUGUI buttonText;
     public TextMeshProUGUI levelText;
+    public TextMeshProUGUI nameText;
 
     [Header("스폰(레스토랑만 사용)")]
-    public StaffType staffType;         
-    public Transform spawnPoint;        
-    public string num1;             
+    public StaffType staffType;
+    public Transform spawnPoint;
+    public string num1;
 
     [Header("자동 배치(선택)")]
-
     public int autoAssignIndex = -1;
 
     // 내부 상태
@@ -33,7 +35,7 @@ public class StaffShopButton : MonoBehaviour
 
     private void Awake()
     {
-/*        // 선택: MapPoint 자동 바인딩
+        // 선택: MapPoint 자동 바인딩
         if (spawnPoint == null && staffType == StaffType.restaurant)
         {
             var parent = GameObject.Find("MapPoint");
@@ -43,7 +45,7 @@ public class StaffShopButton : MonoBehaviour
                 if (num1 == "first" && t.childCount > 2) spawnPoint = t.GetChild(2);
                 if (num1 == "second" && t.childCount > 3) spawnPoint = t.GetChild(3);
             }
-        }*/
+        }
     }
 
     private void OnEnable()
@@ -65,21 +67,54 @@ public class StaffShopButton : MonoBehaviour
         _listenerBound = false;
     }
 
+    private bool IsMaxLevel()
+    {
+        int lv = staffruntimeData != null ? staffruntimeData.level : 0;
+        return lv >= MAX_LEVEL;
+    }
+
     private void RefreshUI()
     {
         int current = staffruntimeData != null ? staffruntimeData.level : 0;
-        int nextLevel = (current == 0) ? 1 : current + 1;
-        _price = (staffData != null) ? staffData.baseSalary * nextLevel : 0;
 
-        if (levelText != null) levelText.text = $"Lv. {current}";
-        if (buttonText != null) buttonText.text = (current == 0) ? "Buy" : "Upgrade";
+        // 다음 레벨(구매 시 1레벨, 업그레이드 시 +1)을 계산하되 MAX_LEVEL을 넘지 않게 클램프
+        int nextLevel = (current == 0) ? 1 : current + 1;
+        int nextLevelClamped = Mathf.Clamp(nextLevel, 1, MAX_LEVEL);
+
+        // 가격은 "아직 만렙이 아닐 때만" 계산
+        _price = (staffData != null && current < MAX_LEVEL)
+            ? staffData.baseSalary * nextLevelClamped
+            : 0;
+
+        // 레벨 표기
+        if (levelText != null)
+        {
+            levelText.text = IsMaxLevel() ? $"Lv. {MAX_LEVEL} (MAX)" : $"Lv. {current}";
+        }
+
+        // 버튼 상태/문구
+        if (buttonText != null)
+        {
+            if (IsMaxLevel())
+                buttonText.text = "최대";
+            else
+                buttonText.text = (current == 0) ? "Buy" : "Upgrade";
+        }
+
+        if (purchaseButton != null)
+        {
+            purchaseButton.interactable = !IsMaxLevel();
+        }
+
+        // 이름 표시
+        if (nameText != null && staffData != null)
+            nameText.text = staffData.displayName;
     }
 
     private void OnClick()
     {
         SoundManager.GetInstance().SfxPlay(SoundManager.sfx.Click, false);
 
-        // 같은 프레임 중복 클릭 차단
         if (_lastUpgradeFrame == Time.frameCount) return;
         _lastUpgradeFrame = Time.frameCount;
 
@@ -89,64 +124,60 @@ public class StaffShopButton : MonoBehaviour
             return;
         }
 
-        // 같은 Runtime SO에 대한 동시 업그레이드 차단
+        // 이미 만렙이면 아무 것도 하지 않음
+        if (IsMaxLevel())
+        {
+            Debug.Log("[StaffShopButton] 이미 최대 레벨입니다.");
+            return;
+        }
+
         if (UpgradeLock.Contains(staffruntimeData)) return;
         UpgradeLock.Add(staffruntimeData);
 
         try
         {
-            // 돈 선확인
             if (!CanAfford(_price))
             {
                 Debug.Log("돈 부족");
                 return;
             }
 
-            // 실제 차감
             Spend(_price);
 
             int prev = staffruntimeData.level;
 
-            if (prev == 0) // ★ 첫 구매
+            if (prev == 0) // 첫 구매 -> 1레벨
             {
                 staffruntimeData.level = 1;
                 staffruntimeData.isOwned = true;
                 staffruntimeData.isDirty = true;
                 staffruntimeData.RecalcWith(staffData);
-                // 레스토랑(경영) 직원은 구매=배치 동시 처리
+
                 if (staffType == StaffType.restaurant)
                 {
-                    // 우선 EmployeeManager 통해 확정 인덱스로 배치 시도
                     int targetIndex = ResolveAssignIndex();
 
                     if (EmployeeManager.Instance != null && targetIndex >= 0)
                     {
-                        // 매니저 유틸로 배치(내부에서 isAssigned/assignedIndex/isDirty 처리)
                         EmployeeManager.Instance.TryPlaceAtIndex(staffruntimeData, staffData, targetIndex);
                     }
                     else
                     {
-                        // 매니저 없거나 인덱스 계산 실패 → 로컬 스폰 + 데이터표시
                         SafeSpawn();
-                        // assigned/assignedIndex만 세팅 (DB 저장되도록 더티 유지)
                         staffruntimeData.isAssigned = true;
                         staffruntimeData.assignedIndex = targetIndex;
-                        staffruntimeData.isDirty = true;     // ← 배치 더티
+                        staffruntimeData.isDirty = true;
                     }
                 }
             }
-            else // ★ 업그레이드
+            else // 업그레이드 -> +1, 단 MAX_LEVEL 넘지 않게
             {
-                staffruntimeData.level += 1;
+                staffruntimeData.level = Mathf.Min(prev + 1, MAX_LEVEL);
                 staffruntimeData.isOwned = true;
                 staffruntimeData.isDirty = true;
-
-                /*if (_spawned != null)
-                    _spawned.LevelUp();*/
                 staffruntimeData.RecalcWith(staffData);
             }
 
-            // 외부 UI 갱신 통지(있으면)
             EmployeeManager.Instance?.NotifyStaffChanged();
             RefreshUI();
         }
@@ -158,13 +189,9 @@ public class StaffShopButton : MonoBehaviour
 
     private int ResolveAssignIndex()
     {
-        // 우선 고정 인덱스가 지정돼 있으면 그대로 사용
         if (autoAssignIndex >= 0) return autoAssignIndex;
-
-        // spawnPoint가 MapPoint의 자식이면 siblingIndex로 계산
         if (spawnPoint != null && spawnPoint.parent != null)
             return spawnPoint.GetSiblingIndex();
-
         return -1;
     }
 
@@ -176,7 +203,6 @@ public class StaffShopButton : MonoBehaviour
 
     private void Spend(int amount)
     {
-        // 실제 차감 (MoneyManager.UseMoney를 이벤트로 호출)
         EventBus<MoneyChangeMusHandler>.Raise(new MoneyChangeMusHandler(amount));
         BackendGameData.Instance.userData.reputation += 1;
     }
@@ -194,7 +220,6 @@ public class StaffShopButton : MonoBehaviour
             return;
         }
 
-        // 같은 포인트에 기존 자식 정리(겹침 방지)
         for (int i = spawnPoint.childCount - 1; i >= 0; i--)
             Destroy(spawnPoint.GetChild(i).gameObject);
 
