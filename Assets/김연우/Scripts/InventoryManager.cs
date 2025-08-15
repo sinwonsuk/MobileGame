@@ -26,8 +26,8 @@ public class InventoryManager : MonoBehaviour, IAutoSavable
 
 	public void AutoSave()
 	{
-		if (inventoryLoaded)
-			SaveImmediately();
+		if (inventoryLoaded) { }
+		//SaveImmediately();
 		else
 			Debug.LogWarning("인벤토리 로딩 안 됨 -> 종료 시 저장 생략");
 

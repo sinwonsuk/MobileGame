@@ -10,7 +10,7 @@ public class StaffBase : MonoBehaviour
     protected double currentAttackSpeed;
 
     [SerializeField] private GameObject[] buffIconPrefabs; // 다양한 아이콘 (SpeedUp, DefenseUp 등)
-    [SerializeField] private Transform iconAnchor; // 아이콘이 붙을 기준 위치
+    [SerializeField] private Transform iconAnchor;          // 아이콘이 붙을 기준 위치
     private List<GameObject> activeBuffIcons = new();
 
     private Coroutine _speedBuffCR;
@@ -24,7 +24,6 @@ public class StaffBase : MonoBehaviour
         switch (data.staffType)
         {
             case StaffType.hunter:
-                // 첫 구매: 기본 공격 스탯 할당
                 if (runtimeData.attack_Power <= 0) runtimeData.attack_Power = data.basic_attack_Power;
                 if (runtimeData.attack_Speed <= 0) runtimeData.attack_Speed = data.basic_attack_Speed;
                 currentAttackPower = runtimeData.attack_Power;
@@ -32,7 +31,6 @@ public class StaffBase : MonoBehaviour
                 break;
 
             case StaffType.restaurant:
-                // 첫 구매: 기본 타이머/쿨타임 할당
                 if (runtimeData.timer <= 0) runtimeData.timer = data.basictimer;
                 if (runtimeData.cooltime <= 0) runtimeData.cooltime = data.basiccooltime;
                 break;
@@ -56,8 +54,8 @@ public class StaffBase : MonoBehaviour
                 break;
 
             case StaffType.restaurant:
-                 runtimeData.timer    = data.basictimer   + (runtimeData.level - 1) * 0.1;
-                 runtimeData.cooltime = data.basiccooltime - (runtimeData.level - 1) * 0.1;
+                runtimeData.timer = data.basictimer + (runtimeData.level - 1) * 0.1;
+                runtimeData.cooltime = data.basiccooltime - (runtimeData.level - 1) * 0.1;
                 break;
         }
     }
@@ -74,8 +72,9 @@ public class StaffBase : MonoBehaviour
         // 다른 코루틴(아이콘 제거 포함)까지 끊지 않도록 타겟만 정리
         if (_speedBuffCR != null) StopCoroutine(_speedBuffCR);
 
-        // 아이콘 앵커에 생성
-        if (iconPrefab != null) ShowBuffIcon(iconPrefab, duration);
+        //  아이콘 앵커가 없으면 아이콘은 생략 (버프는 그대로 적용)
+        if (iconPrefab != null && iconAnchor != null)
+            ShowBuffIcon(iconPrefab, duration);
 
         // 속도 버프만 처리하는 코루틴
         _speedBuffCR = StartCoroutine(CoSpeedBuff(multiplier, duration));
@@ -99,6 +98,10 @@ public class StaffBase : MonoBehaviour
 
     public void ShowBuffIcon(GameObject iconPrefab, float duration)
     {
+        // 안전 가드: 아이콘 프리팹/앵커가 없으면 생성 생략
+        if (iconPrefab == null || iconAnchor == null)
+            return;
+
         GameObject icon = Instantiate(iconPrefab, iconAnchor.position, Quaternion.identity, iconAnchor);
         activeBuffIcons.Add(icon);
 
@@ -116,12 +119,12 @@ public class StaffBase : MonoBehaviour
 
         yield return new WaitForSeconds(waitBeforeDisappear); // 9.5초 기다림
 
-        var anim = icon.GetComponent<Animator>();
+        var anim = icon != null ? icon.GetComponent<Animator>() : null;
         if (anim != null)
             anim.SetTrigger("BuffEnd");
 
         yield return new WaitForSeconds(disappearAnimTime); // 0.5초 애니메이션 재생
-        if (activeBuffIcons.Contains(icon))
+        if (icon != null && activeBuffIcons.Contains(icon))
         {
             activeBuffIcons.Remove(icon);
             Destroy(icon);
@@ -131,11 +134,15 @@ public class StaffBase : MonoBehaviour
 
     private void UpdateBuffIconPositions()
     {
+        //  앵커 없으면 포지션 정렬 시도하지 않음
+        if (iconAnchor == null) return;
+
         float iconSpacing = 0.6f; // 간격
         for (int i = 0; i < activeBuffIcons.Count; i++)
         {
             Vector3 newPos = iconAnchor.position + new Vector3(i * iconSpacing, 0f, 0f);
-            activeBuffIcons[i].transform.position = newPos;
+            if (activeBuffIcons[i] != null)
+                activeBuffIcons[i].transform.position = newPos;
         }
     }
 
