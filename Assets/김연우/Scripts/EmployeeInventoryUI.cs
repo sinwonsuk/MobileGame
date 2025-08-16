@@ -4,18 +4,18 @@ using UnityEngine;
 public class EmployeeInventoryUI : MonoBehaviour
 {
     public GameObject slotPrefab;
-    public Transform contentParent;
+
+    // 기존 contentParent 대신 두 개로 분리
+    public Transform hunterParent;       // = HunterInnerGrid
+    public Transform restaurantParent;   // = RestaurantInnerGrid
+
     public EmployeeDetailPanel detailPanel;
 
     private void Start()
     {
-        // 초기화 시 한 번만 새로고침
         RefreshUI();
-
-        // 슬롯 클릭 이벤트 구독
         EmployeeSlotUI.OnSlotClicked += OnSlotClicked;
 
-        // 직원 데이터 변경 시 자동 새로고침 이벤트 구독 (이벤트 패턴)
         if (EmployeeManager.Instance != null)
             EmployeeManager.Instance.OnStaffChanged += RefreshUI;
         else
@@ -24,7 +24,6 @@ public class EmployeeInventoryUI : MonoBehaviour
 
     private IEnumerator WaitForManagerThenSubscribe()
     {
-        // EmployeeManager.Instance 생성이 늦을 수 있으니 기다렸다가 구독
         while (EmployeeManager.Instance == null)
             yield return null;
         EmployeeManager.Instance.OnStaffChanged += RefreshUI;
@@ -37,35 +36,36 @@ public class EmployeeInventoryUI : MonoBehaviour
             EmployeeManager.Instance.OnStaffChanged -= RefreshUI;
     }
 
-public void RefreshUI()
-{
-    foreach (Transform child in contentParent)
-        Destroy(child.gameObject);
-
-    foreach (var slot in EmployeeManager.Instance.slots) // 슬롯 목록
+    public void RefreshUI()
     {
-        if (!slot.IsOwned) continue;
+        // 각각 비우기
+        foreach (Transform c in hunterParent) Destroy(c.gameObject);
+        foreach (Transform c in restaurantParent) Destroy(c.gameObject);
 
-
-        var t = slot.staffData.staffType;
-        if (t == StaffType.hunter || t == StaffType.restaurant)
+        // 직원 슬롯 다시 채우기
+        foreach (var slot in EmployeeManager.Instance.slots)
         {
-            var go = Instantiate(slotPrefab, contentParent);
+            if (!slot.IsOwned) continue; // 소유한 직원만 표시
+
+            Transform parent = null;
+            switch (slot.staffData.staffType)
+            {
+                case StaffType.hunter:      parent = hunterParent; break;
+                case StaffType.restaurant:  parent = restaurantParent; break;
+                default: continue;
+            }
+
+            var go = Instantiate(slotPrefab, parent);
             go.GetComponent<EmployeeSlotUI>().SetSlot(slot);
         }
     }
-}
 
-    private void OnEnable()
-    {
-        StartCoroutine(SubscribeWhenReady());
-    }
+    private void OnEnable() { StartCoroutine(SubscribeWhenReady()); }
     private IEnumerator SubscribeWhenReady()
     {
         while (EmployeeManager.Instance == null)
             yield return null;
         EmployeeManager.Instance.OnStaffChanged += RefreshUI;
-        Debug.Log("EmployeeInventoryUI: 이벤트 구독 성공!");
     }
     private void OnDisable()
     {
