@@ -1273,7 +1273,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54d6c1328d7dced4fa78526b3dc3c562, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  button: {fileID: 0}
+  button: {fileID: 6790567730027819134}
   enhanceFoodUI: {fileID: -4284018441513687752}
   enhanceResult: {fileID: 4402844881628747683}
 --- !u!1 &3801694778483712925

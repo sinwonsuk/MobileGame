@@ -80,25 +80,25 @@ public class BuffStaff : StaffBase
 
     private void OnPointerPressed(InputAction.CallbackContext ctx)
     {
-        if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject()) return;
-        if (isShopOpen) return;
+        //if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject()) return;
+        //if (isShopOpen) return;
 
-        Vector2 screenPos = Vector2.zero;
-        if (Mouse.current != null) screenPos = Mouse.current.position.ReadValue();
-        else if (Touchscreen.current != null) screenPos = Touchscreen.current.primaryTouch.position.ReadValue();
+        //Vector2 screenPos = Vector2.zero;
+        //if (Mouse.current != null) screenPos = Mouse.current.position.ReadValue();
+        //else if (Touchscreen.current != null) screenPos = Touchscreen.current.primaryTouch.position.ReadValue();
 
-        Vector3 world = Camera.main.ScreenToWorldPoint(new Vector3(screenPos.x, screenPos.y, 0f));
-        Vector2 p = new Vector2(world.x, world.y);
+        //Vector3 world = Camera.main.ScreenToWorldPoint(new Vector3(screenPos.x, screenPos.y, 0f));
+        //Vector2 p = new Vector2(world.x, world.y);
 
-        var hits = Physics2D.OverlapPointAll(p, clickMask);
-        foreach (var hit in hits)
-        {
-            if (hit != null && (hit.transform == transform || hit.transform.IsChildOf(transform)))
-            {
-                TryCastBuff();
-                break;
-            }
-        }
+        //var hits = Physics2D.OverlapPointAll(p, clickMask);
+        //foreach (var hit in hits)
+        //{
+        //    if (hit != null && (hit.transform == transform || hit.transform.IsChildOf(transform)))
+        //    {
+        //        TryCastBuff();
+        //        break;
+        //    }
+        //}
     }
 
     private void TryCastBuff()

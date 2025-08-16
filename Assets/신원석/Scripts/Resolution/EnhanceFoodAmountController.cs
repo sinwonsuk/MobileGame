@@ -10,6 +10,11 @@ public class EnhanceFoodAmountController : MonoBehaviour
 
     }
 
+    private void OnEnable()
+    {
+        button.interactable = true;
+    }
+
     void Start()
     {
 
@@ -17,7 +22,22 @@ public class EnhanceFoodAmountController : MonoBehaviour
 
     void Update()
     {
+        FoodData data = enhanceFoodUI.foodData;
 
+        var materials = data.enhanceSteps[data.Level].ingredients;
+
+        var sucessRate = data.enhanceSteps[data.Level].successRate;
+
+        int random = Random.Range(0, 100);
+
+        for (int i = 0; i < materials.Count; i++)
+        {
+            if (materials[i].quantity > InventoryManager.Instance.GetItemQty(materials[i].indate))
+            {
+                button.interactable = false;
+                return;
+            }
+        }
     }
 
 
@@ -52,7 +72,6 @@ public class EnhanceFoodAmountController : MonoBehaviour
         }
 
         enhanceResult.gameObject.SetActive(true);
-        button.interactable = false;
 
         if (random > sucessRate) // 애는 실패
         {
