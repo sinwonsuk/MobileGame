@@ -98,7 +98,7 @@ public class StaffShopButton : MonoBehaviour
             if (IsMaxLevel())
                 buttonText.text = "최대";
             else
-                buttonText.text = $"{_price}";
+                buttonText.text = (current == 0) ? "구매" : "레벨 업";
         }
 
         if (purchaseButton != null)

@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using UnityEditor.Animations;
 using UnityEngine;
 
 public enum Skin
@@ -38,7 +37,7 @@ public class Witch : MonoBehaviour
     public class WitchSkin
     {
         public Skin skin;
-        public AnimatorController animator;
+        public RuntimeAnimatorController animator;
     }
 
     public void ChangeSkin(ChangeSkinHandler skin)

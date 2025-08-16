@@ -90,7 +90,7 @@ public class ExpeditionButton : MonoBehaviour
         if (currentReputation < requiredReputation)
         {
             if (mainBtn) mainBtn.interactable = false;
-            if (btnText) btnText.text = $"명성도 {requiredReputation} 필요";
+            if (btnText) btnText.text = $"명성도\n{requiredReputation} 필요";
             if (stateText) stateText.text = "조건 미달";
             if (timerText) timerText.text = "";
             return;
