@@ -44,8 +44,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb5d4a46b91d8ee45b7b6350c328a5b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseCooldown: 10
-  duration: 10
-  multiplier: 2
+  baseCooldown: 120
+  duration: 20
+  multiplier: 5
   buffIconPrefab: {fileID: 7910066871266146526, guid: 00a1c98e8eba5b047937a56d1415b813, type: 3}
   buffEffectPrefab: {fileID: 8340609207370270718, guid: 08f3cdc6a992266459288ada2fe134c0, type: 3}

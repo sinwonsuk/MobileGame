@@ -15,6 +15,8 @@ public class BigBulletSkill : MonoBehaviour, ISkill, ICooldownReadable
     private float _cooldownSpeed = 1f;      // 로컬 배율
     private int _buffStack = 0;
 
+    private bool _cooldownStartedEarly = false;
+
     void OnEnable()
     {
         EventBus<CooldownSpeedBuffEvent>.OnEvent += OnBuffEvent;
@@ -39,7 +41,7 @@ public class BigBulletSkill : MonoBehaviour, ISkill, ICooldownReadable
 
     public void Cast(Transform origin)
     {
-        if (!CanCast()) return;
+        if (!CanCast() && !_cooldownStartedEarly) return;
 
         Transform nearestEnemy = FindNearestEnemy(origin.position);
         Vector3 dir = (nearestEnemy != null)
@@ -60,6 +62,7 @@ public class BigBulletSkill : MonoBehaviour, ISkill, ICooldownReadable
 
         // 쿨다운 시작
         _cooldownProgress = 0f;
+        _cooldownStartedEarly = false;
     }
 
     private Transform FindNearestEnemy(Vector3 origin)
@@ -99,5 +102,14 @@ public class BigBulletSkill : MonoBehaviour, ISkill, ICooldownReadable
         yield return new WaitForSeconds(duration);
         _buffStack = Mathf.Max(0, _buffStack - 1);
         if (_buffStack == 0) _cooldownSpeed = 1f;
+    }
+
+    public void BeginCooldownOnly()
+    {
+        if (_cooldownProgress >= skillCooldown)
+        {
+            _cooldownProgress = 0f;
+            _cooldownStartedEarly = true; 
+        }
     }
 }

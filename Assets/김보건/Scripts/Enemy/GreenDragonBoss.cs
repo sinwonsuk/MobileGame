@@ -30,7 +30,8 @@ public class GreenDragonBoss : EnemyBase
 
         if (floorData.autoNextFloor)
         {
-            floorData.selectedFloor++;
+            if (floorData.selectedFloor >= 10)
+                floorData.selectedFloor = 1;
             floorData.ResetStage();
             dungeonManager.LoadMap();
         }

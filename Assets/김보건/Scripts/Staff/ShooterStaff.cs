@@ -110,6 +110,7 @@ public class ShooterStaff : StaffBase
         if (!bigBulletSkill.CanCast()) return;
 
         _pendingSkillCast = true;          // 스킬 발사 예약
+        (bigBulletSkill as BigBulletSkill)?.BeginCooldownOnly();
 
         // 평타 애니메이션을 첫 프레임부터 즉시 재생 (평타 중이어도 끊고 시작)
         animator.Play("Attack", 0, 0f);
