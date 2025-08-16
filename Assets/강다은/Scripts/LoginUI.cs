@@ -21,7 +21,7 @@ public class LoginUI : MonoBehaviour
     private IEnumerator Start()
 	{
 		mainImage.gameObject.SetActive(true);
-		loadingImage.gameObject.SetActive(false);
+		loadingImage.gameObject.SetActive(true);
 
 		// Backend 초기화될 때까지 기다림
 		while (!Backend.IsInitialized)
@@ -30,6 +30,7 @@ public class LoginUI : MonoBehaviour
 		}
 
 		Debug.Log("Backend 초기화 완료됨, 자동 로그인 시도");
+
 
 		// 자동 로그인 시도
 		Backend.BMember.LoginWithTheBackendToken(callback =>
@@ -43,6 +44,7 @@ public class LoginUI : MonoBehaviour
 			{
 				Debug.Log("자동 로그인 실패, 수동 로그인 화면으로");
 				mainImage.gameObject.SetActive(false);
+				loadingImage.gameObject.SetActive(false);
 				ShowLogin();
 			}
 		});

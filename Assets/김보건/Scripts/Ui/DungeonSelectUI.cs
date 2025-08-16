@@ -18,6 +18,8 @@ public class DungeonSelectUI : MonoBehaviour
         if (sm != null)
         {
             sm.SetLocation(location.Dungeon);
+            LocationState.Current = location.Dungeon;
+            EventBus<LocationChangedEvent>.Raise(new LocationChangedEvent(location.Dungeon));
         }
 
         // 던전이 이미 진행 중이라면 (중간 이동)
@@ -27,7 +29,7 @@ public class DungeonSelectUI : MonoBehaviour
         }
 
 
-        dungeonInGameUI.SetActive(false);
+        //dungeonInGameUI.SetActive(false);
         selectedFloorData.selectedFloor = floor;
         selectedFloorData.ResetStage();
 
@@ -43,6 +45,7 @@ public class DungeonSelectUI : MonoBehaviour
 
         dungeonManager.Init();
 
+        dungeonInGameUI.SetActive(true);
         gameObject.SetActive(false);
     }
 }
