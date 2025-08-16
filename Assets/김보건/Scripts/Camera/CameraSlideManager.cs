@@ -81,6 +81,10 @@ public class CameraSlideManager : baseManager
 
         Vector2 pointerPos = pointerPosition.ReadValue<Vector2>();
 
+        if (float.IsNaN(pointerPos.x) || float.IsNaN(pointerPos.y) ||
+        float.IsInfinity(pointerPos.x) || float.IsInfinity(pointerPos.y))
+            return;
+
         if (isPointerDown)
         {
             if (!isDragging)
@@ -92,58 +96,15 @@ public class CameraSlideManager : baseManager
             else
             {
                 Vector2 delta = pointerPos - startPos;
+
+                if (!float.IsFinite(delta.x)) return;
+
                 Vector3 dragPos = dragStartCamPos - new Vector3(delta.x * dragSensitivity, 0f, 0f);
                 dragPos.x = Mathf.Clamp(dragPos.x, dungeonPosition.x, restaurantPosition.x);
-                Camera.position = dragPos;
+                if (Camera != null)
+                    Camera.position = dragPos;
             }
         }
-
-//#if UNITY_EDITOR || UNITY_STANDALONE
-//        if (Input.GetMouseButtonDown(0))
-//        {
-//            startPos = Input.mousePosition;
-//            dragStartCamPos = Camera.position;
-//            isDragging = true;
-//        }
-//        else if (Input.GetMouseButton(0) && isDragging)
-//        {
-//            Vector2 delta = (Vector2)Input.mousePosition - startPos;
-//            Vector3 dragPos = dragStartCamPos - new Vector3(delta.x * dragSensitivity, 0f, 0f);
-//            dragPos.x = Mathf.Clamp(dragPos.x, dungeonPosition.x, restaurantPosition.x);
-//            Camera.position = dragPos;
-//        }
-//        else if (Input.GetMouseButtonUp(0) && isDragging)
-//        {
-//            isDragging = false;
-//            endPos = Input.mousePosition;
-//            HandleSwipe(endPos - startPos);
-//        }
-//#else
-//        if (Input.touchCount > 0)
-//        {
-//            Touch touch = Input.GetTouch(0);
-
-//            if (touch.phase == TouchPhase.Began)
-//            {
-//                startPos = touch.position;
-//                dragStartCamPos = Camera.position;
-//                isDragging = true;
-//            }
-//            else if (touch.phase == TouchPhase.Moved && isDragging)
-//            {
-//                Vector2 delta = touch.position - startPos;
-//                Vector3 dragPos = dragStartCamPos - new Vector3(delta.x * dragSensitivity, 0f, 0f);
-//                dragPos.x = Mathf.Clamp(dragPos.x, dungeonPosition.x, restaurantPosition.x);
-//                Camera.position = dragPos;
-//            }
-//            else if (touch.phase == TouchPhase.Ended && isDragging)
-//            {
-//                isDragging = false;
-//                endPos = touch.position;
-//                HandleSwipe(endPos - startPos);
-//            }
-//        }
-//#endif
     }
 
     private void OnPointerDown()
