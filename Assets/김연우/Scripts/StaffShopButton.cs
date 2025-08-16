@@ -16,7 +16,7 @@ public class StaffShopButton : MonoBehaviour
     public TextMeshProUGUI buttonText;
     public TextMeshProUGUI levelText;
     public TextMeshProUGUI nameText;
-
+    public TextMeshProUGUI priceText;
     [Header("스폰(레스토랑만 사용)")]
     public StaffType staffType;
     public Transform spawnPoint;
@@ -77,39 +77,35 @@ public class StaffShopButton : MonoBehaviour
     {
         int current = staffruntimeData != null ? staffruntimeData.level : 0;
 
-        // 다음 레벨(구매 시 1레벨, 업그레이드 시 +1)을 계산하되 MAX_LEVEL을 넘지 않게 클램프
         int nextLevel = (current == 0) ? 1 : current + 1;
         int nextLevelClamped = Mathf.Clamp(nextLevel, 1, MAX_LEVEL);
 
-        // 가격은 "아직 만렙이 아닐 때만" 계산
         _price = (staffData != null && current < MAX_LEVEL)
             ? staffData.baseSalary * nextLevelClamped
             : 0;
 
         // 레벨 표기
         if (levelText != null)
-        {
             levelText.text = IsMaxLevel() ? $"Lv. {MAX_LEVEL} (MAX)" : $"Lv. {current}";
-        }
 
-        // 버튼 상태/문구
+        // 이름 표시
+        if (nameText != null && staffData != null)
+            nameText.text = staffData.displayName;
+
+        // 버튼 텍스트에 가격만 표시
         if (buttonText != null)
         {
             if (IsMaxLevel())
                 buttonText.text = "최대";
             else
-                buttonText.text = (current == 0) ? "Buy" : "Upgrade";
+                buttonText.text = (current == 0) ? "구매" : "레벨 업";
+                priceText.text = $"필요 골드 : {_price}G";
         }
 
         if (purchaseButton != null)
-        {
             purchaseButton.interactable = !IsMaxLevel();
-        }
-
-        // 이름 표시
-        if (nameText != null && staffData != null)
-            nameText.text = staffData.displayName;
     }
+
 
     private void OnClick()
     {

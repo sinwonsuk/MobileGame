@@ -1729,6 +1729,10 @@ PrefabInstance:
       propertyPath: loadingImage
       value: 
       objectReference: {fileID: 832790384}
+    - target: {fileID: 3597932597050006500, guid: 3819db881d542bf418485115edd3178b, type: 3}
+      propertyPath: signupButton
+      value: 
+      objectReference: {fileID: 7987766172363295614}
     - target: {fileID: 3703229395128611813, guid: 3819db881d542bf418485115edd3178b, type: 3}
       propertyPath: m_fontSize
       value: 70
@@ -2515,6 +2519,17 @@ PrefabInstance:
       addedObject: {fileID: 1424372954}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3819db881d542bf418485115edd3178b, type: 3}
+--- !u!114 &7987766172363295614 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7365118978977010417, guid: 3819db881d542bf418485115edd3178b, type: 3}
+  m_PrefabInstance: {fileID: 7987766172363295613}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &9030498159083597976
 PrefabInstance:
   m_ObjectHideFlags: 0
