@@ -75,12 +75,12 @@ public class EnhanceFoodAmountController : MonoBehaviour
 
         if (random > sucessRate) // 애는 실패
         {
-            enhanceResult.Image.sprite = Resources.Load<Sprite>("mimicBBQPlate");
+            enhanceResult.Image.sprite = Resources.Load<Sprite>("fail");
             enhanceResult.Text.text = "강화실패";
         }
         else // 애는 성공 
         {
-            enhanceResult.Image.sprite = Resources.Load<Sprite>("mimicMeat");
+            enhanceResult.Image.sprite = Resources.Load<Sprite>("success");
             enhanceResult.Text.text = "강화성공";
 			data.Level += 1;
             data.isDirty = true;

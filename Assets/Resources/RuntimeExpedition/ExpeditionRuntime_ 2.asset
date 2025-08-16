@@ -15,5 +15,5 @@ MonoBehaviour:
   staticSO: {fileID: 11400000, guid: fe0a965c0efe5224ea30259ece79184d, type: 2}
   indate: 2025-08-14T19:30:00.764Z
   isRunning: 0
-  departUtcIso: 
-  arriveUtcIso: 
+  departUtcIso: default
+  arriveUtcIso: default

@@ -48,8 +48,8 @@ public class RuntimeExpeditionSO : ScriptableObject
     public void Clear()
     {
         isRunning     = false;
-        departUtcIso  = null;
-        arriveUtcIso  = null;
+        departUtcIso  = "";
+        arriveUtcIso  = "";
         isDirty = true;
     }
 
