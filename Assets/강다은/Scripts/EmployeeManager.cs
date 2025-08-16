@@ -19,7 +19,7 @@ public class EmployeeManager : MonoBehaviour, IAutoSavable
         }
 
         DontDestroyOnLoad(gameObject);
-        InitializeDisplayNamesFromStatic();
+        //InitializeDisplayNamesFromStatic();
         for (int i = 0; i < allEmployees.Length; i++)
         {
             slots.Add(new EmployeeSlot(allEmployees[i], allRunTimeEmployees[i]));
@@ -468,7 +468,7 @@ public class EmployeeManager : MonoBehaviour, IAutoSavable
 
                 string empIndate = row["employeeIndate"].ToString();
                 int level = int.Parse(row["employeeCustomLevel"].ToString());
-                string displayName = row["employeeName"].ToString();
+                //string displayName = row["employeeName"].ToString();
                 bool isOwned = bool.Parse(row["isOwned"].ToString());
                 bool isAssigned = bool.Parse(row["isAssigned"].ToString());
                 int assignedIndex = int.Parse(row["assignedIndex"].ToString());
@@ -478,7 +478,7 @@ public class EmployeeManager : MonoBehaviour, IAutoSavable
                 {
                     emp.level = level;
                     emp.isDirty = false;
-                    emp.displayName = displayName;
+                    //emp.displayName = displayName;
                     emp.isOwned = isOwned;
                     emp.isAssigned = isAssigned;
                     emp.assignedIndex = assignedIndex;
@@ -552,21 +552,21 @@ public class EmployeeManager : MonoBehaviour, IAutoSavable
         Debug.Log("[EmployeeManager] 변경된 직원 데이터 저장 완료");
     }
 
-    private void InitializeDisplayNamesFromStatic()
-    {
-        foreach (var runtime in allRunTimeEmployees)
-        {
-            var staticData = allEmployees.FirstOrDefault(s => s.indate == runtime.indate);
-            if (staticData != null)
-            {
-                runtime.displayName = staticData.displayName;
-            }
-            else
-            {
-                Debug.LogWarning($"[초기화 실패] {runtime.indate} 에 해당하는 마스터 직원 데이터가 없습니다.");
-            }
-        }
-    }
+   //private void InitializeDisplayNamesFromStatic()
+   //{
+   //    foreach (var runtime in allRunTimeEmployees)
+   //    {
+   //        var staticData = allEmployees.FirstOrDefault(s => s.indate == runtime.indate);
+   //        if (staticData != null)
+   //        {
+   //            runtime.displayName = staticData.displayName;
+   //        }
+   //        else
+   //        {
+   //            Debug.LogWarning($"[초기화 실패] {runtime.indate} 에 해당하는 마스터 직원 데이터가 없습니다.");
+   //        }
+   //    }
+   //}
 
 
 	public static EmployeeManager Instance { get; private set; }
