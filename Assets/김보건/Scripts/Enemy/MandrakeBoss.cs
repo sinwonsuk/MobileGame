@@ -4,7 +4,7 @@ public class MandrakeBoss : EnemyBase
 {
     private int stage;
 
-    protected override float GetMaxHp() => 1430.0f;
+    protected override float GetMaxHp() => 4366.0f;
 
     protected override void Start()
     {

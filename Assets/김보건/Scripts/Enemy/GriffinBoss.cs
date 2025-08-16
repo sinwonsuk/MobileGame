@@ -4,7 +4,7 @@ public class GriffinBoss : EnemyBase
 {
     private int stage;
 
-    protected override float GetMaxHp() => 1030.0f;
+    protected override float GetMaxHp() => 2723.0f;
 
     protected override void Start()
     {

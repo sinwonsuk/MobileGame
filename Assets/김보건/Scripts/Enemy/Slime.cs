@@ -5,7 +5,7 @@ public class Slime : EnemyBase
 {
     private int stage;
 
-    protected override float GetMaxHp() => 14.0f;
+    protected override float GetMaxHp() => 72.0f;
 
     protected override void Start()
     {
