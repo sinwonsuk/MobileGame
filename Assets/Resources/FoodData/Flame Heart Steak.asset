@@ -16,8 +16,8 @@ MonoBehaviour:
   displayName: "\uD654\uC5FC\uC758 \uC2EC\uC7A5 \uC2A4\uD14C\uC774\uD06C"
   foodSprite: fireHeartBBQ
   price: 1400
-  reputation: 0
-  Getreputation: 1
+  reputation: 560
+  Getreputation: 0
   isUnlock: 0
   cookingTime: 120
   Level: 1

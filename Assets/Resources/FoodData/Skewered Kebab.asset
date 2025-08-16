@@ -16,8 +16,8 @@ MonoBehaviour:
   displayName: "\uAF2C\uCE58\uAD6C\uC774"
   foodSprite: squirtle
   price: 1092
-  reputation: 0
-  Getreputation: 1
+  reputation: 340
+  Getreputation: 0
   isUnlock: 0
   cookingTime: 93.9
   Level: 1

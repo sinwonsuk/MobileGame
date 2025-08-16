@@ -16,11 +16,11 @@ MonoBehaviour:
   displayName: "\uD06C\uB77C\uCF04 \uBA39\uBB3C \uB9AC\uC870\uB610"
   foodSprite: octopusInkRisotto
   price: 100
-  reputation: 0
-  Getreputation: 1
+  reputation: 1
+  Getreputation: 0
   isUnlock: 0
   cookingTime: 10
-  Level: 5
+  Level: 1
   FoodManual: 
   Ingredients:
   - {fileID: 11400000, guid: eb82d363345dc90489082680109b4e2b, type: 2}

@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class FoodSlot : MonoBehaviour
 {
@@ -35,4 +36,11 @@ public class FoodSlot : MonoBehaviour
         }
     }
 
+    public void buttonOnOff(bool check)
+    {
+        myButton.interactable = check;
+    }
+
+
+    [SerializeField] private Button myButton;
 }

@@ -16,11 +16,11 @@ MonoBehaviour:
   displayName: "\uD63C\uB3C8\uC758 \uBFD4 \uC218\uD504"
   foodSprite: orcSoup
   price: 742
-  reputation: 0
-  Getreputation: 1
+  reputation: 280
+  Getreputation: 0
   isUnlock: 0
   cookingTime: 64.3
-  Level: 6
+  Level: 1
   FoodManual: "\uB098\uB294 \uD63C\uB3C8\uC758 \uBFD4 \uC2A4\uD504\uB2E4."
   Ingredients:
   - {fileID: 11400000, guid: fd56a8b06c6e07541b56aecb13256f30, type: 2}

@@ -48,16 +48,31 @@ public class FoodSlotUI : MonoBehaviour
     public void CreateSlot(SlotSpawnHandler slotSpawnHandler)
     {
         if(slotSpawnHandler.foodData.reputation > BackendGameData.Instance.userData.reputation)
-            return;
+        {
+            GameObject obj = Instantiate(slotSpawnHandler.Slot, slotTransform);
+            obj.SetActive(false);
+            obj.GetComponent<Button>().interactable = false;
+            Sprite foodSprite = Resources.Load<Sprite>(slotSpawnHandler.Image);
+            obj.transform.GetChild((int)SlotInfo.Name).GetComponent<TextMeshProUGUI>().text = slotSpawnHandler.SlotName;
+            obj.transform.GetChild((int)SlotInfo.Image).GetComponent<Image>().sprite = foodSprite;
+            obj.GetComponent<FoodSlot>().foodData = slotSpawnHandler.foodData;
+            obj.SetActive(true);
+            slot.Add(obj);
+        }
+        else
+        {
+            GameObject obj = Instantiate(slotSpawnHandler.Slot, slotTransform);
+            obj.GetComponent<Button>().interactable = true;
+            Sprite foodSprite = Resources.Load<Sprite>(slotSpawnHandler.Image);
+            obj.transform.GetChild((int)SlotInfo.Name).GetComponent<TextMeshProUGUI>().text = slotSpawnHandler.SlotName;
+            obj.transform.GetChild((int)SlotInfo.Image).GetComponent<Image>().sprite = foodSprite;
+            obj.GetComponent<FoodSlot>().foodData = slotSpawnHandler.foodData;
+
+            slot.Add(obj);
+        }
 
 
-        GameObject obj = Instantiate(slotSpawnHandler.Slot, slotTransform);
-        Sprite foodSprite = Resources.Load<Sprite>(slotSpawnHandler.Image);
-        obj.transform.GetChild((int)SlotInfo.Name).GetComponent<TextMeshProUGUI>().text = slotSpawnHandler.SlotName;
-        obj.transform.GetChild((int)SlotInfo.Image).GetComponent<Image>().sprite = foodSprite;
-        obj.GetComponent<FoodSlot>().foodData = slotSpawnHandler.foodData;
 
-        slot.Add(obj);
     }
 
     public void DeleteSlot(FoodSlotDeleteHandler slotSpawnHandler)

@@ -16,8 +16,8 @@ MonoBehaviour:
   displayName: "\uC624\uD06C \uD574\uC7A5\uAD6D"
   foodSprite: hangoverSoup
   price: 882
-  reputation: 0
-  Getreputation: 1
+  reputation: 240
+  Getreputation: 0
   isUnlock: 0
   cookingTime: 76.2
   Level: 1

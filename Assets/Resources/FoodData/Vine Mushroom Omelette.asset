@@ -16,8 +16,8 @@ MonoBehaviour:
   displayName: "\uB369\uAD74\uBC84\uC12F \uC624\uBBC8\uB81B"
   foodSprite: vineMushroomOmelette
   price: 322
-  reputation: 0
-  Getreputation: 1
+  reputation: 100
+  Getreputation: 0
   isUnlock: 0
   cookingTime: 28.8
   Level: 1
