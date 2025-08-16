@@ -29,6 +29,9 @@ public class BuffStaff : StaffBase
     private bool _inited = false;
     private float nextFireTime = 0f;
 
+    private bool _clickQueued;
+    private Vector2 _queuedScreenPos;
+
     public override void Init(StaffStatsSO stats, RuntimeStaffStatsSO Runtimestats)
     {
         base.Init(stats, Runtimestats);
@@ -41,7 +44,7 @@ public class BuffStaff : StaffBase
         // EventBus<ShopUIEvent>.OnEvent += OnShopUIEvent;
 
         clickAction = new InputAction(type: InputActionType.Button, binding: "<Pointer>/press");
-        clickAction.performed += OnPointerPressed;
+        //clickAction.performed += OnPointerPressed;
         clickAction.Enable();
     }
 
@@ -49,7 +52,7 @@ public class BuffStaff : StaffBase
     {
         // EventBus<ShopUIEvent>.OnEvent -= OnShopUIEvent;
 
-        clickAction.performed -= OnPointerPressed;
+        //clickAction.performed -= OnPointerPressed;
         clickAction.Disable();
     }
 
@@ -69,6 +72,37 @@ public class BuffStaff : StaffBase
     void Update()
     {
         if (!_inited) return;
+
+        if (clickAction != null && clickAction.WasPressedThisFrame() && Pointer.current != null)
+        {
+            _queuedScreenPos = Pointer.current.position.ReadValue();
+            _clickQueued = true;
+        }
+
+        if (_clickQueued)
+        {
+            _clickQueued = false;
+
+            int pid = Pointer.current != null ? Pointer.current.deviceId : -1;
+            if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject(pid))
+                return;
+
+            var cam = Camera.main;
+            if (cam == null) return;
+
+            if (float.IsNaN(_queuedScreenPos.x) || float.IsNaN(_queuedScreenPos.y) ||
+                float.IsInfinity(_queuedScreenPos.x) || float.IsInfinity(_queuedScreenPos.y))
+                return;
+
+            var ray = cam.ScreenPointToRay(_queuedScreenPos);
+            var hit2D = Physics2D.GetRayIntersection(ray, Mathf.Infinity, clickMask);
+            if (hit2D.collider != null)
+            {
+                var t = hit2D.transform;
+                if (t == transform || t.IsChildOf(transform))
+                    TryCastBuff();
+            }
+        }
 
         if (IsEnemyNearby())
         {

@@ -47,5 +47,5 @@ MonoBehaviour:
   bigBulletPrefab: {fileID: 511557987817223476, guid: 06135644444dcc943acc3cce8b0d3934, type: 3}
   bulletSpeed: 20
   bulletDamage: 100
-  skillCooldown: 3
+  skillCooldown: 30
   detectRange: 25
