@@ -80,10 +80,10 @@ public class StatUpgradeButton : MonoBehaviour
     void RefreshUI()
     {
         // 버튼 텍스트
-        if (buttonText != null) buttonText.text = "Upgrade";
+        if (buttonText != null) buttonText.text = "강화";
 
         // 레벨
-        if (levelText != null) levelText.text = $"레벨 : {playerStats.level}";
+        if (levelText != null) levelText.text = $"Lv. {playerStats.level}";
 
         // 공격력
         if (attackText != null) attackText.text = $"공격력 : {playerStats.attackPower:F0}";
@@ -98,6 +98,6 @@ public class StatUpgradeButton : MonoBehaviour
         if (critDamageText != null) critDamageText.text = $"크리티컬 데미지 : {playerStats.critDamageMultiplier:F2}배";
 
         // 가격
-        if (moneyText != null) moneyText.text = $"가격 : {GetCurrentPrice()}";
+        if (moneyText != null) moneyText.text = $"필요 골드 : {GetCurrentPrice()}G";
     }
 }
