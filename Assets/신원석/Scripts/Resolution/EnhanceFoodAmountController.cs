@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class EnhanceFoodAmountController : MonoBehaviour
 {
@@ -51,6 +52,7 @@ public class EnhanceFoodAmountController : MonoBehaviour
         }
 
         enhanceResult.gameObject.SetActive(true);
+        button.interactable = false;
 
         if (random > sucessRate) // 애는 실패
         {
@@ -65,15 +67,9 @@ public class EnhanceFoodAmountController : MonoBehaviour
             data.isDirty = true;
 		}
 
-
-
-
-
-
-        //EventBus<UpMenuSpawnHandler>.Raise(new UpMenuSpawnHandler(foodAmountUI.FoodIcon, tempCurrentAmount.ToString(), foodName, MenuParentTransform));
-        //EventBus<MenuBoardSlotSpawnHandler>.Raise(new MenuBoardSlotSpawnHandler(tempCurrentAmount.ToString(), foodName));
     }
 
+    [SerializeField] Button button;
 
     [SerializeField] EnhanceFoodUI enhanceFoodUI;
     [SerializeField] EnhanceResult enhanceResult;

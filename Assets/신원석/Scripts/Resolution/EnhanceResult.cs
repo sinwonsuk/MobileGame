@@ -27,6 +27,8 @@ public class EnhanceResult : MonoBehaviour
         time = 0f;
         // 한 프레임 뒤에 호출되도록
         Invoke(nameof(RaiseToggleEvent), 0f);
+
+        button.interactable = true;
     }
 
     private void RaiseToggleEvent()
@@ -38,11 +40,20 @@ public class EnhanceResult : MonoBehaviour
     {
         time += Time.deltaTime;
         if (time > 1f)
+        {
             gameObject.SetActive(false);
+        }
+        else
+        {
+            button.interactable = false;
+        }
+
     }
 
     public void Click()
     {
         gameObject.SetActive(false);
     }
+
+    [SerializeField] Button button;
 }
