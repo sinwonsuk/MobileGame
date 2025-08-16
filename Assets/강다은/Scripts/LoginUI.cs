@@ -238,7 +238,7 @@ public class LoginUI : MonoBehaviour
 		{
 			PopupManager.Show("닉네임이 설정되지 않았습니다.\n닉네임 설정 화면으로 이동합니다.", () =>
 			{
-				cavans.sortingOrder = 10;
+				loginCanvas.sortingOrder = 10;
                 FindAccountCavas.SetActive(false);
                 ShowNicknamePanel();
 				
@@ -439,7 +439,7 @@ public class LoginUI : MonoBehaviour
 
 	public void LoadSencmImage(ChangeLoadImageEvent changeLoadImageEvent)
 	{
-        cavans.sortingOrder = 0;
+        loginCanvas.sortingOrder = 0;
 
         bool isLoading = changeLoadImageEvent.isLoading;
 
@@ -473,7 +473,7 @@ public class LoginUI : MonoBehaviour
 
 	[SerializeField] private Button signupButton;
 
-	[SerializeField] private Canvas cavans;
+	[SerializeField] private Canvas loginCanvas;
 
     [SerializeField] private GameObject FindAccountCavas;
 }
