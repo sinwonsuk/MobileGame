@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using static UnityEngine.Rendering.STP;
@@ -39,11 +40,21 @@ public class FoodSlot : MonoBehaviour
         }
     }
 
-    public void buttonOnOff(bool check)
+    [SerializeField]
+    Image rockImage;
+
+    [SerializeField]
+    TextMeshProUGUI rereputation;
+
+    public Image RockImage
     {
-        myButton.interactable = check;
+        get => rockImage;
+        set => rockImage = value;
+    }
+    public TextMeshProUGUI Rereputation
+    {
+        get => rereputation;
+        set => rereputation = value;
     }
 
-
-    [SerializeField] private Button myButton;
 }

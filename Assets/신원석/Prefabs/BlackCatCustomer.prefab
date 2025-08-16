@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3815033781753122313}
   - component: {fileID: 4051747760832245466}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: GameObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -99,7 +99,7 @@ GameObject:
   - component: {fileID: 5580176247553754303}
   - component: {fileID: 580927717958800547}
   - component: {fileID: 5398697748513651083}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Square
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -235,6 +235,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1627788dc501de14ca341eb4961b2f43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cam: {fileID: 0}
+  cookableMask:
+    serializedVersion: 2
+    m_Bits: 512
 --- !u!1 &7010813214275849741
 GameObject:
   m_ObjectHideFlags: 0

@@ -56,6 +56,8 @@ public class FoodSlotUI : MonoBehaviour
             obj.transform.GetChild((int)SlotInfo.Name).GetComponent<TextMeshProUGUI>().text = slotSpawnHandler.SlotName;
             obj.transform.GetChild((int)SlotInfo.Image).GetComponent<Image>().sprite = foodSprite;
             obj.GetComponent<FoodSlot>().foodData = slotSpawnHandler.foodData;
+            obj.GetComponent<FoodSlot>().RockImage.enabled = true;
+            obj.GetComponent<FoodSlot>().Rereputation.text = slotSpawnHandler.foodData.reputation.ToString();
             obj.SetActive(true);
             slot.Add(obj);
         }
@@ -67,7 +69,7 @@ public class FoodSlotUI : MonoBehaviour
             obj.transform.GetChild((int)SlotInfo.Name).GetComponent<TextMeshProUGUI>().text = slotSpawnHandler.SlotName;
             obj.transform.GetChild((int)SlotInfo.Image).GetComponent<Image>().sprite = foodSprite;
             obj.GetComponent<FoodSlot>().foodData = slotSpawnHandler.foodData;
-
+            obj.GetComponent<FoodSlot>().RockImage.enabled = false;
             slot.Add(obj);
         }
 
