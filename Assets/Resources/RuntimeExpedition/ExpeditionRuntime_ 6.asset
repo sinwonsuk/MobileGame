@@ -13,8 +13,7 @@ MonoBehaviour:
   m_Name: ExpeditionRuntime_ 6
   m_EditorClassIdentifier: 
   staticSO: {fileID: 11400000, guid: b28a2cf9614f29d488b672c356695927, type: 2}
-  Indate: 6
+  indate: 2025-08-14T19:30:01.443Z
   isRunning: 0
-  rewardClaimed: 0
-  departUtcIso: 
-  arriveUtcIso: 
+  departUtcIso: default
+  arriveUtcIso: default

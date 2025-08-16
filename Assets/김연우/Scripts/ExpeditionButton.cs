@@ -16,7 +16,6 @@ public class ExpeditionButton : MonoBehaviour
     public TMP_Text nameText;
 
     public int requiredReputation = 0;
-    public Action<string, Action> OnRequestClaim;
 
     private void Awake()
     {
@@ -49,25 +48,21 @@ public class ExpeditionButton : MonoBehaviour
         var id = runtimeSO.indate;
         if (string.IsNullOrEmpty(id)) return;
 
+        // 대기 중이면 바로 시작
         if (ExpeditionManager.Instance.CanStart(id))
         {
             ExpeditionManager.Instance.StartExpedition(id);
+            RefreshUI();
+            return;
         }
-        else if (ExpeditionManager.Instance.IsDone(id))
-        {
 
-            ConfirmClaim();
+
+        if (ExpeditionManager.Instance.IsDone(id))
+        {
+            ExpeditionManager.Instance.StartExpedition(id);
+            RefreshUI();
         }
     }
-public void ConfirmClaim()
-{
-    if (ExpeditionManager.Instance == null || runtimeSO == null) return;
-    var id = runtimeSO.indate;
-    if (string.IsNullOrEmpty(id)) return;
-
-        ExpeditionManager.Instance.TryClaimReward(id);
-    RefreshUI();
-}
 
     private void OnExpeditionChanged(string changedId)
     {
@@ -90,6 +85,7 @@ public void ConfirmClaim()
             return;
         }
 
+        // 명성도 체크
         int currentReputation = BackendGameData.Instance.userData.reputation;
         if (currentReputation < requiredReputation)
         {
@@ -99,8 +95,8 @@ public void ConfirmClaim()
             if (timerText) timerText.text = "";
             return;
         }
+
         bool canStart = ExpeditionManager.Instance.CanStart(id);
-        bool isDone = ExpeditionManager.Instance.IsDone(id);  
 
         if (canStart)
         {
@@ -109,18 +105,12 @@ public void ConfirmClaim()
             if (stateText) stateText.text = "대기 중";
             if (timerText) timerText.text = "";
         }
-        else if (isDone)
-        {
-
-            if (mainBtn) mainBtn.interactable = false;
-            if (btnText) btnText.text = "완료";
-            if (stateText) stateText.text = "완료";
-        }
         else
         {
-            if (mainBtn) mainBtn.interactable = false;
+            if (mainBtn) mainBtn.interactable = false;   // 진행 중일 때는 비활성
             if (btnText) btnText.text = "진행 중";
             if (stateText) stateText.text = "파견 중";
+            // 타이머는 RefreshTimer에서 갱신
         }
     }
 
@@ -130,21 +120,34 @@ public void ConfirmClaim()
         var id = runtimeSO.indate;
         if (string.IsNullOrEmpty(id)) return;
 
-        var rem = ExpeditionManager.Instance.GetRemaining(id);  
         bool isRunning = !ExpeditionManager.Instance.CanStart(id);
 
-        if (timerText != null)
+        if (!isRunning)
         {
-            if (isRunning && rem.TotalSeconds > 0)
-                timerText.text = $"{rem.Hours:D2}:{rem.Minutes:D2}:{rem.Seconds:D2}";
-            else
-                timerText.text = isRunning ? "완료!" : "";
+            if (timerText != null) timerText.text = "";
+            return;
         }
+
+        var rem = ExpeditionManager.Instance.GetRemaining(id);
+
+
+        if (rem.TotalSeconds <= 0)
+        {
+            if (ExpeditionManager.Instance.IsDone(id))
+            {
+
+                RefreshUI();
+            }
+            return;
+        }
+
+        if (timerText != null)
+            timerText.text = $"{rem.Hours:D2}:{rem.Minutes:D2}:{rem.Seconds:D2}";
     }
 
     private void RefreshName()
     {
         if (nameText != null && runtimeSO != null && runtimeSO.staticSO != null)
-            nameText.text = runtimeSO.staticSO.displayName;     
+            nameText.text = runtimeSO.staticSO.displayName;
     }
 }
