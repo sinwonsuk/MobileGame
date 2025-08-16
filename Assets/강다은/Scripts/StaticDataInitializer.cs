@@ -111,7 +111,7 @@ public class StaticDataInitializer : MonoBehaviour
 				var target = employeeDataList.FirstOrDefault(e => e.indate == indate);
 				if (target != null)
 				{
-					target.displayName = row["employeeName"].ToString();
+					//target.displayName = row["employeeName"].ToString();
 					target.baseSalary = int.Parse(row["baseSalary"].ToString());
 					target.basic_attack_Power = double.Parse(row["baseAtk"].ToString());
 					target.basic_attack_Speed = double.Parse(row["baseAtkSpeed"].ToString());
