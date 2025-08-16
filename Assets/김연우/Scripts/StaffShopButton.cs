@@ -99,6 +99,7 @@ public class StaffShopButton : MonoBehaviour
                 buttonText.text = "최대";
             else
                 buttonText.text = (current == 0) ? "구매" : "레벨 업";
+                priceText.text = $"필요 골드 : {_price}G";
         }
 
         if (purchaseButton != null)
