@@ -37,20 +37,25 @@ public class EmployeeInventoryUI : MonoBehaviour
             EmployeeManager.Instance.OnStaffChanged -= RefreshUI;
     }
 
-    public void RefreshUI()
-    {
-        foreach (Transform child in contentParent)
-            Destroy(child.gameObject);
+public void RefreshUI()
+{
+    foreach (Transform child in contentParent)
+        Destroy(child.gameObject);
 
-        foreach (var slot in EmployeeManager.Instance.slots)
+    foreach (var slot in EmployeeManager.Instance.slots) // ½½·Ô ¸ñ·Ï
+    {
+        if (!slot.IsOwned) continue;
+
+
+        var t = slot.staffData.staffType;
+        if (t == StaffType.hunter || t == StaffType.restaurant)
         {
-            if (slot.IsOwned && slot.staffData.staffType == StaffType.hunter)
-            {
-                var go = Instantiate(slotPrefab, contentParent);
-                go.GetComponent<EmployeeSlotUI>().SetSlot(slot);
-            }
+            var go = Instantiate(slotPrefab, contentParent);
+            go.GetComponent<EmployeeSlotUI>().SetSlot(slot);
         }
     }
+}
+
     private void OnEnable()
     {
         StartCoroutine(SubscribeWhenReady());

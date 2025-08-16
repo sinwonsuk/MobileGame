@@ -87,50 +87,100 @@ public class EmployeeManager : MonoBehaviour, IAutoSavable
 		FindAnyObjectByType<EmployeeInventoryUI>()?.RefreshUI();
 	}
 
-	// 직원 실제 배치
-	public void PlaceEmployee(int index)
-	{
-		if (currentPlacingSlot == null) return;
+    // 직원 실제 배치
+    // EmployeeManager.cs 안에 넣어 사용
 
-		//기존에 이 위치에 배치된 직원 해제 (데이터만)
-		foreach (var slot in slots)
-		{
-			if (slot.runtimeData.isAssigned && slot.runtimeData.assignedIndex == index)
-			{
-				slot.runtimeData.isAssigned = false;
-				slot.runtimeData.assignedIndex = -1;
-				slot.runtimeData.isDirty = true;
-			}
-		}
+    public void PlaceEmployee(int index)
+    {
+        if (currentPlacingSlot == null)
+            return;
 
-		// 해당 위치에 있는 프리팹 모두 삭제
-		Transform point = dynamicPlacementPoints[index];
-		foreach (Transform child in point)
-			Destroy(child.gameObject);
+        // 현재 배치하려는 슬롯의 직원 타입
+        var staffType = currentPlacingSlot.staffData.staffType; // StaffType.hunter / StaffType.restaurant
 
-		// 새로운 직원 프리팹 배치
-		var staffPrefab = currentPlacingSlot.staffData.itemPrefab;
-		if (staffPrefab == null)
-		{
-			Debug.LogError("직원 프리팹이 연결되지 않았음!");
-			return;
-		}
-		GameObject staffObj = Instantiate(staffPrefab, point.position, Quaternion.identity, point);
-		staffObj.name = staffPrefab.name;
+        // 유효 범위 체크 (전투=0~1, 경영=2~3)
+        bool invalidForHunter = (staffType == StaffType.hunter) && !(index >= 0 && index <= 1);
+        bool invalidForRestaurant = (staffType == StaffType.restaurant) && !(index >= 2 && index <= 3);
 
-		// 반드시 Init 호출
-		var staffBase = staffObj.GetComponent<StaffBase>();
-		if (staffBase != null)
-			staffBase.Init(currentPlacingSlot.staffData, currentPlacingSlot.runtimeData);
+        if (invalidForHunter || invalidForRestaurant)
+        {
+            // 메시지 결정
+            string msg;
+            if (staffType == StaffType.hunter) msg = "경영직원이 아닙니다.";
+            else if (staffType == StaffType.restaurant) msg = "전투직원이 아닙니다.";
+            else msg = "잘못된 위치입니다.";
 
-		// 새로운 직원의 데이터 업데이트
-		currentPlacingSlot.runtimeData.isAssigned = true;
-		currentPlacingSlot.runtimeData.assignedIndex = index;
-		currentPlacingSlot.runtimeData.isDirty = true;
+            // 팝업 띄우고, 확인 누르면 화살표 제거
+            EventBus<ShowPlacementErrorPopup>.Raise(
+                new ShowPlacementErrorPopup(msg, () =>
+                {
+                    ClearArrows(); // 확인 시 화살표 싹 제거
+                })
+            );
+            return;
+        }
 
-		ClearArrows();
-		FindAnyObjectByType<EmployeeInventoryUI>()?.RefreshUI();
-	}
+        // ---------- 여기서부터는 정상 배치 로직 ----------
+
+        // 같은 인덱스(=같은 자리)에 이미 누가 배치되어 있으면 데이터만 해제
+        foreach (var slot in slots)
+        {
+            if (slot.runtimeData.isAssigned && slot.runtimeData.assignedIndex == index)
+            {
+                slot.runtimeData.isAssigned = false;
+                slot.runtimeData.assignedIndex = -1;
+                slot.runtimeData.isDirty = true;
+            }
+        }
+
+        // 해당 포인트의 기존 프리팹 제거
+        Transform point = dynamicPlacementPoints[index];
+        if (point != null)
+        {
+            // 자식 전부 제거
+            for (int i = point.childCount - 1; i >= 0; i--)
+                Destroy(point.GetChild(i).gameObject);
+        }
+
+        // 새 프리팹 스폰
+        var staffPrefab = currentPlacingSlot.staffData.itemPrefab;
+        if (staffPrefab == null)
+        {
+            Debug.LogError("[PlaceEmployee] staff prefab이 비어있습니다.");
+            ClearArrows();
+            return;
+        }
+
+        GameObject staffObj = Instantiate(staffPrefab, point.position, Quaternion.identity, point);
+        staffObj.name = staffPrefab.name;
+
+        // Init 호출 (Stats 연결)
+        var staffBase = staffObj.GetComponent<StaffBase>();
+        if (staffBase != null)
+            staffBase.Init(currentPlacingSlot.staffData, currentPlacingSlot.runtimeData);
+
+        // 데이터 업데이트
+        currentPlacingSlot.runtimeData.isAssigned = true;
+        currentPlacingSlot.runtimeData.assignedIndex = index;
+        currentPlacingSlot.runtimeData.isDirty = true;
+
+        // 화살표 클리어 & UI 갱신
+        ClearArrows();
+        FindAnyObjectByType<EmployeeInventoryUI>()?.RefreshUI();
+    }
+
+    // 외부에서도 부를 수 있게 public
+    public void ClearArrows()
+    {
+        if (activeArrows != null)
+        {
+            foreach (var go in activeArrows)
+                if (go != null) Destroy(go);
+            activeArrows.Clear();
+        }
+        currentPlacingSlot = null;
+    }
+
 
     // 특정 인덱스 위치에 즉시 배치 (DB 더티까지 처리)
     public bool TryPlaceAtIndex(RuntimeStaffStatsSO run, StaffStatsSO stat, int index)
@@ -257,14 +307,6 @@ public class EmployeeManager : MonoBehaviour, IAutoSavable
         }
     }
 
-
-    // 화살표 오브젝트 제거
-    private void ClearArrows()
-	{
-		foreach (var go in activeArrows) Destroy(go);
-		activeArrows.Clear();
-		currentPlacingSlot = null;
-	}
 
     private IEnumerator DelayedPlacementRestore()
     {
