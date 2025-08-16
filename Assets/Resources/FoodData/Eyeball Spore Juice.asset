@@ -17,7 +17,7 @@ MonoBehaviour:
   foodSprite: eyeSacJuice
   price: 140
   reputation: 140
-  Getreputation: 0
+  Getreputation: 1
   isUnlock: 0
   cookingTime: 13.4
   Level: 1
@@ -29,7 +29,7 @@ MonoBehaviour:
   - indate: 2025-07-27T05:59:12.264Z
     foodIndate: 2025-07-16T02:27:36.110Z
     step: 1
-    successRate: 100
+    successRate: 80
     ingredients:
     - indate: 2025-07-16T02:27:43.883Z
       name: "\uBB38\uC5B4 \uB208\uC54C"
@@ -41,7 +41,7 @@ MonoBehaviour:
   - indate: 2025-07-27T05:59:12.421Z
     foodIndate: 2025-07-16T02:27:36.110Z
     step: 2
-    successRate: 95
+    successRate: 60
     ingredients:
     - indate: 2025-07-16T02:27:43.883Z
       name: "\uBB38\uC5B4 \uB208\uC54C"
@@ -53,7 +53,7 @@ MonoBehaviour:
   - indate: 2025-07-27T05:59:12.562Z
     foodIndate: 2025-07-16T02:27:36.110Z
     step: 3
-    successRate: 88
+    successRate: 40
     ingredients:
     - indate: 2025-07-16T02:27:43.883Z
       name: "\uBB38\uC5B4 \uB208\uC54C"
@@ -65,7 +65,7 @@ MonoBehaviour:
   - indate: 2025-07-27T05:59:12.684Z
     foodIndate: 2025-07-16T02:27:36.110Z
     step: 4
-    successRate: 78
+    successRate: 30
     ingredients:
     - indate: 2025-07-16T02:27:43.883Z
       name: "\uBB38\uC5B4 \uB208\uC54C"
@@ -77,7 +77,7 @@ MonoBehaviour:
   - indate: 2025-07-27T05:59:12.819Z
     foodIndate: 2025-07-16T02:27:36.110Z
     step: 5
-    successRate: 65
+    successRate: 20
     ingredients:
     - indate: 2025-07-16T02:27:43.883Z
       name: "\uBB38\uC5B4 \uB208\uC54C"
@@ -89,7 +89,7 @@ MonoBehaviour:
   - indate: 2025-07-27T05:59:12.963Z
     foodIndate: 2025-07-16T02:27:36.110Z
     step: 6
-    successRate: 50
+    successRate: 10
     ingredients:
     - indate: 2025-07-16T02:27:43.883Z
       name: "\uBB38\uC5B4 \uB208\uC54C"
@@ -101,7 +101,7 @@ MonoBehaviour:
   - indate: 2025-07-27T05:59:13.118Z
     foodIndate: 2025-07-16T02:27:36.110Z
     step: 7
-    successRate: 35
+    successRate: 5
     ingredients:
     - indate: 2025-07-16T02:27:43.883Z
       name: "\uBB38\uC5B4 \uB208\uC54C"
@@ -113,7 +113,7 @@ MonoBehaviour:
   - indate: 2025-07-27T05:59:13.262Z
     foodIndate: 2025-07-16T02:27:36.110Z
     step: 8
-    successRate: 20
+    successRate: 3
     ingredients:
     - indate: 2025-07-16T02:27:43.883Z
       name: "\uBB38\uC5B4 \uB208\uC54C"

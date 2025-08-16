@@ -29,7 +29,7 @@ MonoBehaviour:
   - indate: 2025-07-27T05:59:22.855Z
     foodIndate: 2025-07-16T02:27:35.647Z
     step: 1
-    successRate: 100
+    successRate: 80
     ingredients:
     - indate: 2025-07-16T02:27:44.030Z
       name: "\uBB38\uC5B4 \uC6B0\uC720"
@@ -37,11 +37,11 @@ MonoBehaviour:
     - indate: 2025-07-16T02:27:44.299Z
       name: "\uC2AC\uB77C\uC784 \uB0B4\uC7A5"
       quantity: 1
-    cost: 40
+    cost: 35
   - indate: 2025-07-27T05:59:23.010Z
     foodIndate: 2025-07-16T02:27:35.647Z
     step: 2
-    successRate: 95
+    successRate: 60
     ingredients:
     - indate: 2025-07-16T02:27:44.030Z
       name: "\uBB38\uC5B4 \uC6B0\uC720"
@@ -49,11 +49,11 @@ MonoBehaviour:
     - indate: 2025-07-16T02:27:44.299Z
       name: "\uC2AC\uB77C\uC784 \uB0B4\uC7A5"
       quantity: 2
-    cost: 70
+    cost: 55
   - indate: 2025-07-27T05:59:23.258Z
     foodIndate: 2025-07-16T02:27:35.647Z
     step: 3
-    successRate: 88
+    successRate: 40
     ingredients:
     - indate: 2025-07-16T02:27:44.030Z
       name: "\uBB38\uC5B4 \uC6B0\uC720"
@@ -61,11 +61,11 @@ MonoBehaviour:
     - indate: 2025-07-16T02:27:44.299Z
       name: "\uC2AC\uB77C\uC784 \uB0B4\uC7A5"
       quantity: 4
-    cost: 90
+    cost: 80
   - indate: 2025-07-27T05:59:23.478Z
     foodIndate: 2025-07-16T02:27:35.647Z
     step: 4
-    successRate: 78
+    successRate: 30
     ingredients:
     - indate: 2025-07-16T02:27:44.030Z
       name: "\uBB38\uC5B4 \uC6B0\uC720"
@@ -73,11 +73,11 @@ MonoBehaviour:
     - indate: 2025-07-16T02:27:44.299Z
       name: "\uC2AC\uB77C\uC784 \uB0B4\uC7A5"
       quantity: 7
-    cost: 140
+    cost: 120
   - indate: 2025-07-27T05:59:23.800Z
     foodIndate: 2025-07-16T02:27:35.647Z
     step: 5
-    successRate: 65
+    successRate: 20
     ingredients:
     - indate: 2025-07-16T02:27:44.030Z
       name: "\uBB38\uC5B4 \uC6B0\uC720"
@@ -85,11 +85,11 @@ MonoBehaviour:
     - indate: 2025-07-16T02:27:44.299Z
       name: "\uC2AC\uB77C\uC784 \uB0B4\uC7A5"
       quantity: 11
-    cost: 200
+    cost: 170
   - indate: 2025-07-27T05:59:24.019Z
     foodIndate: 2025-07-16T02:27:35.647Z
     step: 6
-    successRate: 50
+    successRate: 10
     ingredients:
     - indate: 2025-07-16T02:27:44.030Z
       name: "\uBB38\uC5B4 \uC6B0\uC720"
@@ -97,11 +97,11 @@ MonoBehaviour:
     - indate: 2025-07-16T02:27:44.299Z
       name: "\uC2AC\uB77C\uC784 \uB0B4\uC7A5"
       quantity: 16
-    cost: 270
+    cost: 240
   - indate: 2025-07-27T05:59:24.216Z
     foodIndate: 2025-07-16T02:27:35.647Z
     step: 7
-    successRate: 35
+    successRate: 5
     ingredients:
     - indate: 2025-07-16T02:27:44.030Z
       name: "\uBB38\uC5B4 \uC6B0\uC720"
@@ -109,11 +109,11 @@ MonoBehaviour:
     - indate: 2025-07-16T02:27:44.299Z
       name: "\uC2AC\uB77C\uC784 \uB0B4\uC7A5"
       quantity: 22
-    cost: 350
+    cost: 320
   - indate: 2025-07-27T05:59:24.420Z
     foodIndate: 2025-07-16T02:27:35.647Z
     step: 8
-    successRate: 20
+    successRate: 3
     ingredients:
     - indate: 2025-07-16T02:27:44.030Z
       name: "\uBB38\uC5B4 \uC6B0\uC720"
@@ -121,7 +121,7 @@ MonoBehaviour:
     - indate: 2025-07-16T02:27:44.299Z
       name: "\uC2AC\uB77C\uC784 \uB0B4\uC7A5"
       quantity: 29
-    cost: 480
+    cost: 440
   - indate: 2025-07-27T05:59:24.620Z
     foodIndate: 2025-07-16T02:27:35.647Z
     step: 9
@@ -133,4 +133,4 @@ MonoBehaviour:
     - indate: 2025-07-16T02:27:44.299Z
       name: "\uC2AC\uB77C\uC784 \uB0B4\uC7A5"
       quantity: 37
-    cost: 650
+    cost: 590

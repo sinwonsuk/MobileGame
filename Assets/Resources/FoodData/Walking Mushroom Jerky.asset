@@ -17,7 +17,7 @@ MonoBehaviour:
   foodSprite: mushroomJerky
   price: 364
   reputation: 120
-  Getreputation: 0
+  Getreputation: 1
   isUnlock: 0
   cookingTime: 32.3
   Level: 1
@@ -29,7 +29,7 @@ MonoBehaviour:
   - indate: 2025-07-27T05:59:30.847Z
     foodIndate: 2025-07-16T02:27:35.954Z
     step: 1
-    successRate: 100
+    successRate: 80
     ingredients:
     - indate: 2025-07-16T02:27:45.068Z
       name: "\uBBF8\uBBF9 \uC0B4\uC810"
@@ -41,7 +41,7 @@ MonoBehaviour:
   - indate: 2025-07-27T05:59:31.060Z
     foodIndate: 2025-07-16T02:27:35.954Z
     step: 2
-    successRate: 95
+    successRate: 60
     ingredients:
     - indate: 2025-07-16T02:27:45.068Z
       name: "\uBBF8\uBBF9 \uC0B4\uC810"
@@ -53,7 +53,7 @@ MonoBehaviour:
   - indate: 2025-07-27T05:59:31.260Z
     foodIndate: 2025-07-16T02:27:35.954Z
     step: 3
-    successRate: 88
+    successRate: 40
     ingredients:
     - indate: 2025-07-16T02:27:45.068Z
       name: "\uBBF8\uBBF9 \uC0B4\uC810"
@@ -65,7 +65,7 @@ MonoBehaviour:
   - indate: 2025-07-27T05:59:31.463Z
     foodIndate: 2025-07-16T02:27:35.954Z
     step: 4
-    successRate: 78
+    successRate: 30
     ingredients:
     - indate: 2025-07-16T02:27:45.068Z
       name: "\uBBF8\uBBF9 \uC0B4\uC810"
@@ -77,7 +77,7 @@ MonoBehaviour:
   - indate: 2025-07-27T05:59:31.686Z
     foodIndate: 2025-07-16T02:27:35.954Z
     step: 5
-    successRate: 65
+    successRate: 20
     ingredients:
     - indate: 2025-07-16T02:27:45.068Z
       name: "\uBBF8\uBBF9 \uC0B4\uC810"
@@ -89,7 +89,7 @@ MonoBehaviour:
   - indate: 2025-07-27T05:59:31.898Z
     foodIndate: 2025-07-16T02:27:35.954Z
     step: 6
-    successRate: 50
+    successRate: 10
     ingredients:
     - indate: 2025-07-16T02:27:45.068Z
       name: "\uBBF8\uBBF9 \uC0B4\uC810"
@@ -101,7 +101,7 @@ MonoBehaviour:
   - indate: 2025-07-27T05:59:32.105Z
     foodIndate: 2025-07-16T02:27:35.954Z
     step: 7
-    successRate: 35
+    successRate: 5
     ingredients:
     - indate: 2025-07-16T02:27:45.068Z
       name: "\uBBF8\uBBF9 \uC0B4\uC810"
@@ -113,7 +113,7 @@ MonoBehaviour:
   - indate: 2025-07-27T05:59:32.335Z
     foodIndate: 2025-07-16T02:27:35.954Z
     step: 8
-    successRate: 20
+    successRate: 3
     ingredients:
     - indate: 2025-07-16T02:27:45.068Z
       name: "\uBBF8\uBBF9 \uC0B4\uC810"

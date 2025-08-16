@@ -20,7 +20,7 @@ MonoBehaviour:
   Getreputation: 1
   isUnlock: 0
   cookingTime: 15.8
-  Level: 1
+  Level: 2
   FoodManual: 
   Ingredients:
   - {fileID: 11400000, guid: 6b96e8049fef6a14eb4b17c82612f794, type: 2}
@@ -29,7 +29,7 @@ MonoBehaviour:
   - indate: 2025-07-27T05:59:24.821Z
     foodIndate: 2025-07-16T02:27:35.482Z
     step: 1
-    successRate: 100
+    successRate: 80
     ingredients:
     - indate: 2025-07-16T02:27:44.454Z
       name: "\uC2AC\uB77C\uC784 \uC815\uC81C\uC218"
@@ -41,7 +41,7 @@ MonoBehaviour:
   - indate: 2025-07-27T05:59:25.022Z
     foodIndate: 2025-07-16T02:27:35.482Z
     step: 2
-    successRate: 95
+    successRate: 60
     ingredients:
     - indate: 2025-07-16T02:27:44.454Z
       name: "\uC2AC\uB77C\uC784 \uC815\uC81C\uC218"
@@ -53,7 +53,7 @@ MonoBehaviour:
   - indate: 2025-07-27T05:59:25.230Z
     foodIndate: 2025-07-16T02:27:35.482Z
     step: 3
-    successRate: 88
+    successRate: 40
     ingredients:
     - indate: 2025-07-16T02:27:44.454Z
       name: "\uC2AC\uB77C\uC784 \uC815\uC81C\uC218"
@@ -65,7 +65,7 @@ MonoBehaviour:
   - indate: 2025-07-27T05:59:25.428Z
     foodIndate: 2025-07-16T02:27:35.482Z
     step: 4
-    successRate: 78
+    successRate: 30
     ingredients:
     - indate: 2025-07-16T02:27:44.454Z
       name: "\uC2AC\uB77C\uC784 \uC815\uC81C\uC218"
@@ -77,7 +77,7 @@ MonoBehaviour:
   - indate: 2025-07-27T05:59:25.643Z
     foodIndate: 2025-07-16T02:27:35.482Z
     step: 5
-    successRate: 65
+    successRate: 20
     ingredients:
     - indate: 2025-07-16T02:27:44.454Z
       name: "\uC2AC\uB77C\uC784 \uC815\uC81C\uC218"
@@ -89,7 +89,7 @@ MonoBehaviour:
   - indate: 2025-07-27T05:59:25.988Z
     foodIndate: 2025-07-16T02:27:35.482Z
     step: 6
-    successRate: 50
+    successRate: 10
     ingredients:
     - indate: 2025-07-16T02:27:44.454Z
       name: "\uC2AC\uB77C\uC784 \uC815\uC81C\uC218"
@@ -101,7 +101,7 @@ MonoBehaviour:
   - indate: 2025-07-27T05:59:26.205Z
     foodIndate: 2025-07-16T02:27:35.482Z
     step: 7
-    successRate: 35
+    successRate: 5
     ingredients:
     - indate: 2025-07-16T02:27:44.454Z
       name: "\uC2AC\uB77C\uC784 \uC815\uC81C\uC218"
@@ -113,7 +113,7 @@ MonoBehaviour:
   - indate: 2025-07-27T05:59:26.413Z
     foodIndate: 2025-07-16T02:27:35.482Z
     step: 8
-    successRate: 20
+    successRate: 3
     ingredients:
     - indate: 2025-07-16T02:27:44.454Z
       name: "\uC2AC\uB77C\uC784 \uC815\uC81C\uC218"
