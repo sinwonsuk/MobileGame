@@ -37,6 +37,10 @@ public class ShooterStaff : StaffBase
     private bool _clickQueued;
     private Vector2 _queuedScreenPos;
 
+    private bool _hasLatchedShot;
+    private Vector2 _latchedDir;
+    private Vector3 _latchedLeft, _latchedRight;
+
     public override void Init(StaffStatsSO stats, RuntimeStaffStatsSO Runtimestats)
     {
         base.Init(stats, Runtimestats);
@@ -194,6 +198,14 @@ public class ShooterStaff : StaffBase
         target = FindNearestEnemy();
         if (target != null)
         {
+            var origin = (firePoint != null) ? firePoint.position : transform.position;
+            var dir = ((Vector2)(target.position - origin)).normalized;
+            float offset = 0.3f;
+            _latchedLeft = (firePoint != null ? firePoint.position : transform.position) + firePoint.right * -offset;
+            _latchedRight = (firePoint != null ? firePoint.position : transform.position) + firePoint.right * offset;
+            _latchedDir = dir;
+            _hasLatchedShot = true;
+
             animator?.SetTrigger("AttackTrigger");
             //nextFireTime = Time.time + (1f / Mathf.Max((float)currentAttackSpeed, 0.01f));
             nextFireTime = Time.time + (1f / Mathf.Max((float)currentAttackSpeed, 0.01f));
@@ -255,7 +267,19 @@ public class ShooterStaff : StaffBase
             return;
         }
 
-        if (target == null || bulletPrefab == null || firePoint == null) return;
+        if ((target == null || !target.gameObject.activeInHierarchy) && _hasLatchedShot)
+        {
+            FireBullet(_latchedLeft, _latchedDir);
+            FireBullet(_latchedRight, _latchedDir);
+            _hasLatchedShot = false;
+            return;
+        }
+
+        if (target == null || bulletPrefab == null || firePoint == null)
+        {
+            _hasLatchedShot = false;
+            return;
+        }
 
         Vector2 dir = (target.position - firePoint.position).normalized;
         float offset = 0.3f;
