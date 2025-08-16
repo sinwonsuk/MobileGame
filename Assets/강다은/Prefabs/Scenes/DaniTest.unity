@@ -223,6 +223,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8492237636726575026, guid: 28abb6a363746c740bad6b7a3443e61e, type: 3}
+      propertyPath: m_SortingOrder
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 9183475495496674139, guid: 28abb6a363746c740bad6b7a3443e61e, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 9214260382412375550, guid: 28abb6a363746c740bad6b7a3443e61e, type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -1722,6 +1730,10 @@ PrefabInstance:
       value: -225.9
       objectReference: {fileID: 0}
     - target: {fileID: 3597932597050006500, guid: 3819db881d542bf418485115edd3178b, type: 3}
+      propertyPath: cavans
+      value: 
+      objectReference: {fileID: 7987766172363295616}
+    - target: {fileID: 3597932597050006500, guid: 3819db881d542bf418485115edd3178b, type: 3}
       propertyPath: mainImage
       value: 
       objectReference: {fileID: 592631675}
@@ -1733,6 +1745,10 @@ PrefabInstance:
       propertyPath: signupButton
       value: 
       objectReference: {fileID: 7987766172363295614}
+    - target: {fileID: 3597932597050006500, guid: 3819db881d542bf418485115edd3178b, type: 3}
+      propertyPath: FindAccountCavas
+      value: 
+      objectReference: {fileID: 7987766172363295615}
     - target: {fileID: 3703229395128611813, guid: 3819db881d542bf418485115edd3178b, type: 3}
       propertyPath: m_fontSize
       value: 70
@@ -1803,6 +1819,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4294802610058313882, guid: 3819db881d542bf418485115edd3178b, type: 3}
       propertyPath: m_Color.a
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4302873115963615167, guid: 3819db881d542bf418485115edd3178b, type: 3}
+      propertyPath: m_SortingOrder
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4316953988871192796, guid: 3819db881d542bf418485115edd3178b, type: 3}
@@ -2343,7 +2363,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7866863151956628451, guid: 3819db881d542bf418485115edd3178b, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8163887110179791876, guid: 3819db881d542bf418485115edd3178b, type: 3}
       propertyPath: m_IsActive
@@ -2530,6 +2550,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &7987766172363295615 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6296864723300998131, guid: 3819db881d542bf418485115edd3178b, type: 3}
+  m_PrefabInstance: {fileID: 7987766172363295613}
+  m_PrefabAsset: {fileID: 0}
+--- !u!223 &7987766172363295616 stripped
+Canvas:
+  m_CorrespondingSourceObject: {fileID: 4302873115963615167, guid: 3819db881d542bf418485115edd3178b, type: 3}
+  m_PrefabInstance: {fileID: 7987766172363295613}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &9030498159083597976
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -1,6 +1,7 @@
 using BackEnd;
 using System.Collections;
 using TMPro;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -10,6 +11,9 @@ public class LoginUI : MonoBehaviour
     private void OnDisable()
     {
         EventBus<ChangeLoadImageEvent>.OnEvent -= LoadSencmImage;
+
+		signupButton.interactable = true; // 버튼 활성화
+        FindAccountCavas.SetActive(true);
     }
     private void OnEnable()
     {
@@ -104,7 +108,7 @@ public class LoginUI : MonoBehaviour
 					onSuccess: () =>
 					{
 						Debug.Log("로그인 성공, 대기 후 데이터 로드 시작");
-						signupButton.interactable = true; // 버튼 활성화
+						//signupButton.interactable = true; // 버튼 활성화
 						StartCoroutine(LoginFlowCoroutine());
 					},
 					onFailure: (error) =>
@@ -234,7 +238,10 @@ public class LoginUI : MonoBehaviour
 		{
 			PopupManager.Show("닉네임이 설정되지 않았습니다.\n닉네임 설정 화면으로 이동합니다.", () =>
 			{
-				ShowNicknamePanel();
+				cavans.sortingOrder = 10;
+                FindAccountCavas.SetActive(false);
+                ShowNicknamePanel();
+				
 			});
 		}
 		else
@@ -432,20 +439,12 @@ public class LoginUI : MonoBehaviour
 
 	public void LoadSencmImage(ChangeLoadImageEvent changeLoadImageEvent)
 	{
-		bool isLoading = changeLoadImageEvent.isLoading;
+        cavans.sortingOrder = 0;
 
-
-        Sprite loadedSprite = Resources.Load<Sprite>("MainImage");
-        if (loadedSprite == null)
-        {
-            Debug.LogError("MainImage 스프라이트를 찾을 수 없습니다.");
-            return;
-        }
-
-        mainImage.sprite = loadedSprite;
-
+        bool isLoading = changeLoadImageEvent.isLoading;
 
         mainImage.gameObject.SetActive(isLoading);
+
     }
 
 
@@ -473,4 +472,8 @@ public class LoginUI : MonoBehaviour
     [SerializeField] private Transform mainImageTransform;
 
 	[SerializeField] private Button signupButton;
+
+	[SerializeField] private Canvas cavans;
+
+    [SerializeField] private GameObject FindAccountCavas;
 }
