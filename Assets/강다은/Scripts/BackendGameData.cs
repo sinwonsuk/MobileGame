@@ -9,7 +9,7 @@ public class UserData
 {
 	public string nickname = "default"; // null 비허용 대응
 	public int reputation = 1;
-	public float basicAtk = 3.5f;
+	public float basicAtk = 1f;
 	public string bio = "친추는 언제나 환영입니다.";
     public int gold = 0;
 	public List<string> friends = new List<string>(); // 비워두면 됨
@@ -129,7 +129,7 @@ public class BackendGameData : MonoBehaviour, IAutoSavable
 			{
 				nickname = Backend.UserNickName,
 				reputation = 1,
-				basicAtk = 3.5f,
+				basicAtk = 1f,
 				bio = "친추는 언제나 환영입니다.",
 				gold = 0,
 				friends = new List<string>()
