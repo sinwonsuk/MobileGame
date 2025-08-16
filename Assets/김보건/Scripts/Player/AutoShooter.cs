@@ -77,7 +77,7 @@ public class AutoShooter : MonoBehaviour
 
         if (bulletManager != null && bulletManager.GetCurrentBullet() != null)
         {
-            bulletManager.GetCurrentBullet().damage = playerStats.autoAttackDamage;
+            bulletManager.GetCurrentBullet().damage = playerStats.attackPower;
         }
     }
 
@@ -88,34 +88,34 @@ public class AutoShooter : MonoBehaviour
         if (EventSystem.current.IsPointerOverGameObject()) return;
         if (isShopOpen) return;
 
-    //#if UNITY_EDITOR
-    //    if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
-    //    {
-    //        if (currentState == idleState)
-    //        {
-    //            TouchAttack();
-    //        }
-    //        else if (currentState == attackState)
-    //        {
-    //            TouchAttack();
-    //            timer = 0f;
-    //        }
-    //    }
-    //#else
-    //    if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began &&
-    //        !EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId))
-    //    {
-    //                if (currentState == idleState)
-    //    {
-    //        TouchAttack();
-    //    }
-    //    else if (currentState == attackState)
-    //    {
-    //        TouchAttack();
-    //        timer = 0f;
-    //    }
-    //    }
-    //#endif
+        //#if UNITY_EDITOR
+        //    if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
+        //    {
+        //        if (currentState == idleState)
+        //        {
+        //            TouchAttack();
+        //        }
+        //        else if (currentState == attackState)
+        //        {
+        //            TouchAttack();
+        //            timer = 0f;
+        //        }
+        //    }
+        //#else
+        //    if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began &&
+        //        !EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId))
+        //    {
+        //                if (currentState == idleState)
+        //    {
+        //        TouchAttack();
+        //    }
+        //    else if (currentState == attackState)
+        //    {
+        //        TouchAttack();
+        //        timer = 0f;
+        //    }
+        //    }
+        //#endif
     }
 
     public void SetState(IShooterState newState)
@@ -180,12 +180,33 @@ public class AutoShooter : MonoBehaviour
         animator.SetBool("Attack", isAttacking);
     }
 
+    // ======== 크리티컬 판정 + 최종 데미지 계산 ========
+    private (float damage, bool isCrit) ComputeShotDamage()
+    {
+        float baseDamage = (playerStats != null) ? playerStats.attackPower : 1f;
+        float chancePct = (playerStats != null) ? playerStats.critChance : 0f;             // %
+        float critMult = (playerStats != null) ? playerStats.critDamageMultiplier : 1f;   // 배수
+
+        bool isCrit = UnityEngine.Random.value < (chancePct * 0.01f);
+        float finalDamage = isCrit ? baseDamage * critMult : baseDamage;
+        return (finalDamage, isCrit);
+    }
+
     void SpawnBullet(Vector2 direction, BulletData data)
     {
         GameObject bulletObj = Instantiate(data.bulletPrefab, firePoint.position, Quaternion.identity);
         BaseBullet bullet = bulletObj.GetComponent<BaseBullet>();
         bullet.Initialize(direction, data.speed, data.damage);
 
+    }
+
+    // ======== 데미지 오버라이드 가능한 스폰 오버로드(크리 반영용) ========
+    void SpawnBullet(Vector2 direction, BulletData data, float damageOverride)
+    {
+        GameObject bulletObj = Instantiate(data.bulletPrefab, firePoint.position, Quaternion.identity);
+        BaseBullet bullet = bulletObj.GetComponent<BaseBullet>();
+        bullet.Initialize(direction, data.speed, damageOverride);
+        // 크리 연출 원하면 bullet.SetCrit(true/false) 같은 훅 추가해서 여기서 호출
     }
 
     public bool IsEnemyNearby()
@@ -224,7 +245,12 @@ public class AutoShooter : MonoBehaviour
         else
             shootDirection = Vector2.up; // 적 없으면 위로
 
-        SpawnBullet(shootDirection, data);
+        // ★ 크리티컬 판정 및 최종 데미지 계산
+        var (finalDamage, isCrit) = ComputeShotDamage();
+
+        // ★ 크리 반영된 데미지로 발사
+        SpawnBullet(shootDirection, data, finalDamage);
+        // 원하면 크리 트리거/이펙트: if (isCrit) animator.SetTrigger("Crit");
     }
 
     void OnStatChanged(StatChangedEvent evt)
@@ -234,7 +260,7 @@ public class AutoShooter : MonoBehaviour
 
         if (bulletManager != null && bulletManager.GetCurrentBullet() != null)
         {
-            bulletManager.GetCurrentBullet().damage = playerStats.autoAttackDamage;
+            bulletManager.GetCurrentBullet().damage = playerStats.attackPower;
         }
 
         Debug.Log($"[AutoShooter] Stat changed: {evt.changedStatType}, fireInterval: {fireInterval}, damage: {bulletManager.GetCurrentBullet().damage}");
