@@ -36,6 +36,9 @@ public class BufferBard : StaffBase
     private bool _inited = false;
     private float nextFireTime = 0f;
 
+    private bool _clickQueued;
+    private Vector2 _queuedScreenPos;
+
     public override void Init(StaffStatsSO stats, RuntimeStaffStatsSO Runtimestats)
     {
         base.Init(stats, Runtimestats);
@@ -48,7 +51,7 @@ public class BufferBard : StaffBase
         // EventBus<ShopUIEvent>.OnEvent += OnShopUIEvent;
 
         clickAction = new InputAction(type: InputActionType.Button, binding: "<Pointer>/press");
-        clickAction.performed += OnPointerPressed;
+        //clickAction.performed += OnPointerPressed;
         clickAction.Enable();
     }
 
@@ -56,7 +59,7 @@ public class BufferBard : StaffBase
     {
         // EventBus<ShopUIEvent>.OnEvent -= OnShopUIEvent;
 
-        clickAction.performed -= OnPointerPressed;
+        //clickAction.performed -= OnPointerPressed;
         clickAction.Disable();
     }
 
@@ -77,10 +80,47 @@ public class BufferBard : StaffBase
     {
         if (!_inited) return;
 
+        if (clickAction != null && clickAction.WasPressedThisFrame() && Pointer.current != null)
+        {
+            _queuedScreenPos = Pointer.current.position.ReadValue();
+            _clickQueued = true;
+        }
+
+        // 큐잉된 클릭 처리 (UI/카메라 상태가 안정된 Update 타이밍)
+        if (_clickQueued)
+        {
+            _clickQueued = false;
+
+            // UI 위 클릭이면 무시 (pointerId 전달)
+            int pid = Pointer.current != null ? Pointer.current.deviceId : -1;
+            if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject(pid))
+                return;
+
+            var cam = Camera.main;
+            if (cam == null) return;                 // 카메라 가드
+            if (!IsFinite(_queuedScreenPos)) return; // 좌표 유효성 검사
+
+            // ScreenPointToRay -> 2D 레이 교차
+            var ray = cam.ScreenPointToRay(_queuedScreenPos);
+            var hit2D = Physics2D.GetRayIntersection(ray, Mathf.Infinity, clickMask);
+            if (hit2D.collider != null)
+            {
+                var t = hit2D.transform;
+                if (t == transform || t.IsChildOf(transform))
+                    TryCastBuff();
+            }
+        }
+
         if (IsEnemyNearby())
         {
             TryAutoFire();
         }
+    }
+
+    private static bool IsFinite(Vector2 v)
+    {
+        return !(float.IsNaN(v.x) || float.IsNaN(v.y) ||
+                 float.IsInfinity(v.x) || float.IsInfinity(v.y));
     }
 
 

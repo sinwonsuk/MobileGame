@@ -34,6 +34,9 @@ public class ShooterStaff : StaffBase
 
     Transform boss;
 
+    private bool _clickQueued;
+    private Vector2 _queuedScreenPos;
+
     public override void Init(StaffStatsSO stats, RuntimeStaffStatsSO Runtimestats)
     {
         base.Init(stats, Runtimestats);
@@ -47,7 +50,15 @@ public class ShooterStaff : StaffBase
         //EventBus<ShopUIEvent>.OnEvent += OnShopUIEvent;
 
         clickAction = new InputAction(type: InputActionType.Button, binding: "<Pointer>/press");
-        clickAction.performed += OnPointerPressed;
+        clickAction.performed += ctx =>
+        {
+            // ÄÝ¹é¿¡¼­´Â ÁÂÇ¥¸¸ Å¥À×
+            if (Pointer.current != null)
+            {
+                _queuedScreenPos = Pointer.current.position.ReadValue();
+                _clickQueued = true;
+            }
+        };
         clickAction.Enable();
     }
 
@@ -57,6 +68,12 @@ public class ShooterStaff : StaffBase
 
         clickAction.performed -= OnPointerPressed;
         clickAction.Disable();
+    }
+
+    private static bool IsFinite(Vector2 v)
+    {
+        return !(float.IsNaN(v.x) || float.IsNaN(v.y) ||
+                 float.IsInfinity(v.x) || float.IsInfinity(v.y));
     }
 
     private void OnPointerPressed(InputAction.CallbackContext ctx)
@@ -140,6 +157,28 @@ public class ShooterStaff : StaffBase
     void Update()
     {
         if (!_inited) return;
+
+        if (_clickQueued)
+        {
+            _clickQueued = false;
+
+            int pid = Pointer.current != null ? Pointer.current.deviceId : -1;
+            if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject(pid))
+                return;
+
+            var cam = Camera.main;
+            if (cam == null) return;
+            if (!IsFinite(_queuedScreenPos)) return;
+
+            var ray = cam.ScreenPointToRay(_queuedScreenPos);
+            var hit2D = Physics2D.GetRayIntersection(ray, Mathf.Infinity, clickMask);
+            if (hit2D.collider != null)
+            {
+                var t = hit2D.transform;
+                if (t == transform || t.IsChildOf(transform))
+                    TryCastSkillByClick();
+            }
+        }
 
         if (IsEnemyNearby())
         {
