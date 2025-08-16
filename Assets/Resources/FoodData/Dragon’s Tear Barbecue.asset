@@ -16,8 +16,8 @@ MonoBehaviour:
   displayName: "\uC6A9\uB208\uBB3C \uBC14\uBE44\uD050"
   foodSprite: dragon'sTearBBQ
   price: 979
-  reputation: 0
-  Getreputation: 1
+  reputation: 100
+  Getreputation: 0
   isUnlock: 0
   cookingTime: 84.4
   Level: 1

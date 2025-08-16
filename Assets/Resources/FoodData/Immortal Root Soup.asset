@@ -16,8 +16,8 @@ MonoBehaviour:
   displayName: "\uBD88\uBA78\uC758 \uBFCC\uB9AC \uC218\uD504"
   foodSprite: beakManSoup
   price: 770
-  reputation: 0
-  Getreputation: 1
+  reputation: 460
+  Getreputation: 0
   isUnlock: 0
   cookingTime: 66.7
   Level: 1

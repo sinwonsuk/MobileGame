@@ -1,4 +1,6 @@
 using UnityEngine;
+using UnityEngine.UI;
+using static UnityEngine.Rendering.STP;
 
 public class FoodSlot : MonoBehaviour
 {
@@ -22,7 +24,9 @@ public class FoodSlot : MonoBehaviour
 
         EventBus<SetManagementActiveEvent>.Raise(new SetManagementActiveEvent());
 
-        EventBus<FoodSlotHandler>.Raise(new FoodSlotHandler(foodData.foodSprite,foodData.displayName,foodData.FoodManual));
+        //.enhanceSteps[conFig.Foods[i].Level - 1].cost;
+
+        EventBus<FoodSlotHandler>.Raise(new FoodSlotHandler(foodData.foodSprite, foodData.displayName, foodData.FoodManual,foodData.enhanceSteps[foodData.Level-1].cost.ToString()));
 
         for (int i = 0; i < foodData.Ingredients.Count; i++)
         {
@@ -35,4 +39,11 @@ public class FoodSlot : MonoBehaviour
         }
     }
 
+    public void buttonOnOff(bool check)
+    {
+        myButton.interactable = check;
+    }
+
+
+    [SerializeField] private Button myButton;
 }

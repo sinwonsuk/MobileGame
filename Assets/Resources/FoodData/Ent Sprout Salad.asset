@@ -16,11 +16,11 @@ MonoBehaviour:
   displayName: "\uC5D4\uD2B8 \uC138\uC21C \uB098\uBB3C\uBB34\uCE68"
   foodSprite: seasonedVegetables
   price: 210
-  reputation: 0
-  Getreputation: 1
+  reputation: 40
+  Getreputation: 0
   isUnlock: 0
   cookingTime: 19.3
-  Level: 4
+  Level: 1
   FoodManual: 
   Ingredients:
   - {fileID: 11400000, guid: 8c5ee7781af93e84fbda5780e9ca8d24, type: 2}

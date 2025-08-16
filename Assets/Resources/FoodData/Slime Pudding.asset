@@ -16,7 +16,7 @@ MonoBehaviour:
   displayName: "\uC2AC\uB77C\uC784 \uD478\uB529"
   foodSprite: pudding
   price: 168
-  reputation: 0
+  reputation: 10
   Getreputation: 1
   isUnlock: 0
   cookingTime: 15.8

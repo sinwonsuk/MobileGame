@@ -16,8 +16,8 @@ MonoBehaviour:
   displayName: "\uD0DC\uC591 \uC0AC\uB0E5\uAFBC \uC624\uBBC8\uB81B"
   foodSprite: sunHunterOmelette
   price: 909
-  reputation: 0
-  Getreputation: 1
+  reputation: 420
+  Getreputation: 0
   isUnlock: 0
   cookingTime: 78.5
   Level: 1
