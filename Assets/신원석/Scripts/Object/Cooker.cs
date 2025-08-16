@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using UnityEditor.Animations;
 using UnityEngine;
 using UnityEngine.UI;
 using static SoundManager;
@@ -84,7 +83,7 @@ public class Cooker : MonoBehaviour
     public class CookSkin
     {
         public Skin skin;
-        public AnimatorController animator;
+        public RuntimeAnimatorController animator;
     }
 
     [SerializeField] private List<WitchSkin> skins = new List<WitchSkin>();
