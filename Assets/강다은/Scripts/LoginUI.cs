@@ -78,6 +78,7 @@ public class LoginUI : MonoBehaviour
 	// 회원가입
 	public void OnClickSignUp()
 	{
+		signupButton.interactable = false; // 버튼 비활성화
 		SoundManager.GetInstance().SfxPlay(SoundManager.sfx.Click, false);
 
 		string id = signUpIdInput.text;
@@ -103,6 +104,7 @@ public class LoginUI : MonoBehaviour
 					onSuccess: () =>
 					{
 						Debug.Log("로그인 성공, 대기 후 데이터 로드 시작");
+						signupButton.interactable = true; // 버튼 활성화
 						StartCoroutine(LoginFlowCoroutine());
 					},
 					onFailure: (error) =>
@@ -114,6 +116,7 @@ public class LoginUI : MonoBehaviour
 			onFailure: (error) =>
 			{
 				PopupManager.Show("회원가입에 실패했습니다.\n" + error);
+				signupButton.interactable = true; // 버튼 활성화
 			});
 	}
 
@@ -468,4 +471,6 @@ public class LoginUI : MonoBehaviour
 	[SerializeField] private Image mainImage;
 
     [SerializeField] private Transform mainImageTransform;
+
+	[SerializeField] private Button signupButton;
 }
