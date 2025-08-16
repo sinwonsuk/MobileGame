@@ -71,13 +71,15 @@ public class FoodAmountUI : MonoBehaviour
 
         uGUIFoodName.text = foodSlotHandler.name;
         foodManual.text = foodSlotHandler.Manual;
+        price.text = foodSlotHandler.price;
+
 
     }
 
     [SerializeField] Image foodIcon;
     [SerializeField] TextMeshProUGUI uGUIFoodName;
     [SerializeField] TextMeshProUGUI foodManual;
-
+    [SerializeField] TextMeshProUGUI price;
 
     [SerializeField] GameObject IngredientAmountPanel;
     [SerializeField] Transform transformfoodAmountPanel;

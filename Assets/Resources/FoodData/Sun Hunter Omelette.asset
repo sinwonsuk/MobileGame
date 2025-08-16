@@ -16,7 +16,7 @@ MonoBehaviour:
   displayName: "\uD0DC\uC591 \uC0AC\uB0E5\uAFBC \uC624\uBBC8\uB81B"
   foodSprite: sunHunterOmelette
   price: 909
-  reputation: 0
+  reputation: 420
   Getreputation: 1
   isUnlock: 0
   cookingTime: 78.5
@@ -29,7 +29,7 @@ MonoBehaviour:
   - indate: 2025-07-27T05:59:26.814Z
     foodIndate: 2025-07-16T02:27:36.991Z
     step: 1
-    successRate: 100
+    successRate: 80
     ingredients:
     - indate: 2025-07-16T02:27:47.023Z
       name: "\uB9E8\uB4DC\uB808\uC774\uD06C \uC774\uD30C\uB9AC"
@@ -41,7 +41,7 @@ MonoBehaviour:
   - indate: 2025-07-27T05:59:27.031Z
     foodIndate: 2025-07-16T02:27:36.991Z
     step: 2
-    successRate: 95
+    successRate: 60
     ingredients:
     - indate: 2025-07-16T02:27:47.023Z
       name: "\uB9E8\uB4DC\uB808\uC774\uD06C \uC774\uD30C\uB9AC"
@@ -53,7 +53,7 @@ MonoBehaviour:
   - indate: 2025-07-27T05:59:27.239Z
     foodIndate: 2025-07-16T02:27:36.991Z
     step: 3
-    successRate: 88
+    successRate: 40
     ingredients:
     - indate: 2025-07-16T02:27:47.023Z
       name: "\uB9E8\uB4DC\uB808\uC774\uD06C \uC774\uD30C\uB9AC"
@@ -65,7 +65,7 @@ MonoBehaviour:
   - indate: 2025-07-27T05:59:27.453Z
     foodIndate: 2025-07-16T02:27:36.991Z
     step: 4
-    successRate: 78
+    successRate: 30
     ingredients:
     - indate: 2025-07-16T02:27:47.023Z
       name: "\uB9E8\uB4DC\uB808\uC774\uD06C \uC774\uD30C\uB9AC"
@@ -77,7 +77,7 @@ MonoBehaviour:
   - indate: 2025-07-27T05:59:27.683Z
     foodIndate: 2025-07-16T02:27:36.991Z
     step: 5
-    successRate: 65
+    successRate: 20
     ingredients:
     - indate: 2025-07-16T02:27:47.023Z
       name: "\uB9E8\uB4DC\uB808\uC774\uD06C \uC774\uD30C\uB9AC"
@@ -89,7 +89,7 @@ MonoBehaviour:
   - indate: 2025-07-27T05:59:27.972Z
     foodIndate: 2025-07-16T02:27:36.991Z
     step: 6
-    successRate: 50
+    successRate: 10
     ingredients:
     - indate: 2025-07-16T02:27:47.023Z
       name: "\uB9E8\uB4DC\uB808\uC774\uD06C \uC774\uD30C\uB9AC"
@@ -101,7 +101,7 @@ MonoBehaviour:
   - indate: 2025-07-27T05:59:28.241Z
     foodIndate: 2025-07-16T02:27:36.991Z
     step: 7
-    successRate: 35
+    successRate: 5
     ingredients:
     - indate: 2025-07-16T02:27:47.023Z
       name: "\uB9E8\uB4DC\uB808\uC774\uD06C \uC774\uD30C\uB9AC"
@@ -113,7 +113,7 @@ MonoBehaviour:
   - indate: 2025-07-27T05:59:28.530Z
     foodIndate: 2025-07-16T02:27:36.991Z
     step: 8
-    successRate: 20
+    successRate: 3
     ingredients:
     - indate: 2025-07-16T02:27:47.023Z
       name: "\uB9E8\uB4DC\uB808\uC774\uD06C \uC774\uD30C\uB9AC"

@@ -110,6 +110,7 @@ public class FoodAmountController : MonoBehaviour
 
     public void test()
     {
+        SoundManager.GetInstance().SfxPlay(SoundManager.sfx.Click,false);
         EventBus<SetManagementActiveEvent>.Raise(new SetManagementActiveEvent());
     }
 

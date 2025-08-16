@@ -16,7 +16,7 @@ MonoBehaviour:
   displayName: "\uBD88\uBA78\uC758 \uBFCC\uB9AC \uC218\uD504"
   foodSprite: beakManSoup
   price: 770
-  reputation: 0
+  reputation: 460
   Getreputation: 1
   isUnlock: 0
   cookingTime: 66.7
@@ -29,7 +29,7 @@ MonoBehaviour:
   - indate: 2025-07-27T05:59:14.773Z
     foodIndate: 2025-07-16T02:27:37.129Z
     step: 1
-    successRate: 100
+    successRate: 80
     ingredients:
     - indate: 2025-07-16T02:27:47.164Z
       name: "\uC8FD\uC740 \uB9E8\uB4DC\uB808\uC774\uD06C"
@@ -41,7 +41,7 @@ MonoBehaviour:
   - indate: 2025-07-27T05:59:14.942Z
     foodIndate: 2025-07-16T02:27:37.129Z
     step: 2
-    successRate: 95
+    successRate: 60
     ingredients:
     - indate: 2025-07-16T02:27:47.164Z
       name: "\uC8FD\uC740 \uB9E8\uB4DC\uB808\uC774\uD06C"
@@ -53,7 +53,7 @@ MonoBehaviour:
   - indate: 2025-07-27T05:59:15.102Z
     foodIndate: 2025-07-16T02:27:37.129Z
     step: 3
-    successRate: 88
+    successRate: 40
     ingredients:
     - indate: 2025-07-16T02:27:47.164Z
       name: "\uC8FD\uC740 \uB9E8\uB4DC\uB808\uC774\uD06C"
@@ -65,7 +65,7 @@ MonoBehaviour:
   - indate: 2025-07-27T05:59:15.225Z
     foodIndate: 2025-07-16T02:27:37.129Z
     step: 4
-    successRate: 78
+    successRate: 30
     ingredients:
     - indate: 2025-07-16T02:27:47.164Z
       name: "\uC8FD\uC740 \uB9E8\uB4DC\uB808\uC774\uD06C"
@@ -77,7 +77,7 @@ MonoBehaviour:
   - indate: 2025-07-27T05:59:15.359Z
     foodIndate: 2025-07-16T02:27:37.129Z
     step: 5
-    successRate: 65
+    successRate: 20
     ingredients:
     - indate: 2025-07-16T02:27:47.164Z
       name: "\uC8FD\uC740 \uB9E8\uB4DC\uB808\uC774\uD06C"
@@ -89,7 +89,7 @@ MonoBehaviour:
   - indate: 2025-07-27T05:59:15.506Z
     foodIndate: 2025-07-16T02:27:37.129Z
     step: 6
-    successRate: 50
+    successRate: 10
     ingredients:
     - indate: 2025-07-16T02:27:47.164Z
       name: "\uC8FD\uC740 \uB9E8\uB4DC\uB808\uC774\uD06C"
@@ -101,7 +101,7 @@ MonoBehaviour:
   - indate: 2025-07-27T05:59:15.650Z
     foodIndate: 2025-07-16T02:27:37.129Z
     step: 7
-    successRate: 35
+    successRate: 5
     ingredients:
     - indate: 2025-07-16T02:27:47.164Z
       name: "\uC8FD\uC740 \uB9E8\uB4DC\uB808\uC774\uD06C"
@@ -113,7 +113,7 @@ MonoBehaviour:
   - indate: 2025-07-27T05:59:15.802Z
     foodIndate: 2025-07-16T02:27:37.129Z
     step: 8
-    successRate: 20
+    successRate: 3
     ingredients:
     - indate: 2025-07-16T02:27:47.164Z
       name: "\uC8FD\uC740 \uB9E8\uB4DC\uB808\uC774\uD06C"

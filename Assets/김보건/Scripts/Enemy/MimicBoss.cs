@@ -4,7 +4,7 @@ public class MimicBoss : EnemyBase
 {
     private int stage;
 
-    protected override float GetMaxHp() => 270.0f;
+    protected override float GetMaxHp() => 412.0f;
 
     protected override void Start()
     {

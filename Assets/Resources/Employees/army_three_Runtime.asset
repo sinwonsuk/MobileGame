@@ -15,11 +15,11 @@ MonoBehaviour:
   indate: 2025-07-27T01:21:43.535Z
   displayName: army_three
   staffType: 0
-  level: 0
-  attack_Power: 0
-  attack_Speed: 0
+  level: 1
+  attack_Power: 30.1
+  attack_Speed: 0.4
   timer: 0
   cooltime: 0
-  isOwned: 0
-  isAssigned: 0
-  assignedIndex: -1
+  isOwned: 1
+  isAssigned: 1
+  assignedIndex: 1
