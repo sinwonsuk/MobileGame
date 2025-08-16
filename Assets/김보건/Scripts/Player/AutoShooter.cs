@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using static UnityEngine.GraphicsBuffer;
 using UnityEngine.InputSystem;
+using System.Collections.Generic;
 
 public class AutoShooter : MonoBehaviour
 {
@@ -25,6 +26,8 @@ public class AutoShooter : MonoBehaviour
     private bool isShopOpen = false; // UI Shop 열림 여부
 
     private InputAction attackAction;
+
+    private bool _pendingAttack;
     public bool IsAttackPressed => attackAction != null && attackAction.ReadValue<float>() > 0;
 
     void OnEnable()
@@ -32,7 +35,7 @@ public class AutoShooter : MonoBehaviour
         EventBus<ShopUIEvent>.OnEvent += OnShopUIEvent;
         EventBus<StatChangedEvent>.OnEvent += OnStatChanged;
         attackAction = new InputAction(type: InputActionType.Button, binding: "<Pointer>/press"); // 마우스와 터치 대응
-        attackAction.performed += OnAttackInput;
+        attackAction.performed += ctx => { _pendingAttack = true; };
         attackAction.Enable();
     }
 
@@ -41,7 +44,7 @@ public class AutoShooter : MonoBehaviour
         EventBus<ShopUIEvent>.OnEvent -= OnShopUIEvent;
         EventBus<StatChangedEvent>.OnEvent -= OnStatChanged;
 
-        attackAction.performed -= OnAttackInput;
+        attackAction.performed -= ctx => { _pendingAttack = true; };
         attackAction.Disable();
     }
 
@@ -88,34 +91,37 @@ public class AutoShooter : MonoBehaviour
         if (EventSystem.current.IsPointerOverGameObject()) return;
         if (isShopOpen) return;
 
-        //#if UNITY_EDITOR
-        //    if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
-        //    {
-        //        if (currentState == idleState)
-        //        {
-        //            TouchAttack();
-        //        }
-        //        else if (currentState == attackState)
-        //        {
-        //            TouchAttack();
-        //            timer = 0f;
-        //        }
-        //    }
-        //#else
-        //    if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began &&
-        //        !EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId))
-        //    {
-        //                if (currentState == idleState)
-        //    {
-        //        TouchAttack();
-        //    }
-        //    else if (currentState == attackState)
-        //    {
-        //        TouchAttack();
-        //        timer = 0f;
-        //    }
-        //    }
-        //#endif
+        if (_pendingAttack)
+        {
+            _pendingAttack = false;
+
+            if (isShopOpen) return;
+            if (IsPointerOverUI()) return; // 최신 포인터 위치로 UI 히트 체크
+
+            if (currentState == idleState)
+            {
+                TouchAttack();
+            }
+            else if (currentState == attackState)
+            {
+                TouchAttack();
+                timer = 0f;
+            }
+        }
+    }
+
+    private bool IsPointerOverUI()
+    {
+        if (EventSystem.current == null) return false;
+
+        Vector2 pos = Pointer.current != null
+            ? Pointer.current.position.ReadValue()
+            : (Vector2)Input.mousePosition; // 폴백
+
+        var data = new PointerEventData(EventSystem.current) { position = pos };
+        var results = new List<RaycastResult>();
+        EventSystem.current.RaycastAll(data, results);
+        return results.Count > 0;
     }
 
     public void SetState(IShooterState newState)
