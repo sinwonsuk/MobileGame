@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: Emproyee_one
   m_EditorClassIdentifier: 
   indate: 2025-07-27T01:21:43.830Z
-  displayName: "\uACBD\uC601\uC9C1\uC6D01"
+  displayName: "\uC2E0\uC6D0\uBBF8\uC0C1\uC758 \uBC40\uD30C\uC774\uC5B4"
   staffType: 1
   explain: "\uACBD\uC601 \uC9C1\uC6D01"
   itemPrefab: {fileID: 2127192634085561284, guid: 51d09969f1b80f749ac2cf955655017e, type: 3}
-  portrait: {fileID: 21300000, guid: 972bf3f76514f9544943e1f7e97d153f, type: 3}
+  portrait: {fileID: 21300000, guid: 00a87641a1632314a8bb6f4cced02d4c, type: 3}
   baseSalary: 100
   basic_attack_Power: 0
   basic_attack_Speed: 0
