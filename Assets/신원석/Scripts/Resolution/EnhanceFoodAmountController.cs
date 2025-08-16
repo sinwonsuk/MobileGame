@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class EnhanceFoodAmountController : MonoBehaviour
 {
@@ -51,29 +52,24 @@ public class EnhanceFoodAmountController : MonoBehaviour
         }
 
         enhanceResult.gameObject.SetActive(true);
+        button.interactable = false;
 
         if (random > sucessRate) // 애는 실패
         {
-            enhanceResult.Image.sprite = Resources.Load<Sprite>("mimicBBQPlate");
+            enhanceResult.Image.sprite = Resources.Load<Sprite>("fail");
             enhanceResult.Text.text = "강화실패";
         }
         else // 애는 성공 
         {
-            enhanceResult.Image.sprite = Resources.Load<Sprite>("mimicMeat");
+            enhanceResult.Image.sprite = Resources.Load<Sprite>("success");
             enhanceResult.Text.text = "강화성공";
 			data.Level += 1;
             data.isDirty = true;
 		}
 
-
-
-
-
-
-        //EventBus<UpMenuSpawnHandler>.Raise(new UpMenuSpawnHandler(foodAmountUI.FoodIcon, tempCurrentAmount.ToString(), foodName, MenuParentTransform));
-        //EventBus<MenuBoardSlotSpawnHandler>.Raise(new MenuBoardSlotSpawnHandler(tempCurrentAmount.ToString(), foodName));
     }
 
+    [SerializeField] Button button;
 
     [SerializeField] EnhanceFoodUI enhanceFoodUI;
     [SerializeField] EnhanceResult enhanceResult;
