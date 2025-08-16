@@ -28,15 +28,25 @@ public class AutoShooter : MonoBehaviour
     private InputAction attackAction;
 
     private bool _pendingAttack;
+
+    private bool _isInDungeon = false;
+
     public bool IsAttackPressed => attackAction != null && attackAction.ReadValue<float>() > 0;
 
     void OnEnable()
     {
         EventBus<ShopUIEvent>.OnEvent += OnShopUIEvent;
         EventBus<StatChangedEvent>.OnEvent += OnStatChanged;
+
+
+        EventBus<LocationChangedEvent>.OnEvent += OnLocationChanged;
+        _isInDungeon = (LocationState.Current == location.Dungeon);
+
         attackAction = new InputAction(type: InputActionType.Button, binding: "<Pointer>/press"); // 마우스와 터치 대응
         attackAction.performed += ctx => { _pendingAttack = true; };
         attackAction.Enable();
+
+
     }
 
     void OnDisable()
@@ -44,9 +54,17 @@ public class AutoShooter : MonoBehaviour
         EventBus<ShopUIEvent>.OnEvent -= OnShopUIEvent;
         EventBus<StatChangedEvent>.OnEvent -= OnStatChanged;
 
+        EventBus<LocationChangedEvent>.OnEvent -= OnLocationChanged;
+
         attackAction.performed -= ctx => { _pendingAttack = true; };
         attackAction.Disable();
     }
+
+    private void OnLocationChanged(LocationChangedEvent e)
+    {
+        _isInDungeon = (e.value == location.Dungeon);
+    }
+
 
     private void OnAttackInput(InputAction.CallbackContext context)
     {
@@ -89,6 +107,7 @@ public class AutoShooter : MonoBehaviour
         currentState?.Update();
 
         if (EventSystem.current.IsPointerOverGameObject()) return;
+        if (!_isInDungeon) return;
         if (isShopOpen) return;
 
         if (_pendingAttack)
