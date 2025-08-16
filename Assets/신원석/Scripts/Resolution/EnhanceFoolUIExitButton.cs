@@ -24,6 +24,7 @@ public class EnhanceFoodSelectUIExitButton : MonoBehaviour
     }
     public void Back()
     {
+        SoundManager.GetInstance().SfxPlay(SoundManager.sfx.Click, false);
         EventBus<SetEnhanceFoodActiveEvent>.Raise(new SetEnhanceFoodActiveEvent());
     }
 }
