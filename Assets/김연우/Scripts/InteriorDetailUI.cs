@@ -25,6 +25,7 @@ public class InteriorDetailUI : MonoBehaviour
         InteriorSkinSlotUI.OnSkinClicked -= ShowDetailFromSkin;
     }
 
+    // InteriorDetailUI.cs
     private void ShowDetailFromSkin(InteriorSlot slot, int skinIndex, Sprite sprite)
     {
         currentSlot = slot;
@@ -35,23 +36,41 @@ public class InteriorDetailUI : MonoBehaviour
         descText.text = slot.data.description;
         iconImage.sprite = sprite != null ? sprite : slot.data.icon;
 
-        useButton.GetComponentInChildren<TMP_Text>().text =
-            slot.runtimeData.isUsed ? "해제" : "설치";
+        // ★ 버튼 세팅
         useButton.onClick.RemoveAllListeners();
-        useButton.onClick.AddListener(OnUseClicked);
-        useButton.interactable = true;
+
+        bool isLocked = slot.data.alwaysInstalled; // 항상 설치(해제 불가) 여부
+        var label = useButton.GetComponentInChildren<TMPro.TMP_Text>(true);
+
+        if (isLocked)
+        {
+            if (label) label.text = "고정";
+            useButton.interactable = false;
+
+        }
+        else
+        {
+            if (label) label.text = slot.runtimeData.isUsed ? "해제" : "설치";
+            useButton.interactable = true;
+            useButton.onClick.AddListener(OnUseClicked);
+        }
     }
+
 
     private void OnUseClicked()
     {
+        // ★ 항상 설치면 안전 차단
+        if (currentSlot != null && currentSlot.data.alwaysInstalled)
+            return;
+
         SoundManager.GetInstance().SfxPlay(SoundManager.sfx.Click, false);
         if (currentSlot == null) return;
 
-        // 설치/해제 토글 (내부 로직 그대로)
         InteriorManager.Instance.UseInterior(currentSlot.data.interiorName);
 
-        // 버튼 라벨 갱신
-        useButton.GetComponentInChildren<TMP_Text>().text =
-            currentSlot.runtimeData.isUsed ? "해제" : "설치";
+        // 라벨 갱신
+        var label = useButton.GetComponentInChildren<TMPro.TMP_Text>(true);
+        if (label) label.text = currentSlot.runtimeData.isUsed ? "해제" : "설치";
     }
+
 }
