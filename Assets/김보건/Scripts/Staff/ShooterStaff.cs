@@ -224,18 +224,6 @@ public class ShooterStaff : StaffBase
         return false;
     }
 
-    //private IEnumerator AutoAttackLoop()
-    //{
-    //    while (true)
-    //    {
-    //        yield return new WaitForSeconds(1f / Mathf.Max((float)currentAttackSpeed, 0.01f));
-
-    //        target = FindNearestEnemy();
-    //        if (target != null)
-    //            animator?.SetTrigger("AttackTrigger");
-    //    }
-    //}
-
     private Transform FindNearestEnemy()
     {
         Vector3 origin = (firePoint != null) ? firePoint.position : transform.position;
