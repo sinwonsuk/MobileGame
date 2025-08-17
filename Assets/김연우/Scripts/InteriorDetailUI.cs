@@ -1,8 +1,6 @@
-// InteriorDetailUI.cs (핵심만 수정)
-using UnityEngine;
 using TMPro;
+using UnityEngine;
 using UnityEngine.UI;
-
 public class InteriorDetailUI : MonoBehaviour
 {
     public GameObject panel;
@@ -14,63 +12,71 @@ public class InteriorDetailUI : MonoBehaviour
     private InteriorSlot currentSlot;
     private int currentSkinIndex = 0;
 
-    private void OnEnable()
+    private void Awake()
     {
-
+        // ★ 비활성화되어도 구독 유지
         InteriorSkinSlotUI.OnSkinClicked += ShowDetailFromSkin;
     }
 
-    private void OnDisable()
+    private void OnDestroy()
     {
         InteriorSkinSlotUI.OnSkinClicked -= ShowDetailFromSkin;
     }
 
-    // InteriorDetailUI.cs
+    private void Start()
+    {
+        gameObject.SetActive(false);   // ★ 처음엔 통째로 꺼두기(원하던 동작)
+        // panel은 굳이 끌 필요 없음. 어차피 부모가 꺼져 있으니까
+    }
+
     private void ShowDetailFromSkin(InteriorSlot slot, int skinIndex, Sprite sprite)
     {
+        gameObject.SetActive(true);    // ★ 부모 다시 켜기
+        if (panel != null) panel.SetActive(true);
+
         currentSlot = slot;
         currentSkinIndex = skinIndex;
 
-        panel.SetActive(true);
         nameText.text = slot.data.interiorName;
         descText.text = slot.data.description;
         iconImage.sprite = sprite != null ? sprite : slot.data.icon;
 
-        // ★ 버튼 세팅
         useButton.onClick.RemoveAllListeners();
 
-        bool isLocked = slot.data.alwaysInstalled; // 항상 설치(해제 불가) 여부
+        bool isLocked = slot.data.alwaysInstalled;
         var label = useButton.GetComponentInChildren<TMPro.TMP_Text>(true);
 
         if (isLocked)
         {
             if (label) label.text = "고정";
             useButton.interactable = false;
-
         }
         else
         {
-            if (label) label.text = slot.runtimeData.isUsed ? "해제" : "설치";
-            useButton.interactable = true;
-            useButton.onClick.AddListener(OnUseClicked);
+            if (slot.runtimeData.isUsed)
+            {
+                if (label) label.text = "설치됨";
+                useButton.interactable = false;
+            }
+            else
+            {
+                if (label) label.text = "설치";
+                useButton.interactable = true;
+                useButton.onClick.AddListener(OnUseClicked);
+            }
         }
     }
 
-
     private void OnUseClicked()
     {
-        // ★ 항상 설치면 안전 차단
-        if (currentSlot != null && currentSlot.data.alwaysInstalled)
-            return;
+        if (currentSlot == null) return;
+        if (currentSlot.data.alwaysInstalled) return;
 
         SoundManager.GetInstance().SfxPlay(SoundManager.sfx.Click, false);
-        if (currentSlot == null) return;
-
         InteriorManager.Instance.UseInterior(currentSlot.data.interiorName);
 
-        // 라벨 갱신
         var label = useButton.GetComponentInChildren<TMPro.TMP_Text>(true);
-        if (label) label.text = currentSlot.runtimeData.isUsed ? "해제" : "설치";
+        if (label) label.text = "설치됨";
+        useButton.interactable = false;
     }
-
 }
