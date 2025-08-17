@@ -2,10 +2,12 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using System;
+using TMPro;
 
 public class InteriorSlotUI : MonoBehaviour, IPointerClickHandler
 {
     public Image iconImage;
+    public TMP_Text descText;
     private InteriorSlot slot;
     public static event Action<InteriorSlot> OnSlotClicked;
 
@@ -13,6 +15,7 @@ public class InteriorSlotUI : MonoBehaviour, IPointerClickHandler
     {
         slot = s;
         iconImage.sprite = s.data.icon;
+        descText.text = s.data.description;
         // (원한다면 설치중 표시 UI 추가)
     }
 

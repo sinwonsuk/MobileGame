@@ -9,7 +9,6 @@ public class StatUpgradeButton : MonoBehaviour
 
     [Header("표시 UI")]
 
-    public Sprite characterSprite;         // 표시할 캐릭터 스프라이트 (없으면 인스펙터에서 할당)
     public TMP_Text levelText;             // 레벨
     public TMP_Text attackText;            // 공격력
     public TMP_Text autoIntervalText;      // 자동공격속도
@@ -52,6 +51,7 @@ public class StatUpgradeButton : MonoBehaviour
 
     void OnClick()
     {
+        SoundManager.GetInstance().SfxPlay(SoundManager.sfx.Click, false);
         Debug.Log($"[OnClick] {name} 클릭!", this);
         int price = GetCurrentPrice();
         if (BackendGameData.Instance.userData.gold < price)

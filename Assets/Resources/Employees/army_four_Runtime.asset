@@ -16,8 +16,8 @@ MonoBehaviour:
   displayName: army_four
   staffType: 0
   level: 0
-  attack_Power: 40
-  attack_Speed: 0.4
+  attack_Power: 0
+  attack_Speed: 0
   timer: 0
   cooltime: 0
   isOwned: 0

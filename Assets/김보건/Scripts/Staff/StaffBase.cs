@@ -54,8 +54,8 @@ public class StaffBase : MonoBehaviour
                 break;
 
             case StaffType.restaurant:
-                runtimeData.timer = data.basictimer + (runtimeData.level - 1) * 0.1;
-                runtimeData.cooltime = data.basiccooltime - (runtimeData.level - 1) * 0.1;
+                runtimeData.timer = data.basictimer + (runtimeData.level - 1) * 2;
+                runtimeData.cooltime = data.basiccooltime - (runtimeData.level - 1) * 2;
                 break;
         }
     }
@@ -63,7 +63,7 @@ public class StaffBase : MonoBehaviour
     protected virtual void RecalculateStats()
     {
         // 기존 Hunter 전용 공식 
-        currentAttackPower = data.basic_attack_Power + (runtimeData.level * 0.1);
+        currentAttackPower = data.basic_attack_Power + (runtimeData.level * 1);
         currentAttackSpeed = data.basic_attack_Speed + (runtimeData.level * 0.1);
     }
 
