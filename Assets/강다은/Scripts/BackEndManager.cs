@@ -45,11 +45,11 @@ public class BackendManager : MonoBehaviour
 			Debug.LogError("초기화 실패 : " + bro);
 	}
 
-	//void OnApplicationQuit()
-	//{
-	//	Debug.Log("종료 시 유저 데이터 저장 요청 완료");
-	//	BackendGameData.Instance.GameDataUpdate();
-	//}
+	void OnApplicationQuit()
+	{
+		Debug.Log("종료 시 유저 데이터 저장 요청 완료");
+		BackendGameData.Instance.GameDataUpdate();
+	}
 
 	void OnApplicationPause(bool pause)
 	{

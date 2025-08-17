@@ -3,28 +3,23 @@ using UnityEngine;
 public class ExitDungeon : MonoBehaviour
 {
 
-    public GameObject dungeonInGameUI;
+    private GameController _gc;
+    private CameraSlideManager _camSlide;
+
+    private void Awake()
+    {
+        _gc = FindAnyObjectByType<GameController>();
+        if (_gc != null)
+            _camSlide = _gc.GetManager<CameraSlideManager>();
+    }
+
     public void OnClickMainMenu()
     {
-        dungeonInGameUI.SetActive(false);
-        EventBus<ButtonisActiveHandler>.Raise(new ButtonisActiveHandler(true));
+        if (_camSlide == null)
+        {
+            return;
+        }
 
-        EventBus<DungeonSlideToggleEvent>.Raise(new DungeonSlideToggleEvent(false));
-        var hunters = Object.FindObjectsByType<ToggleHunterShopCanvas>(
-            FindObjectsInactive.Include,      // 비활성 포함해서 찾기
-            FindObjectsSortMode.None
-        );
-        foreach (var h in hunters)
-        {
-            if (h && h.gameObject.activeSelf)
-                h.gameObject.SetActive(false);
-        }
-        var gameController = FindAnyObjectByType<GameController>();
-        if (gameController != null)
-        {
-            var dungeonManager = gameController.GetManager<DungeonManager>();
-            if (dungeonManager != null)
-                dungeonManager.ExitDungeon();
-        }
+        _camSlide.MoveToRestaurant();
     }
 }

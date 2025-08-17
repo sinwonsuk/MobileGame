@@ -215,5 +215,10 @@ public class FoodLevelAutoSave : MonoBehaviour, IAutoSavable
 
 		Debug.Log("[FoodLevel] 변경된 Food Level 데이터 저장 완료");
 	}
+
+	void OnApplicationQuit()
+	{
+		SaveLevelData();
+	}
 	private bool employeeDataLoaded = false;
 }

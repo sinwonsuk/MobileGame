@@ -134,6 +134,7 @@ public class StaffShopButton : MonoBehaviour
         {
             if (!CanAfford(_price))
             {
+                PopupManager.Show("돈이 부족합니다");
                 Debug.Log("돈 부족");
                 return;
             }
