@@ -22,7 +22,6 @@ public class InteriorManager : MonoBehaviour, IAutoSavable
     [SerializeField] private string targetSceneName = "SampleScene";
 
     private bool FurnitureDataLoaded = false;
-
     private void Awake()
     {
         if (Instance == null) Instance = this;
@@ -39,7 +38,7 @@ public class InteriorManager : MonoBehaviour, IAutoSavable
         }
 
     }
-
+    
     private void OnEnable()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
@@ -72,7 +71,6 @@ public class InteriorManager : MonoBehaviour, IAutoSavable
         if (string.IsNullOrEmpty(targetSceneName)) return true; // 타겟 미지정이면 모든 씬 허용
         return SceneManager.GetActiveScene().name == targetSceneName;
     }
-
     private void DespawnAllInstances()
     {
         foreach (var slot in slots)
