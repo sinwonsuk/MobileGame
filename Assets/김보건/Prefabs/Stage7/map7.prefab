@@ -64,7 +64,7 @@ Transform:
   - {fileID: 6644993641147582707}
   - {fileID: 8658091602575802144}
   - {fileID: 8715921325508397591}
-  - {fileID: 5753263200015833461}
+  - {fileID: 171342460603711992}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2524441678279473738
@@ -206,7 +206,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!1001 &5794410708236830469
+--- !u!1001 &2152413567428697992
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -299,15 +299,14 @@ PrefabInstance:
       value: DungeonUI
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects:
-    - {fileID: 130221697956924940, guid: 82b58aefc5285dd409fef9a8b68af9f4, type: 3}
+    m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 82b58aefc5285dd409fef9a8b68af9f4, type: 3}
---- !u!224 &5753263200015833461 stripped
+--- !u!224 &171342460603711992 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2287357689877519984, guid: 82b58aefc5285dd409fef9a8b68af9f4, type: 3}
-  m_PrefabInstance: {fileID: 5794410708236830469}
+  m_PrefabInstance: {fileID: 2152413567428697992}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &6021361274505142014
 PrefabInstance:
