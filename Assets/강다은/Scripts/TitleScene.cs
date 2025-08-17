@@ -11,8 +11,14 @@ public class TitleScreenController : MonoBehaviour
 	void Awake()
 	{
 		if (title) _titleBasePos = title.anchoredPosition;
-		SoundManager.GetInstance().PlayBgm(SoundManager.bgm.TitleBgm);
+		//SoundManager.GetInstance().PlayBgm(SoundManager.bgm.TitleBgm);
 	}
+
+	private void Start()
+	{
+        SoundManager.GetInstance().PlayBgm(SoundManager.bgm.TitleBgm);
+    }
+
 
 #if ENABLE_INPUT_SYSTEM
 	void OnEnable()
@@ -25,7 +31,10 @@ public class TitleScreenController : MonoBehaviour
 	{
 		TouchSimulation.Disable();
 		EnhancedTouchSupport.Disable();
-		SoundManager.GetInstance().Bgm_Stop();
+
+        var sm = SoundManager.GetInstance();
+        if (sm != null) sm.Bgm_Stop();   // 내부에서 bgmSource null 체크가 또 들어있어야 안전
+       // SoundManager.GetInstance().Bgm_Stop();
 	}
 #endif
 
