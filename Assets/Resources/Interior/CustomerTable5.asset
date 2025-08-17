@@ -13,12 +13,13 @@ MonoBehaviour:
   m_Name: CustomerTable5
   m_EditorClassIdentifier: 
   indate: 2025-08-14T10:56:29.977Z
-  interiorName: CustomerTable5
+  interiorName: "\uC5EC\uC12F \uBC88\uC9F8 \uD14C\uC774\uBE14"
   icon: {fileID: 21300000, guid: bf2d4debe9f223a4aba7c82b620efc7b, type: 3}
   prefab: {fileID: 3688959143282305226, guid: 80e201e231022b546814f60f1a4fede1, type: 3}
   BaseSalary: 9000
   placementPosition: {x: 2.247579, y: -2.81555, z: 0}
-  description: "\uD14C\uC774\uBE1452.247579"
+  alwaysInstalled: 0
+  description: "\uB2E4\uC12F\uBCF4\uB2E8 \uC5EC\uC12F\uC774 \uB0AB\uB2E4."
   skins:
   - icon: {fileID: 21300000, guid: bf2d4debe9f223a4aba7c82b620efc7b, type: 3}
   - icon: {fileID: 21300000, guid: 920700611632c9b488905f0a492ec5b8, type: 3}
