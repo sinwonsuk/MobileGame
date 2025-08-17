@@ -191,6 +191,7 @@ public class CameraSlideManager : baseManager
 
             controller.StartCoroutine(SlideCamera(dungeonPosition));
             EventBus<ButtonisActiveHandler>.Raise(new ButtonisActiveHandler(false));
+            ButtonManager.instance.AllExit();
         }
     }
 
@@ -200,6 +201,7 @@ public class CameraSlideManager : baseManager
         {
             controller.StartCoroutine(SlideCamera(restaurantPosition));
             EventBus<ButtonisActiveHandler>.Raise(new ButtonisActiveHandler(true));
+            ButtonManager.instance.AllExit();
         }
     }
 

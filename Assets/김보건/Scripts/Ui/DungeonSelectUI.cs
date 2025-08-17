@@ -47,5 +47,7 @@ public class DungeonSelectUI : MonoBehaviour
 
         dungeonInGameUI.SetActive(true);
         gameObject.SetActive(false);
+
+        ButtonManager.instance.AllExit();
     }
 }

@@ -9,6 +9,7 @@ public class ToggleRestaurantShopCanvas : MonoBehaviour
 
         // ★ 헌터 샵이 켜지면 나는 닫기 (헌터와의 중복 방지)
         EventBus<ToggleHunterShopEvent>.OnEvent += OnHunterOpened;
+        EventBus<ToggleInventoryEvent>.OnEvent += OnInventoryOpened;
     }
 
     void OnDestroy()
@@ -17,6 +18,7 @@ public class ToggleRestaurantShopCanvas : MonoBehaviour
         EventBus<CloseRestaurantShopEvent>.OnEvent -= OnCloseRequested;
 
         EventBus<ToggleHunterShopEvent>.OnEvent -= OnHunterOpened;
+        EventBus<ToggleInventoryEvent>.OnEvent -= OnInventoryOpened;
     }
 
     void Start() => gameObject.SetActive(false);
@@ -40,6 +42,13 @@ public class ToggleRestaurantShopCanvas : MonoBehaviour
     {
         if (!gameObject.activeSelf) return;
 
+        gameObject.SetActive(false);
+        if (ButtonManager.buttonClick == ButtonClick.Restaurant)
+            ButtonManager.buttonClick = ButtonClick.none;
+    }
+    void OnInventoryOpened(ToggleInventoryEvent _)
+    {
+        if (!gameObject.activeSelf) return;
         gameObject.SetActive(false);
         if (ButtonManager.buttonClick == ButtonClick.Restaurant)
             ButtonManager.buttonClick = ButtonClick.none;

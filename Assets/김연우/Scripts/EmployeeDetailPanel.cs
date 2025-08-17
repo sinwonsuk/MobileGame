@@ -9,6 +9,7 @@ public class EmployeeDetailPanel : MonoBehaviour
     public Button assignButton;
     public Button releaseButton;
     public Button[] numberButtons;
+    public TMP_Text introduceText;
 
     private EmployeeSlot currentSlot;
     void Awake()
@@ -21,6 +22,7 @@ public class EmployeeDetailPanel : MonoBehaviour
         currentSlot = slot;
         previewImage.sprite = slot.staffData.portrait;
         nameText.text = slot.staffData.displayName;
+        introduceText.text = slot.staffData.explain;
 
         assignButton.gameObject.SetActive(!slot.IsAssigned);
         releaseButton.gameObject.SetActive(slot.IsAssigned);

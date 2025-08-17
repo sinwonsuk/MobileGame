@@ -22,8 +22,8 @@ public class LoginUI : MonoBehaviour
 
     private IEnumerator Start()
 	{
-		mainImage.gameObject.SetActive(true);
-		loadingImage.gameObject.SetActive(true);
+		mainImage.SetActive(true);
+		loadingImage.SetActive(true);
 
 		// Backend 초기화될 때까지 기다림
 		while (!Backend.IsInitialized)
@@ -33,6 +33,8 @@ public class LoginUI : MonoBehaviour
 
 		Debug.Log("Backend 초기화 완료됨, 자동 로그인 시도");
 
+		yield return new WaitForSeconds(3f);
+
 
 		// 자동 로그인 시도
 		Backend.BMember.LoginWithTheBackendToken(callback =>
@@ -40,13 +42,12 @@ public class LoginUI : MonoBehaviour
 			if (callback.IsSuccess())
 			{
 				Debug.Log("BackendToken 자동 로그인 성공");
+				
 				StartCoroutine(LoginFlowCoroutine());
 			}
 			else
 			{
 				Debug.Log("자동 로그인 실패, 수동 로그인 화면으로");
-				mainImage.gameObject.SetActive(false);
-				loadingImage.gameObject.SetActive(false);
 				ShowLogin();
 			}
 		});
@@ -55,6 +56,8 @@ public class LoginUI : MonoBehaviour
 	public void ShowLogin()
 	{
 		SoundManager.GetInstance().SfxPlay(SoundManager.sfx.Click, false);
+		mainImage.SetActive(false);
+		loadingImage.SetActive(false);
 		signUpPanel.SetActive(false);
 		loginPanel.SetActive(true);
 		nicknamePanel.SetActive(false);
@@ -338,7 +341,9 @@ public class LoginUI : MonoBehaviour
 
 	private IEnumerator LoginFlowCoroutine()
 	{
-        while (string.IsNullOrEmpty(Backend.UserInDate))
+		mainImage.SetActive(false);
+		loadingImage.SetActive(true);
+		while (string.IsNullOrEmpty(Backend.UserInDate))
 		{
 			yield return null; // 한 프레임 기다림
 		}
@@ -441,7 +446,7 @@ public class LoginUI : MonoBehaviour
 
         bool isLoading = changeLoadImageEvent.isLoading;
 
-        mainImage.gameObject.SetActive(isLoading);
+        loadingImage.SetActive(isLoading);
 
     }
 
@@ -464,8 +469,8 @@ public class LoginUI : MonoBehaviour
 
 	[SerializeField] private GameObject staticDataInitializer;
 
-    [SerializeField] private Image loadingImage;
-	[SerializeField] private Image mainImage;
+    [SerializeField] private GameObject loadingImage;
+	[SerializeField] private GameObject mainImage;
 
     [SerializeField] private Transform mainImageTransform;
 

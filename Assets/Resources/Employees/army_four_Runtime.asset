@@ -13,13 +13,13 @@ MonoBehaviour:
   m_Name: army_four_Runtime
   m_EditorClassIdentifier: 
   indate: 2025-07-27T01:21:43.672Z
-  displayName: army_four
+  displayName: ???
   staffType: 0
-  level: 0
+  level: 1
   attack_Power: 0
   attack_Speed: 0
   timer: 0
   cooltime: 0
-  isOwned: 0
+  isOwned: 1
   isAssigned: 0
   assignedIndex: -1

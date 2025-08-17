@@ -13,13 +13,13 @@ MonoBehaviour:
   m_Name: Emproyee_one_Runtime
   m_EditorClassIdentifier: 
   indate: 2025-07-27T01:21:43.830Z
-  displayName: "\uACBD\uC601\uC9C1\uC6D01"
+  displayName: "\uC544\uB4DC\uB9AC\uC548"
   staffType: 1
-  level: 50
+  level: 2
   attack_Power: 0
   attack_Speed: 0
-  timer: 64.9
-  cooltime: 175.1
+  timer: 62
+  cooltime: 178
   isOwned: 1
   isAssigned: 1
   assignedIndex: 2

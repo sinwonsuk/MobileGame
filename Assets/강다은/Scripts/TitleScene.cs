@@ -11,7 +11,7 @@ public class TitleScreenController : MonoBehaviour
 	void Awake()
 	{
 		if (title) _titleBasePos = title.anchoredPosition;
-		//SoundManager.GetInstance().PlayBgm();
+		SoundManager.GetInstance().PlayBgm(SoundManager.bgm.TitleBgm);
 	}
 
 #if ENABLE_INPUT_SYSTEM
@@ -25,6 +25,7 @@ public class TitleScreenController : MonoBehaviour
 	{
 		TouchSimulation.Disable();
 		EnhancedTouchSupport.Disable();
+		SoundManager.GetInstance().Bgm_Stop();
 	}
 #endif
 
