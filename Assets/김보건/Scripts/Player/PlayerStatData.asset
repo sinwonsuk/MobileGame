@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   basicAtk: 9.5
   level: 7
-  attackPower: 9.5
+  attackPower: 60
   critChance: 8.5
   autoAttackInterval: 1.29
   critDamageMultiplier: 1.85

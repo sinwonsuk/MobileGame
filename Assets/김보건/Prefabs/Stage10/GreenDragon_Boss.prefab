@@ -119,7 +119,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.84, y: 0.84, z: 0.84}
+  m_LocalScale: {x: 1.2, y: 1.2, z: 1.2}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 6153053280031448226}
@@ -192,7 +192,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d7b63f9f94c3d841b117fb5f4f35f25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHp: 500
   hpBarPrefab: {fileID: 7897476178631530884}
   dropItem: {fileID: 11400000, guid: eec6c2c075f828c42a3ce02d1a5400d4, type: 2}
   basePosition: {x: 0, y: 0, z: 0}
@@ -416,9 +415,9 @@ Transform:
   m_GameObject: {fileID: 7897476178631530884}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.85, y: 6.26, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 1
+  m_LocalPosition: {x: 1.96, y: 6.26, z: 0}
+  m_LocalScale: {x: 0.7, y: 0.7, z: 0.7}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 649506427964234738}
   - {fileID: 2861164741302630435}

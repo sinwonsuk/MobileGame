@@ -112,65 +112,31 @@ public class InteriorManager : MonoBehaviour, IAutoSavable
             slot.runtimeData.isUsed = true;
             slot.runtimeData.isDirty = true;
 
-            // 현재 씬에서만 스폰 유지
-            if (ShouldSpawnInCurrentScene())
+            if (ShouldSpawnInCurrentScene() && slot.runtimeData.instance == null)
             {
-                if (slot.runtimeData.instance == null)
-                {
-                    var go = Instantiate(slot.data.prefab, slot.data.placementPosition, Quaternion.identity);
-                    slot.runtimeData.instance = go;
-                }
-            }
-            else
-            {
-                // 타겟 씬이 아니면 인스턴스 제거
-                if (slot.runtimeData.instance != null)
-                {
-                    Destroy(slot.runtimeData.instance);
-                    slot.runtimeData.instance = null;
-                }
-            }
-
-            OnInteriorChanged?.Invoke();
-            return; // ★ 토글 금지
-        }
-
-        // ===== 이하 기존 토글 로직 유지 =====
-        bool toUse = !(slot.runtimeData.isUsed);
-        slot.runtimeData.isUsed = toUse;
-        slot.runtimeData.isDirty = true;
-
-        if (!ShouldSpawnInCurrentScene())
-        {
-            if (slot.runtimeData.instance != null)
-            {
-                Destroy(slot.runtimeData.instance);
-                slot.runtimeData.instance = null;
+                var go = Instantiate(slot.data.prefab, slot.data.placementPosition, Quaternion.identity);
+                slot.runtimeData.instance = go;
             }
             OnInteriorChanged?.Invoke();
             return;
         }
 
-        if (toUse)
+        // ===== 해제 기능 제거 → 무조건 설치 =====
+        if (!slot.runtimeData.isUsed)
         {
-            if (slot.runtimeData.instance == null)
+            slot.runtimeData.isUsed = true;
+            slot.runtimeData.isDirty = true;
+
+            if (ShouldSpawnInCurrentScene() && slot.runtimeData.instance == null)
             {
-                Vector3 pos = slot.data.placementPosition;
-                var go = Instantiate(slot.data.prefab, pos, Quaternion.identity);
+                var go = Instantiate(slot.data.prefab, slot.data.placementPosition, Quaternion.identity);
                 slot.runtimeData.instance = go;
             }
+            OnInteriorChanged?.Invoke();
         }
-        else
-        {
-            if (slot.runtimeData.instance != null)
-            {
-                Destroy(slot.runtimeData.instance);
-                slot.runtimeData.instance = null;
-            }
-        }
-
-        OnInteriorChanged?.Invoke();
+        // 이미 설치중이면 아무것도 안함
     }
+
 
     // InteriorManager.cs
     private void RefreshInstalledInteriors()
