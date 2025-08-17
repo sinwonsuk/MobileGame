@@ -15,7 +15,8 @@ MonoBehaviour:
   indate: 2025-07-27T01:21:44.015Z
   displayName: "\uAC70\uBD81\uAC70\uBD81"
   staffType: 1
-  explain: "\uACBD\uC601 \uC9C1\uC6D02"
+  explain: "\uC8FC\uBC29\uC7A5\uC758 \uC694\uB9AC\uC18D\uB3C4\uB97C \uD5A5\uC0C1\uC2DC\uCF1C\uC900\uB2E4.
+    \uAC70\uBD81\uAC70\uBD81!"
   itemPrefab: {fileID: 2127192634085561284, guid: 2ed6a49a8dfc9fb49b0ae368dbef75f8, type: 3}
   portrait: {fileID: 21300000, guid: 1882ab903536b9845b5c98a4ce791031, type: 3}
   baseSalary: 100
