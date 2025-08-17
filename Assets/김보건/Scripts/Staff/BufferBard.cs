@@ -38,6 +38,10 @@ public class BufferBard : StaffBase
     private bool _clickQueued;
     private Vector2 _queuedScreenPos;
 
+    private bool _hasLatchedShot;
+    private Vector2 _latchedDir;
+    private Vector3 _latchedMuzzle;
+
     public override void Init(StaffStatsSO stats, RuntimeStaffStatsSO Runtimestats)
     {
         base.Init(stats, Runtimestats);
@@ -166,6 +170,13 @@ public class BufferBard : StaffBase
         target = FindNearestEnemy();
         if (target != null)
         {
+            var muzzle = (firePoint != null) ? firePoint.position : transform.position;
+            var dir = ((Vector2)(target.position - muzzle)).normalized;
+
+            _latchedMuzzle = muzzle;
+            _latchedDir = dir;
+            _hasLatchedShot = true;
+
             animator?.SetTrigger("AttackTrigger");
             nextFireTime = Time.time + (1f / Mathf.Max((float)currentAttackSpeed, 0.01f));
         }
@@ -206,18 +217,30 @@ public class BufferBard : StaffBase
     // 애니메이션 이벤트에서 호출됨
     public void OnShootFrame()
     {
-        if (target == null || bulletPrefab == null || firePoint == null) return;
-
         if (attackSfx != null && attackSfx.Length > 0)
         {
             var idx = Random.Range(0, attackSfx.Length);
             SoundManager.GetInstance().SfxPlay(attackSfx[idx], false);
         }
 
+        if (_hasLatchedShot && (target == null || !target.gameObject.activeInHierarchy))
+        {
+            FireBullet(_latchedMuzzle, _latchedDir);
+            _hasLatchedShot = false;
+            return;
+        }
+
+        if (target == null || bulletPrefab == null || firePoint == null)
+        {
+            _hasLatchedShot = false;
+            return;
+        }
+
         Vector2 dir = (target.position - firePoint.position).normalized;
 
         FireBullet(firePoint.position, dir);
         //nextFireTime = Time.time + (1f / Mathf.Max((float)currentAttackSpeed, 0.01f));
+        _hasLatchedShot = false;
     }
 
     private void FireBullet(Vector3 pos, Vector2 dir)
