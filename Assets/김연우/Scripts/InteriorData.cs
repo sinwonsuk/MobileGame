@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Inventory/Interior Data")]
@@ -10,6 +11,13 @@ public class InteriorData : ScriptableObject
     public int BaseSalary;
     [Header("Placement Settings")]
     public Vector3 placementPosition;   // SO¿¡ ÁöÁ¤ÇØ µÐ ¿ùµå ÁÂÇ¥
-    
+    public bool alwaysInstalled;
     [TextArea] public string description;
+    public List<InteriorSkin> skins = new();
+
+    [System.Serializable]
+    public class InteriorSkin
+    {
+        public Sprite icon;
+    }
 }

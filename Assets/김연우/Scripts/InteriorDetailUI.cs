@@ -1,3 +1,4 @@
+// InteriorDetailUI.cs (핵심만 수정)
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
@@ -9,74 +10,67 @@ public class InteriorDetailUI : MonoBehaviour
     public TMP_Text descText;
     public Image iconImage;
     public Button useButton;
+
     private InteriorSlot currentSlot;
+    private int currentSkinIndex = 0;
 
     private void OnEnable()
     {
-        InteriorSlotUI.OnSlotClicked += ShowDetail;
+
+        InteriorSkinSlotUI.OnSkinClicked += ShowDetailFromSkin;
     }
 
     private void OnDisable()
     {
-        InteriorSlotUI.OnSlotClicked -= ShowDetail;
+        InteriorSkinSlotUI.OnSkinClicked -= ShowDetailFromSkin;
     }
 
-    private void ShowDetail(InteriorSlot slot)
+    // InteriorDetailUI.cs
+    private void ShowDetailFromSkin(InteriorSlot slot, int skinIndex, Sprite sprite)
     {
         currentSlot = slot;
+        currentSkinIndex = skinIndex;
+
         panel.SetActive(true);
         nameText.text = slot.data.interiorName;
         descText.text = slot.data.description;
-        iconImage.sprite = slot.data.icon;
+        iconImage.sprite = sprite != null ? sprite : slot.data.icon;
 
-        useButton.GetComponentInChildren<TMP_Text>().text = slot.runtimeData.isUsed ? "해제" : "설치";
+        // ★ 버튼 세팅
         useButton.onClick.RemoveAllListeners();
-        useButton.onClick.AddListener(OnUseClicked);
 
-        // 필요 시 버튼 활성화
-        useButton.interactable = true;
+        bool isLocked = slot.data.alwaysInstalled; // 항상 설치(해제 불가) 여부
+        var label = useButton.GetComponentInChildren<TMPro.TMP_Text>(true);
 
-        Debug.Log("ShowDetail 호출됨 for: " + slot.data.interiorName);
-    }
-
-    private void OnUseClicked()
-    {
-        SoundManager.GetInstance().SfxPlay(SoundManager.sfx.Click, false);
-
-        if (currentSlot == null)
-            return;
-
-        // 지금 상태가 '해제' 버튼인지 검사 (해제 눌렀을 때만 초기화)
-        bool wasUsed = currentSlot.runtimeData.isUsed;
-
-        // 설치/해제 토글
-        InteriorManager.Instance.UseInterior(currentSlot.data.interiorName);
-
-        if (wasUsed)
+        if (isLocked)
         {
-            // SellPanelUI처럼 해제 직후 1회 초기화
-            ClearFields();
+            if (label) label.text = "고정";
+            useButton.interactable = false;
+
         }
         else
         {
-            // 설치를 한 경우엔 버튼 라벨만 갱신
-            useButton.GetComponentInChildren<TMP_Text>().text = "해제";
+            if (label) label.text = slot.runtimeData.isUsed ? "해제" : "설치";
+            useButton.interactable = true;
+            useButton.onClick.AddListener(OnUseClicked);
         }
     }
 
-    // ▶ SellPanelUI의 ClearFields와 비슷한 초기화
-    private void ClearFields()
+
+    private void OnUseClicked()
     {
-        currentSlot = null;
+        // ★ 항상 설치면 안전 차단
+        if (currentSlot != null && currentSlot.data.alwaysInstalled)
+            return;
 
-        nameText.text = string.Empty;
-        descText.text = string.Empty;
-        iconImage.sprite = null;
+        SoundManager.GetInstance().SfxPlay(SoundManager.sfx.Click, false);
+        if (currentSlot == null) return;
 
-        // 버튼 비활성화 + 텍스트도 초기화
-        useButton.interactable = false;
-        useButton.GetComponentInChildren<TMP_Text>().text = string.Empty;
-        useButton.onClick.RemoveAllListeners();
-        // 패널은 그대로 둔다(닫고 싶으면 panel.SetActive(false)로 변경 가능)
+        InteriorManager.Instance.UseInterior(currentSlot.data.interiorName);
+
+        // 라벨 갱신
+        var label = useButton.GetComponentInChildren<TMPro.TMP_Text>(true);
+        if (label) label.text = currentSlot.runtimeData.isUsed ? "해제" : "설치";
     }
+
 }
