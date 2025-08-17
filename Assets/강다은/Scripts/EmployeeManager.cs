@@ -106,17 +106,18 @@ public class EmployeeManager : MonoBehaviour, IAutoSavable
         {
             // 메시지 결정
             string msg;
-            if (staffType == StaffType.hunter) msg = "경영직원이 아닙니다.";
-            else if (staffType == StaffType.restaurant) msg = "전투직원이 아닙니다.";
-            else msg = "잘못된 위치입니다.";
+            if (staffType == StaffType.hunter)
+                msg = "경영직원이 아닙니다";
+            else if (staffType == StaffType.restaurant)
+                msg = "전투직원이 아닙니다";
+            else
+                msg = "잘못된 위치입니다";
 
-            // 팝업 띄우고, 확인 누르면 화살표 제거
-            EventBus<ShowPlacementErrorPopup>.Raise(
-                new ShowPlacementErrorPopup(msg, () =>
-                {
-                    ClearArrows(); // 확인 시 화살표 싹 제거
-                })
-            );
+            // PopupManager로 교체
+            PopupManager.Show(msg, () =>
+            {
+                ClearArrows(); // 확인 누르면 화살표 제거
+            });
             return;
         }
 

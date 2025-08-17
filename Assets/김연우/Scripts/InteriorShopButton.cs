@@ -41,6 +41,7 @@ public class InteriorShopButton : MonoBehaviour
         int currentMoney = BackendGameData.Instance.userData.gold;
         if (currentMoney < money)
         {
+            PopupManager.Show("돈이 부족합니다");
             Debug.Log("구매 실패: 돈이 부족합니다.");
             return; // 구매 불가
         }
