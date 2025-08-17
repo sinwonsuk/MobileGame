@@ -46,6 +46,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   allInteriors:
   - {fileID: 11400000, guid: bac082e3bd2c5384abe77aa1363b7002, type: 2}
+  - {fileID: 11400000, guid: 80106c09e66f35a469ded2312dab4744, type: 2}
   - {fileID: 11400000, guid: ccbf2869086029649bee7b2e22e1009d, type: 2}
   - {fileID: 11400000, guid: 92606fa6d1da85341b36cfef88bcd56d, type: 2}
   - {fileID: 11400000, guid: ba758dd0f2f691d42bd08fcc16d91397, type: 2}
@@ -53,8 +54,10 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 71c6caa73665fd44a95b5a17e2befe67, type: 2}
   allRunTimeInteriors:
   - {fileID: 11400000, guid: 218360a37dc03f04c8bc5864262ddc59, type: 2}
+  - {fileID: 11400000, guid: 45dd957eb01f877488ce7aec09988956, type: 2}
   - {fileID: 11400000, guid: 1ef388a6322fd6d4490ae66a786958a4, type: 2}
   - {fileID: 11400000, guid: 2275300d597e2344797cdca41647dffd, type: 2}
   - {fileID: 11400000, guid: 99c529ef94114a249bfddac55fd0d1c8, type: 2}
   - {fileID: 11400000, guid: 0e8145d59b091944ca13721b75b317a8, type: 2}
   - {fileID: 11400000, guid: 37b50ef215bcc8e4f8bc14e71c46addc, type: 2}
+  targetSceneName: SampleScene

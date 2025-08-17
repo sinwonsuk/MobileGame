@@ -9,7 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: df3bfe1b281ca1b48b5067f04d760aa1, type: 3}
-  m_Name: Table Manager Config
+  m_Script: {fileID: 11500000, guid: 59a0796213c63ab4e9eb6c9ccefbad5b, type: 3}
+  m_Name: RuntimeCustomerTable
   m_EditorClassIdentifier: 
-  <GameObjects>k__BackingField: []
+  indate: 
+  interiorName: "\uACE0\uB3D9\uB098\uBB34 \uD14C\uC774\uBE14"
+  isOwned: 1
+  isUsed: 1
+  instance: {fileID: 0}
