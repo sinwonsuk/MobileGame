@@ -22,6 +22,14 @@ public class StaffShopButton : MonoBehaviour
     public Transform spawnPoint;
     public string num1;
 
+    [Header("전투 스탯 표시(UI)")]
+    public TextMeshProUGUI atkText;   // 공격력
+    public TextMeshProUGUI aspdText;  // 공격속도(초당 발사)
+
+    // ★ 경영 스탯 표시 (레스토랑 전용)
+    [Header("경영 스탯 표시(UI)")]
+    public TextMeshProUGUI workTimeText;   // 타임(실행시간)
+    public TextMeshProUGUI restTimeText;   // 타이머(쉬는시간)
     [Header("자동 배치(선택)")]
     public int autoAssignIndex = -1;
 
@@ -84,26 +92,59 @@ public class StaffShopButton : MonoBehaviour
             ? staffData.baseSalary * nextLevelClamped
             : 0;
 
-        // 레벨 표기
         if (levelText != null)
             levelText.text = IsMaxLevel() ? $"Lv. {MAX_LEVEL} (MAX)" : $"Lv. {current}";
 
-        // 이름 표시
         if (nameText != null && staffData != null)
             nameText.text = staffData.displayName;
 
-        // 버튼 텍스트에 가격만 표시
         if (buttonText != null)
         {
-            if (IsMaxLevel())
-                buttonText.text = "최대";
-            else
-                buttonText.text = (current == 0) ? "구매" : "레벨 업";
-                priceText.text = $"필요 골드 : {_price}G";
+            buttonText.text = IsMaxLevel() ? "최대" : (current == 0 ? "구매" : "레벨 업");
+            if (priceText != null) priceText.text = $"가격 : {_price}G";
         }
 
-        if (purchaseButton != null)
-            purchaseButton.interactable = !IsMaxLevel();
+        if (purchaseButton != null) purchaseButton.interactable = !IsMaxLevel();
+
+        // ★ 타입별 스탯 UI 토글/갱신
+        if (staffData != null && staffData.staffType == StaffType.hunter)
+        {
+            // 전투: 보이기
+            if (atkText) atkText.gameObject.SetActive(true);
+            if (aspdText) aspdText.gameObject.SetActive(true);
+            // 경영: 숨기기
+            if (workTimeText) workTimeText.gameObject.SetActive(false);
+            if (restTimeText) restTimeText.gameObject.SetActive(false);
+
+            double atk = staffruntimeData ? staffruntimeData.attack_Power : 0;
+            double aspd = staffruntimeData ? staffruntimeData.attack_Speed : 0;
+
+            if (atkText) atkText.text = $"공격력 : {atk:0}";
+            if (aspdText) aspdText.text = $"공격속도 : {aspd:0.##}/s";
+        }
+        else if (staffData != null && staffData.staffType == StaffType.restaurant)
+        {
+            // 경영: 보이기
+            if (workTimeText) workTimeText.gameObject.SetActive(true);
+            if (restTimeText) restTimeText.gameObject.SetActive(true);
+            // 전투: 숨기기
+            if (atkText) atkText.gameObject.SetActive(false);
+            if (aspdText) aspdText.gameObject.SetActive(false);
+
+            double work = staffruntimeData ? staffruntimeData.timer : 0; // 실행시간
+            double rest = staffruntimeData ? staffruntimeData.cooltime : 0; // 쉬는시간
+
+            if (workTimeText) workTimeText.text = $"노동시간 : {work:0.#}s";
+            if (restTimeText) restTimeText.text = $"쉬는시간 : {rest:0.#}s";
+        }
+        else
+        {
+            // 아무 타입도 아니면 모두 숨김
+            if (atkText) atkText.gameObject.SetActive(false);
+            if (aspdText) aspdText.gameObject.SetActive(false);
+            if (workTimeText) workTimeText.gameObject.SetActive(false);
+            if (restTimeText) restTimeText.gameObject.SetActive(false);
+        }
     }
 
 
@@ -149,7 +190,7 @@ public class StaffShopButton : MonoBehaviour
                 staffruntimeData.isOwned = true;
                 staffruntimeData.isDirty = true;
                 staffruntimeData.RecalcWith(staffData);
-
+                RefreshUI();
                 if (staffType == StaffType.restaurant)
                 {
                     int targetIndex = ResolveAssignIndex();
