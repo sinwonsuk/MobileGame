@@ -1184,11 +1184,11 @@ PrefabInstance:
     - target: {fileID: 3597932597050006500, guid: 3819db881d542bf418485115edd3178b, type: 3}
       propertyPath: mainImage
       value: 
-      objectReference: {fileID: 150708590}
+      objectReference: {fileID: 150708591}
     - target: {fileID: 3597932597050006500, guid: 3819db881d542bf418485115edd3178b, type: 3}
       propertyPath: loadingImage
       value: 
-      objectReference: {fileID: 150708591}
+      objectReference: {fileID: 150708590}
     - target: {fileID: 7866863151956628451, guid: 3819db881d542bf418485115edd3178b, type: 3}
       propertyPath: m_IsActive
       value: 1
