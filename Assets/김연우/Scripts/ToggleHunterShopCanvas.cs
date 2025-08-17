@@ -25,7 +25,7 @@ public class ToggleHunterShopCanvas : MonoBehaviour
 
     void OnToggle(ToggleHunterShopEvent _)
     {
-        gameObject.SetActive(!gameObject.activeSelf);
+        gameObject.SetActive(_.Check);
     }
 
     void OnCloseRequested(CloseHunterShopEvent _)

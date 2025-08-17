@@ -26,18 +26,6 @@ public class EnhanceFoodActiveOnOff : BaseButton
     public void EnhanceFoodActive()
     {
 
-            //SoundManager.GetInstance().SfxPlay(SoundManager.sfx.Click, false);
-            //EventBus<EnhanceFoodUIActiveHandler>.Raise(new EnhanceFoodUIActiveHandler(isActive));
-            //EventBus<EnhanceFoodSlotsSpawnHandler>.Raise(new EnhanceFoodSlotsSpawnHandler());
-
-        //else
-        //{
-        //    SoundManager.GetInstance().SfxPlay(SoundManager.sfx.Click, false);
-        //    EventBus<EnhanceFoodSlotsDeleteHandler>.Raise(new EnhanceFoodSlotsDeleteHandler());
-        //    EventBus<EnhanceFoodUIActiveHandler>.Raise(new EnhanceFoodUIActiveHandler(isActive));
-        //    isActive = true;
-
-        //}
     }
 
     public void ManagementButtonisActive(ButtonHandler buttonHandler)
@@ -58,6 +46,7 @@ public class EnhanceFoodActiveOnOff : BaseButton
     {
         SoundManager.GetInstance().SfxPlay(SoundManager.sfx.Click, false);
         EventBus<EnhanceFoodUIActiveHandler>.Raise(new EnhanceFoodUIActiveHandler(true));
+        EventBus<EnhanceFoodSlotsDeleteHandler>.Raise(new EnhanceFoodSlotsDeleteHandler());
         EventBus<EnhanceFoodSlotsSpawnHandler>.Raise(new EnhanceFoodSlotsSpawnHandler());
     }
 

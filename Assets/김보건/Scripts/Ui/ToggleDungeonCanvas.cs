@@ -21,9 +21,7 @@ public class ToggleDungeonCanvas : MonoBehaviour
     
     private void OnToggle(ToggleDungeonUIEvent _)
     {
-        bool next = !gameObject.activeSelf;
-        Debug.Log($"[ToggleDungeonCanvas] toggle -> {next}");
-        gameObject.SetActive(next);
+        gameObject.SetActive(_.check);
     }
     //private void CloseIfOpen()
     //{

@@ -16,7 +16,7 @@ public class HunterShopUIButton : BaseButton
     public override void OnClick()
     {
         ButtonManager.buttonClick = ButtonClick.none;
-        EventBus<ToggleHunterShopEvent>.Raise(new ToggleHunterShopEvent());
+        EventBus<ToggleHunterShopEvent>.Raise(new ToggleHunterShopEvent(true));
         SoundManager.GetInstance().SfxPlay(SoundManager.sfx.Click, false);
     }
 
@@ -33,6 +33,6 @@ public class HunterShopUIButton : BaseButton
     public override void OnExit()
     {
         ButtonManager.buttonClick = ButtonClick.none;
-        EventBus<ToggleHunterShopEvent>.Raise(new ToggleHunterShopEvent());
+        EventBus<ToggleHunterShopEvent>.Raise(new ToggleHunterShopEvent(false));
     }
 }

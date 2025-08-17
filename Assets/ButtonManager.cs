@@ -19,6 +19,12 @@ public enum ButtonClick
 
 public class ButtonManager : MonoBehaviour
 {
+
+    private void Awake()
+    {
+        instance = this;
+    }
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -41,6 +47,17 @@ public class ButtonManager : MonoBehaviour
         
     }
 
+    public void AllExit()
+    {
+
+        foreach (var button in buttonDic.Values)
+        {
+            if (button != null)
+                button.OnExit();
+        }
+
+        buttonClick = ButtonClick.none;
+    }
 
     public void OnClick(ButtonClick target)
     {
@@ -81,4 +98,5 @@ public class ButtonManager : MonoBehaviour
     [SerializeField] private List<Buttons> buttons = new List<Buttons>();
     private Dictionary<ButtonClick, BaseButton> buttonDic = new();
 
+    public static ButtonManager instance;
 }
