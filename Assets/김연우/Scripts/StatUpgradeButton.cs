@@ -51,6 +51,7 @@ public class StatUpgradeButton : MonoBehaviour
 
     void OnClick()
     {
+        SoundManager.GetInstance().SfxPlay(SoundManager.sfx.Click, false);
         Debug.Log($"[OnClick] {name} Å¬¸¯!", this);
         int price = GetCurrentPrice();
         if (BackendGameData.Instance.userData.gold < price)

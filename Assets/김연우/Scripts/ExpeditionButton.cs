@@ -47,7 +47,7 @@ public class ExpeditionButton : MonoBehaviour
         if (ExpeditionManager.Instance == null || runtimeSO == null) return;
         var id = runtimeSO.indate;
         if (string.IsNullOrEmpty(id)) return;
-
+        SoundManager.GetInstance().SfxPlay(SoundManager.sfx.Click, false);
         // 대기 중이면 바로 시작
         if (ExpeditionManager.Instance.CanStart(id))
         {

@@ -34,8 +34,9 @@ public class InteriorShopButton : MonoBehaviour
 
     private void OnButtonClicked()
     {
-        if (RuntimeInteriorData.isOwned) return;
 
+        if (RuntimeInteriorData.isOwned) return;
+        SoundManager.GetInstance().SfxPlay(SoundManager.sfx.Click, false);
         // ★ 현재 돈 확인 (예: userData.money가 현재 보유 금액)
         int currentMoney = BackendGameData.Instance.userData.gold;
         if (currentMoney < money)

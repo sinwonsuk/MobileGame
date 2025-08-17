@@ -75,6 +75,7 @@ public class EmployeeInventoryUI : MonoBehaviour
 
     private void OnSlotClicked(EmployeeSlot slot)
     {
+        SoundManager.GetInstance().SfxPlay(SoundManager.sfx.Click, false);
         detailPanel.Open(slot);
     }
 }
