@@ -10,8 +10,8 @@ public class InteriorSkinSlotUI : MonoBehaviour, IPointerClickHandler
     private InteriorSlot slot;
     private int skinIndex;      // 0부터 (0=기본)
 
-    // 디테일창에게 알림: 어떤 인테리어의 몇 번 스킨을 눌렀는가 + 미리보기 스프라이트
     public static event Action<InteriorSlot, int, Sprite> OnSkinClicked;
+
 
     public void Setup(InteriorSlot s, int index, Sprite sprite)
     {
@@ -19,14 +19,27 @@ public class InteriorSkinSlotUI : MonoBehaviour, IPointerClickHandler
         skinIndex = index;
         if (image == null) image = GetComponent<Image>();
         if (image != null) image.sprite = sprite;
+
+        // ★ index >= 1이면 클릭 불가 처리
+        if (skinIndex >= 1)
+        {
+            // 클릭 막기
+            var btn = GetComponent<Button>();
+            if (btn != null) btn.interactable = false;
+
+            // 색 어둡게 (시각적 구분용)
+            if (image != null) image.color = new Color(1f, 1f, 1f, 0.4f);
+        }
     }
+
 
     public void OnPointerClick(PointerEventData eventData)
     {
+        if (skinIndex >= 1) return; // ★ 클릭 무시
+
         SoundManager.GetInstance().SfxPlay(SoundManager.sfx.Click, false);
         var spr = (image != null) ? image.sprite : null;
-
-        // 디테일창 띄우기(스킨 기준)
         OnSkinClicked?.Invoke(slot, skinIndex, spr);
     }
+
 }
