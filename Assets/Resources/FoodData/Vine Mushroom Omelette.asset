@@ -21,7 +21,8 @@ MonoBehaviour:
   isUnlock: 0
   cookingTime: 28.8
   Level: 1
-  FoodManual: 
+  FoodManual: "\uAC15\uB82C\uD55C \uBC84\uC12F\uD5A5\uC5D0 \uC815\uC2E0\uC744 \uBABB\uCC28\uB9B4
+    \uC218 \uC788\uC74C \uC8FC\uC758"
   Ingredients:
   - {fileID: 11400000, guid: 68e3ba4bfae109a41949164730d2ced0, type: 2}
   - {fileID: 11400000, guid: 09ae06f3e91a8824a8957174bf4d2a4e, type: 2}
