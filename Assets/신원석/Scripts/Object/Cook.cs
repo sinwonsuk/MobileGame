@@ -9,7 +9,7 @@ public class Cook : MonoBehaviour
 {
 
     private float reductionRate = 0f;
-
+    [SerializeField] private float clickIncreasePercent = 0.001f;
     private void OnEnable()
     {
         EventBus<CookMoveHandler>.OnEvent += MoveFood;
@@ -44,6 +44,17 @@ public class Cook : MonoBehaviour
         elapsed += Time.deltaTime * (1f + reductionRate);
         foodImage.fillAmount = Mathf.Clamp01(elapsed / WaitingTime);
     }
+
+    public void click()
+    {
+        // 클릭 시 WaitingTime의 일정 퍼센트만큼 증가
+        elapsed += WaitingTime * clickIncreasePercent;
+
+        // fillAmount 즉시 반영
+        foodImage.fillAmount = Mathf.Clamp01(elapsed / WaitingTime);
+    }
+
+
     public void FillAmount(CookFillamountHandler cookFillamountHandler)
     {
         cookFillamountHandler.FoodClick.Image = foodImage;
