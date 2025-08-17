@@ -11,7 +11,7 @@ public class InteriorData : ScriptableObject
     public int BaseSalary;
     [Header("Placement Settings")]
     public Vector3 placementPosition;   // SO에 지정해 둔 월드 좌표
-    
+    public bool alwaysInstalled;
     [TextArea] public string description;
     public List<InteriorSkin> skins = new();
 

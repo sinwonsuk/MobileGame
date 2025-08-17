@@ -35,6 +35,12 @@ public class InteriorManager : MonoBehaviour, IAutoSavable
         {
             slots.Add(new InteriorSlot(allInteriors[i], allRunTimeInteriors[i]));
             allRunTimeInteriors[i].instance = null;
+            if (allInteriors[i].alwaysInstalled) // ★ 고정이면 무조건 소유/설치
+            {
+                allRunTimeInteriors[i].isOwned = true;
+                allRunTimeInteriors[i].isUsed = true;
+                allRunTimeInteriors[i].isDirty = true;
+            }
         }
 
     }
@@ -99,9 +105,38 @@ public class InteriorManager : MonoBehaviour, IAutoSavable
         var slot = slots.Find(s => s.data.interiorName == name);
         if (slot == null || !slot.runtimeData.isOwned) return;
 
+        // ★ 고정 설치면 해제 금지 + 상태 보정 후 종료
+        if (slot.data.alwaysInstalled)
+        {
+            slot.runtimeData.isOwned = true;
+            slot.runtimeData.isUsed = true;
+            slot.runtimeData.isDirty = true;
 
+            // 현재 씬에서만 스폰 유지
+            if (ShouldSpawnInCurrentScene())
+            {
+                if (slot.runtimeData.instance == null)
+                {
+                    var go = Instantiate(slot.data.prefab, slot.data.placementPosition, Quaternion.identity);
+                    slot.runtimeData.instance = go;
+                }
+            }
+            else
+            {
+                // 타겟 씬이 아니면 인스턴스 제거
+                if (slot.runtimeData.instance != null)
+                {
+                    Destroy(slot.runtimeData.instance);
+                    slot.runtimeData.instance = null;
+                }
+            }
+
+            OnInteriorChanged?.Invoke();
+            return; // ★ 토글 금지
+        }
+
+        // ===== 이하 기존 토글 로직 유지 =====
         bool toUse = !(slot.runtimeData.isUsed);
-
         slot.runtimeData.isUsed = toUse;
         slot.runtimeData.isDirty = true;
 
@@ -137,37 +172,39 @@ public class InteriorManager : MonoBehaviour, IAutoSavable
         OnInteriorChanged?.Invoke();
     }
 
-    public void RefreshInstalledInteriors()
+    // InteriorManager.cs
+    private void RefreshInstalledInteriors()
     {
-        if (!ShouldSpawnInCurrentScene())
-        {
-            DespawnAllInstances();
-            return;
-        }
-
         int spawnCount = 0;
 
         foreach (var slot in slots)
         {
+            // ★ 항상 설치 항목은 isOwned/isUsed 보정
+            if (slot.data.alwaysInstalled)
+            {
+                slot.runtimeData.isOwned = true;
+                slot.runtimeData.isUsed = true;
+            }
+
+            // 기존 인스턴스 정리
             if (slot.runtimeData.instance != null)
             {
                 Destroy(slot.runtimeData.instance);
                 slot.runtimeData.instance = null;
             }
 
-            if (slot.runtimeData.isOwned && slot.runtimeData.isUsed)
+            // ★ 현재 씬에서만 스폰(ShouldSpawnInCurrentScene가 true일 때)
+            if (slot.runtimeData.isOwned && slot.runtimeData.isUsed && ShouldSpawnInCurrentScene())
             {
-                if (slot.data?.prefab == null) { Debug.LogError("[Interior] 프리팹 없음"); continue; }
-
                 var go = Instantiate(slot.data.prefab, slot.data.placementPosition, Quaternion.identity);
                 slot.runtimeData.instance = go;
                 spawnCount++;
             }
         }
 
-        Debug.Log($"[Interior] 설치 복원 완료 - 스폰 {spawnCount}개 (Scene={SceneManager.GetActiveScene().name})");
         OnInteriorChanged?.Invoke();
     }
+
 
 
     public IEnumerator InsertFurnitureIfNotExists(string ownerIndate)
