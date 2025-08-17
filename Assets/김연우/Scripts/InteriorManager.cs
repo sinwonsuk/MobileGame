@@ -345,7 +345,12 @@ public class InteriorManager : MonoBehaviour, IAutoSavable
         SaveFurnitureData();
     }
 
-    public void SaveFurnitureData()
+	private void OnApplicationQuit()
+	{
+		SaveFurnitureData();
+	}
+
+	public void SaveFurnitureData()
     {
         string ownerIndate = Backend.UserInDate;
 

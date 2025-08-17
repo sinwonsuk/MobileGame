@@ -354,6 +354,11 @@ public class ExpeditionManager : MonoBehaviour, IAutoSavable
 		//Debug.Log("[ExpeditionManager] 변경된 파견 데이터 저장 완료");
 	}
 
+	private void OnApplicationQuit()
+	{
+		SaveExeditionData();
+	}
+
 	private bool employeeDataLoaded = false;
 	public IEnumerable<RuntimeExpeditionSO> EnumerateRuntime() => pairs.Values.Select(v => v.run);
 }
