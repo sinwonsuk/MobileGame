@@ -308,8 +308,13 @@ public class EmployeeManager : MonoBehaviour, IAutoSavable
         }
     }
 
+	private void OnApplicationQuit()
+	{
+		SaveEmployeeData();
+	}
 
-    private IEnumerator DelayedPlacementRestore()
+
+	private IEnumerator DelayedPlacementRestore()
     {
         // 모든 PlacementPointRegister.Start()가 끝나길 대기
         yield return null;
