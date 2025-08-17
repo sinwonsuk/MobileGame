@@ -56,6 +56,7 @@ public class StatUpgradeButton : MonoBehaviour
         int price = GetCurrentPrice();
         if (BackendGameData.Instance.userData.gold < price)
         {
+            PopupManager.Show("µ·ÀÌ ºÎÁ·ÇÕ´Ï´Ù");
             Debug.Log("µ·ºÎÁ·");
             return;
         }
