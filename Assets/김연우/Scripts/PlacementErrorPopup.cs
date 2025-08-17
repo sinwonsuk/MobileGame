@@ -41,10 +41,12 @@ public class PlacementErrorPopup : MonoBehaviour
             okButton.onClick.RemoveAllListeners();
             okButton.onClick.AddListener(() =>
             {
+                SoundManager.GetInstance().SfxPlay(SoundManager.sfx.Click, false);
                 root?.SetActive(false);
                 e.onOk?.Invoke(); // 확인 시 화살표 제거 등 후처리
             });
         }
+        SoundManager.GetInstance().SfxPlay(SoundManager.sfx.Click, false);
         root?.SetActive(true);
     }
 }

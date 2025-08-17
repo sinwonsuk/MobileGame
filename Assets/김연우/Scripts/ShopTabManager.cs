@@ -20,6 +20,7 @@ public class ShopTabManager : MonoBehaviour
     // 0: 캐릭터강화, 1: 헌터강화, 2: 파견
     private void ShowPanel(int index)
     {
+        SoundManager.GetInstance().SfxPlay(SoundManager.sfx.Click, false);
         CharacterPanel.SetActive(index == 0);
         HuntersPanel.SetActive(index == 1);
         ForestPanel.SetActive(index == 2);

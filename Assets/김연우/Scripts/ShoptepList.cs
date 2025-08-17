@@ -18,6 +18,7 @@ public class ShoptepList : MonoBehaviour
     // 0: 레스토랑 직원 강화, 1: 인테리어, 
     private void ShowPanel(int index)
     {
+        SoundManager.GetInstance().SfxPlay(SoundManager.sfx.Click, false);
         RestPanel.SetActive(index == 0);
         InteriorPanel.SetActive(index == 1);
     }
