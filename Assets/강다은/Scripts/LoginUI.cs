@@ -465,7 +465,7 @@ public class LoginUI : MonoBehaviour
 	[SerializeField] private GameObject staticDataInitializer;
 
     [SerializeField] private Image loadingImage;
-	[SerializeField] private Image mainImage;
+	[SerializeField] private GameObject mainImage;
 
     [SerializeField] private Transform mainImageTransform;
 

@@ -131,18 +131,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: LoadingImage
       objectReference: {fileID: 0}
-    - target: {fileID: 4212128290028354662, guid: 28abb6a363746c740bad6b7a3443e61e, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5542147539473645113, guid: 28abb6a363746c740bad6b7a3443e61e, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 15.3
-      objectReference: {fileID: 0}
-    - target: {fileID: 5542147539473645113, guid: 28abb6a363746c740bad6b7a3443e61e, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 30.7
-      objectReference: {fileID: 0}
     - target: {fileID: 7985134358813309561, guid: 28abb6a363746c740bad6b7a3443e61e, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -227,14 +215,6 @@ PrefabInstance:
       propertyPath: m_SortingOrder
       value: 5
       objectReference: {fileID: 0}
-    - target: {fileID: 9183475495496674139, guid: 28abb6a363746c740bad6b7a3443e61e, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 9214260382412375550, guid: 28abb6a363746c740bad6b7a3443e61e, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -243,6 +223,11 @@ PrefabInstance:
 --- !u!224 &150708589 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7985134358813309561, guid: 28abb6a363746c740bad6b7a3443e61e, type: 3}
+  m_PrefabInstance: {fileID: 150708588}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &150708590 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1864462141713980913, guid: 28abb6a363746c740bad6b7a3443e61e, type: 3}
   m_PrefabInstance: {fileID: 150708588}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &249174354
@@ -443,17 +428,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &592631675 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 645724340511094156, guid: 28abb6a363746c740bad6b7a3443e61e, type: 3}
-  m_PrefabInstance: {fileID: 150708588}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &803671329
 GameObject:
   m_ObjectHideFlags: 0
@@ -886,8 +860,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 488552567}
   - {fileID: 150708589}
+  - {fileID: 488552567}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2069814373
@@ -1220,7 +1194,7 @@ PrefabInstance:
     - target: {fileID: 3597932597050006500, guid: 3819db881d542bf418485115edd3178b, type: 3}
       propertyPath: mainImage
       value: 
-      objectReference: {fileID: 592631675}
+      objectReference: {fileID: 150708590}
     - target: {fileID: 3597932597050006500, guid: 3819db881d542bf418485115edd3178b, type: 3}
       propertyPath: loadingImage
       value: 
