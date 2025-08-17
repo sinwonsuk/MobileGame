@@ -17,7 +17,7 @@ MonoBehaviour:
   icon: {fileID: 21300000, guid: bf2d4debe9f223a4aba7c82b620efc7b, type: 3}
   prefab: {fileID: 3688959143282305226, guid: 19801fe37e76855429e815b465e7ae54, type: 3}
   BaseSalary: 5000
-  placementPosition: {x: 2.247579, y: -2.81555, z: 0}
+  placementPosition: {x: -2.272421, y: -2.81555, z: 0}
   description: "\uD14C\uC774\uBE143"
   skins:
   - icon: {fileID: 21300000, guid: bf2d4debe9f223a4aba7c82b620efc7b, type: 3}
