@@ -52,6 +52,8 @@ public class SceneChange : MonoBehaviour
             yield return null;
         }
 
-        EventBus<ChangeLoadImageEvent>.Raise(new ChangeLoadImageEvent(false));
+        yield return new WaitForSeconds(3f); // 로딩 완료 후 잠시 대기
+
+		EventBus<ChangeLoadImageEvent>.Raise(new ChangeLoadImageEvent(false));
     }
 }

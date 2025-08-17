@@ -43,7 +43,8 @@ public class SoundManager : MonoBehaviour
     public enum bgm
     {
         GameBgm,
-    }
+        TitleBgm,
+	}
 
     [SerializeField] private location currentLocation = location.none;
 
