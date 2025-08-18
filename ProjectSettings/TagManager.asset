@@ -9,6 +9,7 @@ TagManager:
   - Counter
   - Canvas
   - WaitingCustomer
+  - Map
   layers:
   - Default
   - TransparentFX
