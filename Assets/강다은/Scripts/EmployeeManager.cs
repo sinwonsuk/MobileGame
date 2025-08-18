@@ -24,6 +24,13 @@ public class EmployeeManager : MonoBehaviour, IAutoSavable
         {
             slots.Add(new EmployeeSlot(allEmployees[i], allRunTimeEmployees[i]));
         }
+        for (int i = 0; i < allRunTimeEmployees.Length; i++)
+        {
+            var run = allRunTimeEmployees[i];
+            var stat = allEmployees[i];
+            run.RecalcWith(stat);
+        }
+        NotifyStaffChanged();
     }
 
     private void FinalizePlacementPoints()

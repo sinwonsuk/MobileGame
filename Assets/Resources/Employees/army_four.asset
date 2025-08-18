@@ -17,7 +17,7 @@ MonoBehaviour:
   staffType: 0
   explain: "\uAC00\uB054 \uBD88\uC548\uC815\uD55C \uC0C1\uD0DC\uAC00 \uB418\uC5B4
     \uC815\uCCB4\uBD88\uBA85\uC758 \uACFC\uC77C\uC744 \uBE60\uB974\uAC8C \uB358\uC9C4\uB2E4."
-  itemPrefab: {fileID: 3899654314294530085, guid: 732dd9b7cbd523541bbf804d92b2bb15, type: 3}
+  itemPrefab: {fileID: 3899654314294530085, guid: 6d354c2bb931cfa4dba126f7d12200c3, type: 3}
   portrait: {fileID: 21300000, guid: 67e5685665ad61e41800ba7d8e3300c9, type: 3}
   baseSalary: 10000
   basic_attack_Power: 10
