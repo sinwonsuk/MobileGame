@@ -233,12 +233,14 @@ public class FruitHunter : StaffBase
 
         GameObject go = Instantiate(prefab, pos, Quaternion.identity);
         // go.transform.right = dir; 
-
+        float damage = (float)runtimeData.attack_Power;
+        if (_skillActive)
+            damage *= 2f;
         if (go.TryGetComponent<Rigidbody2D>(out var rb))
-            rb.AddForce(dir * (float)runtimeData.attack_Power, ForceMode2D.Impulse);
+            rb.AddForce(dir * damage, ForceMode2D.Impulse);
 
         if (go.TryGetComponent<Bullet2D>(out var bullet))
-            bullet.SetDamage((float)runtimeData.attack_Power);
+            bullet.SetDamage(damage);
     }
 
     // 스킬모드 제어
