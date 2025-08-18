@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4832709795959657247}
   - component: {fileID: 6954515371830520973}
-  - component: {fileID: 1799174565817674390}
   - component: {fileID: 5707519285894407202}
   - component: {fileID: 2819285805630844328}
   - component: {fileID: 7308119783077899202}
@@ -91,24 +90,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &1799174565817674390
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2915334927864122475}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 37b05fcd83a393b46a7e302c5f1578bf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  lifeTime: 5
-  targetTag: a
-  hitEffectPrefab: {fileID: 5007182149864846125, guid: 53053565e6f103248910b5724bf83beb, type: 3}
-  hitEffectLifetime: 2
-  effectSortingLayer: Effects
-  effectSortingOrder: 9999
 --- !u!50 &5707519285894407202
 Rigidbody2D:
   serializedVersion: 5
