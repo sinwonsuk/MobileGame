@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 1799174565817674390}
   - component: {fileID: 5707519285894407202}
   - component: {fileID: 2819285805630844328}
+  - component: {fileID: 7308119783077899202}
   m_Layer: 0
   m_Name: fruitsHunterUpgradeBullet
   m_TagString: Untagged
@@ -123,7 +124,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDamping: 0
   m_AngularDamping: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -171,3 +172,21 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
   m_Radius: 0.5
+--- !u!114 &7308119783077899202
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2915334927864122475}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37b05fcd83a393b46a7e302c5f1578bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lifeTime: 5
+  targetTag: a
+  hitEffectPrefab: {fileID: 1148112242060767251, guid: e0157bd4e423b53459d0f9251eed78af, type: 3}
+  hitEffectLifetime: 1
+  effectSortingLayer: Effects
+  effectSortingOrder: 9999
