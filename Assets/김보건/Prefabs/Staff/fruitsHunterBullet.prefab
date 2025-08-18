@@ -14,7 +14,6 @@ GameObject:
   - component: {fileID: 7409165136074840521}
   - component: {fileID: 8558261664625380289}
   - component: {fileID: 2113590826606036122}
-  - component: {fileID: 2568953484560747722}
   m_Layer: 0
   m_Name: fruitsHunterBullet
   m_TagString: Untagged
@@ -51,7 +50,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lifeTime: 5
   targetTag: a
-  hitEffectPrefab: {fileID: 8428326108199200691, guid: adc5f05263a2b344790cb02f3d128f02, type: 3}
+  hitEffectPrefab: {fileID: 1503194812475840707, guid: 3ca1f7b1cbb480e4c94178c47fcc0cc4, type: 3}
   hitEffectLifetime: 2
   effectSortingLayer: Effects
   effectSortingOrder: 9999
@@ -186,21 +185,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotateSpeed: 360
---- !u!114 &2568953484560747722
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5498005923386066670}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 37b05fcd83a393b46a7e302c5f1578bf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  lifeTime: 5
-  targetTag: a
-  hitEffectPrefab: {fileID: 1148112242060767251, guid: e0157bd4e423b53459d0f9251eed78af, type: 3}
-  hitEffectLifetime: 1
-  effectSortingLayer: Effects
-  effectSortingOrder: 9999
