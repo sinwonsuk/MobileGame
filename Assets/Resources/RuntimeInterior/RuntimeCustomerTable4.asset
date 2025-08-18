@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: RuntimeCustomerTable4
   m_EditorClassIdentifier: 
   indate: 2025-08-14T10:56:29.845Z
-  interiorName: CustomerTable4
+  interiorName: "\uB2E4\uC12F \uBC88\uC9F8 \uD14C\uC774\uBE14"
   isOwned: 0
   isUsed: 0
   instance: {fileID: 0}
