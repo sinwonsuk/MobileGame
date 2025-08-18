@@ -2,15 +2,10 @@ using UnityEngine;
 
 public class fruitsHunterBullet : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+    public float rotateSpeed = 360f;
 
-    // Update is called once per frame
     void Update()
     {
-        
+        transform.Rotate(Vector3.forward, rotateSpeed * Time.deltaTime);
     }
 }
