@@ -48,8 +48,8 @@ public class RuntimeStaffStatsSO : ScriptableObject
         switch (baseData.staffType)
         {
             case StaffType.hunter:
-                attack_Power = baseData.basic_attack_Power + (lv * 1);
-                attack_Speed = baseData.basic_attack_Speed + (lv * 0.1);
+                attack_Power = baseData.basic_attack_Power + ((lv -1) * 1);
+                attack_Speed = baseData.basic_attack_Speed + ((lv - 1) * 0.1);
                 break;
             case StaffType.restaurant:
                 timer = baseData.basictimer + (lv - 1) * 2f;
