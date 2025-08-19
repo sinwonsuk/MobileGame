@@ -43,6 +43,12 @@ public class Cook : MonoBehaviour
     {
         elapsed += Time.deltaTime * (1f + reductionRate);
         foodImage.fillAmount = Mathf.Clamp01(elapsed / WaitingTime);
+
+        if (foodImage.fillAmount >=1.0f)
+        {
+            SoundManager.GetInstance().Sfx_Stop(SoundManager.sfx.Cooking);
+        }
+
     }
 
     public void click()
