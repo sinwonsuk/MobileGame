@@ -21,7 +21,7 @@ public class StaffBase : MonoBehaviour
         runtimeData = Runtimestats;
 
         // staffType 분기 처리
-        switch (data.staffType)
+/*        switch (data.staffType)
         {
             case StaffType.hunter:
                 if (runtimeData.attack_Power <= 0) runtimeData.attack_Power = data.basic_attack_Power;
@@ -34,7 +34,7 @@ public class StaffBase : MonoBehaviour
                 if (runtimeData.timer <= 0) runtimeData.timer = data.basictimer;
                 if (runtimeData.cooltime <= 0) runtimeData.cooltime = data.basiccooltime;
                 break;
-        }
+        }*/
         SyncFromRuntime();
     }
 
@@ -48,14 +48,32 @@ public class StaffBase : MonoBehaviour
         switch (data.staffType)
         {
             case StaffType.hunter:
-                RecalculateStats();
-                runtimeData.attack_Power = currentAttackPower;
-                runtimeData.attack_Speed = currentAttackSpeed;
+                if (runtimeData.level <= 0)
+                {
+                    currentAttackPower = 0;
+                    currentAttackSpeed = 0;
+                    runtimeData.attack_Power = 0;
+                    runtimeData.attack_Speed = 0;
+                }
+                else
+                {
+                    RecalculateStats();
+                    runtimeData.attack_Power = currentAttackPower;
+                    runtimeData.attack_Speed = currentAttackSpeed;
+                }
                 break;
 
             case StaffType.restaurant:
-                runtimeData.timer = data.basictimer + (runtimeData.level - 1) * 2;
-                runtimeData.cooltime = data.basiccooltime - (runtimeData.level - 1) * 2;
+                if (runtimeData.level <= 0)
+                {
+                    runtimeData.timer = 0;
+                    runtimeData.cooltime = 0;
+                }
+                else
+                {
+                    runtimeData.timer = data.basictimer + (runtimeData.level - 1) * 2;
+                    runtimeData.cooltime = data.basiccooltime - (runtimeData.level - 1) * 2;
+                }
                 break;
         }
     }

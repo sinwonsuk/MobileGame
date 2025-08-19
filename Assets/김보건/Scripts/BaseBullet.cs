@@ -43,6 +43,11 @@ public class BaseBullet : MonoBehaviour
             if (!isPiercing)                 // 관통탄이 아니면 즉시 파괴
                 Destroy(gameObject);
         }
+
+        if (other.CompareTag("Map"))
+        {
+            Destroy(gameObject);
+        }
     }
 
     private void SpawnHitEffect(Collider2D target)
