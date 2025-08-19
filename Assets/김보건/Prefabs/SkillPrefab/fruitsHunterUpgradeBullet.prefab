@@ -167,7 +167,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lifeTime: 5
   targetTag: a
-  hitEffectPrefab: {fileID: 5255230356330364228, guid: 7bef0f82811ea2d4898a0bd0648ef0d7, type: 3}
-  hitEffectLifetime: 1
+  hitEffectPrefab: {fileID: 1064867209193409781, guid: 62244e38d7433774386d800c96ed8e09, type: 3}
+  hitEffectLifetime: 0.5
   effectSortingLayer: Effects
   effectSortingOrder: 9999

@@ -120,6 +120,7 @@ public class FruitHunter : StaffBase
     {
         if (_skill == null || !_skill.CanCast()) return;
 
+        SoundManager.GetInstance().SfxPlay(SoundManager.sfx.FruitHunterBuff, false);
         // 스킬은 자기 자신만 강화. 실제 전환은 스킬 프리팹이 담당
         var origin = firePoint != null ? firePoint : transform;
         _skill.Cast(origin);
