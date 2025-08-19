@@ -51,7 +51,7 @@ MonoBehaviour:
   lifeTime: 5
   targetTag: a
   hitEffectPrefab: {fileID: 1503194812475840707, guid: 3ca1f7b1cbb480e4c94178c47fcc0cc4, type: 3}
-  hitEffectLifetime: 2
+  hitEffectLifetime: 0.5
   effectSortingLayer: Effects
   effectSortingOrder: 9999
 --- !u!212 &3254219082686307177
