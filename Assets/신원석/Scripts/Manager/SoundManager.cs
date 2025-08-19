@@ -38,6 +38,7 @@ public class SoundManager : MonoBehaviour
         ManSound,
         Enhance,
         PiggyBank,
+        FruitHunterBuff
     }
 
     public enum bgm

@@ -44,6 +44,7 @@ GameObject:
   - component: {fileID: 5387031054839325811}
   - component: {fileID: 8626386624504621129}
   - component: {fileID: 9151018737598738458}
+  - component: {fileID: 5943726999020272751}
   m_Layer: 0
   m_Name: Buffer_Bard
   m_TagString: Untagged
@@ -139,7 +140,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buffIconPrefabs: []
   iconAnchor: {fileID: 4529666617580747932}
-  effectAnchor: {fileID: 3483149243571837178}
   buffSkillPrefab: {fileID: 8885708416180907857, guid: cbc048d713025de40aa8a55a0e2cb3a6, type: 3}
   skillOrigin: {fileID: 0}
   clickMask:
@@ -214,6 +214,18 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &5943726999020272751
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3899654314294530085}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76060f6c961810648bea1a7638f7ff1e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4640919071225763761
 GameObject:
   m_ObjectHideFlags: 0

@@ -66,6 +66,8 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: f5d7921df689e7c4a8e90c5a4a1ba6dc, type: 3}
   - key: 14
     clip: {fileID: 8300000, guid: 931c0bded29af024ba282e4238f3c4fe, type: 3}
+  - key: 19
+    clip: {fileID: 8300000, guid: 32954ef7f273e6d4b8e16e35cd62e651, type: 3}
   sfxRestaurantEntries:
   - key: 2
     clip: {fileID: 8300000, guid: fe0b1f9aeb45b41b089175aeeabd5d95, type: 3}

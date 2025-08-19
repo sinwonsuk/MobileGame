@@ -495,7 +495,12 @@ public class EmployeeManager : MonoBehaviour, IAutoSavable
                     emp.isOwned = isOwned;
                     emp.isAssigned = isAssigned;
                     emp.assignedIndex = assignedIndex;
-				}
+                    var stat = allEmployees.FirstOrDefault(s => s.indate == emp.indate);
+                    if (stat != null)
+                    {
+                        emp.RecalcWith(stat);   // 로드된 레벨값 기반으로 능력치 재계산
+                    }
+                }
             }
 
             try

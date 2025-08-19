@@ -44,9 +44,10 @@ public class Cook : MonoBehaviour
         elapsed += Time.deltaTime * (1f + reductionRate);
         foodImage.fillAmount = Mathf.Clamp01(elapsed / WaitingTime);
 
-        if (foodImage.fillAmount >=1.0f)
+        if (foodImage.fillAmount >=1.0f && soundCheck==false)
         {
             SoundManager.GetInstance().Sfx_Stop(SoundManager.sfx.Cooking);
+            soundCheck = true;
         }
 
     }
@@ -89,9 +90,6 @@ public class Cook : MonoBehaviour
             }
 
             Vector2 move = new Vector2(cookMoveHandler.TableTransform.position.x, cookMoveHandler.TableTransform.position.y+0.5f);
-
-
-
 
 
             if (Vector2.Distance(transform.position, move) < 0.01f)
@@ -137,6 +135,7 @@ public class Cook : MonoBehaviour
 
     float elapsed = 0f; // 경과 시간
 
+    bool soundCheck = false; // 사운드 체크   
 
     Customer customer;
 }
