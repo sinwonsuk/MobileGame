@@ -47,7 +47,7 @@ public class InteriorShopButton : MonoBehaviour
         }
 
         EventBus<MoneyChangeMusHandler>.Raise(new MoneyChangeMusHandler(money));
-        BackendGameData.Instance.userData.reputation += 5;
+        BackendGameData.Instance.AddReputation(5);
         InteriorManager.Instance.AcquireInterior(interiorData.interiorName);
         Debug.Log("±¸¸Å");
 

@@ -211,7 +211,7 @@ public class Customer : MonoBehaviour
                         {
                             if (foodDatas[i].displayName == foodName)
                             {
-                                BackendGameData.Instance.userData.reputation += foodDatas[i].Getreputation;
+                                BackendGameData.Instance.AddReputation(foodDatas[i].Getreputation);
                                 break;
                             }
                         }

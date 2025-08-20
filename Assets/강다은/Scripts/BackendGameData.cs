@@ -121,6 +121,62 @@ public class BackendGameData : MonoBehaviour, IAutoSavable
 	
 	}
 
+	public void AddGold(int delta, bool flushNow = true)
+	{
+		if (userData == null) return;
+		var newValue = Mathf.Max(0, userData.gold + delta);
+		if (newValue == userData.gold) return;
+
+		userData.gold = newValue;
+		OnGoldChanged?.Invoke(userData.gold);
+		if (flushNow) AutoSaveManager.Instance?.ForceFlushSoon(0.25f);
+	}
+
+	public bool TrySpendGold(int amount, bool flushNow = true)
+	{
+		if (amount <= 0 || userData == null) return false;
+		if (userData.gold < amount) return false;
+
+		userData.gold -= amount;
+		OnGoldChanged?.Invoke(userData.gold);
+		if (flushNow) AutoSaveManager.Instance?.ForceFlushSoon(0.25f);
+		return true;
+	}
+
+	public void SetGold(int absolute, bool flushNow = true)
+	{
+		if (userData == null) return;
+		var v = Mathf.Max(0, absolute);
+		if (v == userData.gold) return;
+
+		userData.gold = v;
+		OnGoldChanged?.Invoke(userData.gold);
+		if (flushNow) AutoSaveManager.Instance?.ForceFlushSoon(0.25f);
+	}
+
+	// 명성/레벨(여기선 reputation)
+	public void AddReputation(int delta = 1, bool flushNow = true)
+	{
+		if (userData == null) return;
+		var newValue = Mathf.Max(0, userData.reputation + delta);
+		if (newValue == userData.reputation) return;
+
+		userData.reputation = newValue;
+		OnReputationChanged?.Invoke(userData.reputation);
+		if (flushNow) AutoSaveManager.Instance?.ForceFlushSoon(0.25f);
+	}
+
+	public void SetReputation(int absolute, bool flushNow = true)
+	{
+		if (userData == null) return;
+		var v = Mathf.Max(0, absolute);
+		if (v == userData.reputation) return;
+
+		userData.reputation = v;
+		OnReputationChanged?.Invoke(userData.reputation);
+		if (flushNow) AutoSaveManager.Instance?.ForceFlushSoon(0.25f);
+	}
+
 	public void Initialized()
 	{
 		if(userData != null)
@@ -258,13 +314,6 @@ public class BackendGameData : MonoBehaviour, IAutoSavable
         
 	}
 
-	public void LevelUp()
-    {
-        Debug.Log("레벨을 1 증가시킵니다.");
-        userData.reputation += 1;
-        userData.basicAtk += 3.5f;
-    }
-
     // 게임 정보 수정하기
     public void GameDataUpdate(System.Action onComplete = null)
     {
@@ -323,4 +372,7 @@ public class BackendGameData : MonoBehaviour, IAutoSavable
 			Debug.Log("유저 정보 변경 사항 없음 -> 저장 생략");
 		}
 	}
+
+	public event System.Action<int> OnGoldChanged;
+	public event System.Action<int> OnReputationChanged;
 }

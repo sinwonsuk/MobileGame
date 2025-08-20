@@ -242,7 +242,7 @@ public class StaffShopButton : MonoBehaviour
     private void Spend(int amount)
     {
         EventBus<MoneyChangeMusHandler>.Raise(new MoneyChangeMusHandler(amount));
-        BackendGameData.Instance.userData.reputation += 1;
+        BackendGameData.Instance.AddReputation(1);
     }
 
     private void SafeSpawn()
