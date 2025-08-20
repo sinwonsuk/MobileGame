@@ -270,10 +270,10 @@ public class AutoShooter : MonoBehaviour
         else
             shootDirection = Vector2.up; // 적 없으면 위로
 
-        // ★ 크리티컬 판정 및 최종 데미지 계산
+        // 크리티컬 판정 및 최종 데미지 계산
         var (finalDamage, isCrit) = ComputeShotDamage();
 
-        // ★ 크리 반영된 데미지로 발사
+        // 크리 반영된 데미지로 발사
         SpawnBullet(shootDirection, data, finalDamage);
         // 원하면 크리 트리거/이펙트: if (isCrit) animator.SetTrigger("Crit");
     }
