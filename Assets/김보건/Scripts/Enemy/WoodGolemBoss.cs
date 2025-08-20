@@ -4,7 +4,7 @@ public class WoodGolemBoss : EnemyBase
 {
     private int stage;
 
-    protected override float GetMaxHp() => 257.0f;
+    protected override float GetMaxHp() => 514.0f;
 
     protected override void Start()
     {
