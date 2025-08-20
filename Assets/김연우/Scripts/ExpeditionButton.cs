@@ -47,8 +47,10 @@ public class ExpeditionButton : MonoBehaviour
         if (ExpeditionManager.Instance == null || runtimeSO == null) return;
         var id = runtimeSO.indate;
         if (string.IsNullOrEmpty(id)) return;
+
         SoundManager.GetInstance().SfxPlay(SoundManager.sfx.Click, false);
-        // 대기 중이면 바로 시작
+
+        // 1) 대기 중 → 시작
         if (ExpeditionManager.Instance.CanStart(id))
         {
             ExpeditionManager.Instance.StartExpedition(id);
@@ -56,13 +58,20 @@ public class ExpeditionButton : MonoBehaviour
             return;
         }
 
-
+        // 2) 완료 상태 → 보상 수령(수동)
         if (ExpeditionManager.Instance.IsDone(id))
         {
-            ExpeditionManager.Instance.StartExpedition(id);
-            RefreshUI();
+            if (ExpeditionManager.Instance.TryClaimReward(id))
+            {
+                // 수령 후 상태 초기화됨 → UI 갱신
+                RefreshUI();
+            }
+            return;
         }
+
+        // 3) 진행 중이면 아무 것도 하지 않음
     }
+
 
     private void OnExpeditionChanged(string changedId)
     {
@@ -87,6 +96,7 @@ public class ExpeditionButton : MonoBehaviour
 
         // 명성도 체크
         int currentReputation = BackendGameData.Instance.userData.reputation;
+
         if (currentReputation < requiredReputation)
         {
             if (mainBtn) mainBtn.interactable = false;
@@ -96,8 +106,17 @@ public class ExpeditionButton : MonoBehaviour
             return;
         }
 
-        bool canStart = ExpeditionManager.Instance.CanStart(id);
+        bool isDone = ExpeditionManager.Instance.IsDone(id);
+        if (isDone)
+        {
+            if (mainBtn) mainBtn.interactable = true;
+            if (btnText) btnText.text = "보상 받기";
+            if (stateText) stateText.text = "완료";
+            if (timerText) timerText.text = "완료!";
+            return; // ← 여기서 마무리
+        }
 
+        bool canStart = ExpeditionManager.Instance.CanStart(id);
         if (canStart)
         {
             if (mainBtn) mainBtn.interactable = true;
@@ -107,7 +126,7 @@ public class ExpeditionButton : MonoBehaviour
         }
         else
         {
-            if (mainBtn) mainBtn.interactable = false;   // 진행 중일 때는 비활성
+            if (mainBtn) mainBtn.interactable = false;   // 진행 중에는 비활성
             if (btnText) btnText.text = "진행 중";
             if (stateText) stateText.text = "파견 중";
             // 타이머는 RefreshTimer에서 갱신
@@ -121,7 +140,6 @@ public class ExpeditionButton : MonoBehaviour
         if (string.IsNullOrEmpty(id)) return;
 
         bool isRunning = !ExpeditionManager.Instance.CanStart(id);
-
         if (!isRunning)
         {
             if (timerText != null) timerText.text = "";
@@ -130,20 +148,20 @@ public class ExpeditionButton : MonoBehaviour
 
         var rem = ExpeditionManager.Instance.GetRemaining(id);
 
-
         if (rem.TotalSeconds <= 0)
         {
-            if (ExpeditionManager.Instance.IsDone(id))
-            {
-
-                RefreshUI();
-            }
+            // ★ 자동 지급 금지: 완료 UI만 표시
+            if (timerText != null) timerText.text = "완료!";
+            // 진행 중 플래그 해제 + UI 갱신은 IsDone/RefreshUI 경유
+            ExpeditionManager.Instance.IsDone(id); // 진행 종료 처리(보상 미지급)
+            RefreshUI();
             return;
         }
 
         if (timerText != null)
             timerText.text = $"{rem.Hours:D2}:{rem.Minutes:D2}:{rem.Seconds:D2}";
     }
+
 
     private void RefreshName()
     {
