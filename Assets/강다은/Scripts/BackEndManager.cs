@@ -32,6 +32,7 @@ public class BackendManager : MonoBehaviour
 			Backend.ErrorHandler.OnOtherDeviceLoginDetectedError = () =>
 			{
 				Debug.Log("다른 기기에서 로그인 감지됨");
+				AutoSaveManager.Instance?.OnLoggedOut();
 
 				// 유저 알림
 				PopupManager.Show("다른 기기에서 로그인되어 접속이 종료되었습니다.", () =>
@@ -48,7 +49,7 @@ public class BackendManager : MonoBehaviour
 	void OnApplicationQuit()
 	{
 		Debug.Log("종료 시 유저 데이터 저장 요청 완료");
-		BackendGameData.Instance.GameDataUpdate();
+		AutoSaveManager.Instance?.AutoSaveAll(true);
 	}
 
 	void OnApplicationPause(bool pause)
@@ -56,7 +57,7 @@ public class BackendManager : MonoBehaviour
 		if (pause)
 		{
 			Debug.Log("일시 정지 시 데이터 저장");
-			BackendGameData.Instance.GameDataUpdate();
+			AutoSaveManager.Instance?.AutoSaveAll(true);
 		}
 	}
 
@@ -65,7 +66,7 @@ public class BackendManager : MonoBehaviour
 		if (!hasFocus)
 		{
 			Debug.Log("포커스 잃을 시 데이터 저장");
-			BackendGameData.Instance.GameDataUpdate();
+			AutoSaveManager.Instance?.AutoSaveAll(true);
 		}
 	}
 

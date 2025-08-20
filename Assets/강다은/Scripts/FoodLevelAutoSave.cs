@@ -12,10 +12,9 @@ public class FoodLevelAutoSave : MonoBehaviour, IAutoSavable
 	private const string TABLE = "FOOD_LEVELS";
 
 	[SerializeField] private FoodData[] allFoods;
-	[SerializeField] private int initialLevel = 1;
 
-	private readonly Dictionary<string, int> levels = new();
-	private readonly HashSet<string> dirtyKeys = new();
+	//private readonly Dictionary<string, int> levels = new();
+	//private readonly HashSet<string> dirtyKeys = new();
 
 	void Awake()
 	{
@@ -206,19 +205,20 @@ public class FoodLevelAutoSave : MonoBehaviour, IAutoSavable
 			Backend.GameData.Update("FOOD_LEVELS", where, param, bro =>
 			{
 				if (bro.IsSuccess())
-					Debug.Log("음식 레벨 저장 완료 : " + bro);
+					emp.isDirty = false;
+				//Debug.Log("음식 레벨 저장 완료 : " + bro);
 				else
 					Debug.LogError("게임 정보 수정 실패 : " + bro);
 			});
-			emp.isDirty = false;
+			
 		}
 
 		Debug.Log("[FoodLevel] 변경된 Food Level 데이터 저장 완료");
 	}
 
-	void OnApplicationQuit()
-	{
-		SaveLevelData();
-	}
+	//void OnApplicationQuit()
+	//{
+	//	SaveLevelData();
+	//}
 	private bool employeeDataLoaded = false;
 }

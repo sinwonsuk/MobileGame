@@ -98,7 +98,8 @@ public class InteriorManager : MonoBehaviour, IAutoSavable
         slot.runtimeData.isOwned = true;
         slot.runtimeData.isDirty = true;
         OnInteriorChanged?.Invoke();
-    }
+		AutoSaveManager.Instance?.ForceFlushSoon(0.25f);
+	}
 
     public void UseInterior(string name)
     {
@@ -118,7 +119,8 @@ public class InteriorManager : MonoBehaviour, IAutoSavable
                 slot.runtimeData.instance = go;
             }
             OnInteriorChanged?.Invoke();
-            return;
+			AutoSaveManager.Instance?.ForceFlushSoon(0.25f);
+			return;
         }
 
         // ===== 해제 기능 제거 → 무조건 설치 =====
@@ -345,10 +347,10 @@ public class InteriorManager : MonoBehaviour, IAutoSavable
         SaveFurnitureData();
     }
 
-	private void OnApplicationQuit()
-	{
-		SaveFurnitureData();
-	}
+	//private void OnApplicationQuit()
+	//{
+	//	SaveFurnitureData();
+	//}
 
 	public void SaveFurnitureData()
     {
@@ -368,12 +370,13 @@ public class InteriorManager : MonoBehaviour, IAutoSavable
 
             Backend.GameData.Update("FURNITURE_PLAYER", where, param, bro =>
             {
-                if (bro.IsSuccess()) ;
-                //Debug.Log("가구 저장 완료 : " + bro);
-                else
+                if (bro.IsSuccess())
+					emp.isDirty = false;
+				//Debug.Log("가구 저장 완료 : " + bro);
+				else
                     Debug.LogError("게임 정보 수정 실패 : " + bro);
             });
-            emp.isDirty = false;
+            
         }
 
         //Debug.Log("[FurnitureManager] 변경된 가구 데이터 저장 완료");

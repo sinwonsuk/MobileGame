@@ -55,7 +55,7 @@ public class SettingCanvasOnOff : BaseButton
 		EventBus<EnhanceFoodUIActiveHandler>.Raise(new EnhanceFoodUIActiveHandler(false));
 	}
 
-	bool isActive = true;
+	//bool isActive = true;
 
 
 }
