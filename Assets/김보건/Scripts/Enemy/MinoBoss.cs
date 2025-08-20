@@ -4,7 +4,7 @@ public class MinoBoss : EnemyBase
 {
     private int stage;
 
-    protected override float GetMaxHp() => 1698.0f;
+    protected override float GetMaxHp() => 3396.0f;
 
     protected override void Start()
     {
