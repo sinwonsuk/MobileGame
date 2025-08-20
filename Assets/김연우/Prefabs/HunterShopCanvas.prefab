@@ -952,7 +952,7 @@ MonoBehaviour:
   timerText: {fileID: 2311067046956782660}
   stateText: {fileID: 4956303942348726347}
   nameText: {fileID: 8664053556983366460}
-  requiredReputation: 180
+  requiredReputation: 360
 --- !u!1 &454263612983849056
 GameObject:
   m_ObjectHideFlags: 0
@@ -1093,7 +1093,7 @@ MonoBehaviour:
   timerText: {fileID: 1172002715185540161}
   stateText: {fileID: 5200364115413102072}
   nameText: {fileID: 1762674374516796005}
-  requiredReputation: 80
+  requiredReputation: 160
 --- !u!1 &497001482334652980
 GameObject:
   m_ObjectHideFlags: 0
@@ -4553,7 +4553,7 @@ MonoBehaviour:
   timerText: {fileID: 5806509859491646513}
   stateText: {fileID: 7270594470960431765}
   nameText: {fileID: 1011346188155248634}
-  requiredReputation: 40
+  requiredReputation: 80
 --- !u!1 &2944669097809507708
 GameObject:
   m_ObjectHideFlags: 0
@@ -4725,9 +4725,9 @@ RectTransform:
   m_Father: {fileID: 8931498663465118259}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: -17, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!222 &1870242727638887463
 CanvasRenderer:
@@ -5206,9 +5206,9 @@ RectTransform:
   - {fileID: 317497374068503678}
   m_Father: {fileID: 2152560232849230513}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 392, y: -1105}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 703.8, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1715484639159112474
@@ -5525,7 +5525,7 @@ MonoBehaviour:
   timerText: {fileID: 932113157411401073}
   stateText: {fileID: 2819525341910747393}
   nameText: {fileID: 2262454967247950660}
-  requiredReputation: 140
+  requiredReputation: 280
 --- !u!1 &3689833913857857940
 GameObject:
   m_ObjectHideFlags: 0
@@ -8354,9 +8354,9 @@ RectTransform:
   - {fileID: 7580118626206772050}
   m_Father: {fileID: 2152560232849230513}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 392, y: -65}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 703.8, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5561896969380390931
@@ -8705,9 +8705,9 @@ RectTransform:
   - {fileID: 494938854036835505}
   m_Father: {fileID: 2152560232849230513}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 392, y: -715}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 703.8, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6421162404732708930
@@ -8920,9 +8920,9 @@ RectTransform:
   - {fileID: 6025196740006600591}
   m_Father: {fileID: 2152560232849230513}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 392, y: -975}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 703.8, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1759456599649511699
@@ -9284,9 +9284,9 @@ RectTransform:
   - {fileID: 37668213827368881}
   m_Father: {fileID: 2152560232849230513}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 392, y: -585}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 703.8, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &974302748825460754
@@ -10778,7 +10778,7 @@ MonoBehaviour:
   timerText: {fileID: 3821341217631507358}
   stateText: {fileID: 7236194337120632143}
   nameText: {fileID: 2471965117900023114}
-  requiredReputation: 160
+  requiredReputation: 320
 --- !u!1 &6550954781967248408
 GameObject:
   m_ObjectHideFlags: 0
@@ -10900,7 +10900,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 3571417509745586567}
   m_Direction: 2
   m_Value: 0.99999887
-  m_Size: 0.91735643
+  m_Size: 0.9173565
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -11429,7 +11429,7 @@ MonoBehaviour:
   timerText: {fileID: 9007115934585710953}
   stateText: {fileID: 4914368109558521707}
   nameText: {fileID: 8080618164258789730}
-  requiredReputation: 100
+  requiredReputation: 200
 --- !u!1 &6863642687810157937
 GameObject:
   m_ObjectHideFlags: 0
@@ -12051,7 +12051,7 @@ MonoBehaviour:
   timerText: {fileID: 4206370316665571089}
   stateText: {fileID: 7399812313116743229}
   nameText: {fileID: 4163614748591644882}
-  requiredReputation: 60
+  requiredReputation: 120
 --- !u!1 &7460606424548340074
 GameObject:
   m_ObjectHideFlags: 0
@@ -12205,7 +12205,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &607695383011656056
 RectTransform:
   m_ObjectHideFlags: 0
@@ -13694,9 +13694,9 @@ RectTransform:
   - {fileID: 6696155614308015589}
   m_Father: {fileID: 2152560232849230513}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 392, y: -195}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 703.8, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2862443414287475952
@@ -13773,9 +13773,9 @@ RectTransform:
   - {fileID: 930569625326131739}
   m_Father: {fileID: 2152560232849230513}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 392, y: -325}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 703.8, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8190744456141103528
@@ -14120,8 +14120,8 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 7113010002759028619}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0.04755774}
-  m_AnchorMax: {x: 1, y: 0.9524423}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -14597,9 +14597,9 @@ RectTransform:
   - {fileID: 6388874697674560530}
   m_Father: {fileID: 2152560232849230513}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 392, y: -845}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 703.8, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2332786412845436850
@@ -15052,7 +15052,7 @@ MonoBehaviour:
   timerText: {fileID: 1528449413028636587}
   stateText: {fileID: 3564635544946728870}
   nameText: {fileID: 8445546651386432987}
-  requiredReputation: 20
+  requiredReputation: 40
 --- !u!1 &8986529424849702212
 GameObject:
   m_ObjectHideFlags: 0
@@ -15089,9 +15089,9 @@ RectTransform:
   - {fileID: 4055103494094379147}
   m_Father: {fileID: 2152560232849230513}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 392, y: -455}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 703.8, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6138762765779852026
@@ -15408,7 +15408,7 @@ MonoBehaviour:
   timerText: {fileID: 554549394349452340}
   stateText: {fileID: 1367138427546433415}
   nameText: {fileID: 242304244705871803}
-  requiredReputation: 200
+  requiredReputation: 400
 --- !u!1 &9123462661160964305
 GameObject:
   m_ObjectHideFlags: 0
@@ -15445,9 +15445,9 @@ RectTransform:
   - {fileID: 6766759039109800423}
   m_Father: {fileID: 2152560232849230513}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 392, y: -1235}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 703.8, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3018612495317747047
@@ -15628,7 +15628,7 @@ MonoBehaviour:
   timerText: {fileID: 3501022237356204427}
   stateText: {fileID: 4590624495707327744}
   nameText: {fileID: 3674667977006372750}
-  requiredReputation: 120
+  requiredReputation: 240
 --- !u!1 &9134271150443016144
 GameObject:
   m_ObjectHideFlags: 0

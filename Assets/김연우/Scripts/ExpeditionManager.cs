@@ -101,14 +101,15 @@ public class ExpeditionManager : MonoBehaviour, IAutoSavable
     {
         if (!pairs.TryGetValue(id, out var p)) return false;
 
+        // 시간이 지났다면 자동 보상이 아니라 '진행 종료'만 처리
         if (p.run.isRunning && DateTime.UtcNow >= p.run.ArriveUtc)
         {
-            p.run.isRunning = false;
-
-            TryClaimReward(id);
-
-            return true; 
+            p.run.isRunning = false;   // ★ 진행만 멈춤
+            p.run.isDirty = true;
+            OnChanged?.Invoke(id);     // UI 갱신 알림
+            return true;
         }
+
         return !p.run.isRunning && !string.IsNullOrEmpty(p.run.arriveUtcIso);
     }
 
