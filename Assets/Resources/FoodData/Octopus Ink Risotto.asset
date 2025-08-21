@@ -126,7 +126,7 @@ MonoBehaviour:
   - indate: 2025-07-27T05:59:19.879Z
     foodIndate: 2025-07-16T02:27:35.109Z
     step: 9
-    successRate: 10
+    successRate: 1
     ingredients:
     - indate: 2025-07-16T02:27:43.883Z
       name: "\uBB38\uC5B4 \uB208\uC54C"
