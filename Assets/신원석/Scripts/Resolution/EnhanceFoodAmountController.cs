@@ -12,7 +12,8 @@ public class EnhanceFoodAmountController : MonoBehaviour
 
     private void OnEnable()
     {
-        button.interactable = true;
+        enhanceButton.interactable = true;
+        exitButton.interactable = true;
     }
 
     void Start()
@@ -34,7 +35,7 @@ public class EnhanceFoodAmountController : MonoBehaviour
         {
             if (materials[i].quantity > InventoryManager.Instance.GetItemQty(materials[i].indate))
             {
-                button.interactable = false;
+                enhanceButton.interactable = false;
                 return;
             }
         }
@@ -86,10 +87,14 @@ public class EnhanceFoodAmountController : MonoBehaviour
             data.isDirty = true;
            
 		}
-		AutoSaveManager.Instance?.ForceFlushSoon(0.25f);
+
+
+        exitButton.interactable = false;
+        AutoSaveManager.Instance?.ForceFlushSoon(0.25f);
 	}
 
-    [SerializeField] Button button;
+    [SerializeField] Button enhanceButton;
+    [SerializeField] Button exitButton;
 
     [SerializeField] EnhanceFoodUI enhanceFoodUI;
     [SerializeField] EnhanceResult enhanceResult;

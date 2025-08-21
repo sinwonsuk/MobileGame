@@ -16,7 +16,7 @@ MonoBehaviour:
   displayName: "\uC810\uC561 \uB0B4\uC7A5\uC8FD"
   foodSprite: porridge
   price: 154
-  reputation: 20
+  reputation: 40
   Getreputation: 1
   isUnlock: 0
   cookingTime: 14.6
@@ -125,7 +125,7 @@ MonoBehaviour:
   - indate: 2025-07-27T05:59:24.620Z
     foodIndate: 2025-07-16T02:27:35.647Z
     step: 9
-    successRate: 10
+    successRate: 1
     ingredients:
     - indate: 2025-07-16T02:27:44.030Z
       name: "\uBB38\uC5B4 \uC6B0\uC720"

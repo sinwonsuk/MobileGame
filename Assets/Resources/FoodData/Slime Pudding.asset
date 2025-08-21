@@ -16,11 +16,11 @@ MonoBehaviour:
   displayName: "\uC2AC\uB77C\uC784 \uD478\uB529"
   foodSprite: pudding
   price: 168
-  reputation: 10
+  reputation: 20
   Getreputation: 1
   isUnlock: 0
   cookingTime: 15.8
-  Level: 2
+  Level: 6
   FoodManual: "\uB2EC\uCF64\uD55C \uC2AC\uB77C\uC784 \uD478\uB529\uC774 \uB760\uC694\uC624\uC624\uC624\uC639"
   Ingredients:
   - {fileID: 11400000, guid: 6b96e8049fef6a14eb4b17c82612f794, type: 2}
@@ -125,7 +125,7 @@ MonoBehaviour:
   - indate: 2025-07-27T05:59:26.613Z
     foodIndate: 2025-07-16T02:27:35.482Z
     step: 9
-    successRate: 10
+    successRate: 1
     ingredients:
     - indate: 2025-07-16T02:27:44.454Z
       name: "\uC2AC\uB77C\uC784 \uC815\uC81C\uC218"

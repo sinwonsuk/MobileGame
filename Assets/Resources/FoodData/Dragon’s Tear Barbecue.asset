@@ -16,7 +16,7 @@ MonoBehaviour:
   displayName: "\uC6A9\uB208\uBB3C \uBC14\uBE44\uD050"
   foodSprite: dragon'sTearBBQ
   price: 979
-  reputation: 580
+  reputation: 1160
   Getreputation: 1
   isUnlock: 0
   cookingTime: 84.4
@@ -30,7 +30,7 @@ MonoBehaviour:
   - indate: 2025-07-27T05:59:09.833Z
     foodIndate: 2025-07-16T02:27:37.481Z
     step: 1
-    successRate: 100
+    successRate: 80
     ingredients:
     - indate: 2025-07-16T02:27:45.528Z
       name: "\uC624\uD06C \uC0BC\uACB9\uC0B4"
@@ -42,7 +42,7 @@ MonoBehaviour:
   - indate: 2025-07-27T05:59:09.970Z
     foodIndate: 2025-07-16T02:27:37.481Z
     step: 2
-    successRate: 95
+    successRate: 60
     ingredients:
     - indate: 2025-07-16T02:27:45.528Z
       name: "\uC624\uD06C \uC0BC\uACB9\uC0B4"
@@ -54,7 +54,7 @@ MonoBehaviour:
   - indate: 2025-07-27T05:59:10.131Z
     foodIndate: 2025-07-16T02:27:37.481Z
     step: 3
-    successRate: 88
+    successRate: 40
     ingredients:
     - indate: 2025-07-16T02:27:45.528Z
       name: "\uC624\uD06C \uC0BC\uACB9\uC0B4"
@@ -66,7 +66,7 @@ MonoBehaviour:
   - indate: 2025-07-27T05:59:10.251Z
     foodIndate: 2025-07-16T02:27:37.481Z
     step: 4
-    successRate: 78
+    successRate: 30
     ingredients:
     - indate: 2025-07-16T02:27:45.528Z
       name: "\uC624\uD06C \uC0BC\uACB9\uC0B4"
@@ -78,7 +78,7 @@ MonoBehaviour:
   - indate: 2025-07-27T05:59:10.404Z
     foodIndate: 2025-07-16T02:27:37.481Z
     step: 5
-    successRate: 65
+    successRate: 20
     ingredients:
     - indate: 2025-07-16T02:27:45.528Z
       name: "\uC624\uD06C \uC0BC\uACB9\uC0B4"
@@ -90,7 +90,7 @@ MonoBehaviour:
   - indate: 2025-07-27T05:59:10.532Z
     foodIndate: 2025-07-16T02:27:37.481Z
     step: 6
-    successRate: 50
+    successRate: 10
     ingredients:
     - indate: 2025-07-16T02:27:45.528Z
       name: "\uC624\uD06C \uC0BC\uACB9\uC0B4"
@@ -102,7 +102,7 @@ MonoBehaviour:
   - indate: 2025-07-27T05:59:10.663Z
     foodIndate: 2025-07-16T02:27:37.481Z
     step: 7
-    successRate: 35
+    successRate: 5
     ingredients:
     - indate: 2025-07-16T02:27:45.528Z
       name: "\uC624\uD06C \uC0BC\uACB9\uC0B4"
@@ -114,7 +114,7 @@ MonoBehaviour:
   - indate: 2025-07-27T05:59:10.782Z
     foodIndate: 2025-07-16T02:27:37.481Z
     step: 8
-    successRate: 20
+    successRate: 3
     ingredients:
     - indate: 2025-07-16T02:27:45.528Z
       name: "\uC624\uD06C \uC0BC\uACB9\uC0B4"
@@ -126,7 +126,7 @@ MonoBehaviour:
   - indate: 2025-07-27T05:59:10.915Z
     foodIndate: 2025-07-16T02:27:37.481Z
     step: 9
-    successRate: 10
+    successRate: 1
     ingredients:
     - indate: 2025-07-16T02:27:45.528Z
       name: "\uC624\uD06C \uC0BC\uACB9\uC0B4"

@@ -28,7 +28,7 @@ public class Cook : MonoBehaviour
     void Start()
     {
         canvas = GetComponent<Canvas>();
-
+        button = GetComponent<Button>();
         canvas.worldCamera = Camera.main;
     }
     public void Setup(CookInfo info, CookManager mgr)
@@ -47,6 +47,7 @@ public class Cook : MonoBehaviour
         if (foodImage.fillAmount >=1.0f && soundCheck==false)
         {
             SoundManager.GetInstance().Sfx_Stop(SoundManager.sfx.Cooking);
+            button.interactable = false;
             soundCheck = true;
         }
 
@@ -123,6 +124,7 @@ public class Cook : MonoBehaviour
 
     [SerializeField] private Image foodImage; // 음식 이미지
 
+    Button button;
     public Image FoodImage
     {
         get => foodImage;

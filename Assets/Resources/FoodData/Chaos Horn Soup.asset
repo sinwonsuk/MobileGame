@@ -16,7 +16,7 @@ MonoBehaviour:
   displayName: "\uD63C\uB3C8\uC758 \uBFD4 \uC218\uD504"
   foodSprite: orcSoup
   price: 742
-  reputation: 280
+  reputation: 560
   Getreputation: 1
   isUnlock: 0
   cookingTime: 64.3
@@ -126,7 +126,7 @@ MonoBehaviour:
   - indate: 2025-07-27T05:59:09.708Z
     foodIndate: 2025-07-16T02:27:36.856Z
     step: 9
-    successRate: 10
+    successRate: 1
     ingredients:
     - indate: 2025-07-16T02:27:46.301Z
       name: "\uBFD4 \uB2EC\uC778 \uBB3C"

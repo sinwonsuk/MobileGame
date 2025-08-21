@@ -16,7 +16,7 @@ MonoBehaviour:
   displayName: "\uBBF8\uBBF9 \uBC14\uBE44\uD050 \uD50C\uB808\uC774\uD2B8"
   foodSprite: mimicBBQPlate
   price: 461
-  reputation: 70
+  reputation: 140
   Getreputation: 1
   isUnlock: 0
   cookingTime: 40.5
@@ -126,7 +126,7 @@ MonoBehaviour:
   - indate: 2025-07-27T05:59:17.312Z
     foodIndate: 2025-07-16T02:27:36.268Z
     step: 9
-    successRate: 10
+    successRate: 1
     ingredients:
     - indate: 2025-07-16T02:27:44.781Z
       name: "\uACE0\uB300\uC758 \uAECD\uC9C8 \uC870\uAC01"

@@ -16,7 +16,7 @@ MonoBehaviour:
   displayName: "\uBD88\uBA78\uC758 \uBFCC\uB9AC \uC218\uD504"
   foodSprite: beakManSoup
   price: 770
-  reputation: 460
+  reputation: 920
   Getreputation: 1
   isUnlock: 0
   cookingTime: 66.7
@@ -126,7 +126,7 @@ MonoBehaviour:
   - indate: 2025-07-27T05:59:15.947Z
     foodIndate: 2025-07-16T02:27:37.129Z
     step: 9
-    successRate: 10
+    successRate: 1
     ingredients:
     - indate: 2025-07-16T02:27:47.164Z
       name: "\uC8FD\uC740 \uB9E8\uB4DC\uB808\uC774\uD06C"
