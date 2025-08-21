@@ -42,6 +42,20 @@ public class SettingsUI : MonoBehaviour
 		CancleButton.onClick.AddListener(HidePasswordSettingPanel);
 		changePwButton.onClick.AddListener(OnClickChangePassword);
 
+		confirmLogoutButton.onClick.AddListener(() =>
+		{
+			SoundManager.GetInstance().SfxPlay(SoundManager.sfx.Click, false);
+			Backend.BMember.Logout();
+			SoundManager.GetInstance().Bgm_Stop();
+			SceneManager.LoadScene("DaniTest");
+		});
+
+		cancelLogoutButton.onClick.AddListener(() =>
+		{
+			SoundManager.GetInstance().SfxPlay(SoundManager.sfx.Click, false);
+			logoutPanel.SetActive(false);
+		});
+
 		privacyPolicyButton.onClick.AddListener(() => { SoundManager.GetInstance().SfxPlay(SoundManager.sfx.Click, false); Application.OpenURL(privacyPolicyUrl); });
 		deleteAccountButton.onClick.AddListener(() => { SoundManager.GetInstance().SfxPlay(SoundManager.sfx.Click, false); Application.OpenURL(deleteAccountUrl); });
 
@@ -230,12 +244,14 @@ public class SettingsUI : MonoBehaviour
 	public void OnClickLogout()
 	{
 		SoundManager.GetInstance().SfxPlay(SoundManager.sfx.Click, false);
-		PopupManager.Show("정말 로그아웃 하시겠습니까?", () =>
-		{
-			Backend.BMember.Logout();
-			SoundManager.GetInstance().Bgm_Stop();
-			SceneManager.LoadScene("DaniTest");
-		});
+		//PopupManager.Show("정말 로그아웃 하시겠습니까?", () =>
+		//{
+		//	Backend.BMember.Logout();
+		//	SoundManager.GetInstance().Bgm_Stop();
+		//	SceneManager.LoadScene("DaniTest");
+		//});
+
+		logoutPanel.SetActive(true);
 	}
 
 
@@ -260,7 +276,10 @@ public class SettingsUI : MonoBehaviour
 	[SerializeField] private Button deleteAccountButton;
 
 	[Header("Logout")]
+	[SerializeField] private GameObject logoutPanel;
 	[SerializeField] private Button logoutButton;
+	[SerializeField] private Button confirmLogoutButton;
+	[SerializeField] private Button cancelLogoutButton;
 
 	[Header("Texts")]
 	[SerializeField] private TextMeshProUGUI emailText;
