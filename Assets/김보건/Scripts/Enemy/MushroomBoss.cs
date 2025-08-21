@@ -4,7 +4,7 @@ public class MushroomBoss : EnemyBase
 {
     private int stage;
 
-    protected override float GetMaxHp() => 1322.0f;
+    protected override float GetMaxHp() => 5000.0f;
 
     protected override void Start()
     {

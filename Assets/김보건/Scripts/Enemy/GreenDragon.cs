@@ -4,7 +4,7 @@ public class GreenDragon : EnemyBase
 {
     private int stage;
 
-    protected override float GetMaxHp() => 800.0f;
+    protected override float GetMaxHp() => 1000.0f;
 
     protected override void Start()
     {
