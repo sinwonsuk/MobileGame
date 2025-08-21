@@ -134,7 +134,9 @@ public class ExpeditionManager : MonoBehaviour, IAutoSavable
         p.run.Clear();
 
         OnChanged?.Invoke(id);
-        return true;
+		AutoSaveManager.Instance?.ForceFlushSoon(0.25f);
+
+		return true;
     }
 
 
@@ -344,21 +346,22 @@ public class ExpeditionManager : MonoBehaviour, IAutoSavable
 
 			Backend.GameData.Update("EXPEDITIONS_PLAYER", where, param, bro =>
 			{
-				if (bro.IsSuccess()) ;
+				if (bro.IsSuccess()) 
+					emp.isDirty = false;
 				//Debug.Log("파견 저장 완료 : " + bro);
 				else
 					Debug.LogError("게임 정보 수정 실패 : " + bro);
 			});
-			emp.isDirty = false;
+			
 		}
 
 		//Debug.Log("[ExpeditionManager] 변경된 파견 데이터 저장 완료");
 	}
 
-	private void OnApplicationQuit()
-	{
-		SaveExeditionData();
-	}
+	//private void OnApplicationQuit()
+	//{
+	//	SaveExeditionData();
+	//}
 
 	private bool employeeDataLoaded = false;
 	public IEnumerable<RuntimeExpeditionSO> EnumerateRuntime() => pairs.Values.Select(v => v.run);

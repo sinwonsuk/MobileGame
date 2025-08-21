@@ -26,10 +26,10 @@ public class InventoryManager : MonoBehaviour, IAutoSavable
 
 	public void AutoSave()
 	{
-		if (inventoryLoaded) { }
-		//SaveImmediately();
-		else
-			Debug.LogWarning("인벤토리 로딩 안 됨 -> 종료 시 저장 생략");
+		if (!inventoryLoaded) return;
+
+		bool hasDirty = allRunTimeIngredients.Any(rt => rt.isDirty);
+		if (!hasDirty) return;
 
 		SaveInventory();
 	}
@@ -64,17 +64,17 @@ public class InventoryManager : MonoBehaviour, IAutoSavable
         RunTimeIngredientDataDic[indate].isDirty = true;
         OnInventoryChanged?.Invoke();
 
-    //    foreach (var data in allRunTimeIngredients)
-    //    {
-    //        if (data.indate == indate)
-    //        {
-    //            data.ingredientQty += amount;
-				//data.isDirty = true;
-				//OnInventoryChanged?.Invoke();
-    //            return;
-    //        }
-    //    }
-    }
+		//    foreach (var data in allRunTimeIngredients)
+		//    {
+		//        if (data.indate == indate)
+		//        {
+		//            data.ingredientQty += amount;
+		//data.isDirty = true;
+		//OnInventoryChanged?.Invoke();
+		//            return;
+		//        }
+		//    }
+	}
 
     public int GetItemQty(string indate)
     {
@@ -126,6 +126,7 @@ public class InventoryManager : MonoBehaviour, IAutoSavable
     {
         slots.Clear();
         OnInventoryChanged?.Invoke();
+
     }
 
 	public IEnumerator InsertInventoryIfNotExists(string ownerIndate)
@@ -371,6 +372,7 @@ public class InventoryManager : MonoBehaviour, IAutoSavable
 			{
 				if (bro.IsSuccess())
 				{
+					runtimeData.isDirty = false;
 					//Debug.Log($"[인벤토리 저장 성공] {itemIndate} : {qty}");
 				}
 				else
@@ -378,7 +380,6 @@ public class InventoryManager : MonoBehaviour, IAutoSavable
 					Debug.LogError($"[인벤토리 저장 실패] {itemIndate} : {qty} / {bro}");
 				}
 
-				runtimeData.isDirty = false;
 				finishedCount++;
 
 				if (finishedCount >= dirtyCount)
@@ -405,23 +406,23 @@ public class InventoryManager : MonoBehaviour, IAutoSavable
 	//		Debug.LogWarning("인벤토리 로딩 안 됨 -> 종료 시 저장 생략");
 	//}
 
-	private void OnApplicationPause(bool pause)
-	{
-		if (pause && inventoryLoaded)
-		{
-			Debug.Log("일시 정지 시 인벤토리 저장");
-			SaveImmediately();
-		}
-	}
+	//private void OnApplicationPause(bool pause)
+	//{
+	//	if (pause && inventoryLoaded)
+	//	{
+	//		Debug.Log("일시 정지 시 인벤토리 저장");
+	//		SaveImmediately();
+	//	}
+	//}
 
-	private void OnApplicationFocus(bool hasFocus)
-	{
-		if (!hasFocus && inventoryLoaded)
-		{
-			Debug.Log("포커스 잃을 시 인벤토리 저장");
-			SaveImmediately();
-		}
-	}
+	//private void OnApplicationFocus(bool hasFocus)
+	//{
+	//	if (!hasFocus && inventoryLoaded)
+	//	{
+	//		Debug.Log("포커스 잃을 시 인벤토리 저장");
+	//		SaveImmediately();
+	//	}
+	//}
 
 
 	private void SaveImmediately()

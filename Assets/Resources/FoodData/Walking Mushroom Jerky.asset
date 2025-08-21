@@ -16,7 +16,7 @@ MonoBehaviour:
   displayName: "\uAC77\uB294 \uBC84\uC12F \uC721\uD3EC"
   foodSprite: mushroomJerky
   price: 364
-  reputation: 120
+  reputation: 240
   Getreputation: 1
   isUnlock: 0
   cookingTime: 32.3
@@ -126,7 +126,7 @@ MonoBehaviour:
   - indate: 2025-07-27T05:59:32.566Z
     foodIndate: 2025-07-16T02:27:35.954Z
     step: 9
-    successRate: 10
+    successRate: 1
     ingredients:
     - indate: 2025-07-16T02:27:45.068Z
       name: "\uBBF8\uBBF9 \uC0B4\uC810"

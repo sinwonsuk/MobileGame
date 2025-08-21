@@ -12,7 +12,8 @@ public class EnhanceFoodAmountController : MonoBehaviour
 
     private void OnEnable()
     {
-        button.interactable = true;
+        enhanceButton.interactable = true;
+        exitButton.interactable = true;
     }
 
     void Start()
@@ -34,7 +35,7 @@ public class EnhanceFoodAmountController : MonoBehaviour
         {
             if (materials[i].quantity > InventoryManager.Instance.GetItemQty(materials[i].indate))
             {
-                button.interactable = false;
+                enhanceButton.interactable = false;
                 return;
             }
         }
@@ -84,11 +85,16 @@ public class EnhanceFoodAmountController : MonoBehaviour
             enhanceResult.Text.text = "강화성공";
 			data.Level += 1;
             data.isDirty = true;
+           
 		}
 
-    }
 
-    [SerializeField] Button button;
+        exitButton.interactable = false;
+        AutoSaveManager.Instance?.ForceFlushSoon(0.25f);
+	}
+
+    [SerializeField] Button enhanceButton;
+    [SerializeField] Button exitButton;
 
     [SerializeField] EnhanceFoodUI enhanceFoodUI;
     [SerializeField] EnhanceResult enhanceResult;

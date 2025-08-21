@@ -16,7 +16,7 @@ MonoBehaviour:
   displayName: "\uB208\uC54C \uD3EC\uC790 \uC8FC\uC2A4"
   foodSprite: eyeSacJuice
   price: 140
-  reputation: 140
+  reputation: 280
   Getreputation: 1
   isUnlock: 0
   cookingTime: 13.4
@@ -125,7 +125,7 @@ MonoBehaviour:
   - indate: 2025-07-27T05:59:13.409Z
     foodIndate: 2025-07-16T02:27:36.110Z
     step: 9
-    successRate: 10
+    successRate: 1
     ingredients:
     - indate: 2025-07-16T02:27:43.883Z
       name: "\uBB38\uC5B4 \uB208\uC54C"

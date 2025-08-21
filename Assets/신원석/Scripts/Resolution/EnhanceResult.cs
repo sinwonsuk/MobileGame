@@ -28,7 +28,8 @@ public class EnhanceResult : MonoBehaviour
         // 한 프레임 뒤에 호출되도록
         Invoke(nameof(RaiseToggleEvent), 0f);
 
-        button.interactable = true;
+        enhanceButton.interactable = true;
+        exitButton.interactable = true;
     }
 
     private void RaiseToggleEvent()
@@ -45,7 +46,8 @@ public class EnhanceResult : MonoBehaviour
         }
         else
         {
-            button.interactable = false;
+            enhanceButton.interactable = false;
+            exitButton.interactable = false;
         }
 
     }
@@ -55,5 +57,6 @@ public class EnhanceResult : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    [SerializeField] Button button;
+    [SerializeField] Button enhanceButton;
+    [SerializeField] Button exitButton;
 }

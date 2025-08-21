@@ -92,6 +92,8 @@ public class EmployeeManager : MonoBehaviour, IAutoSavable
 		slot.runtimeData.isDirty = true;
 
 		FindAnyObjectByType<EmployeeInventoryUI>()?.RefreshUI();
+
+		AutoSaveManager.Instance?.ForceFlushSoon(0.25f);
 	}
 
     // 직원 실제 배치
@@ -175,7 +177,9 @@ public class EmployeeManager : MonoBehaviour, IAutoSavable
         // 화살표 클리어 & UI 갱신
         ClearArrows();
         FindAnyObjectByType<EmployeeInventoryUI>()?.RefreshUI();
-    }
+
+		AutoSaveManager.Instance?.ForceFlushSoon(0.25f);
+	}
 
     // 외부에서도 부를 수 있게 public
     public void ClearArrows()
@@ -237,7 +241,8 @@ public class EmployeeManager : MonoBehaviour, IAutoSavable
         run.isDirty = true;
 
         NotifyStaffChanged();
-        return true;
+		AutoSaveManager.Instance?.ForceFlushSoon(0.25f);
+		return true;
     }
 
     // 슬롯 버전(있으면 편의상 사용)
@@ -315,10 +320,10 @@ public class EmployeeManager : MonoBehaviour, IAutoSavable
         }
     }
 
-	private void OnApplicationQuit()
-	{
-		SaveEmployeeData();
-	}
+	//private void OnApplicationQuit()
+	//{
+	//	SaveEmployeeData();
+	//}
 
 
 	private IEnumerator DelayedPlacementRestore()
@@ -560,11 +565,11 @@ public class EmployeeManager : MonoBehaviour, IAutoSavable
 			Backend.GameData.Update("EMPLOYEE_PLAYER", where, param, bro =>
             {
 				if (bro.IsSuccess())
-					Debug.Log("직원 저장 완료 : " + bro);
+					emp.isDirty = false;
 				else
 					Debug.LogError("게임 정보 수정 실패 : " + bro);
 			});
-            emp.isDirty = false;
+            
         }
 
         Debug.Log("[EmployeeManager] 변경된 직원 데이터 저장 완료");
