@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35aa38e7c4f6fef44858f4783aa1e73d, type: 3}
   m_Name: "\uC6A9\uC758 \uAE08\uACE0"
   m_EditorClassIdentifier: 
-  indate: 
-  ingredientName: 
+  indate: 2025-08-21T05:29:09.637Z
+  ingredientName: "\uC6A9\uC758 \uAE08\uACE0"
   ingredientSprite: 
   ingredientPrice: 0
