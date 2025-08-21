@@ -4,7 +4,7 @@ public class OrcBoss : EnemyBase
 {
     private int stage;
 
-    protected override float GetMaxHp() => 2118.0f;
+    protected override float GetMaxHp() => 6000.0f;
 
     protected override void Start()
     {
