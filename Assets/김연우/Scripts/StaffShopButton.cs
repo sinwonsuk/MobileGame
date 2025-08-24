@@ -7,6 +7,9 @@ public class StaffShopButton : MonoBehaviour
 {
     private const int MAX_LEVEL = 50;
 
+    // ★ 가격 증가율 상수(요청: 1.15배)
+    private const float PRICE_GROWTH = 1.15f;
+
     [Header("연결된 직원 데이터 (SO)")]
     public StaffStatsSO staffData;
     public RuntimeStaffStatsSO staffruntimeData;
@@ -17,6 +20,7 @@ public class StaffShopButton : MonoBehaviour
     public TextMeshProUGUI levelText;
     public TextMeshProUGUI nameText;
     public TextMeshProUGUI priceText;
+
     [Header("스폰(레스토랑만 사용)")]
     public StaffType staffType;
     public Transform spawnPoint;
@@ -26,10 +30,10 @@ public class StaffShopButton : MonoBehaviour
     public TextMeshProUGUI atkText;   // 공격력
     public TextMeshProUGUI aspdText;  // 공격속도(초당 발사)
 
-    // ★ 경영 스탯 표시 (레스토랑 전용)
     [Header("경영 스탯 표시(UI)")]
     public TextMeshProUGUI workTimeText;   // 타임(실행시간)
     public TextMeshProUGUI restTimeText;   // 타이머(쉬는시간)
+
     [Header("자동 배치(선택)")]
     public int autoAssignIndex = -1;
 
@@ -81,16 +85,29 @@ public class StaffShopButton : MonoBehaviour
         return lv >= MAX_LEVEL;
     }
 
+    // ★ 가격 계산 로직을 함수로 분리(1.15배 누적)
+    private int CalcPriceForNextLevel()
+    {
+        if (staffData == null || staffruntimeData == null) return 0;
+
+        int current = staffruntimeData.level;
+        if (current >= MAX_LEVEL) return 0;
+
+        // 다음에 살 레벨(0->1, n->n+1)
+        int nextLevel = (current == 0) ? 1 : current + 1;
+
+        // baseSalary × (1.15^(nextLevel-1))
+        double multiplier = System.Math.Pow(PRICE_GROWTH, nextLevel - 1);
+        int price = Mathf.RoundToInt(staffData.baseSalary * (float)multiplier);
+        return price < 0 ? 0 : price; // 안전 보정
+    }
+
     private void RefreshUI()
     {
         int current = staffruntimeData != null ? staffruntimeData.level : 0;
 
-        int nextLevel = (current == 0) ? 1 : current + 1;
-        int nextLevelClamped = Mathf.Clamp(nextLevel, 1, MAX_LEVEL);
-
-        _price = (staffData != null && current < MAX_LEVEL)
-            ? staffData.baseSalary * nextLevelClamped
-            : 0;
+        // ★ 여기서도 동일한 함수 사용
+        _price = CalcPriceForNextLevel();
 
         if (levelText != null)
             levelText.text = IsMaxLevel() ? $"Lv. {MAX_LEVEL} (MAX)" : $"Lv. {current}";
@@ -106,7 +123,7 @@ public class StaffShopButton : MonoBehaviour
 
         if (purchaseButton != null) purchaseButton.interactable = !IsMaxLevel();
 
-        // ★ 타입별 스탯 UI 토글/갱신
+        // 타입별 스탯 UI 토글/갱신
         if (staffData != null && staffData.staffType == StaffType.hunter)
         {
             // 전투: 보이기
@@ -131,7 +148,7 @@ public class StaffShopButton : MonoBehaviour
             if (atkText) atkText.gameObject.SetActive(false);
             if (aspdText) aspdText.gameObject.SetActive(false);
 
-            double work = staffruntimeData ? staffruntimeData.timer : 0; // 실행시간
+            double work = staffruntimeData ? staffruntimeData.timer : 0;   // 실행시간
             double rest = staffruntimeData ? staffruntimeData.cooltime : 0; // 쉬는시간
 
             if (workTimeText) workTimeText.text = $"노동시간 : {work:0.#}s";
@@ -146,7 +163,6 @@ public class StaffShopButton : MonoBehaviour
             if (restTimeText) restTimeText.gameObject.SetActive(false);
         }
     }
-
 
     private void OnClick()
     {
@@ -173,6 +189,9 @@ public class StaffShopButton : MonoBehaviour
 
         try
         {
+            // ★ 클릭 시점에서도 최신 가격 재계산(안전)
+            _price = CalcPriceForNextLevel();
+
             if (!CanAfford(_price))
             {
                 PopupManager.Show("돈이 부족합니다");
@@ -191,6 +210,7 @@ public class StaffShopButton : MonoBehaviour
                 staffruntimeData.isDirty = true;
                 staffruntimeData.RecalcWith(staffData);
                 RefreshUI();
+
                 if (staffType == StaffType.restaurant)
                 {
                     int targetIndex = ResolveAssignIndex();
