@@ -51,7 +51,7 @@ MonoBehaviour:
   label: {fileID: 1941998089853968756}
   target: {fileID: 0}
   anchor: 1
-  labelOrderOffset: 577
+  labelOrderOffset: 607
   followFillSortingEveryFrame: 1
 --- !u!1 &4346495500220429579
 GameObject:
@@ -215,7 +215,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 605
+  m_SortingOrder: 606
   m_Sprite: {fileID: -1227564231286400416, guid: dc172800bfefdb947a4ad56ac14fc48b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

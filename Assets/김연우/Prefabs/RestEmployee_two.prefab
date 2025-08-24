@@ -187,7 +187,11 @@ PrefabInstance:
       objectReference: {fileID: -6780585685549082799}
     - target: {fileID: 7398644778059555341, guid: 24ffc4aa5c11a6b44b4de12f18d8faec, type: 3}
       propertyPath: labelOrderOffset
-      value: 579
+      value: 607
+      objectReference: {fileID: 0}
+    - target: {fileID: 8276480450417557522, guid: 24ffc4aa5c11a6b44b4de12f18d8faec, type: 3}
+      propertyPath: m_SortingOrder
+      value: 606
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
