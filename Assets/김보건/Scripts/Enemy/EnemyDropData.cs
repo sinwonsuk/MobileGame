@@ -4,7 +4,16 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Enemy/DropTable")]
 public class EnemyDropData : ScriptableObject
 {
-    public GameObject[] possibleDrops; // 드랍 가능한 아이템들
+    [Header("일반 드랍")]
+    public GameObject[] commonDrops;
 
-    public int dropCount = 1; // 몇 개 드랍할지
+    [Header("희귀 드랍")]
+    public GameObject[] rareDrops;
+
+    [Header("총 드랍")]
+    public int dropCount = 1;
+
+    [Header("희귀 드랍 확률")]
+    [Range(0f, 1f)] public float rareChance = 0.02f;
+
 }

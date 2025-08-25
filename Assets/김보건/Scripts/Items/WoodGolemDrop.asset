@@ -12,7 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7a8019ef1deac24989a5d1aebcf563a, type: 3}
   m_Name: WoodGolemDrop
   m_EditorClassIdentifier: 
-  possibleDrops:
+  commonDrops:
   - {fileID: 1382174700729074973, guid: 09cb554ef3c10c14290957fb324325c2, type: 3}
   - {fileID: 7994347973316693046, guid: 430133d67d5d3d543830f12620b3db97, type: 3}
   - {fileID: 6579620776036135365, guid: 2173e863ba9e5434f98e253206705e73, type: 3}
+  rareDrops: []
+  dropCount: 1
+  rareChance: 0

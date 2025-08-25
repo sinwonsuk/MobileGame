@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7a8019ef1deac24989a5d1aebcf563a, type: 3}
   m_Name: MimicDrop
   m_EditorClassIdentifier: 
-  possibleDrops:
+  commonDrops:
   - {fileID: 1382174700729074973, guid: 7cf954e2d5d104945898be51d34017de, type: 3}
+  rareDrops: []
   dropCount: 1
+  rareChance: 0

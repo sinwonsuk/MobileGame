@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Indate: 2025-08-14T19:30:01.319Z
   displayName: "\uBC84\uC12F\uD30C\uACAC"
-  durationHours: 12
+  durationHours: 6
   rewards:
   - ingredientData: {fileID: 11400000, guid: 4492e69dd84aefe44892d1c62f5f38a1, type: 2}
-    amount: 72
+    amount: 38
   - ingredientData: {fileID: 11400000, guid: 32e97a198c5cd9f46a54de9616ee5abd, type: 2}
-    amount: 72
+    amount: 38

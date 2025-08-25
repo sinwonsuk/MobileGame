@@ -12,8 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7a8019ef1deac24989a5d1aebcf563a, type: 3}
   m_Name: OctopusBossDrop
   m_EditorClassIdentifier: 
-  possibleDrops:
+  commonDrops:
   - {fileID: 1382174700729074973, guid: 7049293e57022eb419853c887b288488, type: 3}
   - {fileID: 7994347973316693046, guid: 78e93873db1635941a8ed49d4867b2d8, type: 3}
   - {fileID: 6579620776036135365, guid: 4602ed74b519d994ab9d9ffa2ec9c9bb, type: 3}
+  rareDrops:
+  - {fileID: 7994347973316693046, guid: 718a4de7f50f43148b2fd28560428fdf, type: 3}
   dropCount: 6
+  rareChance: 0.8

@@ -9,7 +9,7 @@ public class BuffSpeedSkill : MonoBehaviour, ISkill, ICooldownReadable
     [SerializeField] private GameObject buffIconPrefab; // 머리 위 아이콘 프리팹
     [SerializeField] private GameObject buffEffectPrefab;
 
-    private float _progress = 999f; // 시작 시 바로 사용 가능
+    private float _progress = 0f;
 
     public bool CanCast() => _progress >= baseCooldown;
 

@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7a8019ef1deac24989a5d1aebcf563a, type: 3}
   m_Name: OrcDrop
   m_EditorClassIdentifier: 
-  possibleDrops:
-  - {fileID: 1382174700729074973, guid: 241d76f27461f6644994774e58f5f36a, type: 3}
+  commonDrops:
   - {fileID: 7994347973316693046, guid: b79ce1fd03ea09c40b013d77e94fbf24, type: 3}
   - {fileID: 6579620776036135365, guid: 18a71d518e773af4fb1accf735c50b29, type: 3}
   - {fileID: 6579620776036135365, guid: f7546034d0fc6f24cbda12d3d31bac81, type: 3}
+  rareDrops: []
   dropCount: 1
+  rareChance: 0

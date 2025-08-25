@@ -18,7 +18,7 @@ MonoBehaviour:
   explain: "\uD488\uACA9\uC788\uAC8C \uC190\uB2D8\uC758 \uC74C\uC2DD\uC744 \uC11C\uBE59\uD55C\uB2E4."
   itemPrefab: {fileID: 2127192634085561284, guid: 51d09969f1b80f749ac2cf955655017e, type: 3}
   portrait: {fileID: 21300000, guid: 00a87641a1632314a8bb6f4cced02d4c, type: 3}
-  baseSalary: 10000
+  baseSalary: 7000
   basic_attack_Power: 0
   basic_attack_Speed: 0
   basictimer: 60

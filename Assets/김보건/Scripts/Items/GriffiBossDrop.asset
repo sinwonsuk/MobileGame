@@ -12,8 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7a8019ef1deac24989a5d1aebcf563a, type: 3}
   m_Name: GriffiBossDrop
   m_EditorClassIdentifier: 
-  possibleDrops:
+  commonDrops:
   - {fileID: 1382174700729074973, guid: 67564aaf2f28c8c49b4f4d4399d52586, type: 3}
   - {fileID: 7994347973316693046, guid: c2d5bd31ebc97a74f885bb7a512cab41, type: 3}
   - {fileID: 6579620776036135365, guid: 5b732d726114e8649ac621bb5a5faa15, type: 3}
+  rareDrops:
+  - {fileID: 7994347973316693046, guid: f62c87a5b3e12284abc3137638d67c56, type: 3}
   dropCount: 6
+  rareChance: 0.04

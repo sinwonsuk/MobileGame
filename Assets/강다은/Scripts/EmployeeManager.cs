@@ -39,9 +39,6 @@ public class EmployeeManager : MonoBehaviour, IAutoSavable
         dynamicPlacementPoints = dynamicPlacementPoints
             .OrderBy(t => t.GetSiblingIndex())
             .ToList();
-
-        Debug.Log("[Placement 정렬] " +
-            string.Join(", ", dynamicPlacementPoints.Select(t => $"{t.GetSiblingIndex()}:{t.name}")));
     }
     public void RegisterPlacementPoint(Transform point)
     {
@@ -49,7 +46,6 @@ public class EmployeeManager : MonoBehaviour, IAutoSavable
             dynamicPlacementPoints.Add(point);
 
         _needsSort = true; // 정렬 예약
-        Debug.Log($"{point.name} 등록됨, 현재 개수: {dynamicPlacementPoints.Count}");
     }
 
 
@@ -305,7 +301,6 @@ public class EmployeeManager : MonoBehaviour, IAutoSavable
                 if (baseComp != null)
                     baseComp.Init(slot.staffData, slot.runtimeData);
 
-                Debug.Log($"[LOAD-SPAWN] {slot.runtimeData.displayName} idx={idx}");
             }
             else
             {

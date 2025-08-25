@@ -137,17 +137,42 @@ public class EnemyBase : MonoBehaviour
 
     protected void DropItem()
     {
-        if (dropItem == null || dropItem.possibleDrops.Length == 0) return;
+        if (dropItem == null) return;
 
-        int count = dropItem.dropCount;
+        int total = Mathf.Max(1, dropItem.dropCount);
+        bool rareGiven = false; // »Ò±Õ≈€¿∫ √÷¥Î «— π¯
+        bool rareHappened = false;
 
-        for (int i = 0; i < count; i++)
+        for (int i = 0; i < total; i++)
         {
-            int rand = Random.Range(0, dropItem.possibleDrops.Length);
-            GameObject dropPrefab = dropItem.possibleDrops[rand];
+            bool tryRareThisPick =
+                !rareGiven &&
+                dropItem.rareDrops != null && dropItem.rareDrops.Length > 0 &&
+                Random.value < dropItem.rareChance;
 
-            GameObject drop = Instantiate(dropPrefab, transform.position, Quaternion.identity);
+            GameObject pick = null;
+
+            if (tryRareThisPick)
+            {
+                pick = dropItem.rareDrops[Random.Range(0, dropItem.rareDrops.Length)];
+                rareGiven = true;
+                rareHappened = true;
+            }
+            else
+            {
+                if (dropItem.commonDrops == null || dropItem.commonDrops.Length == 0)
+                    continue;
+
+                pick = dropItem.commonDrops[Random.Range(0, dropItem.commonDrops.Length)];
+            }
+
+            if (pick != null)
+                Instantiate(pick, transform.position, Quaternion.identity);
         }
+
+        if (rareHappened)
+            GetComponentInParent<DungeonLightFlasher>(true)
+                ?.Flash(dim: 0.4f, fadeIn: 0.06f, hold: 0.05f, fadeOut: 0.18f);
     }
 
     protected IEnumerator HitShake()
