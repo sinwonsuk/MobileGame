@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -19,7 +20,7 @@ public enum CustomerState
     Wait,
     Eat,
     GoCalculate,
-    GoCalculate2,
+    JoinQueue,
     calculate,
     Back,
 }
@@ -61,7 +62,9 @@ public class Customer : MonoBehaviour
     float smooth = 10f; // 값이 높을수록 빠르게 반응, 낮을수록 부드럽게
     float smoothedForward = 0f;
     float smoothedRight = 0f;
-    private void Update()
+
+
+    void UpdateSortingAndMovementAnim()
     {
         customerSpriteRenderer.sortingOrder = Mathf.RoundToInt(-transform.position.y * 100);
 
@@ -82,7 +85,40 @@ public class Customer : MonoBehaviour
 
         animator.SetFloat("Horizontal", smoothedRight);
         animator.SetFloat("Vertical", smoothedForward);
+    }
 
+    void SetDestination(Vector3 destination)
+    {
+        if (navMeshAgent != null)
+        {
+            navMeshAgent.SetDestination(destination);
+        }
+    }
+
+
+    void ChangeIconSprite()
+    {
+        foodSpriteRenderer.enabled = true;
+        foodSpriteRenderer.sprite = Slot.IconImage.sprite;
+        foodOrderSpriteRenderer.enabled = true;
+    }
+    public void PlayGenderVoice(GenderType genderType)
+    {
+        SoundManager.GetInstance().Sfx_Stop(SoundManager.sfx.Foot);
+
+        if (genderType == GenderType.Girl)
+        {
+            SoundManager.GetInstance().SfxPlay(SoundManager.sfx.GirlSound, false);
+        }
+        else if (genderType == GenderType.Man)
+        {
+            SoundManager.GetInstance().SfxPlay(SoundManager.sfx.ManSound, false);
+        }
+    }
+
+    private void Update()
+    {
+        UpdateSortingAndMovementAnim();
 
         switch (customerState)
         {
@@ -90,8 +126,7 @@ public class Customer : MonoBehaviour
                 {
                     EventBus<SitTableHandler>.Raise(new SitTableHandler(this));
                     
-
-                    if (Target == null || customerTable == null)
+                    if (sitTableTransform == null || customerTable == null)
                         return;
                     else
                         ChangeState(CustomerState.MoveStore);
@@ -99,7 +134,7 @@ public class Customer : MonoBehaviour
                 break;
             case CustomerState.MoveStore:
                 {
-                    navMeshAgent.SetDestination(storeEntrancePosition);
+                    SetDestination(storeEntrancePosition);
 
                     if (Vector2.Distance(transform.position, storeEntrancePosition) < 0.01f)
                     {
@@ -111,31 +146,15 @@ public class Customer : MonoBehaviour
                 }
                 break;
 
-
             case CustomerState.Move:
                 {
+                    SetDestination(sitTableTransform.position);
 
-                    navMeshAgent.SetDestination(Target.position);
-
-                    if (Vector2.Distance(transform.position, Target.position) < 0.01f)
+                    if (Vector2.Distance(transform.position, sitTableTransform.position) < 0.01f)
                     {
                         EventBus<CookMakeHandler>.Raise(new CookMakeHandler(Slot.NameText.text, Slot));
-                        foodSpriteRenderer.enabled = true;
-                        foodSpriteRenderer.sprite = Slot.IconImage.sprite;
-                        foodOrderSpriteRenderer.enabled = true;
-
-                        SoundManager.GetInstance().Sfx_Stop(SoundManager.sfx.Foot);
-
-
-                        if (genderType == GenderType.Girl)
-                        {
-                            SoundManager.GetInstance().SfxPlay(SoundManager.sfx.GirlSound,false);
-                        }
-                        else if (genderType == GenderType.Man)
-                        {
-                            SoundManager.GetInstance().SfxPlay(SoundManager.sfx.ManSound,false);
-                        }
-
+                        ChangeIconSprite();
+                        PlayGenderVoice(genderType);
                         ChangeState(CustomerState.Wait);
                         return;
                     }
@@ -162,7 +181,8 @@ public class Customer : MonoBehaviour
 
                         //customerManager.EnqueueCustomer(this);
 
-                        navMeshAgent.SetDestination(customerManager.counterTransforms[customerManager.customerQueue.Count].transform.position);
+                        SetDestination(customerManager.counterTransforms[customerManager.customerQueue.Count].transform.position);
+
                         EventBus<CookDeleteHandler>.Raise(new CookDeleteHandler(this));
                         return;
                     }
@@ -172,19 +192,18 @@ public class Customer : MonoBehaviour
                 break;
             case CustomerState.GoCalculate:
                 {
-                    navMeshAgent.SetDestination(customerManager.counterTransforms[customerManager.customerQueue.Count].transform.position);
-
+                    SetDestination(customerManager.counterTransforms[customerManager.customerQueue.Count].transform.position);
 
                     if (Vector2.Distance(transform.position ,customerManager.counterTransforms[customerManager.customerQueue.Count].transform.position) < 0.01f)
                     {
                         customerManager.EnqueueCustomer(this);
-                        ChangeState(CustomerState.GoCalculate2);
+                        ChangeState(CustomerState.JoinQueue);
                         return;
                     }
                 }
                 break;
 
-            case CustomerState.GoCalculate2:
+            case CustomerState.JoinQueue:
                 {
                     //customerManager.UpdateQueueDestinations();
 
@@ -223,7 +242,7 @@ public class Customer : MonoBehaviour
                 break;
             case CustomerState.Back:
                 {
-                    navMeshAgent.SetDestination(firstPosition);
+                    SetDestination(firstPosition);
 
                     if (Vector2.Distance(firstPosition, transform.position) < 0.01f)
                     {
@@ -262,7 +281,7 @@ public class Customer : MonoBehaviour
     public MenuBoardSlot Slot { get; set; }
 
 
-    public Transform Target
+    public Transform sitTableTransform
     {
         get => target;
         set => target = value;

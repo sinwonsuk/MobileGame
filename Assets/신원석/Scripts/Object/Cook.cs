@@ -47,7 +47,7 @@ public class Cook : MonoBehaviour
         if (foodImage.fillAmount >=1.0f && soundCheck==false)
         {
             SoundManager.GetInstance().Sfx_Stop(SoundManager.sfx.Cooking);
-            button.interactable = false;
+            button.enabled = false;
             soundCheck = true;
         }
 

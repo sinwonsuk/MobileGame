@@ -87,7 +87,7 @@ public class TableManager : baseManager, IGameManager
        int randomValue = Random.Range(0, tablesIndex.Count);
        int tableIndex = tablesIndex[randomValue];
 
-       sitTableHandler.customer.Target = tables[tableIndex].TargetTransform;
+       sitTableHandler.customer.sitTableTransform = tables[tableIndex].TargetTransform;
        tables[tableIndex].IsSittingAtTable = true;
        sitTableHandler.customer.customerTable = tables[tableIndex];
        tablesIndex.Clear();

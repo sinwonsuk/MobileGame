@@ -54,7 +54,7 @@ public class EnhanceFoodAmountController : MonoBehaviour
 
         var materials = data.enhanceSteps[data.Level].ingredients;
 
-        var sucessRate = data.enhanceSteps[data.Level].successRate;
+        var sucessRate = data.enhanceSteps[data.Level-1].successRate;
 
         int random = Random.Range(0, 100);
 
@@ -74,7 +74,7 @@ public class EnhanceFoodAmountController : MonoBehaviour
 
         enhanceResult.gameObject.SetActive(true);
 
-        if (random > sucessRate) // 애는 실패
+        if (random >= sucessRate) // 애는 실패
         {
             enhanceResult.Image.sprite = Resources.Load<Sprite>("fail");
             enhanceResult.Text.text = "강화실패";

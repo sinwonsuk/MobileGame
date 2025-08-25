@@ -17,6 +17,9 @@ public class EnhanceFoodSlot : MonoBehaviour
 
     public void CreateFoodUI()
     {
+
+
+
         SoundManager.GetInstance().SfxPlay(SoundManager.sfx.Click, false);
 
         if (foodData.Level == foodData.enhanceSteps.Count)
@@ -24,8 +27,6 @@ public class EnhanceFoodSlot : MonoBehaviour
 
 
         EventBus<SetEnhanceFoodActiveEvent>.Raise(new SetEnhanceFoodActiveEvent());
-
-        // 아직 가격 미정 
         EventBus<EnhanceFoodSlotHandler>.Raise(new EnhanceFoodSlotHandler(foodData,foodData.foodSprite, foodData.displayName, foodData.Level, foodData.enhanceSteps[foodData.Level-1].cost, foodData.enhanceSteps[foodData.Level].step, foodData.enhanceSteps[foodData.Level].cost, foodData.enhanceSteps.Count));
 
         for (int i = 0; i < foodData.Ingredients.Count; i++)
@@ -52,8 +53,6 @@ public class EnhanceFoodSlot : MonoBehaviour
 
             EventBus<IngredientsPannelSpawnHandler>.Raise(new IngredientsPannelSpawnHandler(foodData.Ingredients[i].ingredientSprite, qty, futureQty, foodData.Ingredients[i].ingredientName));
         }
-
-
     }
 
     public FoodData foodData { get; set; }

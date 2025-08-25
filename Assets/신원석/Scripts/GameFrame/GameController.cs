@@ -7,14 +7,7 @@ using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour
 {
-    private Dictionary<Type, baseManager> managerMap = new Dictionary<Type, baseManager>();
-    private Dictionary<Type, BaseScriptableObject> dicBaseScriptableObject = new Dictionary<Type, BaseScriptableObject>();
 
-    public Transform playerTransform;
-    public static GameController instance;
-
-    [SerializeField]
-    private List<BaseScriptableObject> baseScriptableObjects = new List<BaseScriptableObject>();
 
     void Awake()
     {
@@ -129,7 +122,15 @@ public class GameController : MonoBehaviour
 
     void Update()
     {
-
         UpdateAll();
     }
+
+    private Dictionary<Type, baseManager> managerMap = new Dictionary<Type, baseManager>();
+    private Dictionary<Type, BaseScriptableObject> dicBaseScriptableObject = new Dictionary<Type, BaseScriptableObject>();
+
+    public Transform playerTransform;
+    public static GameController instance;
+
+    [SerializeField]
+    private List<BaseScriptableObject> baseScriptableObjects = new List<BaseScriptableObject>();
 }

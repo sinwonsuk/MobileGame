@@ -64,8 +64,6 @@ public class ButtonManager : MonoBehaviour
         if (!buttonDic.TryGetValue(target, out BaseButton next) || next == null)           
             return;
 
-
-        // ���� ��ư�� �ٽ� ������ (�ݱ�)
         if (buttonClick == target)
         {
             next.OnExit();
@@ -73,11 +71,9 @@ public class ButtonManager : MonoBehaviour
             return;
         }
 
-        // �ٸ� ��ư�� ���������� �ݴ´ٸ� ������ ��ư exit
         if (buttonClick != ButtonClick.none && buttonDic.TryGetValue(buttonClick, out BaseButton prev) && prev != null)
             prev.OnExit();
 
-        // �� ��ư ����
         next.OnClick();
         buttonClick = target;
     }

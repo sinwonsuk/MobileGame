@@ -14,7 +14,6 @@ public enum CustomerType
     BlackCatCustomer,
 }
 
-
 public class CustomerManager : baseManager, IGameManager
 {
 
@@ -74,11 +73,8 @@ public class CustomerManager : baseManager, IGameManager
 
     public IEnumerator CheckMenuRoutine()
     {
-
-
         if (isActive == false)
         {
-
             while (true)
             {
                 yield return new WaitForSeconds(2.0f);
@@ -117,8 +113,7 @@ public class CustomerManager : baseManager, IGameManager
     {
         int idx = 0;
         foreach (Customer cust in customerQueue)
-        {
-           
+        {       
             int posIndex = Mathf.Min(idx, counterTransforms.Count - 1);
             cust.navMeshAgent.SetDestination(counterTransforms[posIndex].position);
             cust.CalculatePosition = counterTransforms[posIndex].position; 
@@ -136,8 +131,6 @@ public class CustomerManager : baseManager, IGameManager
 
     public void CheckMenu()
     {
-
-
         List<string> availableMenus = new List<string>();
 
         foreach (var kvp in MenuBoardSlots)
@@ -194,7 +187,7 @@ public class CustomerManager : baseManager, IGameManager
         GameObject menuObj = MenuBoardSlots[chosenMenu];
         MenuBoardSlot slot = menuObj.GetComponent<MenuBoardSlot>();
 
-        // ¼Õ´Ô init¼³Á¤ 
+        // ¼Õ´Ô init À§Ä¡¼³Á¤ 
         float postX = Random.Range(spawnMinX, spawnMaxX);
         float postY = Random.Range(spawnMinY, spawnMaxY);
         Vector3 vector = new Vector3(waitingCustomerTransform.position.x + postX, waitingCustomerTransform.position.y + postY);
@@ -208,9 +201,7 @@ public class CustomerManager : baseManager, IGameManager
         customerObj.Slot = slot;
         customerObj.customerManager = this;
 
-
         slot.Count--;
-
     }
 
     CustomerManagerConfig conFig;
