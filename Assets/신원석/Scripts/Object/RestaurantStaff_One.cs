@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 
-public class RestaurantStaff_One : StaffBase
+public class RestaurantStaff_One : StaffBase, ICooldownReadable, IRemainingTimeReadable
 {
     [Header("할당할 StaffStatsSO")]
     public StaffStatsSO stats;              // Inspector 에 할당
@@ -12,16 +12,16 @@ public class RestaurantStaff_One : StaffBase
     public Queue<Cook> Cooks { get; set; } = new Queue<Cook>();
 
     private Animator animator;
-    private bool isWorking = true;        // 현재 일하는 중인가?
+    private bool isWorking = false;        // 현재 일하는 중인가?
     private double timeCounter;              // 남은 시간 카운터
     private void Start()
     {
-        animator = GetComponent<Animator>(); // Animator 연결
+        animator = GetComponent<Animator>();
         EventBus<GetCusomersEvent>.Raise(new GetCusomersEvent(this));
         EventBus<GetFirstCookEvent>.Raise(new GetFirstCookEvent(this));
 
-        timeCounter = Runtimestats.timer;
-        animator.SetBool("Work", isWorking);
+        timeCounter = Runtimestats.cooltime; // ★ 휴식 카운터부터
+        if (animator != null) animator.SetBool("Work", isWorking); // ★ 애니 갱신
     }
 
 
@@ -96,5 +96,15 @@ public class RestaurantStaff_One : StaffBase
             }
         }
     }
+    public float GetCooldownRatio()
+    {
+        double max = isWorking ? Runtimestats.timer : Runtimestats.cooltime;
+        if (max <= 0) return 0f;
+        return Mathf.Clamp01((float)(timeCounter / max));
+    }
 
+    public float GetRemainingSeconds()
+    {
+        return Mathf.Max(0f, (float)timeCounter);
+    }
 }
