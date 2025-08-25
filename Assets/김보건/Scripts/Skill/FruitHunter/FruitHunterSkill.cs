@@ -14,7 +14,7 @@ public class FruitHunterSkill : MonoBehaviour, ISkill, ICooldownReadable
     [Header("공속")]
     [SerializeField] private float attackSpeedMultiplier = 3f; // 공격 속도 배율
 
-    private float _progress = 999f; // 시작 즉시 사용
+    private float _progress = 0f;
     private FruitHunter _owner;
 
     private void Awake()

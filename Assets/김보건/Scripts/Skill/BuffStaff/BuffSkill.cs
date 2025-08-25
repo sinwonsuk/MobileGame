@@ -9,7 +9,7 @@ public class BuffSkill : MonoBehaviour, ISkill, ICooldownReadable
     [SerializeField] private GameObject buffIconPrefab;
     [SerializeField] private GameObject buffEffectPrefab;
 
-    private float _progress = 999f; // 시작 즉시 사용 가능
+    private float _progress = 0f; // 스킬 쿨차야함
     private float _cooldownSpeed = 1f;
     private int _buffStack = 0;
 

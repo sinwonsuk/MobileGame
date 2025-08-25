@@ -12,7 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7a8019ef1deac24989a5d1aebcf563a, type: 3}
   m_Name: MandrakeDrop
   m_EditorClassIdentifier: 
-  possibleDrops:
+  commonDrops:
   - {fileID: 1382174700729074973, guid: 58ffbb3dcc6facf4e9b3035de0a77550, type: 3}
   - {fileID: 1382174700729074973, guid: 1bf6b032bb151854bb29f4f730334c84, type: 3}
+  rareDrops: []
   dropCount: 1
+  rareChance: 0

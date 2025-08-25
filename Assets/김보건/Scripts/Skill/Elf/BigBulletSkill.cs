@@ -11,7 +11,7 @@ public class BigBulletSkill : MonoBehaviour, ISkill, ICooldownReadable
     [SerializeField] private float skillCooldown = 3f; 
     [SerializeField] private float detectRange = 25f;
 
-    private float _cooldownProgress = 999f; // 시작 시 즉시 사용 가능
+    private float _cooldownProgress = 0f; 
     private float _cooldownSpeed = 1f;      // 로컬 배율
     private int _buffStack = 0;
 

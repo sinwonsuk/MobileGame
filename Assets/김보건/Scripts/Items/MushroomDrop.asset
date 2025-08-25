@@ -12,7 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7a8019ef1deac24989a5d1aebcf563a, type: 3}
   m_Name: MushroomDrop
   m_EditorClassIdentifier: 
-  possibleDrops:
+  commonDrops:
   - {fileID: 1382174700729074973, guid: 99a83b533ec409d418c6d84584cebe7e, type: 3}
   - {fileID: 7994347973316693046, guid: 2723eada5c1a7fd4a807a31af17d4a38, type: 3}
+  rareDrops: []
   dropCount: 1
+  rareChance: 0

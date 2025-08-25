@@ -12,7 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7a8019ef1deac24989a5d1aebcf563a, type: 3}
   m_Name: MinoDrop
   m_EditorClassIdentifier: 
-  possibleDrops:
+  commonDrops:
   - {fileID: 1382174700729074973, guid: 12fdb30a8c81117489b284827de4bee0, type: 3}
   - {fileID: 7994347973316693046, guid: 770343675afb5574abb0a557c32e4a18, type: 3}
+  rareDrops: []
   dropCount: 1
+  rareChance: 0

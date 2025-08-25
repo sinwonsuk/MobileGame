@@ -12,7 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7a8019ef1deac24989a5d1aebcf563a, type: 3}
   m_Name: GreenDragonDrop
   m_EditorClassIdentifier: 
-  possibleDrops:
+  commonDrops:
   - {fileID: 1382174700729074973, guid: 87816d94cc457d649baec37f83a5fd46, type: 3}
   - {fileID: 7994347973316693046, guid: f716be441c06e3340a1155217777ded9, type: 3}
+  rareDrops: []
   dropCount: 1
+  rareChance: 0
