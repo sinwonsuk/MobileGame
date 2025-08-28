@@ -67,7 +67,6 @@ public class StaffShopButton : MonoBehaviour
             purchaseButton.onClick.RemoveListener(OnClick); // 안전차단
             purchaseButton.onClick.AddListener(OnClick);
             _listenerBound = true;
-            Debug.Log($"[Bind] {name} -> BtnID {purchaseButton.GetInstanceID()}");
         }
         RefreshUI();
     }
@@ -208,6 +207,7 @@ public class StaffShopButton : MonoBehaviour
                 staffruntimeData.level = 1;
                 staffruntimeData.isOwned = true;
                 staffruntimeData.isDirty = true;
+                EmployeeManager.Instance?.NotifyStaffChanged();
                 staffruntimeData.RecalcWith(staffData);
                 RefreshUI();
 
