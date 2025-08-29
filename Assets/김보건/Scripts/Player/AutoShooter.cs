@@ -33,6 +33,8 @@ public class AutoShooter : MonoBehaviour
 
     public bool IsAttackPressed => attackAction != null && attackAction.ReadValue<float>() > 0;
 
+    private float _lastManualAttackTime = -999f; // 마지막 수동 발사 시각
+
     void OnEnable()
     {
         EventBus<ShopUIEvent>.OnEvent += OnShopUIEvent;
@@ -98,7 +100,8 @@ public class AutoShooter : MonoBehaviour
 
         if (bulletManager != null && bulletManager.GetCurrentBullet() != null)
         {
-            bulletManager.GetCurrentBullet().damage = playerStats.attackPower;
+           // bulletManager.GetCurrentBullet().damage = playerStats.attackPower;
+            bulletManager.UpdateBulletByLevel(playerStats.level, playerStats.attackPower);
         }
     }
 
@@ -117,6 +120,12 @@ public class AutoShooter : MonoBehaviour
             if (isShopOpen) return;
             if (IsPointerOverUI()) return; // 최신 포인터 위치로 UI 히트 체크
 
+
+            float manualCooldown = playerStats.autoAttackInterval / 3f;
+            if (Time.time - _lastManualAttackTime < manualCooldown)
+                return;
+
+
             if (currentState == idleState)
             {
                 TouchAttack();
@@ -126,6 +135,8 @@ public class AutoShooter : MonoBehaviour
                 TouchAttack();
                 timer = 0f;
             }
+
+            _lastManualAttackTime = Time.time;
         }
     }
 
@@ -285,10 +296,8 @@ public class AutoShooter : MonoBehaviour
 
         if (bulletManager != null && bulletManager.GetCurrentBullet() != null)
         {
-            bulletManager.GetCurrentBullet().damage = playerStats.attackPower;
+            bulletManager.UpdateBulletByLevel(playerStats.level, playerStats.attackPower);
         }
-
-        Debug.Log($"[AutoShooter] Stat changed: {evt.changedStatType}, fireInterval: {fireInterval}, damage: {bulletManager.GetCurrentBullet().damage}");
     }
 
     Transform FindEnemy()

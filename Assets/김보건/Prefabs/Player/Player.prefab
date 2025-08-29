@@ -124,6 +124,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb7b320e93fafab46a864b4d30acf50c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tiers:
+  - {fileID: 11400000, guid: 6c8029fe4fef96841bb0b9c7436b624e, type: 2}
+  - {fileID: 11400000, guid: 21cbeba213938da4e9e0f73728815862, type: 2}
+  - {fileID: 11400000, guid: a0835525bd84dd142820c0b91fd8e82f, type: 2}
+  - {fileID: 11400000, guid: ed5487c073b96ed4fb70ae77e93bbbdd, type: 2}
+  - {fileID: 11400000, guid: 8f00107d415108843921aab2cc05c7b0, type: 2}
+  levelThresholds: 010000000a000000140000001e00000028000000
   currentBullet: {fileID: 11400000, guid: 6c8029fe4fef96841bb0b9c7436b624e, type: 2}
 --- !u!58 &-7165403799812619719
 CircleCollider2D:
