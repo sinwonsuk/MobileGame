@@ -278,6 +278,25 @@ public class ShooterStaff : StaffBase
         FireBullet(right, dir);
 
         //nextFireTime = Time.time + (1f / Mathf.Max((float)currentAttackSpeed, 0.01f));
+
+
+        //if (bulletPrefab == null || firePoint == null)
+        //{
+        //    _hasLatchedShot = false;
+        //    return;
+        //}
+
+
+        //float angleDeg = 60f; 
+        //float rad = angleDeg * Mathf.Deg2Rad;
+        //Vector2 dir = new Vector2(Mathf.Cos(rad), Mathf.Sin(rad)).normalized;
+
+        //float offset = 0.3f;
+        //Vector3 left = firePoint.position + firePoint.right * -offset;
+        //Vector3 right = firePoint.position + firePoint.right * offset;
+
+        //FireBullet(left, dir);
+        //FireBullet(right, dir);
     }
 
     private void FireBullet(Vector3 pos, Vector2 dir)

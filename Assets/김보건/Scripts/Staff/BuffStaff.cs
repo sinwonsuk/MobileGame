@@ -202,7 +202,7 @@ public class BuffStaff : StaffBase
         return nearest;
     }
 
-    // 애니메이션 이벤트에서 호출됨
+    // 애니메이션 이벤트 호출
     public void OnShootFrame()
     {
         if (_hasLatchedShot && (target == null || !target.gameObject.activeInHierarchy))
@@ -221,6 +221,16 @@ public class BuffStaff : StaffBase
 
         FireBullet(firePoint.position, dir);
         _hasLatchedShot = false;
+
+
+        //if (bulletPrefab == null || firePoint == null)
+        //    return;
+
+        //float angleDeg = 60f;
+        //float rad = angleDeg * Mathf.Deg2Rad;
+        //Vector2 dir = new Vector2(Mathf.Cos(rad), Mathf.Sin(rad)); // (0.5, 0.866) 쯤
+
+        //FireBullet(firePoint.position, dir);
     }
 
     private void FireBullet(Vector3 pos, Vector2 dir)

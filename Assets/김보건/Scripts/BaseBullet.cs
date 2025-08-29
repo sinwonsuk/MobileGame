@@ -11,6 +11,8 @@ public class BaseBullet : MonoBehaviour
     [SerializeField] private GameObject hitEffectPrefab;
     [SerializeField] private float hitEffectLifetime = 2f;
 
+    private const float dungeonMaxX = -5.3f;
+
     public void Initialize(Vector2 shootDirection, float bulletSpeed, float bulletDamage)
     {
         direction = shootDirection.normalized;
@@ -24,6 +26,12 @@ public class BaseBullet : MonoBehaviour
     void Update()
     {
         transform.Translate(direction * speed * Time.deltaTime, Space.World);
+
+        if (transform.position.x > dungeonMaxX)
+        {
+            Destroy(gameObject);
+            return;
+        }
     }
 
     void OnTriggerEnter2D(Collider2D other)

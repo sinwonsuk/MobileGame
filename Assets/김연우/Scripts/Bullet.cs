@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class Bullet2D : MonoBehaviour
 {
+    private const float dungeonMaxX = -5.3f;
+
     [Header("설정")]
     [Tooltip("발사 후 자동 삭제 시간")]
     public float lifeTime = 5f;
@@ -24,6 +26,15 @@ public class Bullet2D : MonoBehaviour
     void Start()
     {
         Destroy(gameObject, lifeTime);
+    }
+
+    void Update()
+    {
+        if (transform.position.x > dungeonMaxX)
+        {
+            Destroy(gameObject);
+            return;
+        }
     }
 
     public void SetDamage(double dmg)
@@ -48,15 +59,14 @@ public class Bullet2D : MonoBehaviour
             if (!isPiercing)                 // 관통탄이 아니면 즉시 파괴
                 Destroy(gameObject);
         }
-
         // 벽 등 다른 것에 닿아도 제거
         if (!other.isTrigger)
             Destroy(gameObject);
 
-        if (other.CompareTag("Map"))
-        {
-            Destroy(gameObject);
-        }
+        //if (other.CompareTag("Map"))
+        //{
+        //    Destroy(gameObject);
+        //}
     }
 
     private void SpawnHitEffect(Collider2D target)
