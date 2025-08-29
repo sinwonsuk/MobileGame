@@ -106,7 +106,7 @@ MonoBehaviour:
   iconAnchor: {fileID: 0}
   stats: {fileID: 11400000, guid: 8c3ff79dac025524fa452360cc208c31, type: 2}
   runtimeStats: {fileID: 11400000, guid: 985713f90385d1c4cbca06202f073361, type: 2}
-  cookTimeReduction: 0.9
+  cookTimeReduction: 2
 --- !u!95 &4419311344509382636
 Animator:
   serializedVersion: 7

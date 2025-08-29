@@ -32,7 +32,6 @@ public class StatUpgradeButton : MonoBehaviour
 
     void Awake()
     {
-        Debug.Log($"[Awake] {name} 에서 리스너 등록", this);
         _button = GetComponent<Button>();
         _button.onClick.AddListener(OnClick);
 

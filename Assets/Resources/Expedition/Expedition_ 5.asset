@@ -17,6 +17,6 @@ MonoBehaviour:
   durationHours: 6
   rewards:
   - ingredientData: {fileID: 11400000, guid: 4492e69dd84aefe44892d1c62f5f38a1, type: 2}
-    amount: 38
+    amount: 12
   - ingredientData: {fileID: 11400000, guid: 32e97a198c5cd9f46a54de9616ee5abd, type: 2}
-    amount: 38
+    amount: 12
