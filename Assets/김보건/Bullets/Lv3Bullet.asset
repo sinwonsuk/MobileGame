@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5daf188f9a879054bae6fd3648a6d7c4, type: 3}
-  m_Name: Lv2Bullet
+  m_Name: Lv3Bullet
   m_EditorClassIdentifier: 
-  bulletPrefab: {fileID: 2072115848721343943, guid: 0383fcc1d82728e4cb7f60de04ba0bca, type: 3}
+  bulletPrefab: {fileID: 3960924706061879168, guid: 58124843e9dad0443af1ca13cf59177f, type: 3}
   speed: 10
   damage: 5
   isExplosive: 0
