@@ -19,4 +19,4 @@ MonoBehaviour:
   rareDrops:
   - {fileID: 7994347973316693046, guid: 718a4de7f50f43148b2fd28560428fdf, type: 3}
   dropCount: 6
-  rareChance: 0.8
+  rareChance: 0.01

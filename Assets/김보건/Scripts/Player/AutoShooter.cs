@@ -164,19 +164,10 @@ public class AutoShooter : MonoBehaviour
 
     void TouchAttack()
     {
-        //Vector3 mousePos = Input.mousePosition;
-        //Vector3 worldPos = Camera.main.ScreenToWorldPoint(mousePos);
 
         // 애니메이션 즉시 첫 프레임부터
         animator.Play("Player_Battle_Attack", 0, 0f);
 
-        //animator.ResetTrigger("AttackTrigger");  // 중복 입력 시 애니메이션 끊기 방지
-        //animator.SetTrigger("AttackTrigger");
-
-        //Vector2 shootDirection = Vector2.up;
-
-        //BulletData data = bulletManager.GetCurrentBullet();
-        //SpawnBullet(shootDirection, data);
 
         // FSM 공격 상태가 아니면 한 번만 진입
         if (currentState == idleState)
@@ -191,11 +182,6 @@ public class AutoShooter : MonoBehaviour
     void AutoFire()
     {
         animator.Play("Player_Battle_Attack", 0, 0f);
-
-        //BulletData data = bulletManager.GetCurrentBullet();
-
-        //Vector2 shootDirection = Vector2.up;
-        //SpawnBullet(shootDirection, data);
 
         if (currentState == idleState)
             SetState(attackState);
@@ -215,8 +201,6 @@ public class AutoShooter : MonoBehaviour
     {
         animator.SetBool("Attack", isAttacking);
     }
-
-    // ======== 크리티컬 판정 + 최종 데미지 계산 ========
     private (float damage, bool isCrit) ComputeShotDamage()
     {
         float baseDamage = (playerStats != null) ? playerStats.attackPower : 1f;
@@ -236,13 +220,22 @@ public class AutoShooter : MonoBehaviour
 
     }
 
-    // ======== 데미지 오버라이드 가능한 스폰 오버로드(크리 반영용) ========
     void SpawnBullet(Vector2 direction, BulletData data, float damageOverride)
     {
         GameObject bulletObj = Instantiate(data.bulletPrefab, firePoint.position, Quaternion.identity);
-        BaseBullet bullet = bulletObj.GetComponent<BaseBullet>();
-        bullet.Initialize(direction, data.speed, damageOverride);
-        // 크리 연출 원하면 bullet.SetCrit(true/false) 같은 훅 추가해서 여기서 호출
+
+        BaseBullet baseBullet = bulletObj.GetComponent<BaseBullet>();
+        if (baseBullet != null)
+        {
+            baseBullet.Initialize(direction, data.speed, damageOverride);
+            return;
+        }
+        BaseBullet_Lv5 lv5Bullet = bulletObj.GetComponent<BaseBullet_Lv5>();
+        if (lv5Bullet != null)
+        {
+            lv5Bullet.Initialize(direction, data.speed, damageOverride);
+            return;
+        }
     }
 
     public bool IsEnemyNearby()
@@ -284,9 +277,7 @@ public class AutoShooter : MonoBehaviour
         // 크리티컬 판정 및 최종 데미지 계산
         var (finalDamage, isCrit) = ComputeShotDamage();
 
-        // 크리 반영된 데미지로 발사
         SpawnBullet(shootDirection, data, finalDamage);
-        // 원하면 크리 트리거/이펙트: if (isCrit) animator.SetTrigger("Crit");
     }
 
     void OnStatChanged(StatChangedEvent evt)
