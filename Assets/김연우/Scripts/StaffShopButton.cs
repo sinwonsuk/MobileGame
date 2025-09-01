@@ -64,18 +64,29 @@ public class StaffShopButton : MonoBehaviour
     {
         if (purchaseButton != null && !_listenerBound)
         {
-            purchaseButton.onClick.RemoveListener(OnClick); // 안전차단
+            purchaseButton.onClick.RemoveListener(OnClick); // 중복방지
             purchaseButton.onClick.AddListener(OnClick);
             _listenerBound = true;
         }
+
+        var em = EmployeeManager.Instance;
+        if (em != null) em.OnStaffChanged += OnGlobalStaffChanged; // 글로벌 변경 신호 구독
+
         RefreshUI();
     }
 
+    private void OnGlobalStaffChanged()
+    {
+        RefreshUI();
+    }
     private void OnDisable()
     {
         if (purchaseButton != null)
             purchaseButton.onClick.RemoveListener(OnClick);
         _listenerBound = false;
+
+        var em = EmployeeManager.Instance;
+        if (em != null) em.OnStaffChanged -= OnGlobalStaffChanged; // 구독 해제
     }
 
     private bool IsMaxLevel()
@@ -207,8 +218,9 @@ public class StaffShopButton : MonoBehaviour
                 staffruntimeData.level = 1;
                 staffruntimeData.isOwned = true;
                 staffruntimeData.isDirty = true;
-                EmployeeManager.Instance?.NotifyStaffChanged();
                 staffruntimeData.RecalcWith(staffData);
+                EmployeeManager.Instance?.NotifyStaffChanged();
+                
                 RefreshUI();
 
                 if (staffType == StaffType.restaurant)

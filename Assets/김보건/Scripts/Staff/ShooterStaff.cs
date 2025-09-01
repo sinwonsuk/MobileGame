@@ -254,11 +254,16 @@ public class ShooterStaff : StaffBase
             _pendingSkillCast = false;
             return;
         }
-
+        bool doExtra = ShouldProcExtraNormalShot();
         if ((target == null || !target.gameObject.activeInHierarchy) && _hasLatchedShot)
         {
             FireBullet(_latchedLeft, _latchedDir);
             FireBullet(_latchedRight, _latchedDir);
+            if (doExtra) // ▼ 추가 세트
+            {
+                FireBullet(_latchedLeft, _latchedDir);
+                FireBullet(_latchedRight, _latchedDir);
+            }
             _hasLatchedShot = false;
             return;
         }
@@ -276,7 +281,11 @@ public class ShooterStaff : StaffBase
 
         FireBullet(left, dir);
         FireBullet(right, dir);
-
+        if (doExtra) // ▼ 같은 프레임에 추가 세트
+        {
+            FireBullet(left, dir);
+            FireBullet(right, dir);
+        }
         //nextFireTime = Time.time + (1f / Mathf.Max((float)currentAttackSpeed, 0.01f));
 
 

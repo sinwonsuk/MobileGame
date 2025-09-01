@@ -22,13 +22,13 @@ public class RuntimeStaffStatsSO : ScriptableObject
     [NonSerialized]
     public bool isDirty = false;
 
+    // RuntimeStaffStatsSO.cs
     public void RecalcWith(StaffStatsSO baseData)
     {
         if (baseData == null) return;
 
         if (level <= 0)
         {
-            // ★ 0레벨은 전부 0으로 리셋
             switch (baseData.staffType)
             {
                 case StaffType.hunter:
@@ -44,19 +44,39 @@ public class RuntimeStaffStatsSO : ScriptableObject
             return;
         }
 
-        int lv = level; // ★ Max(1, level) 제거
+        int lv = level;
+
         switch (baseData.staffType)
         {
             case StaffType.hunter:
-                attack_Power = baseData.basic_attack_Power + (lv * 1);
-                attack_Speed = baseData.basic_attack_Speed + (lv * 0.1);
-                break;
+                {
+                    // 1) 레벨 기본치
+                    double atk = baseData.basic_attack_Power + (lv * 1);
+                    double aspd = baseData.basic_attack_Speed + (lv * 0.1);
+
+                    // 2) 보유 패시브 합산(전역)
+                    var em = EmployeeManager.Instance;
+                    if (em != null)
+                    {
+                        em.GetOwnedPassiveTotals(out _, out var atkSpdMul, out _, out var atkPowMul);
+                        atk *= atkPowMul;
+                        aspd *= atkSpdMul;
+                    }
+
+                    // 3) 최종 저장 (→ 상점 UI가 즉시 버프 포함 수치를 보게 됨)
+                    attack_Power = atk;
+                    attack_Speed = aspd;
+                    break;
+                }
+
             case StaffType.restaurant:
+                // 기존 유지
                 timer = baseData.basictimer + (lv - 1) * 2f;
                 cooltime = baseData.basiccooltime - (lv - 1) * 2f;
                 break;
         }
         isDirty = true;
     }
+
 
 }
