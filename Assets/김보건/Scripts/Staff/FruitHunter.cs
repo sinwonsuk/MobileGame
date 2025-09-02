@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
+using static UnityEngine.GraphicsBuffer;
 
 public class FruitHunter : StaffBase
 {
@@ -209,9 +210,26 @@ public class FruitHunter : StaffBase
 
     public void OnShootFrame()
     {
+        bool doExtra = ShouldProcExtraNormalShot();
+
         if (_hasLatchedShot && (_target == null || !_target.gameObject.activeInHierarchy))
         {
-            FireBullet(_latchedMuzzle, _latchedDir);
+            // 타겟 잃었을 때도 좌/우 동시 발사
+            float offset = 0.3f;
+            Vector3 rightVec = (firePoint != null ? firePoint.right : transform.right);
+            Vector3 leftPos = _latchedMuzzle - rightVec * offset;
+            Vector3 rightPos = _latchedMuzzle + rightVec * offset;
+
+            if (doExtra)
+            {
+                FireBullet(leftPos, _latchedDir);
+                FireBullet(rightPos, _latchedDir);
+            }
+            else
+            {
+                FireBullet(_latchedMuzzle, _latchedDir); // 평소에는 중앙 한 발
+            }
+
             _hasLatchedShot = false;
             return;
         }
@@ -223,9 +241,28 @@ public class FruitHunter : StaffBase
         }
 
         Vector2 dir = (_target.position - firePoint.position).normalized;
-        FireBullet(firePoint.position, dir);
+
+        float off = 0.3f;
+        Vector3 rightV = firePoint.right;
+        Vector3 leftP = firePoint.position - rightV * off;
+        Vector3 rightP = firePoint.position + rightV * off;
+
+        if (doExtra)
+        {
+            // ★ 확률 터지면 좌/우 두 발 “동시에”
+            FireBullet(leftP, dir);
+            FireBullet(rightP, dir);
+        }
+        else
+        {
+            // ★ 평소엔 중앙 한 발
+            FireBullet(firePoint.position, dir);
+        }
+
         _hasLatchedShot = false;
     }
+
+
 
     private void FireBullet(Vector3 pos, Vector2 dir)
     {

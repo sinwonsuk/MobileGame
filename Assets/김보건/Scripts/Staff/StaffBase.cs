@@ -38,6 +38,19 @@ public class StaffBase : MonoBehaviour
         SyncFromRuntime();
     }
 
+
+    protected virtual void OnEnable()
+    {
+        if (EmployeeManager.Instance != null)
+            EmployeeManager.Instance.OnStaffChanged += LevelUp;
+    }
+
+    protected virtual void OnDisable()
+    {
+        if (EmployeeManager.Instance != null)
+            EmployeeManager.Instance.OnStaffChanged -= LevelUp;
+    }
+
     public virtual void LevelUp()
     {
         SyncFromRuntime();
@@ -77,14 +90,52 @@ public class StaffBase : MonoBehaviour
                 break;
         }
     }
+    public static void ComputeHunterFinal(StaffStatsSO baseData, int level, out double finalAtk, out double finalAspd)
+    {
+        // 1) 레벨 기본치
+        double baseAtk = baseData.basic_attack_Power + (level * 1);
+        double baseAspd = baseData.basic_attack_Speed + (level * 0.1);
 
+        // 2) 보유 패시브 집계 (소유한 직원들의 패시브 합산)
+        double atkMul = 1.0;
+        double aspdMul = 1.0;
+        var em = EmployeeManager.Instance;
+        if (em != null)
+        {
+            em.GetOwnedPassiveTotals(out _, out var atkSpdMul, out _, out var atkPowMul);
+            atkMul = atkPowMul;
+            aspdMul = atkSpdMul;
+        }
+
+        // 3) 최종치
+        finalAtk = baseAtk * atkMul;
+        finalAspd = baseAspd * aspdMul;
+    }
     protected virtual void RecalculateStats()
     {
-        // 기존 Hunter 전용 공식 
-        currentAttackPower = data.basic_attack_Power + (runtimeData.level * 1);
-        currentAttackSpeed = data.basic_attack_Speed + (runtimeData.level * 0.1);
+        if (data.staffType == StaffType.hunter)
+        {
+            ComputeHunterFinal(data, runtimeData.level, out var atk, out var aspd);
+            currentAttackPower = atk;
+            currentAttackSpeed = aspd;
+        }
+        else
+        {
+            // 경영직원은 기존 로직 유지
+            // (필요하면 여기서도 동일한 패턴으로 단일공식 만들 수 있어요)
+            currentAttackPower = 0;
+            currentAttackSpeed = 0;
+        }
     }
 
+    protected bool ShouldProcExtraNormalShot()
+    {
+        var em = EmployeeManager.Instance;
+        if (em == null) return false;
+
+        em.GetOwnedPassiveTotals(out var extra, out _, out _, out _);
+        return UnityEngine.Random.value < extra;
+    }
     public virtual void ApplySpeedBuff(float multiplier, float duration, GameObject iconPrefab)
     {
         // 다른 코루틴(아이콘 제거 포함)까지 끊지 않도록 타겟만 정리
