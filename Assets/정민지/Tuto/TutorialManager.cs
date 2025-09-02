@@ -46,7 +46,7 @@ public class TutorialManager : MonoBehaviour
     {
         if (startTutorial != null)
         {
-            StartTutorial(tutorialData);
+            StartTutorial(startTutorial);
         }
             
     }
