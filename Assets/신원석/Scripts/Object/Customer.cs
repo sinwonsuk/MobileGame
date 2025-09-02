@@ -101,6 +101,7 @@ public class Customer : MonoBehaviour
         foodSpriteRenderer.enabled = true;
         foodSpriteRenderer.sprite = Slot.IconImage.sprite;
         foodOrderSpriteRenderer.enabled = true;
+        TutorialManager.Instance.TriggerEvent("Guest");
     }
     public void PlayGenderVoice(GenderType genderType)
     {

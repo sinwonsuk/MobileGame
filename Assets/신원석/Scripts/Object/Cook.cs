@@ -49,6 +49,7 @@ public class Cook : MonoBehaviour
             SoundManager.GetInstance().Sfx_Stop(SoundManager.sfx.Cooking);
             button.enabled = false;
             soundCheck = true;
+            TutorialManager.Instance.TriggerEvent("CookClear");
         }
 
     }
@@ -75,6 +76,7 @@ public class Cook : MonoBehaviour
         {
             manager.Cooks.Clear();
             customer = cookMoveHandler.customer;
+            TutorialManager.Instance.TriggerEvent("TouchOrder");
             StartCoroutine(enumerator(cookMoveHandler));
         }     
     }
