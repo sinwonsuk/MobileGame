@@ -19,11 +19,13 @@ public class TutorialManager : MonoBehaviour
 
     [Header("튜토리얼 스크립터블 오브젝트")]
     public TutorialData startTutorial;
-    //public TutorialData staffTutorial;
-    //public TutorialData inventoryTutorial;
-    //public TutorialData hunterShopTutorial;
-    //public TutorialData enhanceFoodTutorial;
-    //public TutorialData shopTutorial;
+    public TutorialData staffTutorial;
+    public TutorialData hunterTutorial;
+    public TutorialData inventoryTutorial;
+    public TutorialData hunterShopTutorial;
+    public TutorialData foodLevelUpTutorial;
+    public TutorialData interiorTutorial;
+    public TutorialData shopTutorial;
     private TutorialData tutorialData;
 
     private int currentStepIndex = 0;
@@ -36,6 +38,18 @@ public class TutorialManager : MonoBehaviour
     private Dictionary<string, Button> buttonMap = new Dictionary<string, Button>();
     public static TutorialManager Instance;
 
+    public enum TutorialType
+    {
+        Start,
+        Staff,
+        Hunter,
+        Inventory,
+        HunterShop,
+        FoodLevelUp,
+        Interior,
+        Shop
+    }
+
     void Awake()
     {
         if (Instance == null) Instance = this;
@@ -46,7 +60,7 @@ public class TutorialManager : MonoBehaviour
     {
         if (startTutorial != null)
         {
-            StartTutorial(startTutorial);
+            StartTutorial(TutorialType.Start);
         }
             
     }
@@ -57,13 +71,43 @@ public class TutorialManager : MonoBehaviour
             buttonMap[name] = btn;
     }
 
-    public void StartTutorial(TutorialData data)
+    public void StartTutorial(TutorialType type)
     {
         if (isTutorialPlaying) return;
 
-        tutorialData = data;
-        isTutorialPlaying = true;
+        switch (type)
+        {
+            case TutorialType.Start:
+                tutorialData = startTutorial;
+                break;
+            case TutorialType.Staff:
+                tutorialData = staffTutorial;
+                break;
+            case TutorialType.Hunter:
+                tutorialData = hunterTutorial;
+                break;
+            case TutorialType.Inventory:
+                tutorialData = inventoryTutorial;
+                break;
+            case TutorialType.HunterShop:
+                tutorialData = hunterShopTutorial;
+                break;
+            case TutorialType.FoodLevelUp:
+                tutorialData = foodLevelUpTutorial;
+                break;
+            case TutorialType.Interior:
+                tutorialData = interiorTutorial;
+                break;
+            case TutorialType.Shop:
+                tutorialData = shopTutorial;
+                break;
+            default:
+                Debug.LogWarning($"[TutorialManager] 알 수 없는 튜토리얼 타입: {type}");
+                return;
+        }
+
         ShowStep(0);
+        isTutorialPlaying = true;
     }
 
     // ------------------------------
@@ -271,20 +315,4 @@ public class TutorialManager : MonoBehaviour
             NextStep();
         }
     }
-
-    //public void BuyStaff()
-    //{
-    //    if (staffTutorial != null)
-    //    {
-    //        StartTutorial(staffTutorial);
-    //    }
-    //}
-
-    //public void ShowInventory()
-    //{
-    //    if (inventoryTutorial != null)
-    //    {
-    //        StartTutorial(inventoryTutorial);
-    //    }
-    //}
 }

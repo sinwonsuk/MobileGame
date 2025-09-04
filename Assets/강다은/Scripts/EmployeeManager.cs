@@ -173,6 +173,8 @@ public class EmployeeManager : MonoBehaviour, IAutoSavable
         FindAnyObjectByType<EmployeeInventoryUI>()?.RefreshUI();
 
 		AutoSaveManager.Instance?.ForceFlushSoon(0.25f);
+
+        TutorialManager.Instance.TriggerEvent("TouchPos");
 	}
 
     // 외부에서도 부를 수 있게 public

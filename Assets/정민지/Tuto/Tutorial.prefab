@@ -856,7 +856,14 @@ MonoBehaviour:
   nameText: {fileID: 6767275070044664139}
   handPointer: {fileID: 1930115433826359092}
   QImage: {fileID: 9020651994719874417}
-  tutorialData: {fileID: 11400000, guid: 7fffe5fbdf16fa94cb0e94d448480000, type: 2}
+  startTutorial: {fileID: 11400000, guid: 7fffe5fbdf16fa94cb0e94d448480000, type: 2}
+  staffTutorial: {fileID: 11400000, guid: 98def491b07fc3745996f0a57df236f5, type: 2}
+  hunterTutorial: {fileID: 11400000, guid: 667748d24e6d5cb48a891719e36f7ee5, type: 2}
+  inventoryTutorial: {fileID: 11400000, guid: 42f6429210131bd428fdd24af492fb68, type: 2}
+  hunterShopTutorial: {fileID: 11400000, guid: c09f4ba732fb3dc439e87a147185d26d, type: 2}
+  foodLevelUpTutorial: {fileID: 11400000, guid: 4cc9c5dde7184d14dbdbb89fb5ef39b3, type: 2}
+  interiorTutorial: {fileID: 11400000, guid: e236ac71c837b8843a508eab1db9863d, type: 2}
+  shopTutorial: {fileID: 11400000, guid: a1d575a0cc15a1d4fa4e35777672eac6, type: 2}
 --- !u!1 &7565166513276044145
 GameObject:
   m_ObjectHideFlags: 0
