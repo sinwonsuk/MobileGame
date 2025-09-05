@@ -233,7 +233,7 @@ MonoBehaviour:
     isLeftCharacter: 0
     isButtonStep: 1
     targetButtonName: Menu
-    pointerOffset: {x: -60, y: -50}
+    pointerOffset: {x: -80, y: -50}
     trigger: 1
     eventName: 
   - dialogue: "\uC6B0\uB9AC\uAC00 \uBC29\uAE08 \uC7A1\uC740 \uBB38\uC5B4, \uC7AC\uB8CC\uB85C\uB294
@@ -269,7 +269,7 @@ MonoBehaviour:
     isLeftCharacter: 0
     isButtonStep: 1
     targetButtonName: FoodSlot(Clone)
-    pointerOffset: {x: -60, y: -50}
+    pointerOffset: {x: -80, y: -50}
     trigger: 1
     eventName: 
   - dialogue: "\uC88B\uC544\uC694. \uC774\uC81C \uBA54\uB274\uC5D0 \uB4F1\uB85D\uD558\uBA74
