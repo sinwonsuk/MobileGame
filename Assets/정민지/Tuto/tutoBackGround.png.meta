@@ -1,10 +1,13 @@
 fileFormatVersion: 2
-guid: b52540cd9bde0b3429a2e3e5189a776c
+guid: 5f1285f8032f02149bb8c49068e99de1
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 8694739433752090038
-    second: scroll2_0
+      213: 1425460422481620883
+    second: tutoBackGround_0
+  - first:
+      213: 7385453505279150219
+    second: tutoBackGround_1
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -139,13 +142,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: scroll2_0
+      name: tutoBackGround_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 10
-        height: 100
+        width: 1300
+        height: 776
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -154,8 +157,30 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 6b5df53c27be9a870800000000000000
-      internalID: 8694739433752090038
+      spriteID: 39f256ba3b048c310800000000000000
+      internalID: 1425460422481620883
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tutoBackGround_1
+      rect:
+        serializedVersion: 2
+        x: 1295
+        y: 4
+        width: 5
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b88c35f45d66e7660800000000000000
+      internalID: 7385453505279150219
       vertices: []
       indices: 
       edges: []
@@ -174,7 +199,8 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      scroll2_0: 8694739433752090038
+      tutoBackGround_0: 1425460422481620883
+      tutoBackGround_1: 7385453505279150219
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

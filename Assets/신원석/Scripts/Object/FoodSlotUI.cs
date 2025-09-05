@@ -84,6 +84,7 @@ public class FoodSlotUI : MonoBehaviour
         {
             // 잠금 아이콘/텍스트
             foodSlot.RockImage.enabled = isLocked;
+            foodSlot.RereputationText.enabled = isLocked;
 
             if (foodSlot.Rereputation != null)
                 foodSlot.Rereputation.text = isLocked && h.foodData != null

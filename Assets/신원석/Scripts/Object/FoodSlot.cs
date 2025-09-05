@@ -10,7 +10,15 @@ public class FoodSlot : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        Button button = GetComponent<Button>();
+        if (button != null)
+        {
+            TutorialManager.Instance.RegisterButton("FoodSlot(Clone)", button);
+        }
+        else
+        {
+            Debug.LogWarning("Button 컴포넌트가 없습니다!");
+        }
     }
 
     // Update is called once per frame
@@ -46,6 +54,9 @@ public class FoodSlot : MonoBehaviour
     [SerializeField]
     TextMeshProUGUI rereputation;
 
+    [SerializeField]
+    TextMeshProUGUI rereputationText;
+
     public Image RockImage
     {
         get => rockImage;
@@ -55,6 +66,12 @@ public class FoodSlot : MonoBehaviour
     {
         get => rereputation;
         set => rereputation = value;
+    }
+
+    public TextMeshProUGUI RereputationText
+    {
+        get => rereputationText;
+        set => rereputationText = value;
     }
 
 }

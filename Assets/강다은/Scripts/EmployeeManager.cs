@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using static StaffStatsSO;
 
 public class EmployeeManager : MonoBehaviour, IAutoSavable
 {
@@ -93,7 +94,6 @@ public class EmployeeManager : MonoBehaviour, IAutoSavable
 	}
 
     // 직원 실제 배치
-    // EmployeeManager.cs 안에 넣어 사용
 
     public void PlaceEmployee(int index)
     {
@@ -126,9 +126,7 @@ public class EmployeeManager : MonoBehaviour, IAutoSavable
             return;
         }
 
-        // ---------- 여기서부터는 정상 배치 로직 ----------
-
-        // 같은 인덱스(=같은 자리)에 이미 누가 배치되어 있으면 데이터만 해제
+        
         foreach (var slot in slots)
         {
             if (slot.runtimeData.isAssigned && slot.runtimeData.assignedIndex == index)
@@ -175,6 +173,8 @@ public class EmployeeManager : MonoBehaviour, IAutoSavable
         FindAnyObjectByType<EmployeeInventoryUI>()?.RefreshUI();
 
 		AutoSaveManager.Instance?.ForceFlushSoon(0.25f);
+
+        TutorialManager.Instance.TriggerEvent("TouchPos");
 	}
 
     // 외부에서도 부를 수 있게 public
@@ -187,6 +187,53 @@ public class EmployeeManager : MonoBehaviour, IAutoSavable
             activeArrows.Clear();
         }
         currentPlacingSlot = null;
+    }
+
+    public void GetOwnedPassiveTotals(
+        out float extraShotChance, out float atkSpdMul, out float skillCdMul, out float atkPowMul)
+    {
+        extraShotChance = 0f;
+        atkSpdMul = 1f;
+        skillCdMul = 1f;
+        atkPowMul = 1f;
+
+        // slots: (StaffStatsSO staffData, RuntimeStaffStatsSO runtimeData ...) 구조라고 가정
+        foreach (var s in slots)
+        {
+            if (s?.staffData == null || s.runtimeData == null) continue;
+            bool owned = s.runtimeData.isOwned || s.runtimeData.level > 0;
+            if (!owned) continue;
+
+            switch (s.staffData.passiveKind)
+            {
+                case PassiveKind.Nova_ExtraNormalShot:
+                    // 예시: 10% 추가타
+                    extraShotChance += 0.10f;
+                    break;
+
+                case PassiveKind.Selenite_AttackSpeed:
+                    // 예시: 공속 10% 증가
+                    atkSpdMul *= 1.10f;
+                    break;
+
+                case PassiveKind.Ilian_SkillCooldown:
+                    // 예시: 스킬쿨 5% 감소
+                    skillCdMul *= 0.95f;
+                    break;
+
+                case PassiveKind.Lifri_AttackPower:
+                    // 예시: 공격력 10% 증가
+                    atkPowMul *= 1.10f;
+                    break;
+            }
+        }
+
+        // 확률 캡
+        extraShotChance = Mathf.Clamp01(extraShotChance);
+        // 배수 하한선 보호
+        atkSpdMul = Mathf.Max(0.01f, atkSpdMul);
+        skillCdMul = Mathf.Max(0.01f, skillCdMul);
+        atkPowMul = Mathf.Max(0.01f, atkPowMul);
     }
 
 
@@ -524,6 +571,7 @@ public class EmployeeManager : MonoBehaviour, IAutoSavable
 
         employeeDataLoaded = true;
         AutoSaveManager.Instance?.RegisterAutoSavable(this);
+        NotifyStaffChanged();
     }
 
 
@@ -570,24 +618,33 @@ public class EmployeeManager : MonoBehaviour, IAutoSavable
         Debug.Log("[EmployeeManager] 변경된 직원 데이터 저장 완료");
     }
 
-   //private void InitializeDisplayNamesFromStatic()
-   //{
-   //    foreach (var runtime in allRunTimeEmployees)
-   //    {
-   //        var staticData = allEmployees.FirstOrDefault(s => s.indate == runtime.indate);
-   //        if (staticData != null)
-   //        {
-   //            runtime.displayName = staticData.displayName;
-   //        }
-   //        else
-   //        {
-   //            Debug.LogWarning($"[초기화 실패] {runtime.indate} 에 해당하는 마스터 직원 데이터가 없습니다.");
-   //        }
-   //    }
-   //}
+    //private void InitializeDisplayNamesFromStatic()
+    //{
+    //    foreach (var runtime in allRunTimeEmployees)
+    //    {
+    //        var staticData = allEmployees.FirstOrDefault(s => s.indate == runtime.indate);
+    //        if (staticData != null)
+    //        {
+    //            runtime.displayName = staticData.displayName;
+    //        }
+    //        else
+    //        {
+    //            Debug.LogWarning($"[초기화 실패] {runtime.indate} 에 해당하는 마스터 직원 데이터가 없습니다.");
+    //        }
+    //    }
+    //}
+    private void RecalcAllRuntimeStats()
+    {
+        if (slots == null) return;
 
+        foreach (var s in slots)
+        {
+            if (s == null || s.staffData == null || s.runtimeData == null) continue;
+            s.runtimeData.RecalcWith(s.staffData);  // RecalcWith가 패시브 곱하도록(아래 3번 수정)
+        }
+    }
 
-	public static EmployeeManager Instance { get; private set; }
+    public static EmployeeManager Instance { get; private set; }
 
 	[Header("Config: 전체 직원 데이터")]
 	public StaffStatsSO[] allEmployees;
@@ -611,7 +668,11 @@ public class EmployeeManager : MonoBehaviour, IAutoSavable
 
 	private bool employeeDataLoaded = false;
 	public event Action OnStaffChanged;
-	public void NotifyStaffChanged() => OnStaffChanged?.Invoke();
+    public void NotifyStaffChanged()
+    {
+        RecalcAllRuntimeStats();   // 패시브 포함 전원 Runtime 스탯 최신화
+        OnStaffChanged?.Invoke();  // 그 다음 브로드캐스트
+    }
     private bool _needsSort = false;
 }
 

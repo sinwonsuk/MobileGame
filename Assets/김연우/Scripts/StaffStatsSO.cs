@@ -3,6 +3,14 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "StaffStats", menuName = "Clicker/Staff Stats")]
 public class StaffStatsSO : ScriptableObject
 {
+    public enum PassiveKind
+    {
+        None = 0,
+        Nova_ExtraNormalShot,    // 평타 추가타 확률
+        Selenite_AttackSpeed,    // 공속 배수
+        Ilian_SkillCooldown,     // 스킬 쿨타임 배수
+        Lifri_AttackPower        // 공격력 배수
+    }
     [Header("직원 기본값")]
     public string indate;     // indate key
     public string displayName;    // 직원 이름
@@ -17,4 +25,5 @@ public class StaffStatsSO : ScriptableObject
     [Header("경영직원")]
     public double basictimer;//기본 실행시간
     public double basiccooltime;//기본 쉬는시간
+    public PassiveKind passiveKind = PassiveKind.None;
 }

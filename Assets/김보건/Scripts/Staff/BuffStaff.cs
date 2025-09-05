@@ -205,21 +205,34 @@ public class BuffStaff : StaffBase
     // 애니메이션 이벤트 호출
     public void OnShootFrame()
     {
+        bool doExtra = ShouldProcExtraNormalShot();
+
         if (_hasLatchedShot && (target == null || !target.gameObject.activeInHierarchy))
         {
-            FireBullet(_latchedMuzzle, _latchedDir);
+            float off = 0.3f;
+            Vector3 rightV = (firePoint != null ? firePoint.right : transform.right);
+            Vector3 leftP = _latchedMuzzle - rightV * off;
+            Vector3 rightP = _latchedMuzzle + rightV * off;
+
+            if (doExtra) { FireBullet(leftP, _latchedDir); FireBullet(rightP, _latchedDir); }
+            else { FireBullet(_latchedMuzzle, _latchedDir); }
+
             _hasLatchedShot = false;
             return;
         }
 
-        if (target == null || bulletPrefab == null || firePoint == null)
-        {
-            _hasLatchedShot = false;
-            return;
-        }
+        if (target == null || firePoint == null) { _hasLatchedShot = false; return; }
+
         Vector2 dir = (target.position - firePoint.position).normalized;
 
-        FireBullet(firePoint.position, dir);
+        float off2 = 0.3f;
+        Vector3 rV = firePoint.right;
+        Vector3 lP = firePoint.position - rV * off2;
+        Vector3 rP = firePoint.position + rV * off2;
+
+        if (doExtra) { FireBullet(lP, dir); FireBullet(rP, dir); }
+        else { FireBullet(firePoint.position, dir); }
+
         _hasLatchedShot = false;
 
 
@@ -232,6 +245,7 @@ public class BuffStaff : StaffBase
 
         //FireBullet(firePoint.position, dir);
     }
+
 
     private void FireBullet(Vector3 pos, Vector2 dir)
     {
