@@ -312,6 +312,11 @@ public class TutorialManager : MonoBehaviour
         if (step.trigger == StepTrigger.OnEvent && step.eventName == eventName)
         {
             Debug.Log("[TriggerEvent] 조건 일치 → 다음 스텝으로 이동");
+            if(eventName== "killMonster")
+            {
+                InventoryManager.Instance?.AddItem("2025-07-16T02:27:43.737Z", 1);
+                InventoryManager.Instance?.AddItem("2025-07-16T02:27:43.883Z", 1);
+            }
             NextStep();
         }
     }
