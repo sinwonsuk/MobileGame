@@ -113,31 +113,47 @@ public class ExpeditionManager : MonoBehaviour, IAutoSavable
         return !p.run.isRunning && !string.IsNullOrEmpty(p.run.arriveUtcIso);
     }
 
-
-
     public bool TryClaimReward(string id)
     {
         if (!pairs.TryGetValue(id, out var p)) return false;
+        if (p.run.isRunning || DateTime.UtcNow < p.run.ArriveUtc) return false;
 
-        if (p.run.isRunning || DateTime.UtcNow < p.run.ArriveUtc)
+        var inv = InventoryManager.Instance;
+        if (inv == null)
+        {
+            Debug.LogError("[TryClaimReward] InventoryManager.Instance == null");
             return false;
+        }
 
         if (p.stat.rewards != null)
         {
             foreach (var r in p.stat.rewards)
             {
-                if (r?.ingredientData == null) continue;
-                InventoryManager.Instance.AddItem(r.ingredientData.indate, Mathf.Max(0, r.amount));
+                if (r == null || r.ingredientData == null) continue;
+
+                string runtimeIndate = r.ingredientData.indate;
+
+                if (!inv.RunTimeIngredientDataDic.ContainsKey(runtimeIndate))
+                {
+                    Debug.LogWarning($"[TryClaimReward] 인벤에 {runtimeIndate} 키 없음 → 보상 지급 실패");
+                    continue;
+                }
+
+                inv.AddItem(runtimeIndate, Mathf.Max(0, r.amount));
+                Debug.Log($"[TryClaimReward] 지급 완료: {runtimeIndate} x {r.amount}");
             }
         }
 
+        //  보상 받은 후 런타임 SO 초기화 (다시 출발 가능)
         p.run.Clear();
-
         OnChanged?.Invoke(id);
-		AutoSaveManager.Instance?.ForceFlushSoon(0.25f);
-
-		return true;
+        AutoSaveManager.Instance?.ForceFlushSoon(0.25f);
+        return true;
     }
+
+
+
+
 
 
     public float GetProgress01(string id)
