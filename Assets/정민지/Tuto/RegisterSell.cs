@@ -8,7 +8,7 @@ public class RegisterSell : MonoBehaviour
         Button button = GetComponent<Button>();
         if (button != null)
         {
-            TutorialManager.Instance.RegisterButton("Sell", button);
+            TutorialManager.Instance?.RegisterButton("Sell", button);
         }
         else
         {

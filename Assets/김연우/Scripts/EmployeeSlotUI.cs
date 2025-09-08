@@ -28,7 +28,7 @@ public class EmployeeSlotUI : MonoBehaviour, IPointerClickHandler
         {
             SoundManager.GetInstance().SfxPlay(SoundManager.sfx.Click, false); 
             OnSlotClicked?.Invoke(slot);
-            TutorialManager.Instance.TriggerEvent("TouchStaff");
+            TutorialManager.Instance?.TriggerEvent("TouchStaff");
         }
     }
 

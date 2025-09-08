@@ -13,7 +13,7 @@ public class FoodSlot : MonoBehaviour
         Button button = GetComponent<Button>();
         if (button != null)
         {
-            TutorialManager.Instance.RegisterButton("FoodSlot(Clone)", button);
+            TutorialManager.Instance?.RegisterButton("FoodSlot(Clone)", button);
         }
         else
         {

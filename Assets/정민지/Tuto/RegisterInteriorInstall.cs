@@ -8,7 +8,7 @@ public class RegisterInteriorInstall : MonoBehaviour
         Button button = GetComponent<Button>();
         if (button != null)
         {
-            TutorialManager.Instance.RegisterButton("interiorInstallButton", button);
+            TutorialManager.Instance?.RegisterButton("interiorInstallButton", button);
         }
     }
 }

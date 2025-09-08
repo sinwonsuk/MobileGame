@@ -199,7 +199,7 @@ public class CameraSlideManager : baseManager
     {
         if (controller != null)
         {
-            TutorialManager.Instance.TriggerEvent("Slide");
+            TutorialManager.Instance?.TriggerEvent("Slide");
             controller.StartCoroutine(SlideCamera(restaurantPosition));
             EventBus<ButtonisActiveHandler>.Raise(new ButtonisActiveHandler(true));
             ButtonManager.instance.AllExit();

@@ -8,7 +8,7 @@ public class RegisterMenu : MonoBehaviour
         Button button = GetComponent<Button>();
         if (button != null)
         {
-            TutorialManager.Instance.RegisterButton("Menu", button);
+            TutorialManager.Instance?.RegisterButton("Menu", button);
         }
         else
         {

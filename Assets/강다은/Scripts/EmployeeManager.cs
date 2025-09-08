@@ -174,7 +174,7 @@ public class EmployeeManager : MonoBehaviour, IAutoSavable
 
 		AutoSaveManager.Instance?.ForceFlushSoon(0.25f);
 
-        TutorialManager.Instance.TriggerEvent("TouchPos");
+        TutorialManager.Instance?.TriggerEvent("TouchPos");
 	}
 
     // 외부에서도 부를 수 있게 public

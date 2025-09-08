@@ -40,7 +40,7 @@ public class InteriorSkinSlotUI : MonoBehaviour, IPointerClickHandler
         SoundManager.GetInstance().SfxPlay(SoundManager.sfx.Click, false);
         var spr = (image != null) ? image.sprite : null;
         OnSkinClicked?.Invoke(slot, skinIndex, spr);
-        TutorialManager.Instance.TriggerEvent("TouchInterior");
+        TutorialManager.Instance?.TriggerEvent("TouchInterior");
     }
 
 }

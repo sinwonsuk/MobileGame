@@ -8,7 +8,7 @@ public class RegisterGo : MonoBehaviour
         Button button = GetComponent<Button>();
         if (button != null)
         {
-            TutorialManager.Instance.RegisterButton("go", button);
+            TutorialManager.Instance?.RegisterButton("go", button);
         }
     }
 }

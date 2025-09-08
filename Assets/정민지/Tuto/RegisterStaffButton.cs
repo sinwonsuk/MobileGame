@@ -8,7 +8,7 @@ public class RegisterStaffButton : MonoBehaviour
         Button button = GetComponent<Button>();
         if (button != null)
         {
-            TutorialManager.Instance.RegisterButton("staffButton", button);
+            TutorialManager.Instance?.RegisterButton("staffButton", button);
         }
     }
 }

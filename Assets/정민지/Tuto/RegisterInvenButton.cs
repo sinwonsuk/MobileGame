@@ -8,7 +8,7 @@ public class RegisterInvenButton : MonoBehaviour
         Button button = GetComponent<Button>();
         if (button != null)
         {
-            TutorialManager.Instance.RegisterButton("InvenButton", button);
+            TutorialManager.Instance?.RegisterButton("InvenButton", button);
         }
     }
 }

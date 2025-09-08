@@ -23,7 +23,7 @@ public class octopus : EnemyBase
         if (isDead) return;
         //Debug.Log("¹®¾î »ç¸Á");
 
-        TutorialManager.Instance.TriggerEvent("killMonster");
+        TutorialManager.Instance?.TriggerEvent("killMonster");
         base.Die();
 
         var spawner = Object.FindFirstObjectByType<MonsterSpawner>();
