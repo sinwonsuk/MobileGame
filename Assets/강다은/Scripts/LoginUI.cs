@@ -368,6 +368,9 @@ public class LoginUI : MonoBehaviour
 		yield return StartCoroutine(FoodLevelAutoSave.Instance.InsertLevelIfNotExists(ownerIndate));
 		yield return StartCoroutine(FoodLevelAutoSave.Instance.LoadLevelData(ownerIndate));
 
+		yield return StartCoroutine(TutorialInit.Instance.InsertTutoDataIfNotExists(ownerIndate));
+		yield return StartCoroutine(TutorialInit.Instance.LoadUserTuto(ownerIndate));
+
 		bool isDone = false;
 		BackendGameData.Instance.GameDataGetOrInsert(() =>
 		{

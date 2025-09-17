@@ -10,6 +10,7 @@ public class TutorialInit : MonoBehaviour, IAutoSavable
 	public void AutoSave()
 	{
 		//Backend.GameInfo.Save("Tutorial", "true");
+		SaveTuto();
 	}
 
 	public event Action OnInventoryChanged;
@@ -137,7 +138,7 @@ public class TutorialInit : MonoBehaviour, IAutoSavable
 		Debug.Log("[Tutorial] 튜토리얼 항목 삽입 완료");
 	}
 
-	public IEnumerator LoadUserInventory(string ownerIndate)
+	public IEnumerator LoadUserTuto(string ownerIndate)
 	{
 		string firstKey = null;
 		const int limit = 100;
@@ -184,7 +185,14 @@ public class TutorialInit : MonoBehaviour, IAutoSavable
 				//string itemName = row["inventoryItemName"].ToString();
 				//int quantity = int.Parse(row["inventoryQuantity"].ToString());
 
-				
+				tutorialBool.Instance.clearStartTuto = bool.Parse(row["start"].ToString());
+				tutorialBool.Instance.clearInvenTuto = bool.Parse(row["inven"].ToString());
+				tutorialBool.Instance.clearBuyStaffTuto = bool.Parse(row["staff"].ToString());
+				tutorialBool.Instance.clearBuyHunterTuto = bool.Parse(row["hunter"].ToString());
+				tutorialBool.Instance.clearShopTuto = bool.Parse(row["store"].ToString());
+				tutorialBool.Instance.clearDispatchTuto = bool.Parse(row["dispatch"].ToString());
+				tutorialBool.Instance.clearLevelUpTuto = bool.Parse(row["enhance"].ToString());
+
 			}
 
 			try
@@ -214,7 +222,7 @@ public class TutorialInit : MonoBehaviour, IAutoSavable
 		Debug.Log("[Tutorial] 유저 튜토리얼 데이터 로드 완료");
 	}
 
-	public void SaveInventory(System.Action onComplete = null)
+	public void SaveTuto(System.Action onComplete = null)
 	{
 		if (!inventoryLoaded)
 		{
@@ -225,7 +233,32 @@ public class TutorialInit : MonoBehaviour, IAutoSavable
 
 		string ownerIndate = Backend.UserInDate;
 
-		int dirtyCount = 0;
+		Param param = new Param();
+		param.Add("start", tutorialBool.Instance.clearStartTuto);
+		param.Add("inven", tutorialBool.Instance.clearInvenTuto);
+		param.Add("staff", tutorialBool.Instance.clearBuyStaffTuto);
+		param.Add("hunter", tutorialBool.Instance.clearBuyHunterTuto);
+		param.Add("store", tutorialBool.Instance.clearShopTuto);
+		param.Add("dispatch", tutorialBool.Instance.clearDispatchTuto);
+		param.Add("enhance", tutorialBool.Instance.clearLevelUpTuto);
+		Where where = new Where();
+		where.Equal("owner_inDate", ownerIndate);
+
+		Backend.GameData.Update("Tutorial", where, param, bro =>
+		{
+			if (bro.IsSuccess())
+			{
+				Debug.Log($"[튜토리얼 저장 성공]");
+			}
+			else
+			{
+				Debug.LogError($"[튜토리얼 저장 실패] / {bro}");
+			}
+			onComplete?.Invoke();
+		});
+
+
+		//int dirtyCount = 0;
 
 		//for (int i = 0; i < allRunTimeIngredients.Length; i++)
 		//{
@@ -268,11 +301,11 @@ public class TutorialInit : MonoBehaviour, IAutoSavable
 		//}
 
 		// 변경 사항 없을 경우 바로 콜백 호출
-		if (dirtyCount == 0)
-		{
-			//Debug.Log("변경된 인벤토리 없음 -> 저장 생략");
-			onComplete?.Invoke();
-		}
+		//if (dirtyCount == 0)
+		//{
+		//	//Debug.Log("변경된 인벤토리 없음 -> 저장 생략");
+		//	onComplete?.Invoke();
+		//}
 	}
 
 	private bool inventoryLoaded = false;
