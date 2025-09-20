@@ -29,10 +29,10 @@ public class TutorialInit : MonoBehaviour, IAutoSavable
 	public IEnumerator InsertTutoDataIfNotExists(string ownerIndate)
 	{
 		string firstKey = null;
-		const int limit = 100;
 		bool isEnd = false;
 
-		HashSet<string> existingIndates = new HashSet<string>();
+		string existingIndates = "";
+		string offset = "";
 
 		while (!isEnd)
 		{
@@ -42,22 +42,11 @@ public class TutorialInit : MonoBehaviour, IAutoSavable
 			var where = new Where();
 			where.Equal("owner_inDate", ownerIndate);
 
-			if (string.IsNullOrEmpty(firstKey))
+			Backend.GameData.Get("Tutorial", where, 100, offset, callback =>
 			{
-				Backend.GameData.Get("Tutorial", where, limit, callback =>
-				{
-					bro = callback;
-					isDone = true;
-				});
-			}
-			else
-			{
-				Backend.GameData.Get("Tutorial", where, limit, firstKey, callback =>
-				{
-					bro = callback;
-					isDone = true;
-				});
-			}
+				bro = callback;
+				isDone = true;
+			});
 
 			yield return new WaitUntil(() => isDone);
 
@@ -73,47 +62,36 @@ public class TutorialInit : MonoBehaviour, IAutoSavable
 			{
 				Debug.LogWarning("[InsertTutoDataIfNotExists] 서버에서 받은 튜토 데이터 없음!");
 			}
-
-
-			try
+			else
 			{
+				existingIndates = rows[0]["owner_inDate"].ToString();
+			}
+
 				var json = LitJson.JsonMapper.ToObject(bro.GetReturnValue());
-				if (json.ContainsKey("firstKey") && json["firstKey"] != null)
-				{
-					firstKey = json["firstKey"]["inDate"]["S"].ToString();
-				}
-				else
-				{
-					isEnd = true;
-				}
-			}
-			catch (Exception e)
-			{
-				Debug.LogWarning($"[Tutorial] firstKey 파싱 실패 - 종료 처리: {e.Message}");
-				isEnd = true;
-			}
-		}
+			offset = json.ContainsKey("offset") ? json["offset"].ToString() : null;
+			isEnd = string.IsNullOrEmpty(offset);
 
-		List<Param> newParams = new List<Param>();
+		}
 
 		string[] allTutoIndates = new string[]
 		{
 			"start", "inven", "staff", "hunter", "store", "enhance", "dispatch",
 		};
 
-		foreach (var indate in allTutoIndates)
+		if(existingIndates.Contains(ownerIndate))
 		{
-			if (!existingIndates.Contains(indate))
-			{
-				Param param = new Param();
-				param.Add("owner_inDate", ownerIndate);
-				param.Add(allTutoIndates, false);
-				newParams.Add(param);
-			}
+			Debug.Log("[Tutorial] 이미 튜토리얼 항목 존재, 삽입 생략");
+			yield break;
 		}
-
-		foreach (var param in newParams)
+		else
 		{
+			Param param = new Param();
+			foreach (var indate in allTutoIndates)
+			{
+				//param.Add("owner_inDate", ownerIndate);
+				param.Add(indate, false);
+			}
+
 			bool isInsertDone = false;
 			BackendReturnObject insertBro = null;
 
@@ -133,9 +111,11 @@ public class TutorialInit : MonoBehaviour, IAutoSavable
 			{
 				Debug.Log($"[Insert 성공]");
 			}
+
+			Debug.Log("[Tutorial] 튜토리얼 항목 삽입 완료");
+
 		}
 
-		Debug.Log("[Tutorial] 튜토리얼 항목 삽입 완료");
 	}
 
 	public IEnumerator LoadUserTuto(string ownerIndate)
