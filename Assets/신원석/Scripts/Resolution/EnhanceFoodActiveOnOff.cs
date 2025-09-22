@@ -48,6 +48,11 @@ public class EnhanceFoodActiveOnOff : BaseButton
         EventBus<EnhanceFoodUIActiveHandler>.Raise(new EnhanceFoodUIActiveHandler(true));
         EventBus<EnhanceFoodSlotsDeleteHandler>.Raise(new EnhanceFoodSlotsDeleteHandler());
         EventBus<EnhanceFoodSlotsSpawnHandler>.Raise(new EnhanceFoodSlotsSpawnHandler());
+
+        if (!tutorialBool.Instance.clearLevelUpTuto)
+        {
+            TutorialManager.Instance?.StartTutorial(TutorialManager.TutorialType.FoodLevelUp);
+        }
     }
 
     public override void OnExit()

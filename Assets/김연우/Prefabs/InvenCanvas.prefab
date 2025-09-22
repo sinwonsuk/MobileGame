@@ -1593,7 +1593,6 @@ GameObject:
   - component: {fileID: 8893654361037670272}
   - component: {fileID: 2517989167975975972}
   - component: {fileID: 3373857193516840544}
-  - component: {fileID: 1617222933293502539}
   m_Layer: 5
   m_Name: interiorInstallButton
   m_TagString: Untagged
@@ -1703,18 +1702,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &1617222933293502539
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 738907489011891581}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c34816c42cde363458c6d24e43d67977, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &756497775401497315
 GameObject:
   m_ObjectHideFlags: 0
@@ -11323,7 +11310,6 @@ GameObject:
   - component: {fileID: 6908663162087622665}
   - component: {fileID: 4652778782254732379}
   - component: {fileID: 9078048321588687983}
-  - component: {fileID: 3722779347476153013}
   m_Layer: 5
   m_Name: interiorButton
   m_TagString: Untagged
@@ -11433,18 +11419,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &3722779347476153013
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7223077148208355917}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0c852bbc02b30814bad8fe0432ef6502, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &7304162931709045471
 GameObject:
   m_ObjectHideFlags: 0

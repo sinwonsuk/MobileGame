@@ -49,6 +49,10 @@ public class InteriorShopButton : MonoBehaviour
         EventBus<MoneyChangeMusHandler>.Raise(new MoneyChangeMusHandler(money));
         BackendGameData.Instance.AddReputation(5);
         InteriorManager.Instance.AcquireInterior(interiorData.interiorName);
+
+        if (!tutorialBool.Instance.clearShopTuto)
+            TutorialManager.Instance.StartTutorial(TutorialManager.TutorialType.Shop);
+
         Debug.Log("±¸¸Å");
 
         hideButton();

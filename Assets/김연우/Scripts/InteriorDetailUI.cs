@@ -73,6 +73,7 @@ public class InteriorDetailUI : MonoBehaviour
         if (currentSlot.data.alwaysInstalled) return;
 
         SoundManager.GetInstance().SfxPlay(SoundManager.sfx.Click, false);
+        TutorialManager.Instance?.TriggerEvent("Install");
         InteriorManager.Instance.UseInterior(currentSlot.data.interiorName);
 
         var label = useButton.GetComponentInChildren<TMPro.TMP_Text>(true);

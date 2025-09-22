@@ -46,6 +46,7 @@ public class EmployeeDetailPanel : MonoBehaviour
     void OnAssignClicked()
     {
         SoundManager.GetInstance().SfxPlay(SoundManager.sfx.Click, false); // ¡ç Ãß°¡
+        TutorialManager.Instance?.TriggerEvent("in");
         EmployeeManager.Instance.StartPlacement(currentSlot);
         gameObject.SetActive(false);
     }

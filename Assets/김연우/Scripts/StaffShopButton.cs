@@ -220,12 +220,18 @@ public class StaffShopButton : MonoBehaviour
                 staffruntimeData.isDirty = true;
                 staffruntimeData.RecalcWith(staffData);
                 EmployeeManager.Instance?.NotifyStaffChanged();
-                
+
+                if (!tutorialBool.Instance.clearBuyHunterTuto && staffType == StaffType.hunter)
+                    TutorialManager.Instance?.StartTutorial(TutorialManager.TutorialType.Hunter);
+
                 RefreshUI();
 
                 if (staffType == StaffType.restaurant)
                 {
                     int targetIndex = ResolveAssignIndex();
+
+                    if (!tutorialBool.Instance.clearBuyStaffTuto)
+                        TutorialManager.Instance?.StartTutorial(TutorialManager.TutorialType.Staff);
 
                     if (EmployeeManager.Instance != null && targetIndex >= 0)
                     {

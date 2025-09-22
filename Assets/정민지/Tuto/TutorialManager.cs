@@ -24,7 +24,6 @@ public class TutorialManager : MonoBehaviour
     public TutorialData inventoryTutorial;
     public TutorialData hunterShopTutorial;
     public TutorialData foodLevelUpTutorial;
-    public TutorialData interiorTutorial;
     public TutorialData shopTutorial;
     private TutorialData tutorialData;
 
@@ -38,6 +37,8 @@ public class TutorialManager : MonoBehaviour
     private Dictionary<string, Button> buttonMap = new Dictionary<string, Button>();
     public static TutorialManager Instance;
 
+    private TutorialType currentTutorialType; // 현재 튜토리얼 타입 저장
+
     public enum TutorialType
     {
         Start,
@@ -46,23 +47,32 @@ public class TutorialManager : MonoBehaviour
         Inventory,
         HunterShop,
         FoodLevelUp,
-        Interior,
         Shop
     }
 
     void Awake()
     {
         if (Instance == null) Instance = this;
-        originalPointerParent = handPointer.parent; // 최초 부모 기억
+        originalPointerParent = handPointer.parent;
     }
 
     void Start()
     {
-        if (startTutorial != null)
+        if (startTutorial != null&&!tutorialBool.Instance.clearStartTuto)
         {
             StartTutorial(TutorialType.Start);
         }
-            
+        else
+        {
+            dialoguePanel.SetActive(false);
+            dialogueBackground.gameObject.SetActive(false);
+            leftCharacterImage.gameObject.SetActive(false);
+            rightCharacterImage.gameObject.SetActive(false);
+            handPointer.gameObject.SetActive(false);
+            QImage.gameObject.SetActive(false);
+            dialogueText.text = "";
+            questText.text = "";
+        }
     }
 
     public void RegisterButton(string name, Button btn)
@@ -75,63 +85,46 @@ public class TutorialManager : MonoBehaviour
     {
         if (isTutorialPlaying) return;
 
-        switch (type)
+        currentTutorialType = type;
+
+        tutorialData = type switch
         {
-            case TutorialType.Start:
-                tutorialData = startTutorial;
-                break;
-            case TutorialType.Staff:
-                tutorialData = staffTutorial;
-                break;
-            case TutorialType.Hunter:
-                tutorialData = hunterTutorial;
-                break;
-            case TutorialType.Inventory:
-                tutorialData = inventoryTutorial;
-                break;
-            case TutorialType.HunterShop:
-                tutorialData = hunterShopTutorial;
-                break;
-            case TutorialType.FoodLevelUp:
-                tutorialData = foodLevelUpTutorial;
-                break;
-            case TutorialType.Interior:
-                tutorialData = interiorTutorial;
-                break;
-            case TutorialType.Shop:
-                tutorialData = shopTutorial;
-                break;
-            default:
-                Debug.LogWarning($"[TutorialManager] 알 수 없는 튜토리얼 타입: {type}");
-                return;
+            TutorialType.Start => startTutorial,
+            TutorialType.Staff => staffTutorial,
+            TutorialType.Hunter => hunterTutorial,
+            TutorialType.Inventory => inventoryTutorial,
+            TutorialType.HunterShop => hunterShopTutorial,
+            TutorialType.FoodLevelUp => foodLevelUpTutorial,
+            TutorialType.Shop => shopTutorial,
+            _ => null
+        };
+
+        if (tutorialData == null)
+        {
+            Debug.LogWarning("[TutorialManager] 해당 튜토리얼 데이터 없음");
+            return;
         }
 
         ShowStep(0);
         isTutorialPlaying = true;
     }
 
-    // ------------------------------
-    // 대사창 클릭 전용
-    // ------------------------------
     public void OnDialoguePanelClicked()
     {
         if (!isTutorialPlaying) return;
 
         var step = tutorialData.steps[currentStepIndex];
 
-        // 버튼 단계와 이벤트 단계는 클릭 무시
         if (step.isButtonStep || step.trigger == StepTrigger.OnEvent) return;
 
         if (isTyping)
         {
-            // 타이핑 중 → 한 번에 표시
             StopCoroutine(typingCoroutine);
             dialogueText.maxVisibleCharacters = dialogueText.text.Length;
             isTyping = false;
         }
         else
         {
-            // 다 출력된 상태 → 다음 단계
             NextStep();
         }
     }
@@ -152,25 +145,7 @@ public class TutorialManager : MonoBehaviour
         // -------------------
         if (step.isButtonStep)
         {
-            waitingForButtonClick = true;
-
-            dialoguePanel.SetActive(false);
-            QImage.SetActive(true);
-            questText.gameObject.SetActive(true);
-            dialogueBackground.gameObject.SetActive(false);
-            handPointer.gameObject.SetActive(true);
-
-            dialogueText.text = "";
-            questText.text = step.questText ?? "";
-
-            if (!string.IsNullOrEmpty(step.targetButtonName))
-            {
-                if (buttonMap.TryGetValue(step.targetButtonName, out Button btn))
-                    ConnectButton(btn, step.pointerOffset);
-                else
-                    StartCoroutine(WaitForButton(step.targetButtonName, step.pointerOffset));
-            }
-
+            SetupButtonStep(step);
             return;
         }
 
@@ -179,23 +154,54 @@ public class TutorialManager : MonoBehaviour
         // -------------------
         if (step.trigger == StepTrigger.OnEvent)
         {
-            waitingForButtonClick = false;
-
-            dialoguePanel.SetActive(false);
-            QImage.SetActive(true);
-            questText.gameObject.SetActive(true);
-            dialogueBackground.gameObject.SetActive(false);
-            handPointer.gameObject.SetActive(false);
-
-            dialogueText.text = "";
-            questText.text = step.questText ?? "";
-
-            return; // 입력에 의한 진행 막음
+            SetupEventStep(step);
+            return;
         }
 
         // -------------------
         // 대사 단계
         // -------------------
+        SetupDialogueStep(step);
+    }
+
+    private void SetupButtonStep(TutorialStep step)
+    {
+        waitingForButtonClick = true;
+
+        dialoguePanel.SetActive(false);
+        QImage.SetActive(true);
+        questText.gameObject.SetActive(true);
+        dialogueBackground.gameObject.SetActive(false);
+        handPointer.gameObject.SetActive(true);
+
+        dialogueText.text = "";
+        questText.text = step.questText ?? "";
+
+        if (!string.IsNullOrEmpty(step.targetButtonName))
+        {
+            if (buttonMap.TryGetValue(step.targetButtonName, out Button btn))
+                ConnectButton(btn, step.pointerOffset);
+            else
+                StartCoroutine(WaitForButton(step.targetButtonName, step.pointerOffset));
+        }
+    }
+
+    private void SetupEventStep(TutorialStep step)
+    {
+        waitingForButtonClick = false;
+
+        dialoguePanel.SetActive(false);
+        QImage.SetActive(true);
+        questText.gameObject.SetActive(true);
+        dialogueBackground.gameObject.SetActive(false);
+        handPointer.gameObject.SetActive(false);
+
+        dialogueText.text = "";
+        questText.text = step.questText ?? "";
+    }
+
+    private void SetupDialogueStep(TutorialStep step)
+    {
         waitingForButtonClick = false;
 
         dialoguePanel.SetActive(true);
@@ -229,17 +235,11 @@ public class TutorialManager : MonoBehaviour
         RectTransform btnRect = btn.GetComponent<RectTransform>();
         RectTransform pointerRect = handPointer;
 
-        // 핸드포인터를 버튼의 자식으로 붙여서 앵커를 따라가게
-        pointerRect.SetParent(btnRect, worldPositionStays: false);
-
-        // 원하는 앵커 기준으로 맞추기
-        pointerRect.anchorMin = new Vector2(1, 0.5f); // 오른쪽 중앙
+        pointerRect.SetParent(btnRect, false);
+        pointerRect.anchorMin = new Vector2(1, 0.5f);
         pointerRect.anchorMax = new Vector2(1, 0.5f);
-        pointerRect.pivot = new Vector2(0f, 0.5f);   // 왼쪽 중심 맞추기
-
-        // 앵커를 기준으로 offset 조정
+        pointerRect.pivot = new Vector2(0f, 0.5f);
         pointerRect.anchoredPosition = pointerOffset;
-
         pointerRect.gameObject.SetActive(true);
 
         btn.onClick.RemoveAllListeners();
@@ -250,15 +250,11 @@ public class TutorialManager : MonoBehaviour
             {
                 waitingForButtonClick = false;
                 pointerRect.gameObject.SetActive(false);
-
-                // 다시 원래 부모로 돌려주기 (예: UI Panel)
-                pointerRect.SetParent(originalPointerParent, worldPositionStays: false);
-
+                pointerRect.SetParent(originalPointerParent, false);
                 NextStep();
             }
         });
     }
-
 
     private IEnumerator WaitForButton(string buttonName, Vector2 pointerOffset)
     {
@@ -296,11 +292,39 @@ public class TutorialManager : MonoBehaviour
         leftCharacterImage.gameObject.SetActive(false);
         rightCharacterImage.gameObject.SetActive(false);
         handPointer.gameObject.SetActive(false);
+        QImage.gameObject.SetActive(false);
         dialogueText.text = "";
         questText.text = "";
 
         isTutorialPlaying = false;
         Debug.Log("튜토리얼 종료!");
+
+        switch (currentTutorialType)
+        {
+            case TutorialType.Start:
+                tutorialBool.Instance.clearStartTuto = true;
+                break;
+            case TutorialType.Staff:
+                tutorialBool.Instance.clearBuyStaffTuto = true;
+                break;
+            case TutorialType.Hunter:
+                tutorialBool.Instance.clearBuyHunterTuto = true;
+                break;
+            case TutorialType.Inventory:
+                tutorialBool.Instance.clearInvenTuto = true;
+                break;
+            case TutorialType.HunterShop:
+                tutorialBool.Instance.clearDispatchTuto = true;
+                break;
+            case TutorialType.FoodLevelUp:
+                tutorialBool.Instance.clearLevelUpTuto = true;
+                break;
+            case TutorialType.Shop:
+                tutorialBool.Instance.clearShopTuto = true;
+                break;
+        }
+
+        TutorialInit.Instance?.SaveTuto();
     }
 
     public void TriggerEvent(string eventName)
@@ -312,12 +336,50 @@ public class TutorialManager : MonoBehaviour
         if (step.trigger == StepTrigger.OnEvent && step.eventName == eventName)
         {
             Debug.Log("[TriggerEvent] 조건 일치 → 다음 스텝으로 이동");
-            if(eventName== "killMonster")
+
+            if (eventName == "killMonster")
             {
                 InventoryManager.Instance?.AddItem("2025-07-16T02:27:43.737Z", 1);
                 InventoryManager.Instance?.AddItem("2025-07-16T02:27:43.883Z", 1);
             }
+
             NextStep();
         }
+    }
+
+    //테스트용 함수
+    public void Reset()
+    {
+        tutorialBool.Instance.clearStartTuto = false;
+        tutorialBool.Instance.clearBuyHunterTuto = false;
+        tutorialBool.Instance.clearBuyStaffTuto = false;
+        tutorialBool.Instance.clearInvenTuto = false;
+        tutorialBool.Instance.clearDispatchTuto = false;
+        tutorialBool.Instance.clearLevelUpTuto = false;
+        tutorialBool.Instance.clearShopTuto = false;
+
+        TutorialInit.Instance?.SaveTuto();
+    }
+
+    public void TestHunter()
+    {
+        if (!tutorialBool.Instance.clearBuyHunterTuto)
+        {
+            StartTutorial(TutorialType.Hunter);
+        }
+    }
+
+    public void TestStaff()
+    {
+        if (!tutorialBool.Instance.clearBuyStaffTuto)
+        {
+            StartTutorial(TutorialType.Staff);
+        }
+    }
+
+    public void TestInterior()
+    {
+        if (!tutorialBool.Instance.clearShopTuto)
+            StartTutorial(TutorialType.Shop);
     }
 }

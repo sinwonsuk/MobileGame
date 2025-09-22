@@ -18,6 +18,9 @@ public class HunterShopUIButton : BaseButton
         ButtonManager.buttonClick = ButtonClick.none;
         EventBus<ToggleHunterShopEvent>.Raise(new ToggleHunterShopEvent(true));
         SoundManager.GetInstance().SfxPlay(SoundManager.sfx.Click, false);
+
+        if (!tutorialBool.Instance.clearDispatchTuto)
+            TutorialManager.Instance.StartTutorial(TutorialManager.TutorialType.HunterShop);
     }
 
     public void ManagementButtonisActive(ButtonisActiveHandler buttonHandler)
