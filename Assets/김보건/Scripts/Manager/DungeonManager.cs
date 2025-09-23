@@ -93,7 +93,6 @@ public class DungeonManager : baseManager
 
         if (floorData == null)
         {
-            Debug.LogError("해당 층 정보 없음");
             return;
         }
 
@@ -110,14 +109,11 @@ public class DungeonManager : baseManager
         // 연결되자마자 1회 갱신
         RefreshFloorStageText();
 
-        //map.GetComponentInChildren<MonsterSpawner>()?.SpawnNextStage();
-
         var spawner = map.GetComponentInChildren<MonsterSpawner>();
 
         if (spawner == null)
         {
-            Debug.LogError("MonsterSpawner를 새 맵에서 찾을 수 없음");
-        return;
+            return;
         }
 
         if (config.selectedFloorData.IsLastStage())
@@ -126,7 +122,7 @@ public class DungeonManager : baseManager
         }
         else
         {
-            spawner?.StartMonsterWave(); // 일반 몬스터 50마리 순차 리스폰
+            spawner?.StartMonsterWave(); // 일반 몬스터 순차 리스폰
         }
 
         var spawn = map.transform.Find("PlayerSpawnPoint");

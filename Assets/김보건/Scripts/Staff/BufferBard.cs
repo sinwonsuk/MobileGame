@@ -252,7 +252,8 @@ public class BufferBard : StaffBase
 
     private void FireBullet(Vector3 pos, Vector2 dir)
     {
-        GameObject prefab = bulletPrefab[Random.Range(0, bulletPrefab.Length)];
+        int idx = Random.Range(0, bulletPrefab.Length);
+        GameObject prefab = bulletPrefab[idx];
         GameObject go = Instantiate(prefab, pos, Quaternion.identity);
         //go.transform.right = dir;
 
@@ -261,6 +262,14 @@ public class BufferBard : StaffBase
 
         if (go.TryGetComponent<Bullet2D>(out var bullet))
             bullet.SetDamage((float)runtimeData.attack_Power);
+
+        int sfxIdx = -1;
+        if (idx <= 1) sfxIdx = 0;       
+        else if (idx <= 3) sfxIdx = 1;   
+        else if (idx <= 5) sfxIdx = 2;  
+
+        if (sfxIdx >= 0 && sfxIdx < attackSfx.Length)
+            SoundManager.GetInstance()?.SfxPlay(attackSfx[sfxIdx], false);
     }
 
 }
