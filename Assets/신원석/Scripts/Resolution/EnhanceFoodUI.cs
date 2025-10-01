@@ -74,10 +74,18 @@ public class EnhanceFoodUI : MonoBehaviour
         currentMoney.text = foodSlotHandler.CurrentPrice.ToString();
         futureLevel.text = foodSlotHandler.FutureLevel.ToString();
         futureMoney.text = foodSlotHandler.FuturePrice.ToString();
+        probability.text = $"성공 확률 : {foodSlotHandler.CurrentProbability}%";
 
         MaxLevel = foodSlotHandler.maxLevel;
 
         foodData = foodSlotHandler.foodData;
+
+        if(foodSlotHandler.CurrentLevel==MaxLevel)
+        {
+            max.SetActive(true);
+            maxLevel.text = $"최종 레벨 : {MaxLevel}";
+            currentPrice.text = $"최종 음식 가격 : {foodSlotHandler.CurrentLevel}";
+        }
     }
 
     [SerializeField] Image foodIcon;
@@ -86,6 +94,10 @@ public class EnhanceFoodUI : MonoBehaviour
     [SerializeField] TextMeshProUGUI currentMoney;
     [SerializeField] TextMeshProUGUI futureLevel;
     [SerializeField] TextMeshProUGUI futureMoney;
+    [SerializeField] TextMeshProUGUI probability;
+    [SerializeField] GameObject max;
+    [SerializeField] TextMeshProUGUI currentPrice;
+    [SerializeField] TextMeshProUGUI maxLevel;
 
     public TextMeshProUGUI FutureLevel
     {

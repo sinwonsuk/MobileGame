@@ -22,6 +22,7 @@ public struct EnhanceFoodSlotSpawnHandler : IEvent
         this.SlotName = data.displayName;
         this.Image = data.foodSprite;
         this.Level = data.Level;
+        this.probability = data.enhanceSteps[data.Level].successRate;
 
         foodData = data;
     }
@@ -35,6 +36,8 @@ public struct EnhanceFoodSlotSpawnHandler : IEvent
 
     public int Level { get; set; }
 
+    public float probability { get; set; }
+
 
 }
 
@@ -42,7 +45,7 @@ public struct EnhanceFoodSlotSpawnHandler : IEvent
 
 public struct EnhanceFoodSlotHandler : IEvent
 {
-    public EnhanceFoodSlotHandler(FoodData foodData,string Image, string name, int CurrentLevel,int CurrentPrice,int FutureLevel,int FuturePrice, int maxLevel)
+    public EnhanceFoodSlotHandler(FoodData foodData,string Image, string name, int CurrentLevel,int CurrentPrice,int FutureLevel,int FuturePrice, int maxLevel,float probability)
     {
         this.Image = Image;
         this.name = name;
@@ -52,6 +55,7 @@ public struct EnhanceFoodSlotHandler : IEvent
         this.FuturePrice = FuturePrice;
         this.maxLevel = maxLevel;
         this.foodData = foodData;
+        this.CurrentProbability = probability;
     }
 
     public string Image { get; set;}
@@ -61,6 +65,8 @@ public struct EnhanceFoodSlotHandler : IEvent
     public int FutureLevel { get; set; }
     public int FuturePrice { get; set; }
     public int maxLevel { get; set; }
+
+    public float CurrentProbability { get; set; }
 
     public FoodData foodData { get; set; }
 
